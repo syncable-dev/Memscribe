@@ -1,0 +1,192 @@
+---
+source: crates/memscribe-testkit/tests/golden.rs
+expression: events
+---
+[
+  {
+    "schema_version": 1,
+    "source": "windsurf",
+    "session_id": "ws-ban-003",
+    "seq": 0,
+    "event_id": "65236230bca6bd72086a65e34bf3c1decb637d8522440c75fff8eec82e5c86e2",
+    "parent_id": null,
+    "timestamp": "1970-01-01T00:00:00Z",
+    "project": {
+      "cwd": "/Users/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "77c0de01",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "session_start",
+      "cwd": "/Users/dev/acme-api",
+      "git": {
+        "sha": "77c0de01",
+        "branch": "main"
+      },
+      "model": "cascade-base",
+      "tool_version": "1.8.2"
+    },
+    "provenance": {
+      "file": "fixtures/windsurf/v1/ban.jsonl",
+      "byte_offset": 0,
+      "line_no": 1
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "windsurf",
+    "session_id": "ws-ban-003",
+    "seq": 1,
+    "event_id": "u1",
+    "parent_id": null,
+    "timestamp": "2026-06-22T16:20:00Z",
+    "project": {
+      "cwd": "/Users/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "77c0de01",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "user_turn",
+      "text": "We will never add a dependency on left-pad. Implement padding inline instead.",
+      "parts": []
+    },
+    "provenance": {
+      "file": "fixtures/windsurf/v1/ban.jsonl",
+      "byte_offset": 164,
+      "line_no": 2
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "windsurf",
+    "session_id": "ws-ban-003",
+    "seq": 2,
+    "event_id": "a1",
+    "parent_id": "u1",
+    "timestamp": "2026-06-22T16:20:09Z",
+    "project": {
+      "cwd": "/Users/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "77c0de01",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "assistant_turn",
+      "text": "Understood — no left-pad dependency. I'll add a small inline pad helper.",
+      "thinking": null,
+      "model": "cascade-base",
+      "usage": {
+        "input_tokens": 300,
+        "output_tokens": 140,
+        "cache_read_tokens": null,
+        "cache_creation_tokens": null
+      },
+      "parts": []
+    },
+    "provenance": {
+      "file": "fixtures/windsurf/v1/ban.jsonl",
+      "byte_offset": 346,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "windsurf",
+    "session_id": "ws-ban-003",
+    "seq": 3,
+    "event_id": "a1#toolcall:call_pad_1",
+    "parent_id": "a1",
+    "timestamp": "2026-06-22T16:20:09Z",
+    "project": {
+      "cwd": "/Users/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "77c0de01",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "tool_call",
+      "call_id": "call_pad_1",
+      "name": "edit_file",
+      "args": {
+        "path": "src/util/pad.rs"
+      }
+    },
+    "provenance": {
+      "file": "fixtures/windsurf/v1/ban.jsonl",
+      "byte_offset": 346,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "windsurf",
+    "session_id": "ws-ban-003",
+    "seq": 4,
+    "event_id": "a1#toolresult:call_pad_1",
+    "parent_id": "a1",
+    "timestamp": "2026-06-22T16:20:09Z",
+    "project": {
+      "cwd": "/Users/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "77c0de01",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "tool_result",
+      "call_id": "call_pad_1",
+      "ok": true,
+      "output": "applied"
+    },
+    "provenance": {
+      "file": "fixtures/windsurf/v1/ban.jsonl",
+      "byte_offset": 346,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "windsurf",
+    "session_id": "ws-ban-003",
+    "seq": 5,
+    "event_id": "a1#edit:0",
+    "parent_id": "a1",
+    "timestamp": "2026-06-22T16:20:09Z",
+    "project": {
+      "cwd": "/Users/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "77c0de01",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "file_edit",
+      "call_id": "call_pad_1",
+      "diff": {
+        "path": "src/util/pad.rs",
+        "old": "",
+        "new": "pub fn pad_left(s: &str, width: usize) -> String { format!(\"{s:>width$}\") }",
+        "unified": "@@ -0,0 +1,1 @@\n+pub fn pad_left(s: &str, width: usize) -> String { format!(\"{s:>width$}\") }",
+        "added_lines": 1,
+        "removed_lines": 0
+      }
+    },
+    "provenance": {
+      "file": "fixtures/windsurf/v1/ban.jsonl",
+      "byte_offset": 346,
+      "line_no": 3
+    }
+  }
+]

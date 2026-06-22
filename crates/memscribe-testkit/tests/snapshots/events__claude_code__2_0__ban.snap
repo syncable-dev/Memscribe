@@ -1,0 +1,110 @@
+---
+source: crates/memscribe-testkit/tests/golden.rs
+expression: events
+---
+[
+  {
+    "schema_version": 1,
+    "source": "claude_code",
+    "session_id": "sess-ban-003",
+    "seq": 0,
+    "event_id": "29c0476fba3dbcbcbbe1770f2bd1a1f6f6c96a1422d857bd6ac0188784e5f3e8",
+    "parent_id": null,
+    "timestamp": "2026-06-22T12:15:00Z",
+    "project": {
+      "cwd": "/Users/dev/acme/core",
+      "repo_root": null,
+      "git": {
+        "sha": "deadbeefdeadbeefdeadbeefdeadbeefdeadbeef",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "session_start",
+      "cwd": "/Users/dev/acme/core",
+      "git": {
+        "sha": "deadbeefdeadbeefdeadbeefdeadbeefdeadbeef",
+        "branch": "main"
+      },
+      "model": null,
+      "tool_version": "2.0.5"
+    },
+    "provenance": {
+      "file": "fixtures/claude_code/2.0/ban.jsonl",
+      "byte_offset": 0,
+      "line_no": 1
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "claude_code",
+    "session_id": "sess-ban-003",
+    "seq": 1,
+    "event_id": "bbbbbbb1-0000-4000-8000-000000000001",
+    "parent_id": null,
+    "timestamp": "2026-06-22T12:15:00Z",
+    "project": {
+      "cwd": "/Users/dev/acme/core",
+      "repo_root": null,
+      "git": {
+        "sha": "deadbeefdeadbeefdeadbeefdeadbeefdeadbeef",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "user_turn",
+      "text": "We will never add a dependency on left-pad in this repo. Use the std string padding instead.",
+      "parts": [
+        {
+          "part": "text",
+          "text": "We will never add a dependency on left-pad in this repo. Use the std string padding instead."
+        }
+      ]
+    },
+    "provenance": {
+      "file": "fixtures/claude_code/2.0/ban.jsonl",
+      "byte_offset": 0,
+      "line_no": 1
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "claude_code",
+    "session_id": "sess-ban-003",
+    "seq": 2,
+    "event_id": "bbbbbbb2-0000-4000-8000-000000000002",
+    "parent_id": "bbbbbbb1-0000-4000-8000-000000000001",
+    "timestamp": "2026-06-22T12:15:03Z",
+    "project": {
+      "cwd": "/Users/dev/acme/core",
+      "repo_root": null,
+      "git": {
+        "sha": "deadbeefdeadbeefdeadbeefdeadbeefdeadbeef",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "assistant_turn",
+      "text": "Noted. I'll keep padding on the standard library and avoid third-party micro-dependencies.",
+      "thinking": null,
+      "model": "claude-opus-4-8",
+      "usage": {
+        "input_tokens": 210,
+        "output_tokens": 48,
+        "cache_read_tokens": 0,
+        "cache_creation_tokens": 0
+      },
+      "parts": [
+        {
+          "part": "text",
+          "text": "Noted. I'll keep padding on the standard library and avoid third-party micro-dependencies."
+        }
+      ]
+    },
+    "provenance": {
+      "file": "fixtures/claude_code/2.0/ban.jsonl",
+      "byte_offset": 415,
+      "line_no": 2
+    }
+  }
+]

@@ -1,0 +1,593 @@
+---
+source: crates/memscribe-testkit/tests/golden.rs
+expression: events
+---
+[
+  {
+    "schema_version": 1,
+    "source": "gemini",
+    "session_id": "g-interleaved-0001",
+    "seq": 0,
+    "event_id": "1ac40ee870055ec85e0b876e5ce400e5a6585dea3c29af969c697ee2b0cb19fb",
+    "parent_id": null,
+    "timestamp": "1970-01-01T00:00:00Z",
+    "project": {
+      "cwd": "/home/dev/orders-api",
+      "repo_root": null,
+      "git": {
+        "sha": "a1a1a1a1a1",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "session_start",
+      "cwd": "/home/dev/orders-api",
+      "git": {
+        "sha": "a1a1a1a1a1",
+        "branch": "main"
+      },
+      "model": "gemini-2.5-pro",
+      "tool_version": "0.4.1"
+    },
+    "provenance": {
+      "file": "fixtures/gemini/v1/interleaved_arcs.jsonl",
+      "byte_offset": 0,
+      "line_no": 1
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "gemini",
+    "session_id": "g-interleaved-0001",
+    "seq": 1,
+    "event_id": "msg-ia-01",
+    "parent_id": null,
+    "timestamp": "2026-06-22T09:00:00Z",
+    "project": {
+      "cwd": "/home/dev/orders-api",
+      "repo_root": null,
+      "git": {
+        "sha": "a1a1a1a1a1",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "user_turn",
+      "text": "Let's use Postgres for the orders store. Update the connection module and the schema.",
+      "parts": []
+    },
+    "provenance": {
+      "file": "fixtures/gemini/v1/interleaved_arcs.jsonl",
+      "byte_offset": 194,
+      "line_no": 2
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "gemini",
+    "session_id": "g-interleaved-0001",
+    "seq": 2,
+    "event_id": "msg-ia-02",
+    "parent_id": null,
+    "timestamp": "2026-06-22T09:00:02Z",
+    "project": {
+      "cwd": "/home/dev/orders-api",
+      "repo_root": null,
+      "git": {
+        "sha": "a1a1a1a1a1",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "assistant_turn",
+      "text": "Switching the orders store to Postgres now.",
+      "thinking": "Rewrite db.rs to the pg driver and adjust schema.rs.",
+      "model": null,
+      "usage": {
+        "input_tokens": 120,
+        "output_tokens": 61,
+        "cache_read_tokens": null,
+        "cache_creation_tokens": null
+      },
+      "parts": []
+    },
+    "provenance": {
+      "file": "fixtures/gemini/v1/interleaved_arcs.jsonl",
+      "byte_offset": 361,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "gemini",
+    "session_id": "g-interleaved-0001",
+    "seq": 3,
+    "event_id": "call-ia-db1:call",
+    "parent_id": "msg-ia-02",
+    "timestamp": "2026-06-22T09:00:02Z",
+    "project": {
+      "cwd": "/home/dev/orders-api",
+      "repo_root": null,
+      "git": {
+        "sha": "a1a1a1a1a1",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "tool_call",
+      "call_id": "call-ia-db1",
+      "name": "replace",
+      "args": {
+        "path": "src/db.rs"
+      }
+    },
+    "provenance": {
+      "file": "fixtures/gemini/v1/interleaved_arcs.jsonl",
+      "byte_offset": 361,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "gemini",
+    "session_id": "g-interleaved-0001",
+    "seq": 4,
+    "event_id": "call-ia-db1:result",
+    "parent_id": "msg-ia-02",
+    "timestamp": "2026-06-22T09:00:02Z",
+    "project": {
+      "cwd": "/home/dev/orders-api",
+      "repo_root": null,
+      "git": {
+        "sha": "a1a1a1a1a1",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "tool_result",
+      "call_id": "call-ia-db1",
+      "ok": true,
+      "output": {
+        "fileName": "src/db.rs",
+        "originalContent": "use mysql::Pool;\n",
+        "newContent": "use postgres::Client;\n",
+        "fileDiff": "@@ -1 +1 @@\n-use mysql::Pool;\n+use postgres::Client;\n",
+        "diffStat": {
+          "added": 1,
+          "removed": 1
+        }
+      }
+    },
+    "provenance": {
+      "file": "fixtures/gemini/v1/interleaved_arcs.jsonl",
+      "byte_offset": 361,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "gemini",
+    "session_id": "g-interleaved-0001",
+    "seq": 5,
+    "event_id": "call-ia-db1:edit",
+    "parent_id": "msg-ia-02",
+    "timestamp": "2026-06-22T09:00:02Z",
+    "project": {
+      "cwd": "/home/dev/orders-api",
+      "repo_root": null,
+      "git": {
+        "sha": "a1a1a1a1a1",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "file_edit",
+      "call_id": "call-ia-db1",
+      "diff": {
+        "path": "src/db.rs",
+        "old": "use mysql::Pool;\n",
+        "new": "use postgres::Client;\n",
+        "unified": "@@ -1 +1 @@\n-use mysql::Pool;\n+use postgres::Client;\n",
+        "added_lines": 1,
+        "removed_lines": 1
+      }
+    },
+    "provenance": {
+      "file": "fixtures/gemini/v1/interleaved_arcs.jsonl",
+      "byte_offset": 361,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "gemini",
+    "session_id": "g-interleaved-0001",
+    "seq": 6,
+    "event_id": "call-ia-schema1:call",
+    "parent_id": "msg-ia-02",
+    "timestamp": "2026-06-22T09:00:02Z",
+    "project": {
+      "cwd": "/home/dev/orders-api",
+      "repo_root": null,
+      "git": {
+        "sha": "a1a1a1a1a1",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "tool_call",
+      "call_id": "call-ia-schema1",
+      "name": "replace",
+      "args": {
+        "path": "src/schema.rs"
+      }
+    },
+    "provenance": {
+      "file": "fixtures/gemini/v1/interleaved_arcs.jsonl",
+      "byte_offset": 361,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "gemini",
+    "session_id": "g-interleaved-0001",
+    "seq": 7,
+    "event_id": "call-ia-schema1:result",
+    "parent_id": "msg-ia-02",
+    "timestamp": "2026-06-22T09:00:02Z",
+    "project": {
+      "cwd": "/home/dev/orders-api",
+      "repo_root": null,
+      "git": {
+        "sha": "a1a1a1a1a1",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "tool_result",
+      "call_id": "call-ia-schema1",
+      "ok": true,
+      "output": {
+        "fileName": "src/schema.rs",
+        "originalContent": "-- mysql schema\n",
+        "newContent": "-- postgres schema\n",
+        "fileDiff": "@@ -1 +1 @@\n--- mysql schema\n+-- postgres schema\n",
+        "diffStat": {
+          "added": 1,
+          "removed": 1
+        }
+      }
+    },
+    "provenance": {
+      "file": "fixtures/gemini/v1/interleaved_arcs.jsonl",
+      "byte_offset": 361,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "gemini",
+    "session_id": "g-interleaved-0001",
+    "seq": 8,
+    "event_id": "call-ia-schema1:edit",
+    "parent_id": "msg-ia-02",
+    "timestamp": "2026-06-22T09:00:02Z",
+    "project": {
+      "cwd": "/home/dev/orders-api",
+      "repo_root": null,
+      "git": {
+        "sha": "a1a1a1a1a1",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "file_edit",
+      "call_id": "call-ia-schema1",
+      "diff": {
+        "path": "src/schema.rs",
+        "old": "-- mysql schema\n",
+        "new": "-- postgres schema\n",
+        "unified": "@@ -1 +1 @@\n--- mysql schema\n+-- postgres schema\n",
+        "added_lines": 1,
+        "removed_lines": 1
+      }
+    },
+    "provenance": {
+      "file": "fixtures/gemini/v1/interleaved_arcs.jsonl",
+      "byte_offset": 361,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "gemini",
+    "session_id": "g-interleaved-0001",
+    "seq": 9,
+    "event_id": "msg-ia-03",
+    "parent_id": null,
+    "timestamp": "2026-06-22T09:05:00Z",
+    "project": {
+      "cwd": "/home/dev/orders-api",
+      "repo_root": null,
+      "git": {
+        "sha": "a1a1a1a1a1",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "user_turn",
+      "text": "Now switch to a bounded connection pool in the same db module instead of a single client.",
+      "parts": []
+    },
+    "provenance": {
+      "file": "fixtures/gemini/v1/interleaved_arcs.jsonl",
+      "byte_offset": 1194,
+      "line_no": 4
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "gemini",
+    "session_id": "g-interleaved-0001",
+    "seq": 10,
+    "event_id": "msg-ia-04",
+    "parent_id": null,
+    "timestamp": "2026-06-22T09:05:02Z",
+    "project": {
+      "cwd": "/home/dev/orders-api",
+      "repo_root": null,
+      "git": {
+        "sha": "a1a1a1a1a1",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "assistant_turn",
+      "text": "Adding a bounded pool to db.rs and a new pool config.",
+      "thinking": "Re-edit db.rs to use a pool; add pool.rs.",
+      "model": null,
+      "usage": {
+        "input_tokens": 98,
+        "output_tokens": 52,
+        "cache_read_tokens": null,
+        "cache_creation_tokens": null
+      },
+      "parts": []
+    },
+    "provenance": {
+      "file": "fixtures/gemini/v1/interleaved_arcs.jsonl",
+      "byte_offset": 1365,
+      "line_no": 5
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "gemini",
+    "session_id": "g-interleaved-0001",
+    "seq": 11,
+    "event_id": "call-ia-db2:call",
+    "parent_id": "msg-ia-04",
+    "timestamp": "2026-06-22T09:05:02Z",
+    "project": {
+      "cwd": "/home/dev/orders-api",
+      "repo_root": null,
+      "git": {
+        "sha": "a1a1a1a1a1",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "tool_call",
+      "call_id": "call-ia-db2",
+      "name": "replace",
+      "args": {
+        "path": "src/db.rs"
+      }
+    },
+    "provenance": {
+      "file": "fixtures/gemini/v1/interleaved_arcs.jsonl",
+      "byte_offset": 1365,
+      "line_no": 5
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "gemini",
+    "session_id": "g-interleaved-0001",
+    "seq": 12,
+    "event_id": "call-ia-db2:result",
+    "parent_id": "msg-ia-04",
+    "timestamp": "2026-06-22T09:05:02Z",
+    "project": {
+      "cwd": "/home/dev/orders-api",
+      "repo_root": null,
+      "git": {
+        "sha": "a1a1a1a1a1",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "tool_result",
+      "call_id": "call-ia-db2",
+      "ok": true,
+      "output": {
+        "fileName": "src/db.rs",
+        "originalContent": "use postgres::Client;\n",
+        "newContent": "use deadpool_postgres::Pool;\n",
+        "fileDiff": "@@ -1 +1 @@\n-use postgres::Client;\n+use deadpool_postgres::Pool;\n",
+        "diffStat": {
+          "added": 1,
+          "removed": 1
+        }
+      }
+    },
+    "provenance": {
+      "file": "fixtures/gemini/v1/interleaved_arcs.jsonl",
+      "byte_offset": 1365,
+      "line_no": 5
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "gemini",
+    "session_id": "g-interleaved-0001",
+    "seq": 13,
+    "event_id": "call-ia-db2:edit",
+    "parent_id": "msg-ia-04",
+    "timestamp": "2026-06-22T09:05:02Z",
+    "project": {
+      "cwd": "/home/dev/orders-api",
+      "repo_root": null,
+      "git": {
+        "sha": "a1a1a1a1a1",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "file_edit",
+      "call_id": "call-ia-db2",
+      "diff": {
+        "path": "src/db.rs",
+        "old": "use postgres::Client;\n",
+        "new": "use deadpool_postgres::Pool;\n",
+        "unified": "@@ -1 +1 @@\n-use postgres::Client;\n+use deadpool_postgres::Pool;\n",
+        "added_lines": 1,
+        "removed_lines": 1
+      }
+    },
+    "provenance": {
+      "file": "fixtures/gemini/v1/interleaved_arcs.jsonl",
+      "byte_offset": 1365,
+      "line_no": 5
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "gemini",
+    "session_id": "g-interleaved-0001",
+    "seq": 14,
+    "event_id": "call-ia-pool1:call",
+    "parent_id": "msg-ia-04",
+    "timestamp": "2026-06-22T09:05:02Z",
+    "project": {
+      "cwd": "/home/dev/orders-api",
+      "repo_root": null,
+      "git": {
+        "sha": "a1a1a1a1a1",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "tool_call",
+      "call_id": "call-ia-pool1",
+      "name": "write_file",
+      "args": {
+        "path": "src/pool.rs"
+      }
+    },
+    "provenance": {
+      "file": "fixtures/gemini/v1/interleaved_arcs.jsonl",
+      "byte_offset": 1365,
+      "line_no": 5
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "gemini",
+    "session_id": "g-interleaved-0001",
+    "seq": 15,
+    "event_id": "call-ia-pool1:result",
+    "parent_id": "msg-ia-04",
+    "timestamp": "2026-06-22T09:05:02Z",
+    "project": {
+      "cwd": "/home/dev/orders-api",
+      "repo_root": null,
+      "git": {
+        "sha": "a1a1a1a1a1",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "tool_result",
+      "call_id": "call-ia-pool1",
+      "ok": true,
+      "output": {
+        "fileName": "src/pool.rs",
+        "originalContent": "",
+        "newContent": "pub struct PoolCfg { pub max: usize }\n",
+        "fileDiff": "@@ -0,0 +1 @@\n+pub struct PoolCfg { pub max: usize }\n",
+        "diffStat": {
+          "added": 1,
+          "removed": 0
+        }
+      }
+    },
+    "provenance": {
+      "file": "fixtures/gemini/v1/interleaved_arcs.jsonl",
+      "byte_offset": 1365,
+      "line_no": 5
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "gemini",
+    "session_id": "g-interleaved-0001",
+    "seq": 16,
+    "event_id": "call-ia-pool1:edit",
+    "parent_id": "msg-ia-04",
+    "timestamp": "2026-06-22T09:05:02Z",
+    "project": {
+      "cwd": "/home/dev/orders-api",
+      "repo_root": null,
+      "git": {
+        "sha": "a1a1a1a1a1",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "file_edit",
+      "call_id": "call-ia-pool1",
+      "diff": {
+        "path": "src/pool.rs",
+        "old": null,
+        "new": "pub struct PoolCfg { pub max: usize }\n",
+        "unified": "@@ -0,0 +1 @@\n+pub struct PoolCfg { pub max: usize }\n",
+        "added_lines": 1,
+        "removed_lines": 0
+      }
+    },
+    "provenance": {
+      "file": "fixtures/gemini/v1/interleaved_arcs.jsonl",
+      "byte_offset": 1365,
+      "line_no": 5
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "gemini",
+    "session_id": "g-interleaved-0001",
+    "seq": 17,
+    "event_id": "msg-ia-05",
+    "parent_id": null,
+    "timestamp": "2026-06-22T09:05:30Z",
+    "project": {
+      "cwd": "/home/dev/orders-api",
+      "repo_root": null,
+      "git": {
+        "sha": "a1a1a1a1a1",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "user_turn",
+      "text": "Great, that covers it.",
+      "parts": []
+    },
+    "provenance": {
+      "file": "fixtures/gemini/v1/interleaved_arcs.jsonl",
+      "byte_offset": 2222,
+      "line_no": 6
+    }
+  }
+]

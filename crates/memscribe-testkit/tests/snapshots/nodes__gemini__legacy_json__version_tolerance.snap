@@ -1,0 +1,59 @@
+---
+source: crates/memscribe-testkit/tests/golden.rs
+expression: nodes
+---
+[
+  {
+    "node": "conversation",
+    "session_id": "legacy-0001",
+    "turn_range": {
+      "start": 1,
+      "end": 2
+    },
+    "text": "Let's use Postgres instead of MySQL for the orders service.",
+    "markers": [
+      {
+        "rule_id": "decision_verb.use",
+        "category": "decision_verb",
+        "matched_text": "use",
+        "offset": 6
+      },
+      {
+        "rule_id": "rejection.instead_of",
+        "category": "rejection",
+        "matched_text": "instead of",
+        "offset": 19
+      }
+    ],
+    "fact_status": "observed",
+    "provenance": [
+      {
+        "file": "fixtures/gemini/legacy_json/version_tolerance.jsonl",
+        "byte_offset": 183,
+        "line_no": 2
+      }
+    ]
+  },
+  {
+    "node": "decision",
+    "epitome": "Let's use Postgres instead of MySQL for the orders service.",
+    "considered_options": [
+      {
+        "text": "MySQL",
+        "chosen": false
+      },
+      {
+        "text": "Postgres",
+        "chosen": true
+      }
+    ],
+    "is_ban": false,
+    "superseded_by": null,
+    "confirmation": null,
+    "source_span": {
+      "start": 1,
+      "end": 2
+    },
+    "fact_status": "observed"
+  }
+]

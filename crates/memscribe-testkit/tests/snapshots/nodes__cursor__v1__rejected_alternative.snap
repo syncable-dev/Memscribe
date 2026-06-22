@@ -1,0 +1,124 @@
+---
+source: crates/memscribe-testkit/tests/golden.rs
+expression: nodes
+---
+[
+  {
+    "node": "conversation",
+    "session_id": "cur-sess-002",
+    "turn_range": {
+      "start": 1,
+      "end": 2
+    },
+    "text": "Should we use Redux or Zustand for the new dashboard state?",
+    "markers": [
+      {
+        "rule_id": "decision_verb.use",
+        "category": "decision_verb",
+        "matched_text": "use",
+        "offset": 10
+      }
+    ],
+    "fact_status": "observed",
+    "provenance": [
+      {
+        "file": "fixtures/cursor/v1/rejected_alternative.jsonl",
+        "byte_offset": 173,
+        "line_no": 2
+      }
+    ]
+  },
+  {
+    "node": "decision",
+    "epitome": "Should we use Redux or Zustand for the new dashboard state?",
+    "considered_options": [
+      {
+        "text": "Redux",
+        "chosen": true
+      }
+    ],
+    "is_ban": false,
+    "superseded_by": null,
+    "confirmation": null,
+    "source_span": {
+      "start": 1,
+      "end": 2
+    },
+    "fact_status": "observed"
+  },
+  {
+    "node": "conversation",
+    "session_id": "cur-sess-002",
+    "turn_range": {
+      "start": 3,
+      "end": 4
+    },
+    "text": "Agreed, reject Redux. Let's go with Zustand and wire up the store.",
+    "markers": [
+      {
+        "rule_id": "decision_verb.use",
+        "category": "decision_verb",
+        "matched_text": "Let's go with",
+        "offset": 22
+      }
+    ],
+    "fact_status": "observed",
+    "provenance": [
+      {
+        "file": "fixtures/cursor/v1/rejected_alternative.jsonl",
+        "byte_offset": 666,
+        "line_no": 4
+      }
+    ]
+  },
+  {
+    "node": "decision",
+    "epitome": "Let's go with Zustand and wire up the store.",
+    "considered_options": [
+      {
+        "text": "Zustand",
+        "chosen": true
+      }
+    ],
+    "is_ban": false,
+    "superseded_by": null,
+    "confirmation": null,
+    "source_span": {
+      "start": 3,
+      "end": 4
+    },
+    "fact_status": "observed"
+  },
+  {
+    "node": "episode",
+    "path": "src/store/dashboard.ts",
+    "diff": {
+      "path": "src/store/dashboard.ts",
+      "old": "",
+      "new": "import { create } from 'zustand';\nexport const useDashboard = create((set) => ({ panels: [] }));\n",
+      "unified": "@@ -0,0 +1,2 @@\n+import { create } from 'zustand';\n+export const useDashboard = create((set) => ({ panels: [] }));\n",
+      "added_lines": 2,
+      "removed_lines": 0
+    },
+    "git": {
+      "sha": "3b81fe09cc12",
+      "branch": "feat/state-mgmt"
+    },
+    "episode_id": "4b6d7e32b2056c2b250ee1571e4033f982adb608af744cfd31c5390bbdd1df44"
+  },
+  {
+    "node": "binding",
+    "from": "decision:cur-sess-002:3",
+    "to": "episode:4b6d7e32b2056c2b250ee1571e4033f982adb608af744cfd31c5390bbdd1df44",
+    "relation": "produced",
+    "prov": {
+      "used_session": "cur-sess-002",
+      "used_decision": "decision:cur-sess-002:3",
+      "was_generated_by_session": "cur-sess-002",
+      "t_use": "2026-06-22T15:10:40Z",
+      "t_gen": "2026-06-22T15:10:52Z"
+    },
+    "fact_status": "deterministically_derived",
+    "correlation": null
+  }
+]

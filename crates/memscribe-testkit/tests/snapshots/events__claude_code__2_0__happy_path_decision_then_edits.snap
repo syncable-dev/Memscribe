@@ -1,0 +1,424 @@
+---
+source: crates/memscribe-testkit/tests/golden.rs
+expression: events
+---
+[
+  {
+    "schema_version": 1,
+    "source": "claude_code",
+    "session_id": "sess-happy-001",
+    "seq": 0,
+    "event_id": "8099926f555f38a5e3198f983b067f9fc295de21160ebb6f4d3799966845b3b8",
+    "parent_id": null,
+    "timestamp": "2026-06-22T10:00:00Z",
+    "project": {
+      "cwd": "/Users/dev/acme/api",
+      "repo_root": null,
+      "git": {
+        "sha": "a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "session_start",
+      "cwd": "/Users/dev/acme/api",
+      "git": {
+        "sha": "a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0",
+        "branch": "main"
+      },
+      "model": null,
+      "tool_version": "2.0.5"
+    },
+    "provenance": {
+      "file": "fixtures/claude_code/2.0/happy_path_decision_then_edits.jsonl",
+      "byte_offset": 0,
+      "line_no": 1
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "claude_code",
+    "session_id": "sess-happy-001",
+    "seq": 1,
+    "event_id": "11111111-1111-4111-8111-111111111111",
+    "parent_id": null,
+    "timestamp": "2026-06-22T10:00:00Z",
+    "project": {
+      "cwd": "/Users/dev/acme/api",
+      "repo_root": null,
+      "git": {
+        "sha": "a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "user_turn",
+      "text": "Let's use Postgres instead of MySQL for the orders service.",
+      "parts": [
+        {
+          "part": "text",
+          "text": "Let's use Postgres instead of MySQL for the orders service."
+        }
+      ]
+    },
+    "provenance": {
+      "file": "fixtures/claude_code/2.0/happy_path_decision_then_edits.jsonl",
+      "byte_offset": 0,
+      "line_no": 1
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "claude_code",
+    "session_id": "sess-happy-001",
+    "seq": 2,
+    "event_id": "22222222-2222-4222-8222-222222222222",
+    "parent_id": "11111111-1111-4111-8111-111111111111",
+    "timestamp": "2026-06-22T10:00:03.12Z",
+    "project": {
+      "cwd": "/Users/dev/acme/api",
+      "repo_root": null,
+      "git": {
+        "sha": "a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "assistant_turn",
+      "text": "Switching the orders service to Postgres. I'll update the connection config and the schema module.",
+      "thinking": null,
+      "model": "claude-opus-4-8",
+      "usage": {
+        "input_tokens": 482,
+        "output_tokens": 96,
+        "cache_read_tokens": 120,
+        "cache_creation_tokens": 40
+      },
+      "parts": [
+        {
+          "part": "text",
+          "text": "Switching the orders service to Postgres. I'll update the connection config and the schema module."
+        },
+        {
+          "part": "tool_use",
+          "call_id": "toolu_01edit_config",
+          "name": "Edit",
+          "args": {
+            "file_path": "/Users/dev/acme/api/src/db/config.rs",
+            "old_string": "mysql://localhost:3306/orders",
+            "new_string": "postgres://localhost:5432/orders"
+          }
+        }
+      ]
+    },
+    "provenance": {
+      "file": "fixtures/claude_code/2.0/happy_path_decision_then_edits.jsonl",
+      "byte_offset": 383,
+      "line_no": 2
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "claude_code",
+    "session_id": "sess-happy-001",
+    "seq": 3,
+    "event_id": "da3654fc1eb3fc44085b23c7c8bd3f245765145b80abff5674f69e12341133f2",
+    "parent_id": "22222222-2222-4222-8222-222222222222",
+    "timestamp": "2026-06-22T10:00:03.12Z",
+    "project": {
+      "cwd": "/Users/dev/acme/api",
+      "repo_root": null,
+      "git": {
+        "sha": "a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "tool_call",
+      "call_id": "toolu_01edit_config",
+      "name": "Edit",
+      "args": {
+        "file_path": "/Users/dev/acme/api/src/db/config.rs",
+        "old_string": "mysql://localhost:3306/orders",
+        "new_string": "postgres://localhost:5432/orders"
+      }
+    },
+    "provenance": {
+      "file": "fixtures/claude_code/2.0/happy_path_decision_then_edits.jsonl",
+      "byte_offset": 383,
+      "line_no": 2
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "claude_code",
+    "session_id": "sess-happy-001",
+    "seq": 4,
+    "event_id": "33333333-3333-4333-8333-333333333333",
+    "parent_id": "22222222-2222-4222-8222-222222222222",
+    "timestamp": "2026-06-22T10:00:03.48Z",
+    "project": {
+      "cwd": "/Users/dev/acme/api",
+      "repo_root": null,
+      "git": {
+        "sha": "a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "user_turn",
+      "text": "",
+      "parts": [
+        {
+          "part": "tool_result",
+          "call_id": "toolu_01edit_config",
+          "output": "The file /Users/dev/acme/api/src/db/config.rs has been updated."
+        }
+      ]
+    },
+    "provenance": {
+      "file": "fixtures/claude_code/2.0/happy_path_decision_then_edits.jsonl",
+      "byte_offset": 1174,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "claude_code",
+    "session_id": "sess-happy-001",
+    "seq": 5,
+    "event_id": "f81ef847b5a424e5bc8745c9288de5aba856ddb249328d1bbe1395e3e7780465",
+    "parent_id": "33333333-3333-4333-8333-333333333333",
+    "timestamp": "2026-06-22T10:00:03.48Z",
+    "project": {
+      "cwd": "/Users/dev/acme/api",
+      "repo_root": null,
+      "git": {
+        "sha": "a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "tool_result",
+      "call_id": "toolu_01edit_config",
+      "ok": true,
+      "output": "The file /Users/dev/acme/api/src/db/config.rs has been updated."
+    },
+    "provenance": {
+      "file": "fixtures/claude_code/2.0/happy_path_decision_then_edits.jsonl",
+      "byte_offset": 1174,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "claude_code",
+    "session_id": "sess-happy-001",
+    "seq": 6,
+    "event_id": "9a994fec70e293568cfd331491b45b7217a5801585b2b005da33781648b2ddb6",
+    "parent_id": "33333333-3333-4333-8333-333333333333",
+    "timestamp": "2026-06-22T10:00:03.48Z",
+    "project": {
+      "cwd": "/Users/dev/acme/api",
+      "repo_root": null,
+      "git": {
+        "sha": "a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "file_edit",
+      "call_id": "toolu_01edit_config",
+      "diff": {
+        "path": "/Users/dev/acme/api/src/db/config.rs",
+        "old": "mysql://localhost:3306/orders",
+        "new": "postgres://localhost:5432/orders",
+        "unified": "-    const DSN: &str = \"mysql://localhost:3306/orders\";\n+    const DSN: &str = \"postgres://localhost:5432/orders\";",
+        "added_lines": 1,
+        "removed_lines": 1
+      }
+    },
+    "provenance": {
+      "file": "fixtures/claude_code/2.0/happy_path_decision_then_edits.jsonl",
+      "byte_offset": 1174,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "claude_code",
+    "session_id": "sess-happy-001",
+    "seq": 7,
+    "event_id": "44444444-4444-4444-8444-444444444444",
+    "parent_id": "33333333-3333-4333-8333-333333333333",
+    "timestamp": "2026-06-22T10:00:06.9Z",
+    "project": {
+      "cwd": "/Users/dev/acme/api",
+      "repo_root": null,
+      "git": {
+        "sha": "a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "assistant_turn",
+      "text": "Now updating the schema driver import.",
+      "thinking": null,
+      "model": "claude-opus-4-8",
+      "usage": {
+        "input_tokens": 640,
+        "output_tokens": 140,
+        "cache_read_tokens": 480,
+        "cache_creation_tokens": 0
+      },
+      "parts": [
+        {
+          "part": "text",
+          "text": "Now updating the schema driver import."
+        },
+        {
+          "part": "tool_use",
+          "call_id": "toolu_02edit_schema",
+          "name": "Edit",
+          "args": {
+            "file_path": "/Users/dev/acme/api/src/db/schema.rs",
+            "old_string": "use mysql::Pool;",
+            "new_string": "use postgres::Client;"
+          }
+        }
+      ]
+    },
+    "provenance": {
+      "file": "fixtures/claude_code/2.0/happy_path_decision_then_edits.jsonl",
+      "byte_offset": 2039,
+      "line_no": 4
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "claude_code",
+    "session_id": "sess-happy-001",
+    "seq": 8,
+    "event_id": "2603db709a643db6056c328854240f71d391ce6afbe595b209921fd97d790278",
+    "parent_id": "44444444-4444-4444-8444-444444444444",
+    "timestamp": "2026-06-22T10:00:06.9Z",
+    "project": {
+      "cwd": "/Users/dev/acme/api",
+      "repo_root": null,
+      "git": {
+        "sha": "a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "tool_call",
+      "call_id": "toolu_02edit_schema",
+      "name": "Edit",
+      "args": {
+        "file_path": "/Users/dev/acme/api/src/db/schema.rs",
+        "old_string": "use mysql::Pool;",
+        "new_string": "use postgres::Client;"
+      }
+    },
+    "provenance": {
+      "file": "fixtures/claude_code/2.0/happy_path_decision_then_edits.jsonl",
+      "byte_offset": 2039,
+      "line_no": 4
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "claude_code",
+    "session_id": "sess-happy-001",
+    "seq": 9,
+    "event_id": "55555555-5555-4555-8555-555555555555",
+    "parent_id": "44444444-4444-4444-8444-444444444444",
+    "timestamp": "2026-06-22T10:00:07.21Z",
+    "project": {
+      "cwd": "/Users/dev/acme/api",
+      "repo_root": null,
+      "git": {
+        "sha": "a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "user_turn",
+      "text": "",
+      "parts": [
+        {
+          "part": "tool_result",
+          "call_id": "toolu_02edit_schema",
+          "output": "The file /Users/dev/acme/api/src/db/schema.rs has been updated."
+        }
+      ]
+    },
+    "provenance": {
+      "file": "fixtures/claude_code/2.0/happy_path_decision_then_edits.jsonl",
+      "byte_offset": 2746,
+      "line_no": 5
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "claude_code",
+    "session_id": "sess-happy-001",
+    "seq": 10,
+    "event_id": "13300cdcd771b3946c86e3b533a4dad91c5002e024f56e986e69b52881335e4f",
+    "parent_id": "55555555-5555-4555-8555-555555555555",
+    "timestamp": "2026-06-22T10:00:07.21Z",
+    "project": {
+      "cwd": "/Users/dev/acme/api",
+      "repo_root": null,
+      "git": {
+        "sha": "a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "tool_result",
+      "call_id": "toolu_02edit_schema",
+      "ok": true,
+      "output": "The file /Users/dev/acme/api/src/db/schema.rs has been updated."
+    },
+    "provenance": {
+      "file": "fixtures/claude_code/2.0/happy_path_decision_then_edits.jsonl",
+      "byte_offset": 2746,
+      "line_no": 5
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "claude_code",
+    "session_id": "sess-happy-001",
+    "seq": 11,
+    "event_id": "8e21f86302f70c7c2075fac8eefc50dd74e602d3027ef6a204bf61562acad7ba",
+    "parent_id": "55555555-5555-4555-8555-555555555555",
+    "timestamp": "2026-06-22T10:00:07.21Z",
+    "project": {
+      "cwd": "/Users/dev/acme/api",
+      "repo_root": null,
+      "git": {
+        "sha": "a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "file_edit",
+      "call_id": "toolu_02edit_schema",
+      "diff": {
+        "path": "/Users/dev/acme/api/src/db/schema.rs",
+        "old": "use mysql::Pool;",
+        "new": "use postgres::Client;",
+        "unified": "-use mysql::Pool;\n+use postgres::Client;",
+        "added_lines": 1,
+        "removed_lines": 1
+      }
+    },
+    "provenance": {
+      "file": "fixtures/claude_code/2.0/happy_path_decision_then_edits.jsonl",
+      "byte_offset": 2746,
+      "line_no": 5
+    }
+  }
+]

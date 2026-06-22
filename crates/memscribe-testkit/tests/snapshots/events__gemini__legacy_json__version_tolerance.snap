@@ -1,0 +1,153 @@
+---
+source: crates/memscribe-testkit/tests/golden.rs
+expression: events
+---
+[
+  {
+    "schema_version": 1,
+    "source": "gemini",
+    "session_id": "legacy-0001",
+    "seq": 0,
+    "event_id": "a53bda02853957d7db23852ba98d761aedae9ca2557bef565f2938da8b5ff2b9",
+    "parent_id": null,
+    "timestamp": "1970-01-01T00:00:00Z",
+    "project": {
+      "cwd": "/home/dev/shop-api",
+      "repo_root": null,
+      "git": {
+        "sha": "9f1c0aa2b3",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "session_start",
+      "cwd": "/home/dev/shop-api",
+      "git": {
+        "sha": "9f1c0aa2b3",
+        "branch": "main"
+      },
+      "model": "gemini-1.5-pro",
+      "tool_version": "0.2.0"
+    },
+    "provenance": {
+      "file": "fixtures/gemini/legacy_json/version_tolerance.jsonl",
+      "byte_offset": 0,
+      "line_no": 1
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "gemini",
+    "session_id": "legacy-0001",
+    "seq": 1,
+    "event_id": "leg-0001",
+    "parent_id": null,
+    "timestamp": "2026-06-22T08:00:00Z",
+    "project": {
+      "cwd": "/home/dev/shop-api",
+      "repo_root": null,
+      "git": {
+        "sha": "9f1c0aa2b3",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "user_turn",
+      "text": "Let's use Postgres instead of MySQL for the orders service.",
+      "parts": []
+    },
+    "provenance": {
+      "file": "fixtures/gemini/legacy_json/version_tolerance.jsonl",
+      "byte_offset": 183,
+      "line_no": 2
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "gemini",
+    "session_id": "legacy-0001",
+    "seq": 2,
+    "event_id": "leg-0002",
+    "parent_id": null,
+    "timestamp": "2026-06-22T08:00:03.12Z",
+    "project": {
+      "cwd": "/home/dev/shop-api",
+      "repo_root": null,
+      "git": {
+        "sha": "9f1c0aa2b3",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "assistant_turn",
+      "text": "Good call. Switching the connection string to Postgres.",
+      "thinking": "swap the dsn",
+      "model": null,
+      "usage": null,
+      "parts": []
+    },
+    "provenance": {
+      "file": "fixtures/gemini/legacy_json/version_tolerance.jsonl",
+      "byte_offset": 326,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "gemini",
+    "session_id": "legacy-0001",
+    "seq": 3,
+    "event_id": "f601b26ea26e10557f9c9d993a63bcf87dfc45a8a18eb466bebf4124bfd02aed",
+    "parent_id": null,
+    "timestamp": "2026-06-22T08:00:04Z",
+    "project": {
+      "cwd": "/home/dev/shop-api",
+      "repo_root": null,
+      "git": {
+        "sha": "9f1c0aa2b3",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "unknown",
+      "raw_type": "unknown",
+      "raw": {
+        "id": "leg-0003",
+        "role": "system",
+        "content": "Context window compacted.",
+        "timestamp": "2026-06-22T08:00:04.000Z"
+      }
+    },
+    "provenance": {
+      "file": "fixtures/gemini/legacy_json/version_tolerance.jsonl",
+      "byte_offset": 492,
+      "line_no": 4
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "gemini",
+    "session_id": "legacy-0001",
+    "seq": 4,
+    "event_id": "9cfc1acb8e98f1936b2258065acc5dab59566f23d22e07daec8aa9babf0d7812",
+    "parent_id": null,
+    "timestamp": "1970-01-01T00:00:00Z",
+    "project": {
+      "cwd": "/home/dev/shop-api",
+      "repo_root": null,
+      "git": {
+        "sha": "9f1c0aa2b3",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "rewind",
+      "to_event": "leg-0001"
+    },
+    "provenance": {
+      "file": "fixtures/gemini/legacy_json/version_tolerance.jsonl",
+      "byte_offset": 603,
+      "line_no": 5
+    }
+  }
+]

@@ -1,0 +1,163 @@
+---
+source: crates/memscribe-testkit/tests/golden.rs
+expression: nodes
+---
+[
+  {
+    "node": "conversation",
+    "session_id": "01JZ8codexsess0006multiedit",
+    "turn_range": {
+      "start": 1,
+      "end": 2
+    },
+    "text": "Let's rename the HttpClient type to ApiClient everywhere. Use ApiClient as the canonical name across the codebase.",
+    "markers": [
+      {
+        "rule_id": "decision_verb.use",
+        "category": "decision_verb",
+        "matched_text": "Use",
+        "offset": 58
+      }
+    ],
+    "fact_status": "observed",
+    "provenance": [
+      {
+        "file": "fixtures/codex/v2/multi_edit_single_commit.jsonl",
+        "byte_offset": 275,
+        "line_no": 2
+      }
+    ]
+  },
+  {
+    "node": "decision",
+    "epitome": "Use ApiClient as the canonical name across the codebase.",
+    "considered_options": [
+      {
+        "text": "ApiClient",
+        "chosen": true
+      }
+    ],
+    "is_ban": false,
+    "superseded_by": null,
+    "confirmation": null,
+    "source_span": {
+      "start": 1,
+      "end": 2
+    },
+    "fact_status": "observed"
+  },
+  {
+    "node": "episode",
+    "path": "src/client.rs",
+    "diff": {
+      "path": "src/client.rs",
+      "old": null,
+      "new": null,
+      "unified": "@@\n-pub struct HttpClient {\n+pub struct ApiClient {",
+      "added_lines": 1,
+      "removed_lines": 1
+    },
+    "git": {
+      "sha": "f60718293a4b5c6d7e8f90010203040506070809",
+      "branch": "feat/rename-client"
+    },
+    "episode_id": "b17710b8b2e82b2426e04b5ce18e0b014dcabfdb87c527e93f90b4a0f6d2d99b"
+  },
+  {
+    "node": "episode",
+    "path": "src/handlers.rs",
+    "diff": {
+      "path": "src/handlers.rs",
+      "old": null,
+      "new": null,
+      "unified": "@@\n-use crate::client::HttpClient;\n+use crate::client::ApiClient;\n@@\n-    client: HttpClient,\n+    client: ApiClient,",
+      "added_lines": 2,
+      "removed_lines": 2
+    },
+    "git": {
+      "sha": "f60718293a4b5c6d7e8f90010203040506070809",
+      "branch": "feat/rename-client"
+    },
+    "episode_id": "9d2ded5004f7b1005b1696b583e17ee11274813e4ca8fc3a03283bfc211993d1"
+  },
+  {
+    "node": "episode",
+    "path": "src/main.rs",
+    "diff": {
+      "path": "src/main.rs",
+      "old": null,
+      "new": null,
+      "unified": "@@\n-    let client = HttpClient::new();\n+    let client = ApiClient::new();",
+      "added_lines": 1,
+      "removed_lines": 1
+    },
+    "git": {
+      "sha": "f60718293a4b5c6d7e8f90010203040506070809",
+      "branch": "feat/rename-client"
+    },
+    "episode_id": "a19e913dac9286bae373c8fdf23c513f5ca018d8fb50c60d56e5b2071a88cf83"
+  },
+  {
+    "node": "binding",
+    "from": "decision:01JZ8codexsess0006multiedit:1",
+    "to": "episode:9d2ded5004f7b1005b1696b583e17ee11274813e4ca8fc3a03283bfc211993d1",
+    "relation": "produced",
+    "prov": {
+      "used_session": "01JZ8codexsess0006multiedit",
+      "used_decision": "decision:01JZ8codexsess0006multiedit:1",
+      "was_generated_by_session": "01JZ8codexsess0006multiedit",
+      "t_use": "2026-06-22T19:00:07.25Z",
+      "t_gen": "2026-06-22T19:00:23.8Z"
+    },
+    "fact_status": "deterministically_derived",
+    "correlation": {
+      "support": 0.333333,
+      "confidence": 0.333333,
+      "lift": 1.0,
+      "phi": 0.0,
+      "p": 1.0
+    }
+  },
+  {
+    "node": "binding",
+    "from": "decision:01JZ8codexsess0006multiedit:1",
+    "to": "episode:a19e913dac9286bae373c8fdf23c513f5ca018d8fb50c60d56e5b2071a88cf83",
+    "relation": "produced",
+    "prov": {
+      "used_session": "01JZ8codexsess0006multiedit",
+      "used_decision": "decision:01JZ8codexsess0006multiedit:1",
+      "was_generated_by_session": "01JZ8codexsess0006multiedit",
+      "t_use": "2026-06-22T19:00:07.25Z",
+      "t_gen": "2026-06-22T19:00:23.8Z"
+    },
+    "fact_status": "deterministically_derived",
+    "correlation": {
+      "support": 0.333333,
+      "confidence": 0.333333,
+      "lift": 1.0,
+      "phi": 0.0,
+      "p": 1.0
+    }
+  },
+  {
+    "node": "binding",
+    "from": "decision:01JZ8codexsess0006multiedit:1",
+    "to": "episode:b17710b8b2e82b2426e04b5ce18e0b014dcabfdb87c527e93f90b4a0f6d2d99b",
+    "relation": "produced",
+    "prov": {
+      "used_session": "01JZ8codexsess0006multiedit",
+      "used_decision": "decision:01JZ8codexsess0006multiedit:1",
+      "was_generated_by_session": "01JZ8codexsess0006multiedit",
+      "t_use": "2026-06-22T19:00:07.25Z",
+      "t_gen": "2026-06-22T19:00:23.8Z"
+    },
+    "fact_status": "deterministically_derived",
+    "correlation": {
+      "support": 0.333333,
+      "confidence": 0.333333,
+      "lift": 1.0,
+      "phi": 0.0,
+      "p": 1.0
+    }
+  }
+]

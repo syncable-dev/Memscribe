@@ -1,0 +1,5 @@
+# Pinned toolchain for reproducible builds (whitepaper §2).
+[toolchain]
+channel = "1.96.0"
+components = ["rustfmt", "clippy", "rust-src"]
+profile = "minimal"

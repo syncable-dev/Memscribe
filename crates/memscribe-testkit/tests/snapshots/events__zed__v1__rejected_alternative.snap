@@ -1,0 +1,191 @@
+---
+source: crates/memscribe-testkit/tests/golden.rs
+expression: events
+---
+[
+  {
+    "schema_version": 1,
+    "source": "zed",
+    "session_id": "zed-thread-002",
+    "seq": 0,
+    "event_id": "f31c2e32429c38bc8de7177ae9878961569e923d005b8a6d3be82f93532a7342",
+    "parent_id": null,
+    "timestamp": "2026-06-22T11:00:00Z",
+    "project": {
+      "cwd": "/Users/dev/projects/orbit",
+      "repo_root": null,
+      "git": {
+        "sha": "f6e5d4c3b2a1",
+        "branch": "feature/caching"
+      }
+    },
+    "kind": {
+      "event": "session_start",
+      "cwd": "/Users/dev/projects/orbit",
+      "git": {
+        "sha": "f6e5d4c3b2a1",
+        "branch": "feature/caching"
+      },
+      "model": null,
+      "tool_version": "zed 0.182.0"
+    },
+    "provenance": {
+      "file": "fixtures/zed/v1/rejected_alternative.jsonl",
+      "byte_offset": 0,
+      "line_no": 1
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "zed",
+    "session_id": "zed-thread-002",
+    "seq": 1,
+    "event_id": "msg-1",
+    "parent_id": null,
+    "timestamp": "2026-06-22T11:00:04Z",
+    "project": {
+      "cwd": "/Users/dev/projects/orbit",
+      "repo_root": null,
+      "git": {
+        "sha": "f6e5d4c3b2a1",
+        "branch": "feature/caching"
+      }
+    },
+    "kind": {
+      "event": "user_turn",
+      "text": "Should we add Redis for the cache layer?",
+      "parts": []
+    },
+    "provenance": {
+      "file": "fixtures/zed/v1/rejected_alternative.jsonl",
+      "byte_offset": 200,
+      "line_no": 2
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "zed",
+    "session_id": "zed-thread-002",
+    "seq": 2,
+    "event_id": "msg-2",
+    "parent_id": "msg-1",
+    "timestamp": "2026-06-22T11:00:08Z",
+    "project": {
+      "cwd": "/Users/dev/projects/orbit",
+      "repo_root": null,
+      "git": {
+        "sha": "f6e5d4c3b2a1",
+        "branch": "feature/caching"
+      }
+    },
+    "kind": {
+      "event": "assistant_turn",
+      "text": "We considered Redis but rejected it: the working set fits in process memory, so an in-process LRU is simpler. Not adding Redis.",
+      "thinking": null,
+      "model": "claude-opus-4-8",
+      "usage": {
+        "input_tokens": 900,
+        "output_tokens": 210,
+        "cache_read_tokens": null,
+        "cache_creation_tokens": null
+      },
+      "parts": []
+    },
+    "provenance": {
+      "file": "fixtures/zed/v1/rejected_alternative.jsonl",
+      "byte_offset": 352,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "zed",
+    "session_id": "zed-thread-002",
+    "seq": 3,
+    "event_id": "msg-3",
+    "parent_id": "msg-2",
+    "timestamp": "2026-06-22T11:00:40Z",
+    "project": {
+      "cwd": "/Users/dev/projects/orbit",
+      "repo_root": null,
+      "git": {
+        "sha": "f6e5d4c3b2a1",
+        "branch": "feature/caching"
+      }
+    },
+    "kind": {
+      "event": "user_turn",
+      "text": "Agreed, go with the in-process LRU.",
+      "parts": []
+    },
+    "provenance": {
+      "file": "fixtures/zed/v1/rejected_alternative.jsonl",
+      "byte_offset": 660,
+      "line_no": 4
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "zed",
+    "session_id": "zed-thread-002",
+    "seq": 4,
+    "event_id": "msg-4",
+    "parent_id": "msg-3",
+    "timestamp": "2026-06-22T11:00:46Z",
+    "project": {
+      "cwd": "/Users/dev/projects/orbit",
+      "repo_root": null,
+      "git": {
+        "sha": "f6e5d4c3b2a1",
+        "branch": "feature/caching"
+      }
+    },
+    "kind": {
+      "event": "assistant_turn",
+      "text": "Done — added a bounded LRU.",
+      "thinking": null,
+      "model": "claude-opus-4-8",
+      "usage": null,
+      "parts": []
+    },
+    "provenance": {
+      "file": "fixtures/zed/v1/rejected_alternative.jsonl",
+      "byte_offset": 810,
+      "line_no": 5
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "zed",
+    "session_id": "zed-thread-002",
+    "seq": 5,
+    "event_id": "msg-4:edit:0",
+    "parent_id": "msg-4",
+    "timestamp": "2026-06-22T11:00:46Z",
+    "project": {
+      "cwd": "/Users/dev/projects/orbit",
+      "repo_root": null,
+      "git": {
+        "sha": "f6e5d4c3b2a1",
+        "branch": "feature/caching"
+      }
+    },
+    "kind": {
+      "event": "file_edit",
+      "call_id": null,
+      "diff": {
+        "path": "src/cache/lru.rs",
+        "old": "",
+        "new": "pub struct Lru { cap: usize }\n",
+        "unified": "@@ -0,0 +1 @@\n+pub struct Lru { cap: usize }",
+        "added_lines": 1,
+        "removed_lines": 0
+      }
+    },
+    "provenance": {
+      "file": "fixtures/zed/v1/rejected_alternative.jsonl",
+      "byte_offset": 810,
+      "line_no": 5
+    }
+  }
+]

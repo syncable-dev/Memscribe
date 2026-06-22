@@ -1,0 +1,50 @@
+---
+source: crates/memscribe-testkit/tests/golden.rs
+expression: nodes
+---
+[
+  {
+    "node": "conversation",
+    "session_id": "01JZ8codexsess0003ban",
+    "turn_range": {
+      "start": 1,
+      "end": 2
+    },
+    "text": "Policy: we will never add a dependency on left-pad. Do not introduce it under any circumstances, even transitively if you can avoid it.",
+    "markers": [
+      {
+        "rule_id": "ban.negated_use",
+        "category": "ban",
+        "matched_text": "never add",
+        "offset": 16
+      },
+      {
+        "rule_id": "imperative.must_always_never",
+        "category": "imperative",
+        "matched_text": "never",
+        "offset": 16
+      }
+    ],
+    "fact_status": "observed",
+    "provenance": [
+      {
+        "file": "fixtures/codex/v2/ban.jsonl",
+        "byte_offset": 255,
+        "line_no": 2
+      }
+    ]
+  },
+  {
+    "node": "decision",
+    "epitome": "Policy: we will never add a dependency on left-pad.",
+    "considered_options": [],
+    "is_ban": true,
+    "superseded_by": null,
+    "confirmation": null,
+    "source_span": {
+      "start": 1,
+      "end": 2
+    },
+    "fact_status": "observed"
+  }
+]

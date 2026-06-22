@@ -1,0 +1,360 @@
+---
+source: crates/memscribe-testkit/tests/golden.rs
+expression: events
+---
+[
+  {
+    "schema_version": 1,
+    "source": "cursor",
+    "session_id": "cur-sess-001",
+    "seq": 0,
+    "event_id": "7ee7998bc4dde9e040d2d988935adf29ea005f43044b1881a44758cbd2941442",
+    "parent_id": null,
+    "timestamp": "1970-01-01T00:00:00Z",
+    "project": {
+      "cwd": "/Users/dev/projects/orders-api",
+      "repo_root": null,
+      "git": {
+        "sha": "9f2c1ad4b7e0",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "session_start",
+      "cwd": "/Users/dev/projects/orders-api",
+      "git": {
+        "sha": "9f2c1ad4b7e0",
+        "branch": "main"
+      },
+      "model": "cursor-fast",
+      "tool_version": "0.43.2"
+    },
+    "provenance": {
+      "file": "fixtures/cursor/v1/happy_path_decision_then_edits.jsonl",
+      "byte_offset": 0,
+      "line_no": 1
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "cursor",
+    "session_id": "cur-sess-001",
+    "seq": 1,
+    "event_id": "msg-001",
+    "parent_id": null,
+    "timestamp": "2026-06-22T14:01:10Z",
+    "project": {
+      "cwd": "/Users/dev/projects/orders-api",
+      "repo_root": null,
+      "git": {
+        "sha": "9f2c1ad4b7e0",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "user_turn",
+      "text": "Let's use Postgres instead of MySQL for the orders service. Update the config and the connection module.",
+      "parts": [
+        {
+          "part": "text",
+          "text": "Let's use Postgres instead of MySQL for the orders service. Update the config and the connection module."
+        }
+      ]
+    },
+    "provenance": {
+      "file": "fixtures/cursor/v1/happy_path_decision_then_edits.jsonl",
+      "byte_offset": 181,
+      "line_no": 2
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "cursor",
+    "session_id": "cur-sess-001",
+    "seq": 2,
+    "event_id": "msg-002",
+    "parent_id": "msg-001",
+    "timestamp": "2026-06-22T14:01:18Z",
+    "project": {
+      "cwd": "/Users/dev/projects/orders-api",
+      "repo_root": null,
+      "git": {
+        "sha": "9f2c1ad4b7e0",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "assistant_turn",
+      "text": "Good call — Postgres gives us better JSONB support. I'll switch the engine in the config and update the DSN in the connection module.",
+      "thinking": null,
+      "model": "cursor-fast",
+      "usage": {
+        "input_tokens": 214,
+        "output_tokens": 98,
+        "cache_read_tokens": null,
+        "cache_creation_tokens": null
+      },
+      "parts": [
+        {
+          "part": "text",
+          "text": "Good call — Postgres gives us better JSONB support. I'll switch the engine in the config and update the DSN in the connection module."
+        }
+      ]
+    },
+    "provenance": {
+      "file": "fixtures/cursor/v1/happy_path_decision_then_edits.jsonl",
+      "byte_offset": 397,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "cursor",
+    "session_id": "cur-sess-001",
+    "seq": 3,
+    "event_id": "msg-002#toolcall:call-edit-1",
+    "parent_id": "msg-002",
+    "timestamp": "2026-06-22T14:01:18Z",
+    "project": {
+      "cwd": "/Users/dev/projects/orders-api",
+      "repo_root": null,
+      "git": {
+        "sha": "9f2c1ad4b7e0",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "tool_call",
+      "call_id": "call-edit-1",
+      "name": "edit_file",
+      "args": {
+        "path": "config/database.toml"
+      }
+    },
+    "provenance": {
+      "file": "fixtures/cursor/v1/happy_path_decision_then_edits.jsonl",
+      "byte_offset": 397,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "cursor",
+    "session_id": "cur-sess-001",
+    "seq": 4,
+    "event_id": "msg-002#toolresult:call-edit-1",
+    "parent_id": "msg-002",
+    "timestamp": "2026-06-22T14:01:18Z",
+    "project": {
+      "cwd": "/Users/dev/projects/orders-api",
+      "repo_root": null,
+      "git": {
+        "sha": "9f2c1ad4b7e0",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "tool_result",
+      "call_id": "call-edit-1",
+      "ok": true,
+      "output": "applied 1 edit"
+    },
+    "provenance": {
+      "file": "fixtures/cursor/v1/happy_path_decision_then_edits.jsonl",
+      "byte_offset": 397,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "cursor",
+    "session_id": "cur-sess-001",
+    "seq": 5,
+    "event_id": "msg-002#edit:0",
+    "parent_id": "msg-002",
+    "timestamp": "2026-06-22T14:01:18Z",
+    "project": {
+      "cwd": "/Users/dev/projects/orders-api",
+      "repo_root": null,
+      "git": {
+        "sha": "9f2c1ad4b7e0",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "file_edit",
+      "call_id": null,
+      "diff": {
+        "path": "config/database.toml",
+        "old": "[database]\nengine = \"mysql\"\nport = 3306\n",
+        "new": "[database]\nengine = \"postgres\"\nport = 5432\n",
+        "unified": "@@ -1,3 +1,3 @@\n [database]\n-engine = \"mysql\"\n-port = 3306\n+engine = \"postgres\"\n+port = 5432\n",
+        "added_lines": 2,
+        "removed_lines": 2
+      }
+    },
+    "provenance": {
+      "file": "fixtures/cursor/v1/happy_path_decision_then_edits.jsonl",
+      "byte_offset": 397,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "cursor",
+    "session_id": "cur-sess-001",
+    "seq": 6,
+    "event_id": "msg-003",
+    "parent_id": "msg-002",
+    "timestamp": "2026-06-22T14:01:31Z",
+    "project": {
+      "cwd": "/Users/dev/projects/orders-api",
+      "repo_root": null,
+      "git": {
+        "sha": "9f2c1ad4b7e0",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "assistant_turn",
+      "text": "Now updating the connection module to use the Postgres driver.",
+      "thinking": null,
+      "model": "cursor-fast",
+      "usage": {
+        "input_tokens": 120,
+        "output_tokens": 64,
+        "cache_read_tokens": null,
+        "cache_creation_tokens": null
+      },
+      "parts": [
+        {
+          "part": "text",
+          "text": "Now updating the connection module to use the Postgres driver."
+        }
+      ]
+    },
+    "provenance": {
+      "file": "fixtures/cursor/v1/happy_path_decision_then_edits.jsonl",
+      "byte_offset": 1172,
+      "line_no": 4
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "cursor",
+    "session_id": "cur-sess-001",
+    "seq": 7,
+    "event_id": "msg-003#toolcall:call-edit-2",
+    "parent_id": "msg-003",
+    "timestamp": "2026-06-22T14:01:31Z",
+    "project": {
+      "cwd": "/Users/dev/projects/orders-api",
+      "repo_root": null,
+      "git": {
+        "sha": "9f2c1ad4b7e0",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "tool_call",
+      "call_id": "call-edit-2",
+      "name": "edit_file",
+      "args": {
+        "path": "src/db/connect.rs"
+      }
+    },
+    "provenance": {
+      "file": "fixtures/cursor/v1/happy_path_decision_then_edits.jsonl",
+      "byte_offset": 1172,
+      "line_no": 4
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "cursor",
+    "session_id": "cur-sess-001",
+    "seq": 8,
+    "event_id": "msg-003#toolresult:call-edit-2",
+    "parent_id": "msg-003",
+    "timestamp": "2026-06-22T14:01:31Z",
+    "project": {
+      "cwd": "/Users/dev/projects/orders-api",
+      "repo_root": null,
+      "git": {
+        "sha": "9f2c1ad4b7e0",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "tool_result",
+      "call_id": "call-edit-2",
+      "ok": true,
+      "output": "applied 1 edit"
+    },
+    "provenance": {
+      "file": "fixtures/cursor/v1/happy_path_decision_then_edits.jsonl",
+      "byte_offset": 1172,
+      "line_no": 4
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "cursor",
+    "session_id": "cur-sess-001",
+    "seq": 9,
+    "event_id": "msg-003#edit:0",
+    "parent_id": "msg-003",
+    "timestamp": "2026-06-22T14:01:31Z",
+    "project": {
+      "cwd": "/Users/dev/projects/orders-api",
+      "repo_root": null,
+      "git": {
+        "sha": "9f2c1ad4b7e0",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "file_edit",
+      "call_id": null,
+      "diff": {
+        "path": "src/db/connect.rs",
+        "old": "let url = \"mysql://localhost:3306/orders\";",
+        "new": "let url = \"postgres://localhost:5432/orders\";",
+        "unified": "@@ -1 +1 @@\n-let url = \"mysql://localhost:3306/orders\";\n+let url = \"postgres://localhost:5432/orders\";\n",
+        "added_lines": 1,
+        "removed_lines": 1
+      }
+    },
+    "provenance": {
+      "file": "fixtures/cursor/v1/happy_path_decision_then_edits.jsonl",
+      "byte_offset": 1172,
+      "line_no": 4
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "cursor",
+    "session_id": "cur-sess-001",
+    "seq": 10,
+    "event_id": "1ecb1f98d7a0c61ff270e8562653c49c1c04e633abb70be4b9d428913ee5baaa",
+    "parent_id": null,
+    "timestamp": "2026-06-22T14:02:00Z",
+    "project": {
+      "cwd": "/Users/dev/projects/orders-api",
+      "repo_root": null,
+      "git": {
+        "sha": "9f2c1ad4b7e0",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "session_end",
+      "reason": "user_closed"
+    },
+    "provenance": {
+      "file": "fixtures/cursor/v1/happy_path_decision_then_edits.jsonl",
+      "byte_offset": 1873,
+      "line_no": 5
+    }
+  }
+]

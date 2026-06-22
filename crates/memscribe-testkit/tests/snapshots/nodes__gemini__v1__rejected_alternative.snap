@@ -1,0 +1,91 @@
+---
+source: crates/memscribe-testkit/tests/golden.rs
+expression: nodes
+---
+[
+  {
+    "node": "conversation",
+    "session_id": "a1b2c3d4-0002",
+    "turn_range": {
+      "start": 1,
+      "end": 2
+    },
+    "text": "For the checkout flow, use Stripe instead of PayPal. Wire up the Stripe client.",
+    "markers": [
+      {
+        "rule_id": "decision_verb.use",
+        "category": "decision_verb",
+        "matched_text": "use",
+        "offset": 23
+      },
+      {
+        "rule_id": "rejection.instead_of",
+        "category": "rejection",
+        "matched_text": "instead of",
+        "offset": 34
+      }
+    ],
+    "fact_status": "observed",
+    "provenance": [
+      {
+        "file": "fixtures/gemini/v1/rejected_alternative.jsonl",
+        "byte_offset": 156,
+        "line_no": 2
+      }
+    ]
+  },
+  {
+    "node": "decision",
+    "epitome": "For the checkout flow, use Stripe instead of PayPal.",
+    "considered_options": [
+      {
+        "text": "PayPal",
+        "chosen": false
+      },
+      {
+        "text": "Stripe",
+        "chosen": true
+      }
+    ],
+    "is_ban": false,
+    "superseded_by": null,
+    "confirmation": null,
+    "source_span": {
+      "start": 1,
+      "end": 2
+    },
+    "fact_status": "observed"
+  },
+  {
+    "node": "episode",
+    "path": "src/payments/stripe.rs",
+    "diff": {
+      "path": "src/payments/stripe.rs",
+      "old": null,
+      "new": "pub struct StripeClient { key: String }\n",
+      "unified": "@@ -0,0 +1 @@\n+pub struct StripeClient { key: String }\n",
+      "added_lines": 1,
+      "removed_lines": 0
+    },
+    "git": {
+      "sha": "77ab12cd",
+      "branch": "feat/payments"
+    },
+    "episode_id": "845329c8cf0c4ffc5521e8081954d2b3b2819d3cbc4972324c2966f338aaee41"
+  },
+  {
+    "node": "binding",
+    "from": "decision:a1b2c3d4-0002:1",
+    "to": "episode:845329c8cf0c4ffc5521e8081954d2b3b2819d3cbc4972324c2966f338aaee41",
+    "relation": "produced",
+    "prov": {
+      "used_session": "a1b2c3d4-0002",
+      "used_decision": "decision:a1b2c3d4-0002:1",
+      "was_generated_by_session": "a1b2c3d4-0002",
+      "t_use": "2026-06-22T11:15:00Z",
+      "t_gen": "2026-06-22T11:15:04.5Z"
+    },
+    "fact_status": "deterministically_derived",
+    "correlation": null
+  }
+]

@@ -1,0 +1,131 @@
+# Memscribe CI (whitepaper §8.9).
+#
+# Memscribe is deterministic and zero-LLM by construction, so CI is a hard gate,
+# not a smoke test: the same input bytes must always produce the same nodes, the
+# tree must be clippy- and rustfmt-clean, the dependency set must satisfy the
+# license/advisory policy, and the crate must keep building on its MSRV.
+#
+# The toolchain is pinned to match rust-toolchain.toml (1.96.0). The fuzz job is
+# best-effort: cargo-fuzz needs a nightly compiler, so it is allowed to fail
+# without failing the workflow.
+
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+# Cancel superseded runs on the same ref to save CI minutes.
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+env:
+  CARGO_TERM_COLOR: always
+  RUST_BACKTRACE: 1
+  # Pinned toolchain — keep in lockstep with rust-toolchain.toml.
+  RUST_PINNED: 1.96.0
+
+jobs:
+  # 1. The deterministic test suite: unit + golden + conformance + property.
+  test:
+    name: test (workspace, all-features)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install pinned toolchain
+        uses: dtolnay/rust-toolchain@master
+        with:
+          toolchain: 1.96.0
+      - uses: Swatinem/rust-cache@v2
+      - name: cargo test
+        run: cargo test --workspace --all-features --locked
+
+  # 2. Lints as errors. No warning escapes review.
+  clippy:
+    name: clippy (-D warnings)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install pinned toolchain
+        uses: dtolnay/rust-toolchain@master
+        with:
+          toolchain: 1.96.0
+          components: clippy
+      - uses: Swatinem/rust-cache@v2
+      - name: cargo clippy
+        run: cargo clippy --workspace --all-targets --all-features -- -D warnings
+
+  # 3. Formatting. The output is byte-stable, so the source should be too.
+  fmt:
+    name: rustfmt (--check)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install pinned toolchain
+        uses: dtolnay/rust-toolchain@master
+        with:
+          toolchain: 1.96.0
+          components: rustfmt
+      - name: cargo fmt --check
+        run: cargo fmt --all --check
+
+  # 4. License + advisory gate (deny.toml).
+  deny:
+    name: cargo-deny
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: cargo-deny check
+        uses: EmbarkStudios/cargo-deny-action@v2
+        with:
+          command: check
+          arguments: --all-features
+
+  # 5. MSRV — the crate must build on its declared minimum (1.96).
+  #    Build + check only: tests pin newer dev-deps and run under `test`.
+  msrv:
+    name: MSRV (1.96)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install MSRV toolchain
+        uses: dtolnay/rust-toolchain@master
+        with:
+          toolchain: 1.96.0
+      - uses: Swatinem/rust-cache@v2
+        with:
+          key: msrv
+      - name: cargo check (MSRV)
+        run: cargo check --workspace --all-features --locked
+
+  # 6. cargo-fuzz smoke build. Best-effort: cargo-fuzz needs nightly, and the
+  #    fuzz/ targets may not be wired yet — never fail the workflow on this.
+  fuzz:
+    name: cargo-fuzz smoke build (best-effort)
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install nightly toolchain
+        uses: dtolnay/rust-toolchain@master
+        with:
+          toolchain: nightly
+      - uses: Swatinem/rust-cache@v2
+        with:
+          key: fuzz
+      - name: Install cargo-fuzz
+        run: cargo install cargo-fuzz --locked
+      - name: Build fuzz targets (no run)
+        working-directory: fuzz
+        run: |
+          if [ -f Cargo.toml ]; then
+            cargo +nightly fuzz build
+          else
+            echo "fuzz/ has no Cargo.toml yet — nothing to build (best-effort job)."
+          fi

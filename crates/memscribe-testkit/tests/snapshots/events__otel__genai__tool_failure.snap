@@ -1,0 +1,160 @@
+---
+source: crates/memscribe-testkit/tests/golden.rs
+expression: events
+---
+[
+  {
+    "schema_version": 1,
+    "source": "otel",
+    "session_id": "sess-fail-001",
+    "seq": 0,
+    "event_id": "1ca08f1a290b7a7e923e39b32ef242b470dcf22e5b4e55f2fdcb4c59bfb85588:session_start:0",
+    "parent_id": null,
+    "timestamp": "2026-06-22T13:00:00Z",
+    "project": {
+      "cwd": "/home/dev/svc",
+      "repo_root": "/home/dev/svc",
+      "git": {
+        "sha": "badf00d",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "session_start",
+      "cwd": "/home/dev/svc",
+      "git": {
+        "sha": "badf00d",
+        "branch": "main"
+      },
+      "model": "claude-opus-4-8",
+      "tool_version": null
+    },
+    "provenance": {
+      "file": "fixtures/otel/genai/tool_failure.jsonl",
+      "byte_offset": 0,
+      "line_no": 1
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "otel",
+    "session_id": "sess-fail-001",
+    "seq": 1,
+    "event_id": "941ec2df1d06a67528a2ba8fc5fb3dcbe732d81b5b840db9716e5d5591d3b956:user_prompt:0",
+    "parent_id": null,
+    "timestamp": "2026-06-22T13:00:05Z",
+    "project": {
+      "cwd": "/home/dev/svc",
+      "repo_root": "/home/dev/svc",
+      "git": {
+        "sha": "badf00d",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "user_turn",
+      "text": "Switch the cache layer over to Redis.",
+      "parts": [
+        {
+          "part": "text",
+          "text": "Switch the cache layer over to Redis."
+        }
+      ]
+    },
+    "provenance": {
+      "file": "fixtures/otel/genai/tool_failure.jsonl",
+      "byte_offset": 275,
+      "line_no": 2
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "otel",
+    "session_id": "sess-fail-001",
+    "seq": 2,
+    "event_id": "765089f0ab456073510a7df920d4f6a28c8a1df57be18a52c1214d1ab8950873:tool_call:0",
+    "parent_id": null,
+    "timestamp": "2026-06-22T13:00:09Z",
+    "project": {
+      "cwd": "/home/dev/svc",
+      "repo_root": "/home/dev/svc",
+      "git": {
+        "sha": "badf00d",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "tool_call",
+      "call_id": "call-edit-fail",
+      "name": "edit_file",
+      "args": null
+    },
+    "provenance": {
+      "file": "fixtures/otel/genai/tool_failure.jsonl",
+      "byte_offset": 472,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "otel",
+    "session_id": "sess-fail-001",
+    "seq": 3,
+    "event_id": "765089f0ab456073510a7df920d4f6a28c8a1df57be18a52c1214d1ab8950873:tool_result:0",
+    "parent_id": null,
+    "timestamp": "2026-06-22T13:00:09Z",
+    "project": {
+      "cwd": "/home/dev/svc",
+      "repo_root": "/home/dev/svc",
+      "git": {
+        "sha": "badf00d",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "tool_result",
+      "call_id": "call-edit-fail",
+      "ok": false,
+      "output": "hunk failed to apply: context mismatch"
+    },
+    "provenance": {
+      "file": "fixtures/otel/genai/tool_failure.jsonl",
+      "byte_offset": 472,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "otel",
+    "session_id": "sess-fail-001",
+    "seq": 4,
+    "event_id": "765089f0ab456073510a7df920d4f6a28c8a1df57be18a52c1214d1ab8950873:file_edit:0",
+    "parent_id": null,
+    "timestamp": "2026-06-22T13:00:09Z",
+    "project": {
+      "cwd": "/home/dev/svc",
+      "repo_root": "/home/dev/svc",
+      "git": {
+        "sha": "badf00d",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "file_edit",
+      "call_id": "call-edit-fail",
+      "diff": {
+        "path": "cache/redis.rs",
+        "old": null,
+        "new": null,
+        "unified": null,
+        "added_lines": 20,
+        "removed_lines": 2
+      }
+    },
+    "provenance": {
+      "file": "fixtures/otel/genai/tool_failure.jsonl",
+      "byte_offset": 472,
+      "line_no": 3
+    }
+  }
+]

@@ -1,0 +1,74 @@
+# Memscribe — a self-contained, open-source Rust workspace for deterministic,
+# zero-LLM conversation capture from AI coding agents.
+#
+# The dependency direction is strictly one-way: Memtrace depends on Memscribe,
+# never the reverse. See the implementation whitepaper, §2 and §9.
+
+[workspace]
+resolver = "2"
+members = [
+    "crates/memscribe-core",
+    "crates/memscribe-adapters",
+    "crates/memscribe-io",
+    "crates/memscribe-sink",
+    "crates/memscribe-cli",
+    "crates/memscribe-testkit",
+]
+# The cargo-fuzz crate is a standalone, workspace-EXCLUDED member: it depends on
+# libfuzzer-sys (a nightly-only sanitizer runtime) and must not be pulled into a
+# plain `cargo build`/`cargo test` of the workspace. See fuzz/README.md.
+exclude = ["fuzz"]
+
+[workspace.package]
+version = "0.1.0"
+edition = "2021"
+rust-version = "1.96"
+license = "MIT OR Apache-2.0"
+repository = "https://github.com/Alex793x/Memscribe"
+authors = ["Memrack / Syncable"]
+description = "Deterministic, zero-LLM transcript capture and node preparation for AI coding agents."
+
+# Shared dependency versions. Pinned to major lines; exact versions resolve in
+# Cargo.lock for reproducible builds (see the whitepaper's recommended stack).
+[workspace.dependencies]
+serde = { version = "1", features = ["derive"] }
+serde_json = { version = "1", features = ["preserve_order"] }
+time = { version = "0.3", features = ["serde", "serde-well-known", "formatting", "parsing", "macros"] }
+thiserror = "2"
+blake3 = "1"
+regex = "1"
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+tokio = { version = "1", features = ["rt", "rt-multi-thread", "macros", "fs", "io-util", "sync", "time"] }
+futures = "0.3"
+notify = "6"
+notify-debouncer-full = "0.3"
+zstd = "0.13"
+rusqlite = { version = "0.32", features = ["bundled"] }
+clap = { version = "4", features = ["derive"] }
+anyhow = "1"
+similar = "2"
+walkdir = "2"
+# dev / test
+proptest = "1"
+insta = { version = "1", features = ["json"] }
+assert_cmd = "2"
+predicates = "3"
+tempfile = "3"
+
+# Workspace-wide member crates depend on each other through these handles.
+memscribe-core = { path = "crates/memscribe-core", version = "0.1.0" }
+memscribe-adapters = { path = "crates/memscribe-adapters", version = "0.1.0" }
+memscribe-io = { path = "crates/memscribe-io", version = "0.1.0" }
+memscribe-sink = { path = "crates/memscribe-sink", version = "0.1.0" }
+memscribe-testkit = { path = "crates/memscribe-testkit", version = "0.1.0" }
+
+[workspace.lints.rust]
+unsafe_code = "forbid"
+
+[workspace.lints.clippy]
+# Keep the deterministic core honest without drowning contributors in pedantry.
+all = "warn"
+
+[profile.release]
+lto = "thin"

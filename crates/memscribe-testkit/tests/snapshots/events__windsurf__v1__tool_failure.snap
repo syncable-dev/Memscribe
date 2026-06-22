@@ -1,0 +1,192 @@
+---
+source: crates/memscribe-testkit/tests/golden.rs
+expression: events
+---
+[
+  {
+    "schema_version": 1,
+    "source": "windsurf",
+    "session_id": "ws-fail-004",
+    "seq": 0,
+    "event_id": "0138e418c43d8825cf1c3a3e9cd92031b0f6ecd274c355095f4c69483ae3cfe6",
+    "parent_id": null,
+    "timestamp": "1970-01-01T00:00:00Z",
+    "project": {
+      "cwd": "/Users/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "deadbeef",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "session_start",
+      "cwd": "/Users/dev/acme-api",
+      "git": {
+        "sha": "deadbeef",
+        "branch": "main"
+      },
+      "model": "cascade-base",
+      "tool_version": "1.8.2"
+    },
+    "provenance": {
+      "file": "fixtures/windsurf/v1/tool_failure.jsonl",
+      "byte_offset": 0,
+      "line_no": 1
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "windsurf",
+    "session_id": "ws-fail-004",
+    "seq": 1,
+    "event_id": "u1",
+    "parent_id": null,
+    "timestamp": "2026-06-22T17:05:00Z",
+    "project": {
+      "cwd": "/Users/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "deadbeef",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "user_turn",
+      "text": "Update the read-only vendored file to bump the version.",
+      "parts": []
+    },
+    "provenance": {
+      "file": "fixtures/windsurf/v1/tool_failure.jsonl",
+      "byte_offset": 165,
+      "line_no": 2
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "windsurf",
+    "session_id": "ws-fail-004",
+    "seq": 2,
+    "event_id": "a1",
+    "parent_id": "u1",
+    "timestamp": "2026-06-22T17:05:07Z",
+    "project": {
+      "cwd": "/Users/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "deadbeef",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "assistant_turn",
+      "text": "Attempting the edit now.",
+      "thinking": null,
+      "model": "cascade-base",
+      "usage": {
+        "input_tokens": 260,
+        "output_tokens": 90,
+        "cache_read_tokens": null,
+        "cache_creation_tokens": null
+      },
+      "parts": []
+    },
+    "provenance": {
+      "file": "fixtures/windsurf/v1/tool_failure.jsonl",
+      "byte_offset": 326,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "windsurf",
+    "session_id": "ws-fail-004",
+    "seq": 3,
+    "event_id": "a1#toolcall:call_fail_1",
+    "parent_id": "a1",
+    "timestamp": "2026-06-22T17:05:07Z",
+    "project": {
+      "cwd": "/Users/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "deadbeef",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "tool_call",
+      "call_id": "call_fail_1",
+      "name": "edit_file",
+      "args": {
+        "path": "vendor/locked.toml"
+      }
+    },
+    "provenance": {
+      "file": "fixtures/windsurf/v1/tool_failure.jsonl",
+      "byte_offset": 326,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "windsurf",
+    "session_id": "ws-fail-004",
+    "seq": 4,
+    "event_id": "a1#toolresult:call_fail_1",
+    "parent_id": "a1",
+    "timestamp": "2026-06-22T17:05:07Z",
+    "project": {
+      "cwd": "/Users/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "deadbeef",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "tool_result",
+      "call_id": "call_fail_1",
+      "ok": false,
+      "output": "EACCES: permission denied, open 'vendor/locked.toml'"
+    },
+    "provenance": {
+      "file": "fixtures/windsurf/v1/tool_failure.jsonl",
+      "byte_offset": 326,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "windsurf",
+    "session_id": "ws-fail-004",
+    "seq": 5,
+    "event_id": "a1#edit:0",
+    "parent_id": "a1",
+    "timestamp": "2026-06-22T17:05:07Z",
+    "project": {
+      "cwd": "/Users/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "deadbeef",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "file_edit",
+      "call_id": "call_fail_1",
+      "diff": {
+        "path": "vendor/locked.toml",
+        "old": "version = \"1.0.0\"",
+        "new": "version = \"1.0.1\"",
+        "unified": "@@ -1,1 +1,1 @@\n-version = \"1.0.0\"\n+version = \"1.0.1\"",
+        "added_lines": 1,
+        "removed_lines": 1
+      }
+    },
+    "provenance": {
+      "file": "fixtures/windsurf/v1/tool_failure.jsonl",
+      "byte_offset": 326,
+      "line_no": 3
+    }
+  }
+]

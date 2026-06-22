@@ -1,0 +1,135 @@
+---
+source: crates/memscribe-testkit/tests/golden.rs
+expression: nodes
+---
+[
+  {
+    "node": "conversation",
+    "session_id": "01JZ8codexsess0001happypath",
+    "turn_range": {
+      "start": 1,
+      "end": 2
+    },
+    "text": "Let's use Postgres instead of MySQL for the persistence layer. Swap the driver and the connection URL.",
+    "markers": [
+      {
+        "rule_id": "decision_verb.use",
+        "category": "decision_verb",
+        "matched_text": "use",
+        "offset": 6
+      },
+      {
+        "rule_id": "rejection.instead_of",
+        "category": "rejection",
+        "matched_text": "instead of",
+        "offset": 19
+      }
+    ],
+    "fact_status": "observed",
+    "provenance": [
+      {
+        "file": "fixtures/codex/v2/happy_path_decision_then_edits.jsonl",
+        "byte_offset": 275,
+        "line_no": 2
+      }
+    ]
+  },
+  {
+    "node": "decision",
+    "epitome": "Let's use Postgres instead of MySQL for the persistence layer.",
+    "considered_options": [
+      {
+        "text": "MySQL",
+        "chosen": false
+      },
+      {
+        "text": "Postgres",
+        "chosen": true
+      }
+    ],
+    "is_ban": false,
+    "superseded_by": null,
+    "confirmation": null,
+    "source_span": {
+      "start": 1,
+      "end": 2
+    },
+    "fact_status": "observed"
+  },
+  {
+    "node": "episode",
+    "path": "Cargo.toml",
+    "diff": {
+      "path": "Cargo.toml",
+      "old": null,
+      "new": null,
+      "unified": "@@\n-mysql = \"24\"\n+sqlx = { version = \"0.7\", features = [\"postgres\", \"runtime-tokio\"] }",
+      "added_lines": 1,
+      "removed_lines": 1
+    },
+    "git": {
+      "sha": "a1b2c3d4e5f60718293a4b5c6d7e8f9001020304",
+      "branch": "feat/storage-layer"
+    },
+    "episode_id": "117c5fd3325566f8c4f87cea69685e577e5404c958202234ed3dd286dc2d7012"
+  },
+  {
+    "node": "episode",
+    "path": "src/db.rs",
+    "diff": {
+      "path": "src/db.rs",
+      "old": null,
+      "new": null,
+      "unified": "@@\n-let url = \"mysql://localhost:3306/acme\";\n-let pool = mysql::Pool::new(url)?;\n+let url = \"postgres://localhost:5432/acme\";\n+let pool = sqlx::PgPool::connect(url).await?;",
+      "added_lines": 2,
+      "removed_lines": 2
+    },
+    "git": {
+      "sha": "a1b2c3d4e5f60718293a4b5c6d7e8f9001020304",
+      "branch": "feat/storage-layer"
+    },
+    "episode_id": "0992089b822a803ecddbe1a0c4bd5e88206b9295597038b97162add8a3e653c5"
+  },
+  {
+    "node": "binding",
+    "from": "decision:01JZ8codexsess0001happypath:1",
+    "to": "episode:0992089b822a803ecddbe1a0c4bd5e88206b9295597038b97162add8a3e653c5",
+    "relation": "produced",
+    "prov": {
+      "used_session": "01JZ8codexsess0001happypath",
+      "used_decision": "decision:01JZ8codexsess0001happypath:1",
+      "was_generated_by_session": "01JZ8codexsess0001happypath",
+      "t_use": "2026-06-22T14:00:05.12Z",
+      "t_gen": "2026-06-22T14:00:18.64Z"
+    },
+    "fact_status": "deterministically_derived",
+    "correlation": {
+      "support": 0.5,
+      "confidence": 0.5,
+      "lift": 1.0,
+      "phi": 0.0,
+      "p": 1.0
+    }
+  },
+  {
+    "node": "binding",
+    "from": "decision:01JZ8codexsess0001happypath:1",
+    "to": "episode:117c5fd3325566f8c4f87cea69685e577e5404c958202234ed3dd286dc2d7012",
+    "relation": "produced",
+    "prov": {
+      "used_session": "01JZ8codexsess0001happypath",
+      "used_decision": "decision:01JZ8codexsess0001happypath:1",
+      "was_generated_by_session": "01JZ8codexsess0001happypath",
+      "t_use": "2026-06-22T14:00:05.12Z",
+      "t_gen": "2026-06-22T14:00:18.64Z"
+    },
+    "fact_status": "deterministically_derived",
+    "correlation": {
+      "support": 0.5,
+      "confidence": 0.5,
+      "lift": 1.0,
+      "phi": 0.0,
+      "p": 1.0
+    }
+  }
+]

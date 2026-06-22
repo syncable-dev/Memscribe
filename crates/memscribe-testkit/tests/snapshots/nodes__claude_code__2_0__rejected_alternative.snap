@@ -1,0 +1,91 @@
+---
+source: crates/memscribe-testkit/tests/golden.rs
+expression: nodes
+---
+[
+  {
+    "node": "conversation",
+    "session_id": "sess-reject-002",
+    "turn_range": {
+      "start": 1,
+      "end": 2
+    },
+    "text": "We'll go with Stripe instead of PayPal for the checkout flow.",
+    "markers": [
+      {
+        "rule_id": "decision_verb.use",
+        "category": "decision_verb",
+        "matched_text": "go with",
+        "offset": 6
+      },
+      {
+        "rule_id": "rejection.instead_of",
+        "category": "rejection",
+        "matched_text": "instead of",
+        "offset": 21
+      }
+    ],
+    "fact_status": "observed",
+    "provenance": [
+      {
+        "file": "fixtures/claude_code/2.0/rejected_alternative.jsonl",
+        "byte_offset": 0,
+        "line_no": 1
+      }
+    ]
+  },
+  {
+    "node": "decision",
+    "epitome": "We'll go with Stripe instead of PayPal for the checkout flow.",
+    "considered_options": [
+      {
+        "text": "PayPal",
+        "chosen": false
+      },
+      {
+        "text": "Stripe",
+        "chosen": true
+      }
+    ],
+    "is_ban": false,
+    "superseded_by": null,
+    "confirmation": null,
+    "source_span": {
+      "start": 1,
+      "end": 2
+    },
+    "fact_status": "observed"
+  },
+  {
+    "node": "episode",
+    "path": "/Users/dev/acme/web/src/checkout/provider.ts",
+    "diff": {
+      "path": "/Users/dev/acme/web/src/checkout/provider.ts",
+      "old": "",
+      "new": "export { stripe as paymentProvider } from './stripe';\n",
+      "unified": "+export { stripe as paymentProvider } from './stripe';",
+      "added_lines": 1,
+      "removed_lines": 0
+    },
+    "git": {
+      "sha": "0f1e2d3c4b5a69788796a5b4c3d2e1f00f1e2d3c",
+      "branch": "feat/payments"
+    },
+    "episode_id": "39d384a667fa2764297c714568536ab737e3e713025ea94551c3db5de2d182c6"
+  },
+  {
+    "node": "binding",
+    "from": "decision:sess-reject-002:1",
+    "to": "episode:39d384a667fa2764297c714568536ab737e3e713025ea94551c3db5de2d182c6",
+    "relation": "produced",
+    "prov": {
+      "used_session": "sess-reject-002",
+      "used_decision": "decision:sess-reject-002:1",
+      "was_generated_by_session": "sess-reject-002",
+      "t_use": "2026-06-22T11:30:00Z",
+      "t_gen": "2026-06-22T11:30:04.9Z"
+    },
+    "fact_status": "deterministically_derived",
+    "correlation": null
+  }
+]

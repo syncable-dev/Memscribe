@@ -1,0 +1,221 @@
+---
+source: crates/memscribe-testkit/tests/golden.rs
+expression: events
+---
+[
+  {
+    "schema_version": 1,
+    "source": "vs_code",
+    "session_id": "vsc-sess-1",
+    "seq": 0,
+    "event_id": "5cc7d42f773a8bb1e8d79d3f015b036fdb1fdc271110aa72cb1edbab564edc6c",
+    "parent_id": null,
+    "timestamp": "1970-01-01T00:00:00Z",
+    "project": {
+      "cwd": "/home/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "a1b2c3d4e5f6",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "session_start",
+      "cwd": "/home/dev/acme-api",
+      "git": {
+        "sha": "a1b2c3d4e5f6",
+        "branch": "main"
+      },
+      "model": "gpt-4o",
+      "tool_version": "1.92.0"
+    },
+    "provenance": {
+      "file": "fixtures/vscode/v1/happy_path_decision_then_edits.jsonl",
+      "byte_offset": 0,
+      "line_no": 1
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "vs_code",
+    "session_id": "vsc-sess-1",
+    "seq": 1,
+    "event_id": "m1",
+    "parent_id": null,
+    "timestamp": "2026-06-22T10:00:00Z",
+    "project": {
+      "cwd": "/home/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "a1b2c3d4e5f6",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "user_turn",
+      "text": "Let's use Postgres instead of MySQL for the persistence layer.",
+      "parts": []
+    },
+    "provenance": {
+      "file": "fixtures/vscode/v1/happy_path_decision_then_edits.jsonl",
+      "byte_offset": 162,
+      "line_no": 2
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "vs_code",
+    "session_id": "vsc-sess-1",
+    "seq": 2,
+    "event_id": "m2",
+    "parent_id": "m1",
+    "timestamp": "2026-06-22T10:00:05Z",
+    "project": {
+      "cwd": "/home/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "a1b2c3d4e5f6",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "assistant_turn",
+      "text": "Good call. I'll switch the connection string and update the schema module.",
+      "thinking": null,
+      "model": "gpt-4o",
+      "usage": {
+        "input_tokens": 1200,
+        "output_tokens": 340,
+        "cache_read_tokens": null,
+        "cache_creation_tokens": null
+      },
+      "parts": []
+    },
+    "provenance": {
+      "file": "fixtures/vscode/v1/happy_path_decision_then_edits.jsonl",
+      "byte_offset": 329,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "vs_code",
+    "session_id": "vsc-sess-1",
+    "seq": 3,
+    "event_id": "m2:edit:0:src/db/connect.ts",
+    "parent_id": "m2",
+    "timestamp": "2026-06-22T10:00:05Z",
+    "project": {
+      "cwd": "/home/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "a1b2c3d4e5f6",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "file_edit",
+      "call_id": null,
+      "diff": {
+        "path": "src/db/connect.ts",
+        "old": "const url = 'mysql://localhost/acme';",
+        "new": "const url = 'postgres://localhost/acme';",
+        "unified": null,
+        "added_lines": 1,
+        "removed_lines": 1
+      }
+    },
+    "provenance": {
+      "file": "fixtures/vscode/v1/happy_path_decision_then_edits.jsonl",
+      "byte_offset": 329,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "vs_code",
+    "session_id": "vsc-sess-1",
+    "seq": 4,
+    "event_id": "m2:edit:1:src/db/schema.sql",
+    "parent_id": "m2",
+    "timestamp": "2026-06-22T10:00:05Z",
+    "project": {
+      "cwd": "/home/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "a1b2c3d4e5f6",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "file_edit",
+      "call_id": null,
+      "diff": {
+        "path": "src/db/schema.sql",
+        "old": "ENGINE=InnoDB",
+        "new": "-- postgres has no storage engines",
+        "unified": "@@ -1 +1 @@\n-ENGINE=InnoDB\n+-- postgres has no storage engines",
+        "added_lines": 1,
+        "removed_lines": 1
+      }
+    },
+    "provenance": {
+      "file": "fixtures/vscode/v1/happy_path_decision_then_edits.jsonl",
+      "byte_offset": 329,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "vs_code",
+    "session_id": "vsc-sess-1",
+    "seq": 5,
+    "event_id": "m3",
+    "parent_id": "m2",
+    "timestamp": "2026-06-22T10:01:00Z",
+    "project": {
+      "cwd": "/home/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "a1b2c3d4e5f6",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "user_turn",
+      "text": "Looks good, thanks.",
+      "parts": []
+    },
+    "provenance": {
+      "file": "fixtures/vscode/v1/happy_path_decision_then_edits.jsonl",
+      "byte_offset": 928,
+      "line_no": 4
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "vs_code",
+    "session_id": "vsc-sess-1",
+    "seq": 6,
+    "event_id": "67f82833d61938bb88349e0a2aaa0d31882cf90d17c1d9099f6dcdf2720b9927",
+    "parent_id": null,
+    "timestamp": "2026-06-22T10:02:00Z",
+    "project": {
+      "cwd": "/home/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "a1b2c3d4e5f6",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "session_end",
+      "reason": "user_closed"
+    },
+    "provenance": {
+      "file": "fixtures/vscode/v1/happy_path_decision_then_edits.jsonl",
+      "byte_offset": 1052,
+      "line_no": 5
+    }
+  }
+]

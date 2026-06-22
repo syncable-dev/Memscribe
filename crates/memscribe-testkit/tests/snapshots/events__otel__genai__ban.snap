@@ -1,0 +1,110 @@
+---
+source: crates/memscribe-testkit/tests/golden.rs
+expression: events
+---
+[
+  {
+    "schema_version": 1,
+    "source": "otel",
+    "session_id": "sess-ban-001",
+    "seq": 0,
+    "event_id": "031db5d30a89efdce1f49029d63da3e76da287a91621e52aa669404d6378b5c3:session_start:0",
+    "parent_id": null,
+    "timestamp": "2026-06-22T12:00:00Z",
+    "project": {
+      "cwd": "/home/dev/core",
+      "repo_root": "/home/dev/core",
+      "git": {
+        "sha": "9abcdef",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "session_start",
+      "cwd": "/home/dev/core",
+      "git": {
+        "sha": "9abcdef",
+        "branch": "main"
+      },
+      "model": "gemini-2.5-pro",
+      "tool_version": null
+    },
+    "provenance": {
+      "file": "fixtures/otel/genai/ban.jsonl",
+      "byte_offset": 0,
+      "line_no": 1
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "otel",
+    "session_id": "sess-ban-001",
+    "seq": 1,
+    "event_id": "c1c3f679b52d8ea3b11db0c3cadce544f3d942b89683293b2e19d15cda5b170c:user_prompt:0",
+    "parent_id": null,
+    "timestamp": "2026-06-22T12:00:06Z",
+    "project": {
+      "cwd": "/home/dev/core",
+      "repo_root": "/home/dev/core",
+      "git": {
+        "sha": "9abcdef",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "user_turn",
+      "text": "We will never add a dependency on left-pad. Keep the tree clean.",
+      "parts": [
+        {
+          "part": "text",
+          "text": "We will never add a dependency on left-pad. Keep the tree clean."
+        }
+      ]
+    },
+    "provenance": {
+      "file": "fixtures/otel/genai/ban.jsonl",
+      "byte_offset": 272,
+      "line_no": 2
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "otel",
+    "session_id": "sess-ban-001",
+    "seq": 2,
+    "event_id": "f24ec653cf8d2ee6ae5656ccfdd758c6ac37ee7cfa3e99235fde118f7893a5fc:output_msg:0",
+    "parent_id": null,
+    "timestamp": "2026-06-22T12:00:10Z",
+    "project": {
+      "cwd": "/home/dev/core",
+      "repo_root": "/home/dev/core",
+      "git": {
+        "sha": "9abcdef",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "assistant_turn",
+      "text": "Acknowledged. No left-pad dependency will be added.",
+      "thinking": null,
+      "model": "gemini-2.5-pro",
+      "usage": {
+        "input_tokens": 90,
+        "output_tokens": 18,
+        "cache_read_tokens": null,
+        "cache_creation_tokens": null
+      },
+      "parts": [
+        {
+          "part": "text",
+          "text": "Acknowledged. No left-pad dependency will be added."
+        }
+      ]
+    },
+    "provenance": {
+      "file": "fixtures/otel/genai/ban.jsonl",
+      "byte_offset": 492,
+      "line_no": 3
+    }
+  }
+]

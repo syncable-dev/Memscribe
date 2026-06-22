@@ -1,0 +1,49 @@
+---
+source: crates/memscribe-testkit/tests/golden.rs
+expression: nodes
+---
+[
+  {
+    "node": "conversation",
+    "session_id": "01JZ8codexsess0004toolfail",
+    "turn_range": {
+      "start": 1,
+      "end": 2
+    },
+    "text": "Switch the config loader to read from config.toml instead of config.yaml.",
+    "markers": [
+      {
+        "rule_id": "rejection.instead_of",
+        "category": "rejection",
+        "matched_text": "instead of",
+        "offset": 50
+      }
+    ],
+    "fact_status": "observed",
+    "provenance": [
+      {
+        "file": "fixtures/codex/v2/tool_failure.jsonl",
+        "byte_offset": 273,
+        "line_no": 2
+      }
+    ]
+  },
+  {
+    "node": "decision",
+    "epitome": "toml instead of config.",
+    "considered_options": [
+      {
+        "text": "config",
+        "chosen": false
+      }
+    ],
+    "is_ban": false,
+    "superseded_by": null,
+    "confirmation": null,
+    "source_span": {
+      "start": 1,
+      "end": 2
+    },
+    "fact_status": "observed"
+  }
+]

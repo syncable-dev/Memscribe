@@ -1,0 +1,1 @@
+{"version":3,"sessionId":"vsc-native-1","requesterUsername":"dev","responderUsername":"GitHub Copilot","requests":[{"message":{"text":"Add a health check endpoint","parts":[{"kind":"text","text":"Add a health check endpoint"}]},"response":[{"kind":"text","text":"I'll add a GET /healthz route that returns 200."},{"kind":"text","text":"Done."}]}]}

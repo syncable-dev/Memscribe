@@ -1,0 +1,237 @@
+---
+source: crates/memscribe-testkit/tests/golden.rs
+expression: events
+---
+[
+  {
+    "schema_version": 1,
+    "source": "gemini",
+    "session_id": "a1b2c3d4-0004",
+    "seq": 0,
+    "event_id": "7036cef4e9e98fd546db9000e4dc951075772cb75bcfcbd8a57b5ec99f50d4d5",
+    "parent_id": null,
+    "timestamp": "1970-01-01T00:00:00Z",
+    "project": {
+      "cwd": "/home/dev/service",
+      "repo_root": null,
+      "git": {
+        "sha": "abc0001234",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "session_start",
+      "cwd": "/home/dev/service",
+      "git": {
+        "sha": "abc0001234",
+        "branch": "main"
+      },
+      "model": "gemini-2.5-pro",
+      "tool_version": "0.4.1"
+    },
+    "provenance": {
+      "file": "fixtures/gemini/v1/tool_failure.jsonl",
+      "byte_offset": 0,
+      "line_no": 1
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "gemini",
+    "session_id": "a1b2c3d4-0004",
+    "seq": 1,
+    "event_id": "msg-0301",
+    "parent_id": null,
+    "timestamp": "2026-06-22T13:45:00Z",
+    "project": {
+      "cwd": "/home/dev/service",
+      "repo_root": null,
+      "git": {
+        "sha": "abc0001234",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "user_turn",
+      "text": "Add a rate limiter to the gateway handler.",
+      "parts": []
+    },
+    "provenance": {
+      "file": "fixtures/gemini/v1/tool_failure.jsonl",
+      "byte_offset": 149,
+      "line_no": 2
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "gemini",
+    "session_id": "a1b2c3d4-0004",
+    "seq": 2,
+    "event_id": "msg-0302",
+    "parent_id": null,
+    "timestamp": "2026-06-22T13:45:03Z",
+    "project": {
+      "cwd": "/home/dev/service",
+      "repo_root": null,
+      "git": {
+        "sha": "abc0001234",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "assistant_turn",
+      "text": "I'll add a token-bucket limiter to the handler.",
+      "thinking": "Edit gateway.rs to insert the limiter.",
+      "model": null,
+      "usage": {
+        "input_tokens": 95,
+        "output_tokens": 40,
+        "cache_read_tokens": null,
+        "cache_creation_tokens": null
+      },
+      "parts": []
+    },
+    "provenance": {
+      "file": "fixtures/gemini/v1/tool_failure.jsonl",
+      "byte_offset": 272,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "gemini",
+    "session_id": "a1b2c3d4-0004",
+    "seq": 3,
+    "event_id": "call-edit-fail:call",
+    "parent_id": "msg-0302",
+    "timestamp": "2026-06-22T13:45:03Z",
+    "project": {
+      "cwd": "/home/dev/service",
+      "repo_root": null,
+      "git": {
+        "sha": "abc0001234",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "tool_call",
+      "call_id": "call-edit-fail",
+      "name": "replace",
+      "args": {
+        "path": "src/gateway.rs"
+      }
+    },
+    "provenance": {
+      "file": "fixtures/gemini/v1/tool_failure.jsonl",
+      "byte_offset": 272,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "gemini",
+    "session_id": "a1b2c3d4-0004",
+    "seq": 4,
+    "event_id": "call-edit-fail:result",
+    "parent_id": "msg-0302",
+    "timestamp": "2026-06-22T13:45:03Z",
+    "project": {
+      "cwd": "/home/dev/service",
+      "repo_root": null,
+      "git": {
+        "sha": "abc0001234",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "tool_result",
+      "call_id": "call-edit-fail",
+      "ok": false,
+      "output": {
+        "fileName": "src/gateway.rs",
+        "originalContent": "fn handle() {}\n",
+        "newContent": "fn handle() { limiter.check(); }\n",
+        "fileDiff": "@@ -1 +1 @@\n-fn handle() {}\n+fn handle() { limiter.check(); }\n",
+        "diffStat": {
+          "added": 1,
+          "removed": 1
+        },
+        "error": "write failed: read-only file system"
+      }
+    },
+    "provenance": {
+      "file": "fixtures/gemini/v1/tool_failure.jsonl",
+      "byte_offset": 272,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "gemini",
+    "session_id": "a1b2c3d4-0004",
+    "seq": 5,
+    "event_id": "call-edit-fail:edit",
+    "parent_id": "msg-0302",
+    "timestamp": "2026-06-22T13:45:03Z",
+    "project": {
+      "cwd": "/home/dev/service",
+      "repo_root": null,
+      "git": {
+        "sha": "abc0001234",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "file_edit",
+      "call_id": "call-edit-fail",
+      "diff": {
+        "path": "src/gateway.rs",
+        "old": "fn handle() {}\n",
+        "new": "fn handle() { limiter.check(); }\n",
+        "unified": "@@ -1 +1 @@\n-fn handle() {}\n+fn handle() { limiter.check(); }\n",
+        "added_lines": 1,
+        "removed_lines": 1
+      }
+    },
+    "provenance": {
+      "file": "fixtures/gemini/v1/tool_failure.jsonl",
+      "byte_offset": 272,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "gemini",
+    "session_id": "a1b2c3d4-0004",
+    "seq": 6,
+    "event_id": "msg-0303",
+    "parent_id": null,
+    "timestamp": "2026-06-22T13:45:05Z",
+    "project": {
+      "cwd": "/home/dev/service",
+      "repo_root": null,
+      "git": {
+        "sha": "abc0001234",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "assistant_turn",
+      "text": "The edit failed because the file system is read-only. Please re-mount with write access and I'll retry.",
+      "thinking": null,
+      "model": null,
+      "usage": {
+        "input_tokens": 60,
+        "output_tokens": 33,
+        "cache_read_tokens": null,
+        "cache_creation_tokens": null
+      },
+      "parts": []
+    },
+    "provenance": {
+      "file": "fixtures/gemini/v1/tool_failure.jsonl",
+      "byte_offset": 872,
+      "line_no": 4
+    }
+  }
+]

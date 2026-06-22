@@ -1,0 +1,202 @@
+---
+source: crates/memscribe-testkit/tests/golden.rs
+expression: events
+---
+[
+  {
+    "schema_version": 1,
+    "source": "cursor",
+    "session_id": "cur-sess-004",
+    "seq": 0,
+    "event_id": "5531b6e6cb1be2222fffe011757a5d4b59d8cd80dcd98fa8521b94f47fdcc7b0",
+    "parent_id": null,
+    "timestamp": "1970-01-01T00:00:00Z",
+    "project": {
+      "cwd": "/Users/dev/projects/infra-scripts",
+      "repo_root": null,
+      "git": {
+        "sha": "c0ffee123456",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "session_start",
+      "cwd": "/Users/dev/projects/infra-scripts",
+      "git": {
+        "sha": "c0ffee123456",
+        "branch": "main"
+      },
+      "model": null,
+      "tool_version": "0.43.2"
+    },
+    "provenance": {
+      "file": "fixtures/cursor/v1/tool_failure.jsonl",
+      "byte_offset": 0,
+      "line_no": 1
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "cursor",
+    "session_id": "cur-sess-004",
+    "seq": 1,
+    "event_id": "msg-301",
+    "parent_id": null,
+    "timestamp": "2026-06-22T17:05:00Z",
+    "project": {
+      "cwd": "/Users/dev/projects/infra-scripts",
+      "repo_root": null,
+      "git": {
+        "sha": "c0ffee123456",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "user_turn",
+      "text": "Add a retry wrapper around the deploy step in deploy.sh.",
+      "parts": [
+        {
+          "part": "text",
+          "text": "Add a retry wrapper around the deploy step in deploy.sh."
+        }
+      ]
+    },
+    "provenance": {
+      "file": "fixtures/cursor/v1/tool_failure.jsonl",
+      "byte_offset": 162,
+      "line_no": 2
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "cursor",
+    "session_id": "cur-sess-004",
+    "seq": 2,
+    "event_id": "msg-302",
+    "parent_id": "msg-301",
+    "timestamp": "2026-06-22T17:05:14Z",
+    "project": {
+      "cwd": "/Users/dev/projects/infra-scripts",
+      "repo_root": null,
+      "git": {
+        "sha": "c0ffee123456",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "assistant_turn",
+      "text": "I'll wrap the deploy step in a retry loop.",
+      "thinking": null,
+      "model": "cursor-fast",
+      "usage": {
+        "input_tokens": 110,
+        "output_tokens": 52,
+        "cache_read_tokens": null,
+        "cache_creation_tokens": null
+      },
+      "parts": [
+        {
+          "part": "text",
+          "text": "I'll wrap the deploy step in a retry loop."
+        }
+      ]
+    },
+    "provenance": {
+      "file": "fixtures/cursor/v1/tool_failure.jsonl",
+      "byte_offset": 330,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "cursor",
+    "session_id": "cur-sess-004",
+    "seq": 3,
+    "event_id": "msg-302#toolcall:call-edit-4",
+    "parent_id": "msg-302",
+    "timestamp": "2026-06-22T17:05:14Z",
+    "project": {
+      "cwd": "/Users/dev/projects/infra-scripts",
+      "repo_root": null,
+      "git": {
+        "sha": "c0ffee123456",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "tool_call",
+      "call_id": "call-edit-4",
+      "name": "edit_file",
+      "args": {
+        "path": "deploy.sh"
+      }
+    },
+    "provenance": {
+      "file": "fixtures/cursor/v1/tool_failure.jsonl",
+      "byte_offset": 330,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "cursor",
+    "session_id": "cur-sess-004",
+    "seq": 4,
+    "event_id": "msg-302#toolresult:call-edit-4",
+    "parent_id": "msg-302",
+    "timestamp": "2026-06-22T17:05:14Z",
+    "project": {
+      "cwd": "/Users/dev/projects/infra-scripts",
+      "repo_root": null,
+      "git": {
+        "sha": "c0ffee123456",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "tool_result",
+      "call_id": "call-edit-4",
+      "ok": false,
+      "output": "error: permission denied: deploy.sh is read-only (EACCES)"
+    },
+    "provenance": {
+      "file": "fixtures/cursor/v1/tool_failure.jsonl",
+      "byte_offset": 330,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "cursor",
+    "session_id": "cur-sess-004",
+    "seq": 5,
+    "event_id": "msg-302#edit:0",
+    "parent_id": "msg-302",
+    "timestamp": "2026-06-22T17:05:14Z",
+    "project": {
+      "cwd": "/Users/dev/projects/infra-scripts",
+      "repo_root": null,
+      "git": {
+        "sha": "c0ffee123456",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "file_edit",
+      "call_id": "call-edit-4",
+      "diff": {
+        "path": "deploy.sh",
+        "old": "run_deploy",
+        "new": "for i in 1 2 3; do run_deploy && break; done",
+        "unified": "@@ -1 +1 @@\n-run_deploy\n+for i in 1 2 3; do run_deploy && break; done\n",
+        "added_lines": 1,
+        "removed_lines": 1
+      }
+    },
+    "provenance": {
+      "file": "fixtures/cursor/v1/tool_failure.jsonl",
+      "byte_offset": 330,
+      "line_no": 3
+    }
+  }
+]

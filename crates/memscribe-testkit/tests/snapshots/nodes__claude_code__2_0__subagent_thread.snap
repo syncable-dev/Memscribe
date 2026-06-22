@@ -1,0 +1,124 @@
+---
+source: crates/memscribe-testkit/tests/golden.rs
+expression: nodes
+---
+[
+  {
+    "node": "conversation",
+    "session_id": "sess-main-008",
+    "turn_range": {
+      "start": 1,
+      "end": 2
+    },
+    "text": "Let's use a dedicated search subagent to migrate the indexer to tantivy.",
+    "markers": [
+      {
+        "rule_id": "decision_verb.use",
+        "category": "decision_verb",
+        "matched_text": "use",
+        "offset": 6
+      }
+    ],
+    "fact_status": "observed",
+    "provenance": [
+      {
+        "file": "fixtures/claude_code/2.0/subagent_thread.jsonl",
+        "byte_offset": 0,
+        "line_no": 1
+      }
+    ]
+  },
+  {
+    "node": "decision",
+    "epitome": "Let's use a dedicated search subagent to migrate the indexer to tantivy.",
+    "considered_options": [
+      {
+        "text": "a",
+        "chosen": true
+      }
+    ],
+    "is_ban": false,
+    "superseded_by": null,
+    "confirmation": null,
+    "source_span": {
+      "start": 1,
+      "end": 2
+    },
+    "fact_status": "observed"
+  },
+  {
+    "node": "conversation",
+    "session_id": "sess-main-008",
+    "turn_range": {
+      "start": 4,
+      "end": 5
+    },
+    "text": "Let's adopt tantivy as the search index backend in the indexer module.",
+    "markers": [
+      {
+        "rule_id": "decision_verb.use",
+        "category": "decision_verb",
+        "matched_text": "adopt",
+        "offset": 6
+      }
+    ],
+    "fact_status": "observed",
+    "provenance": [
+      {
+        "file": "fixtures/claude_code/2.0/subagent_thread.jsonl",
+        "byte_offset": 1075,
+        "line_no": 3
+      }
+    ]
+  },
+  {
+    "node": "decision",
+    "epitome": "Let's adopt tantivy as the search index backend in the indexer module.",
+    "considered_options": [
+      {
+        "text": "tantivy",
+        "chosen": true
+      }
+    ],
+    "is_ban": false,
+    "superseded_by": null,
+    "confirmation": null,
+    "source_span": {
+      "start": 4,
+      "end": 5
+    },
+    "fact_status": "observed"
+  },
+  {
+    "node": "episode",
+    "path": "/Users/dev/acme/api/src/indexer.rs",
+    "diff": {
+      "path": "/Users/dev/acme/api/src/indexer.rs",
+      "old": "use tantivy_lite::Index;",
+      "new": "use tantivy::Index;",
+      "unified": "-use tantivy_lite::Index;\n+use tantivy::Index;",
+      "added_lines": 1,
+      "removed_lines": 1
+    },
+    "git": {
+      "sha": "abcdefab12345678abcdefab12345678abcdefab",
+      "branch": "main"
+    },
+    "episode_id": "ecde881f1e7a645f74ddfe66f1cfbe262a0cf5cc157d85f65410ea79c370900e"
+  },
+  {
+    "node": "binding",
+    "from": "decision:sess-main-008:4",
+    "to": "episode:ecde881f1e7a645f74ddfe66f1cfbe262a0cf5cc157d85f65410ea79c370900e",
+    "relation": "produced",
+    "prov": {
+      "used_session": "sess-main-008",
+      "used_decision": "decision:sess-main-008:4",
+      "was_generated_by_session": "sess-main-008",
+      "t_use": "2026-06-22T17:00:05Z",
+      "t_gen": "2026-06-22T17:00:08.4Z"
+    },
+    "fact_status": "deterministically_derived",
+    "correlation": null
+  }
+]

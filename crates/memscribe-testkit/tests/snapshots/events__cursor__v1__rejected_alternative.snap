@@ -1,0 +1,274 @@
+---
+source: crates/memscribe-testkit/tests/golden.rs
+expression: events
+---
+[
+  {
+    "schema_version": 1,
+    "source": "cursor",
+    "session_id": "cur-sess-002",
+    "seq": 0,
+    "event_id": "befa06a9687c173e6e592e40b16848d455058e85933537a6d917996582ab6742",
+    "parent_id": null,
+    "timestamp": "1970-01-01T00:00:00Z",
+    "project": {
+      "cwd": "/Users/dev/projects/web-dashboard",
+      "repo_root": null,
+      "git": {
+        "sha": "3b81fe09cc12",
+        "branch": "feat/state-mgmt"
+      }
+    },
+    "kind": {
+      "event": "session_start",
+      "cwd": "/Users/dev/projects/web-dashboard",
+      "git": {
+        "sha": "3b81fe09cc12",
+        "branch": "feat/state-mgmt"
+      },
+      "model": null,
+      "tool_version": "0.43.2"
+    },
+    "provenance": {
+      "file": "fixtures/cursor/v1/rejected_alternative.jsonl",
+      "byte_offset": 0,
+      "line_no": 1
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "cursor",
+    "session_id": "cur-sess-002",
+    "seq": 1,
+    "event_id": "msg-101",
+    "parent_id": null,
+    "timestamp": "2026-06-22T15:10:00Z",
+    "project": {
+      "cwd": "/Users/dev/projects/web-dashboard",
+      "repo_root": null,
+      "git": {
+        "sha": "3b81fe09cc12",
+        "branch": "feat/state-mgmt"
+      }
+    },
+    "kind": {
+      "event": "user_turn",
+      "text": "Should we use Redux or Zustand for the new dashboard state?",
+      "parts": [
+        {
+          "part": "text",
+          "text": "Should we use Redux or Zustand for the new dashboard state?"
+        }
+      ]
+    },
+    "provenance": {
+      "file": "fixtures/cursor/v1/rejected_alternative.jsonl",
+      "byte_offset": 173,
+      "line_no": 2
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "cursor",
+    "session_id": "cur-sess-002",
+    "seq": 2,
+    "event_id": "msg-102",
+    "parent_id": "msg-101",
+    "timestamp": "2026-06-22T15:10:09Z",
+    "project": {
+      "cwd": "/Users/dev/projects/web-dashboard",
+      "repo_root": null,
+      "git": {
+        "sha": "3b81fe09cc12",
+        "branch": "feat/state-mgmt"
+      }
+    },
+    "kind": {
+      "event": "assistant_turn",
+      "text": "I considered Redux, but for this dashboard it's heavier than we need — too much boilerplate for the small store. We'll go with Zustand instead.",
+      "thinking": null,
+      "model": "cursor-pro",
+      "usage": {
+        "input_tokens": 180,
+        "output_tokens": 72,
+        "cache_read_tokens": null,
+        "cache_creation_tokens": null
+      },
+      "parts": [
+        {
+          "part": "text",
+          "text": "I considered Redux, but for this dashboard it's heavier than we need — too much boilerplate for the small store. We'll go with Zustand instead."
+        }
+      ]
+    },
+    "provenance": {
+      "file": "fixtures/cursor/v1/rejected_alternative.jsonl",
+      "byte_offset": 344,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "cursor",
+    "session_id": "cur-sess-002",
+    "seq": 3,
+    "event_id": "msg-103",
+    "parent_id": "msg-102",
+    "timestamp": "2026-06-22T15:10:40Z",
+    "project": {
+      "cwd": "/Users/dev/projects/web-dashboard",
+      "repo_root": null,
+      "git": {
+        "sha": "3b81fe09cc12",
+        "branch": "feat/state-mgmt"
+      }
+    },
+    "kind": {
+      "event": "user_turn",
+      "text": "Agreed, reject Redux. Let's go with Zustand and wire up the store.",
+      "parts": [
+        {
+          "part": "text",
+          "text": "Agreed, reject Redux. Let's go with Zustand and wire up the store."
+        }
+      ]
+    },
+    "provenance": {
+      "file": "fixtures/cursor/v1/rejected_alternative.jsonl",
+      "byte_offset": 666,
+      "line_no": 4
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "cursor",
+    "session_id": "cur-sess-002",
+    "seq": 4,
+    "event_id": "msg-104",
+    "parent_id": "msg-103",
+    "timestamp": "2026-06-22T15:10:52Z",
+    "project": {
+      "cwd": "/Users/dev/projects/web-dashboard",
+      "repo_root": null,
+      "git": {
+        "sha": "3b81fe09cc12",
+        "branch": "feat/state-mgmt"
+      }
+    },
+    "kind": {
+      "event": "assistant_turn",
+      "text": "Creating the Zustand store now.",
+      "thinking": null,
+      "model": "cursor-pro",
+      "usage": {
+        "input_tokens": 96,
+        "output_tokens": 40,
+        "cache_read_tokens": null,
+        "cache_creation_tokens": null
+      },
+      "parts": [
+        {
+          "part": "text",
+          "text": "Creating the Zustand store now."
+        }
+      ]
+    },
+    "provenance": {
+      "file": "fixtures/cursor/v1/rejected_alternative.jsonl",
+      "byte_offset": 849,
+      "line_no": 5
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "cursor",
+    "session_id": "cur-sess-002",
+    "seq": 5,
+    "event_id": "msg-104#toolcall:call-write-1",
+    "parent_id": "msg-104",
+    "timestamp": "2026-06-22T15:10:52Z",
+    "project": {
+      "cwd": "/Users/dev/projects/web-dashboard",
+      "repo_root": null,
+      "git": {
+        "sha": "3b81fe09cc12",
+        "branch": "feat/state-mgmt"
+      }
+    },
+    "kind": {
+      "event": "tool_call",
+      "call_id": "call-write-1",
+      "name": "write_file",
+      "args": {
+        "path": "src/store/dashboard.ts"
+      }
+    },
+    "provenance": {
+      "file": "fixtures/cursor/v1/rejected_alternative.jsonl",
+      "byte_offset": 849,
+      "line_no": 5
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "cursor",
+    "session_id": "cur-sess-002",
+    "seq": 6,
+    "event_id": "msg-104#toolresult:call-write-1",
+    "parent_id": "msg-104",
+    "timestamp": "2026-06-22T15:10:52Z",
+    "project": {
+      "cwd": "/Users/dev/projects/web-dashboard",
+      "repo_root": null,
+      "git": {
+        "sha": "3b81fe09cc12",
+        "branch": "feat/state-mgmt"
+      }
+    },
+    "kind": {
+      "event": "tool_result",
+      "call_id": "call-write-1",
+      "ok": true,
+      "output": "created file"
+    },
+    "provenance": {
+      "file": "fixtures/cursor/v1/rejected_alternative.jsonl",
+      "byte_offset": 849,
+      "line_no": 5
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "cursor",
+    "session_id": "cur-sess-002",
+    "seq": 7,
+    "event_id": "msg-104#edit:0",
+    "parent_id": "msg-104",
+    "timestamp": "2026-06-22T15:10:52Z",
+    "project": {
+      "cwd": "/Users/dev/projects/web-dashboard",
+      "repo_root": null,
+      "git": {
+        "sha": "3b81fe09cc12",
+        "branch": "feat/state-mgmt"
+      }
+    },
+    "kind": {
+      "event": "file_edit",
+      "call_id": null,
+      "diff": {
+        "path": "src/store/dashboard.ts",
+        "old": "",
+        "new": "import { create } from 'zustand';\nexport const useDashboard = create((set) => ({ panels: [] }));\n",
+        "unified": "@@ -0,0 +1,2 @@\n+import { create } from 'zustand';\n+export const useDashboard = create((set) => ({ panels: [] }));\n",
+        "added_lines": 2,
+        "removed_lines": 0
+      }
+    },
+    "provenance": {
+      "file": "fixtures/cursor/v1/rejected_alternative.jsonl",
+      "byte_offset": 849,
+      "line_no": 5
+    }
+  }
+]

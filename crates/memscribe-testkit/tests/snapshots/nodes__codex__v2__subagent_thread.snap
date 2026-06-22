@@ -1,0 +1,125 @@
+---
+source: crates/memscribe-testkit/tests/golden.rs
+expression: nodes
+---
+[
+  {
+    "node": "conversation",
+    "session_id": "01JZ8codexsess0008subagent",
+    "turn_range": {
+      "start": 1,
+      "end": 2
+    },
+    "text": "Let's use a dedicated background worker for the email queue. Extract the send loop into a worker module.",
+    "markers": [
+      {
+        "rule_id": "decision_verb.use",
+        "category": "decision_verb",
+        "matched_text": "use",
+        "offset": 6
+      }
+    ],
+    "fact_status": "observed",
+    "provenance": [
+      {
+        "file": "fixtures/codex/v2/subagent_thread.jsonl",
+        "byte_offset": 273,
+        "line_no": 2
+      }
+    ]
+  },
+  {
+    "node": "decision",
+    "epitome": "Let's use a dedicated background worker for the email queue.",
+    "considered_options": [
+      {
+        "text": "a",
+        "chosen": true
+      }
+    ],
+    "is_ban": false,
+    "superseded_by": null,
+    "confirmation": null,
+    "source_span": {
+      "start": 1,
+      "end": 2
+    },
+    "fact_status": "observed"
+  },
+  {
+    "node": "episode",
+    "path": "src/worker/email.rs",
+    "diff": {
+      "path": "src/worker/email.rs",
+      "old": null,
+      "new": null,
+      "unified": "+pub async fn run_email_worker() {\n+    loop { drain_email_queue().await; }\n+}",
+      "added_lines": 3,
+      "removed_lines": 0
+    },
+    "git": {
+      "sha": "18293a4b5c6d7e8f900102030405060708091011",
+      "branch": "feat/worker-split"
+    },
+    "episode_id": "20a1158d262d1464d0cc8923564d3099030e4eb76f8b8f79b2657381559f3db8"
+  },
+  {
+    "node": "episode",
+    "path": "src/main.rs",
+    "diff": {
+      "path": "src/main.rs",
+      "old": null,
+      "new": null,
+      "unified": "@@\n-    send_emails_inline();\n+    tokio::spawn(worker::email::run_email_worker());",
+      "added_lines": 1,
+      "removed_lines": 1
+    },
+    "git": {
+      "sha": "18293a4b5c6d7e8f900102030405060708091011",
+      "branch": "feat/worker-split"
+    },
+    "episode_id": "b662f854f070d854d05850a268f3c9e2bd8b8b2cff5b058027ebffabf2839dd1"
+  },
+  {
+    "node": "binding",
+    "from": "decision:01JZ8codexsess0008subagent:1",
+    "to": "episode:20a1158d262d1464d0cc8923564d3099030e4eb76f8b8f79b2657381559f3db8",
+    "relation": "produced",
+    "prov": {
+      "used_session": "01JZ8codexsess0008subagent",
+      "used_decision": "decision:01JZ8codexsess0008subagent:1",
+      "was_generated_by_session": "01JZ8codexsess0008subagent",
+      "t_use": "2026-06-22T21:00:06.5Z",
+      "t_gen": "2026-06-22T21:00:22.3Z"
+    },
+    "fact_status": "deterministically_derived",
+    "correlation": {
+      "support": 0.5,
+      "confidence": 0.5,
+      "lift": 1.0,
+      "phi": 0.0,
+      "p": 1.0
+    }
+  },
+  {
+    "node": "binding",
+    "from": "decision:01JZ8codexsess0008subagent:1",
+    "to": "episode:b662f854f070d854d05850a268f3c9e2bd8b8b2cff5b058027ebffabf2839dd1",
+    "relation": "produced",
+    "prov": {
+      "used_session": "01JZ8codexsess0008subagent",
+      "used_decision": "decision:01JZ8codexsess0008subagent:1",
+      "was_generated_by_session": "01JZ8codexsess0008subagent",
+      "t_use": "2026-06-22T21:00:06.5Z",
+      "t_gen": "2026-06-22T21:00:22.3Z"
+    },
+    "fact_status": "deterministically_derived",
+    "correlation": {
+      "support": 0.5,
+      "confidence": 0.5,
+      "lift": 1.0,
+      "phi": 0.0,
+      "p": 1.0
+    }
+  }
+]

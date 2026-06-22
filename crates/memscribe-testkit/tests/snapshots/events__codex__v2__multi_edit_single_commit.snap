@@ -1,0 +1,342 @@
+---
+source: crates/memscribe-testkit/tests/golden.rs
+expression: events
+---
+[
+  {
+    "schema_version": 1,
+    "source": "codex",
+    "session_id": "01JZ8codexsess0006multiedit",
+    "seq": 0,
+    "event_id": "session_meta:01JZ8codexsess0006multiedit",
+    "parent_id": null,
+    "timestamp": "2026-06-22T19:00:00Z",
+    "project": {
+      "cwd": "/Users/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "f60718293a4b5c6d7e8f90010203040506070809",
+        "branch": "feat/rename-client"
+      }
+    },
+    "kind": {
+      "event": "session_start",
+      "cwd": "/Users/dev/acme-api",
+      "git": {
+        "sha": "f60718293a4b5c6d7e8f90010203040506070809",
+        "branch": "feat/rename-client"
+      },
+      "model": null,
+      "tool_version": "0.6.2"
+    },
+    "provenance": {
+      "file": "fixtures/codex/v2/multi_edit_single_commit.jsonl",
+      "byte_offset": 0,
+      "line_no": 1
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "codex",
+    "session_id": "01JZ8codexsess0006multiedit",
+    "seq": 1,
+    "event_id": "4c4422382382a3aac72495c54c35c3310b1657c2faa2ba6e98c1c5b70f0c9503",
+    "parent_id": null,
+    "timestamp": "2026-06-22T19:00:07.25Z",
+    "project": {
+      "cwd": "/Users/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "f60718293a4b5c6d7e8f90010203040506070809",
+        "branch": "feat/rename-client"
+      }
+    },
+    "kind": {
+      "event": "user_turn",
+      "text": "Let's rename the HttpClient type to ApiClient everywhere. Use ApiClient as the canonical name across the codebase.",
+      "parts": [
+        {
+          "part": "text",
+          "text": "Let's rename the HttpClient type to ApiClient everywhere. Use ApiClient as the canonical name across the codebase."
+        }
+      ]
+    },
+    "provenance": {
+      "file": "fixtures/codex/v2/multi_edit_single_commit.jsonl",
+      "byte_offset": 275,
+      "line_no": 2
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "codex",
+    "session_id": "01JZ8codexsess0006multiedit",
+    "seq": 2,
+    "event_id": "2f0e6a9facde7c4b76c97b67edb4b8e9015669c2bb284c7cbd468b1b84d38313",
+    "parent_id": null,
+    "timestamp": "2026-06-22T19:00:12.9Z",
+    "project": {
+      "cwd": "/Users/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "f60718293a4b5c6d7e8f90010203040506070809",
+        "branch": "feat/rename-client"
+      }
+    },
+    "kind": {
+      "event": "unknown",
+      "raw_type": "response_item",
+      "raw": {
+        "timestamp": "2026-06-22T19:00:12.900Z",
+        "type": "response_item",
+        "payload": {
+          "type": "reasoning",
+          "summary": [
+            "This is a single logical rename commit touching several files. I'll do it in one apply_patch."
+          ]
+        }
+      }
+    },
+    "provenance": {
+      "file": "fixtures/codex/v2/multi_edit_single_commit.jsonl",
+      "byte_offset": 540,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "codex",
+    "session_id": "01JZ8codexsess0006multiedit",
+    "seq": 3,
+    "event_id": "c3a571ed3694d33e37409ce3688362694d7a07d365f761f9d734b4d679cfc4cb",
+    "parent_id": null,
+    "timestamp": "2026-06-22T19:00:15.4Z",
+    "project": {
+      "cwd": "/Users/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "f60718293a4b5c6d7e8f90010203040506070809",
+        "branch": "feat/rename-client"
+      }
+    },
+    "kind": {
+      "event": "assistant_turn",
+      "text": "Renaming HttpClient to ApiClient across client.rs, handlers.rs, and main.rs in one patch.",
+      "thinking": null,
+      "model": null,
+      "usage": null,
+      "parts": [
+        {
+          "part": "text",
+          "text": "Renaming HttpClient to ApiClient across client.rs, handlers.rs, and main.rs in one patch."
+        }
+      ]
+    },
+    "provenance": {
+      "file": "fixtures/codex/v2/multi_edit_single_commit.jsonl",
+      "byte_offset": 743,
+      "line_no": 4
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "codex",
+    "session_id": "01JZ8codexsess0006multiedit",
+    "seq": 4,
+    "event_id": "call_apply_patch_multi_001",
+    "parent_id": null,
+    "timestamp": "2026-06-22T19:00:23.8Z",
+    "project": {
+      "cwd": "/Users/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "f60718293a4b5c6d7e8f90010203040506070809",
+        "branch": "feat/rename-client"
+      }
+    },
+    "kind": {
+      "event": "tool_call",
+      "call_id": "call_apply_patch_multi_001",
+      "name": "apply_patch",
+      "args": {
+        "input": "*** Begin Patch\n*** Update File: src/client.rs\n@@\n-pub struct HttpClient {\n+pub struct ApiClient {\n*** Update File: src/handlers.rs\n@@\n-use crate::client::HttpClient;\n+use crate::client::ApiClient;\n@@\n-    client: HttpClient,\n+    client: ApiClient,\n*** Update File: src/main.rs\n@@\n-    let client = HttpClient::new();\n+    let client = ApiClient::new();\n*** End Patch\n"
+      }
+    },
+    "provenance": {
+      "file": "fixtures/codex/v2/multi_edit_single_commit.jsonl",
+      "byte_offset": 989,
+      "line_no": 5
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "codex",
+    "session_id": "01JZ8codexsess0006multiedit",
+    "seq": 5,
+    "event_id": "c7c8034ea95e5b6d9d949ff28ca832f5af41d3a1d57a7b79f4d301572d3a874c",
+    "parent_id": "call_apply_patch_multi_001",
+    "timestamp": "2026-06-22T19:00:23.8Z",
+    "project": {
+      "cwd": "/Users/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "f60718293a4b5c6d7e8f90010203040506070809",
+        "branch": "feat/rename-client"
+      }
+    },
+    "kind": {
+      "event": "file_edit",
+      "call_id": "call_apply_patch_multi_001",
+      "diff": {
+        "path": "src/client.rs",
+        "old": null,
+        "new": null,
+        "unified": "@@\n-pub struct HttpClient {\n+pub struct ApiClient {",
+        "added_lines": 1,
+        "removed_lines": 1
+      }
+    },
+    "provenance": {
+      "file": "fixtures/codex/v2/multi_edit_single_commit.jsonl",
+      "byte_offset": 989,
+      "line_no": 5
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "codex",
+    "session_id": "01JZ8codexsess0006multiedit",
+    "seq": 6,
+    "event_id": "a78e661cf73019f97ee5377b512c4c40d698904bd85e2e908a984c800f1530a8",
+    "parent_id": "call_apply_patch_multi_001",
+    "timestamp": "2026-06-22T19:00:23.8Z",
+    "project": {
+      "cwd": "/Users/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "f60718293a4b5c6d7e8f90010203040506070809",
+        "branch": "feat/rename-client"
+      }
+    },
+    "kind": {
+      "event": "file_edit",
+      "call_id": "call_apply_patch_multi_001",
+      "diff": {
+        "path": "src/handlers.rs",
+        "old": null,
+        "new": null,
+        "unified": "@@\n-use crate::client::HttpClient;\n+use crate::client::ApiClient;\n@@\n-    client: HttpClient,\n+    client: ApiClient,",
+        "added_lines": 2,
+        "removed_lines": 2
+      }
+    },
+    "provenance": {
+      "file": "fixtures/codex/v2/multi_edit_single_commit.jsonl",
+      "byte_offset": 989,
+      "line_no": 5
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "codex",
+    "session_id": "01JZ8codexsess0006multiedit",
+    "seq": 7,
+    "event_id": "532c44875f5babcab68075e2a223d64f808d2eab90fb46c50eb82e9dc8e1c9eb",
+    "parent_id": "call_apply_patch_multi_001",
+    "timestamp": "2026-06-22T19:00:23.8Z",
+    "project": {
+      "cwd": "/Users/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "f60718293a4b5c6d7e8f90010203040506070809",
+        "branch": "feat/rename-client"
+      }
+    },
+    "kind": {
+      "event": "file_edit",
+      "call_id": "call_apply_patch_multi_001",
+      "diff": {
+        "path": "src/main.rs",
+        "old": null,
+        "new": null,
+        "unified": "@@\n-    let client = HttpClient::new();\n+    let client = ApiClient::new();",
+        "added_lines": 1,
+        "removed_lines": 1
+      }
+    },
+    "provenance": {
+      "file": "fixtures/codex/v2/multi_edit_single_commit.jsonl",
+      "byte_offset": 989,
+      "line_no": 5
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "codex",
+    "session_id": "01JZ8codexsess0006multiedit",
+    "seq": 8,
+    "event_id": "call_apply_patch_multi_001:output",
+    "parent_id": "call_apply_patch_multi_001",
+    "timestamp": "2026-06-22T19:00:24.1Z",
+    "project": {
+      "cwd": "/Users/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "f60718293a4b5c6d7e8f90010203040506070809",
+        "branch": "feat/rename-client"
+      }
+    },
+    "kind": {
+      "event": "tool_result",
+      "call_id": "call_apply_patch_multi_001",
+      "ok": true,
+      "output": {
+        "output": "Applied patch to 3 files: src/client.rs, src/handlers.rs, src/main.rs",
+        "metadata": {
+          "exit_code": 0,
+          "duration_ms": 53
+        }
+      }
+    },
+    "provenance": {
+      "file": "fixtures/codex/v2/multi_edit_single_commit.jsonl",
+      "byte_offset": 1582,
+      "line_no": 6
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "codex",
+    "session_id": "01JZ8codexsess0006multiedit",
+    "seq": 9,
+    "event_id": "54481de1bb93e9cd51309f2f39ce4afa4df4f2c7bfbed36b151b608dfe458b35",
+    "parent_id": null,
+    "timestamp": "2026-06-22T19:00:30Z",
+    "project": {
+      "cwd": "/Users/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "f60718293a4b5c6d7e8f90010203040506070809",
+        "branch": "feat/rename-client"
+      }
+    },
+    "kind": {
+      "event": "assistant_turn",
+      "text": "Done. HttpClient is now ApiClient across all three files in a single commit-sized change.",
+      "thinking": null,
+      "model": null,
+      "usage": null,
+      "parts": [
+        {
+          "part": "text",
+          "text": "Done. HttpClient is now ApiClient across all three files in a single commit-sized change."
+        }
+      ]
+    },
+    "provenance": {
+      "file": "fixtures/codex/v2/multi_edit_single_commit.jsonl",
+      "byte_offset": 1863,
+      "line_no": 7
+    }
+  }
+]
