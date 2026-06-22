@@ -1,0 +1,23 @@
+---
+source: crates/memscribe-testkit/tests/golden.rs
+expression: nodes
+---
+[
+  {
+    "node": "episode",
+    "path": "src/widget.rs",
+    "diff": {
+      "path": "src/widget.rs",
+      "old": "fn render() { }  \n",
+      "new": "fn render() {}\n",
+      "unified": "@@ -1 +1 @@\n-fn render() { }  \n+fn render() {}\n",
+      "added_lines": 1,
+      "removed_lines": 1
+    },
+    "git": {
+      "sha": "e5e5e5e5e5",
+      "branch": "main"
+    },
+    "episode_id": "5d3321cd409dee36fb6152017bf0bd6908b06cbb5042bf0ce0179bc47e6a0c58"
+  }
+]

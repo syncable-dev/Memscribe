@@ -1,0 +1,245 @@
+---
+source: crates/memscribe-testkit/tests/golden.rs
+expression: events
+---
+[
+  {
+    "schema_version": 1,
+    "source": "claude_code",
+    "session_id": "sess-reject-002",
+    "seq": 0,
+    "event_id": "d807c123098e115d7a263e94e914e84cb23020ec52a0011156965f43b1457275",
+    "parent_id": null,
+    "timestamp": "2026-06-22T11:30:00Z",
+    "project": {
+      "cwd": "/Users/dev/acme/web",
+      "repo_root": null,
+      "git": {
+        "sha": "0f1e2d3c4b5a69788796a5b4c3d2e1f00f1e2d3c",
+        "branch": "feat/payments"
+      }
+    },
+    "kind": {
+      "event": "session_start",
+      "cwd": "/Users/dev/acme/web",
+      "git": {
+        "sha": "0f1e2d3c4b5a69788796a5b4c3d2e1f00f1e2d3c",
+        "branch": "feat/payments"
+      },
+      "model": null,
+      "tool_version": "2.0.5"
+    },
+    "provenance": {
+      "file": "fixtures/claude_code/2.0/rejected_alternative.jsonl",
+      "byte_offset": 0,
+      "line_no": 1
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "claude_code",
+    "session_id": "sess-reject-002",
+    "seq": 1,
+    "event_id": "aaaaaaa1-0000-4000-8000-000000000001",
+    "parent_id": null,
+    "timestamp": "2026-06-22T11:30:00Z",
+    "project": {
+      "cwd": "/Users/dev/acme/web",
+      "repo_root": null,
+      "git": {
+        "sha": "0f1e2d3c4b5a69788796a5b4c3d2e1f00f1e2d3c",
+        "branch": "feat/payments"
+      }
+    },
+    "kind": {
+      "event": "user_turn",
+      "text": "We'll go with Stripe instead of PayPal for the checkout flow.",
+      "parts": [
+        {
+          "part": "text",
+          "text": "We'll go with Stripe instead of PayPal for the checkout flow."
+        }
+      ]
+    },
+    "provenance": {
+      "file": "fixtures/claude_code/2.0/rejected_alternative.jsonl",
+      "byte_offset": 0,
+      "line_no": 1
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "claude_code",
+    "session_id": "sess-reject-002",
+    "seq": 2,
+    "event_id": "aaaaaaa2-0000-4000-8000-000000000002",
+    "parent_id": "aaaaaaa1-0000-4000-8000-000000000001",
+    "timestamp": "2026-06-22T11:30:04.5Z",
+    "project": {
+      "cwd": "/Users/dev/acme/web",
+      "repo_root": null,
+      "git": {
+        "sha": "0f1e2d3c4b5a69788796a5b4c3d2e1f00f1e2d3c",
+        "branch": "feat/payments"
+      }
+    },
+    "kind": {
+      "event": "assistant_turn",
+      "text": "Understood. I'll wire the Stripe client into the checkout handler.",
+      "thinking": null,
+      "model": "claude-opus-4-8",
+      "usage": {
+        "input_tokens": 310,
+        "output_tokens": 72,
+        "cache_read_tokens": 0,
+        "cache_creation_tokens": 210
+      },
+      "parts": [
+        {
+          "part": "text",
+          "text": "Understood. I'll wire the Stripe client into the checkout handler."
+        },
+        {
+          "part": "tool_use",
+          "call_id": "toolu_stripe_edit",
+          "name": "Write",
+          "args": {
+            "file_path": "/Users/dev/acme/web/src/checkout/provider.ts",
+            "content": "export { stripe as paymentProvider } from './stripe';\n"
+          }
+        }
+      ]
+    },
+    "provenance": {
+      "file": "fixtures/claude_code/2.0/rejected_alternative.jsonl",
+      "byte_offset": 395,
+      "line_no": 2
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "claude_code",
+    "session_id": "sess-reject-002",
+    "seq": 3,
+    "event_id": "896e82e3555ad7e5d102d107a9ef7f3255af79db45cc2805a6b9caea3d191fde",
+    "parent_id": "aaaaaaa2-0000-4000-8000-000000000002",
+    "timestamp": "2026-06-22T11:30:04.5Z",
+    "project": {
+      "cwd": "/Users/dev/acme/web",
+      "repo_root": null,
+      "git": {
+        "sha": "0f1e2d3c4b5a69788796a5b4c3d2e1f00f1e2d3c",
+        "branch": "feat/payments"
+      }
+    },
+    "kind": {
+      "event": "tool_call",
+      "call_id": "toolu_stripe_edit",
+      "name": "Write",
+      "args": {
+        "file_path": "/Users/dev/acme/web/src/checkout/provider.ts",
+        "content": "export { stripe as paymentProvider } from './stripe';\n"
+      }
+    },
+    "provenance": {
+      "file": "fixtures/claude_code/2.0/rejected_alternative.jsonl",
+      "byte_offset": 395,
+      "line_no": 2
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "claude_code",
+    "session_id": "sess-reject-002",
+    "seq": 4,
+    "event_id": "aaaaaaa3-0000-4000-8000-000000000003",
+    "parent_id": "aaaaaaa2-0000-4000-8000-000000000002",
+    "timestamp": "2026-06-22T11:30:04.9Z",
+    "project": {
+      "cwd": "/Users/dev/acme/web",
+      "repo_root": null,
+      "git": {
+        "sha": "0f1e2d3c4b5a69788796a5b4c3d2e1f00f1e2d3c",
+        "branch": "feat/payments"
+      }
+    },
+    "kind": {
+      "event": "user_turn",
+      "text": "",
+      "parts": [
+        {
+          "part": "tool_result",
+          "call_id": "toolu_stripe_edit",
+          "output": "File created successfully at: /Users/dev/acme/web/src/checkout/provider.ts"
+        }
+      ]
+    },
+    "provenance": {
+      "file": "fixtures/claude_code/2.0/rejected_alternative.jsonl",
+      "byte_offset": 1145,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "claude_code",
+    "session_id": "sess-reject-002",
+    "seq": 5,
+    "event_id": "530c11d4ddb3c1751e197bd422144309e21894df01521fa0f01c7e39d1e450d4",
+    "parent_id": "aaaaaaa3-0000-4000-8000-000000000003",
+    "timestamp": "2026-06-22T11:30:04.9Z",
+    "project": {
+      "cwd": "/Users/dev/acme/web",
+      "repo_root": null,
+      "git": {
+        "sha": "0f1e2d3c4b5a69788796a5b4c3d2e1f00f1e2d3c",
+        "branch": "feat/payments"
+      }
+    },
+    "kind": {
+      "event": "tool_result",
+      "call_id": "toolu_stripe_edit",
+      "ok": true,
+      "output": "File created successfully at: /Users/dev/acme/web/src/checkout/provider.ts"
+    },
+    "provenance": {
+      "file": "fixtures/claude_code/2.0/rejected_alternative.jsonl",
+      "byte_offset": 1145,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "claude_code",
+    "session_id": "sess-reject-002",
+    "seq": 6,
+    "event_id": "86682f1c1a7b186f9608e4887b5ae045dddc0b220c33c525588b9077b2d784ed",
+    "parent_id": "aaaaaaa3-0000-4000-8000-000000000003",
+    "timestamp": "2026-06-22T11:30:04.9Z",
+    "project": {
+      "cwd": "/Users/dev/acme/web",
+      "repo_root": null,
+      "git": {
+        "sha": "0f1e2d3c4b5a69788796a5b4c3d2e1f00f1e2d3c",
+        "branch": "feat/payments"
+      }
+    },
+    "kind": {
+      "event": "file_edit",
+      "call_id": "toolu_stripe_edit",
+      "diff": {
+        "path": "/Users/dev/acme/web/src/checkout/provider.ts",
+        "old": "",
+        "new": "export { stripe as paymentProvider } from './stripe';\n",
+        "unified": "+export { stripe as paymentProvider } from './stripe';",
+        "added_lines": 1,
+        "removed_lines": 0
+      }
+    },
+    "provenance": {
+      "file": "fixtures/claude_code/2.0/rejected_alternative.jsonl",
+      "byte_offset": 1145,
+      "line_no": 3
+    }
+  }
+]

@@ -1,0 +1,487 @@
+---
+source: crates/memscribe-testkit/tests/golden.rs
+expression: events
+---
+[
+  {
+    "schema_version": 1,
+    "source": "claude_code",
+    "session_id": "sess-rewind-007",
+    "seq": 0,
+    "event_id": "b391cb2cf51db7d594ac1fcf022fde9cc85fb47886fa0a9e723e7c88615e6af9",
+    "parent_id": null,
+    "timestamp": "2026-06-22T16:00:00Z",
+    "project": {
+      "cwd": "/Users/dev/acme/api",
+      "repo_root": null,
+      "git": {
+        "sha": "9999888877776666555544443333222211110000",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "session_start",
+      "cwd": "/Users/dev/acme/api",
+      "git": {
+        "sha": "9999888877776666555544443333222211110000",
+        "branch": "main"
+      },
+      "model": null,
+      "tool_version": "2.0.5"
+    },
+    "provenance": {
+      "file": "fixtures/claude_code/2.0/rewind_compaction.jsonl",
+      "byte_offset": 0,
+      "line_no": 1
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "claude_code",
+    "session_id": "sess-rewind-007",
+    "seq": 1,
+    "event_id": "d3ccccc1-0000-4000-8000-000000000001",
+    "parent_id": null,
+    "timestamp": "2026-06-22T16:00:00Z",
+    "project": {
+      "cwd": "/Users/dev/acme/api",
+      "repo_root": null,
+      "git": {
+        "sha": "9999888877776666555544443333222211110000",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "user_turn",
+      "text": "Let's use rustls for the TLS layer in the gateway.",
+      "parts": [
+        {
+          "part": "text",
+          "text": "Let's use rustls for the TLS layer in the gateway."
+        }
+      ]
+    },
+    "provenance": {
+      "file": "fixtures/claude_code/2.0/rewind_compaction.jsonl",
+      "byte_offset": 0,
+      "line_no": 1
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "claude_code",
+    "session_id": "sess-rewind-007",
+    "seq": 2,
+    "event_id": "d3ccccc2-0000-4000-8000-000000000002",
+    "parent_id": "d3ccccc1-0000-4000-8000-000000000001",
+    "timestamp": "2026-06-22T16:00:03Z",
+    "project": {
+      "cwd": "/Users/dev/acme/api",
+      "repo_root": null,
+      "git": {
+        "sha": "9999888877776666555544443333222211110000",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "assistant_turn",
+      "text": "Pointing the gateway TLS layer at rustls.",
+      "thinking": null,
+      "model": "claude-opus-4-8",
+      "usage": {
+        "input_tokens": 300,
+        "output_tokens": 60,
+        "cache_read_tokens": 0,
+        "cache_creation_tokens": 110
+      },
+      "parts": [
+        {
+          "part": "text",
+          "text": "Pointing the gateway TLS layer at rustls."
+        },
+        {
+          "part": "tool_use",
+          "call_id": "toolu_rewind_rustls",
+          "name": "Edit",
+          "args": {
+            "file_path": "/Users/dev/acme/api/src/gateway/tls.rs",
+            "old_string": "use native_tls::TlsConnector;",
+            "new_string": "use rustls::ClientConfig;"
+          }
+        }
+      ]
+    },
+    "provenance": {
+      "file": "fixtures/claude_code/2.0/rewind_compaction.jsonl",
+      "byte_offset": 375,
+      "line_no": 2
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "claude_code",
+    "session_id": "sess-rewind-007",
+    "seq": 3,
+    "event_id": "8a5c3dbd85949394fbcbabbc3ecc79d3ab9439257e5b020fb1dc6b3c31fea761",
+    "parent_id": "d3ccccc2-0000-4000-8000-000000000002",
+    "timestamp": "2026-06-22T16:00:03Z",
+    "project": {
+      "cwd": "/Users/dev/acme/api",
+      "repo_root": null,
+      "git": {
+        "sha": "9999888877776666555544443333222211110000",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "tool_call",
+      "call_id": "toolu_rewind_rustls",
+      "name": "Edit",
+      "args": {
+        "file_path": "/Users/dev/acme/api/src/gateway/tls.rs",
+        "old_string": "use native_tls::TlsConnector;",
+        "new_string": "use rustls::ClientConfig;"
+      }
+    },
+    "provenance": {
+      "file": "fixtures/claude_code/2.0/rewind_compaction.jsonl",
+      "byte_offset": 375,
+      "line_no": 2
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "claude_code",
+    "session_id": "sess-rewind-007",
+    "seq": 4,
+    "event_id": "d3ccccc3-0000-4000-8000-000000000003",
+    "parent_id": "d3ccccc2-0000-4000-8000-000000000002",
+    "timestamp": "2026-06-22T16:00:03.4Z",
+    "project": {
+      "cwd": "/Users/dev/acme/api",
+      "repo_root": null,
+      "git": {
+        "sha": "9999888877776666555544443333222211110000",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "user_turn",
+      "text": "",
+      "parts": [
+        {
+          "part": "tool_result",
+          "call_id": "toolu_rewind_rustls",
+          "output": "The file /Users/dev/acme/api/src/gateway/tls.rs has been updated."
+        }
+      ]
+    },
+    "provenance": {
+      "file": "fixtures/claude_code/2.0/rewind_compaction.jsonl",
+      "byte_offset": 1104,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "claude_code",
+    "session_id": "sess-rewind-007",
+    "seq": 5,
+    "event_id": "a73e4c896a7b430909c81178667ecfa4866848062ea6420c8e6636ce335183db",
+    "parent_id": "d3ccccc3-0000-4000-8000-000000000003",
+    "timestamp": "2026-06-22T16:00:03.4Z",
+    "project": {
+      "cwd": "/Users/dev/acme/api",
+      "repo_root": null,
+      "git": {
+        "sha": "9999888877776666555544443333222211110000",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "tool_result",
+      "call_id": "toolu_rewind_rustls",
+      "ok": true,
+      "output": "The file /Users/dev/acme/api/src/gateway/tls.rs has been updated."
+    },
+    "provenance": {
+      "file": "fixtures/claude_code/2.0/rewind_compaction.jsonl",
+      "byte_offset": 1104,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "claude_code",
+    "session_id": "sess-rewind-007",
+    "seq": 6,
+    "event_id": "7d74a8b92b65a8c5b05afbaa6bfe24eb5d6275316222f8bcc6b336ac68e42ad1",
+    "parent_id": "d3ccccc3-0000-4000-8000-000000000003",
+    "timestamp": "2026-06-22T16:00:03.4Z",
+    "project": {
+      "cwd": "/Users/dev/acme/api",
+      "repo_root": null,
+      "git": {
+        "sha": "9999888877776666555544443333222211110000",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "file_edit",
+      "call_id": "toolu_rewind_rustls",
+      "diff": {
+        "path": "/Users/dev/acme/api/src/gateway/tls.rs",
+        "old": "use native_tls::TlsConnector;",
+        "new": "use rustls::ClientConfig;",
+        "unified": "-use native_tls::TlsConnector;\n+use rustls::ClientConfig;",
+        "added_lines": 1,
+        "removed_lines": 1
+      }
+    },
+    "provenance": {
+      "file": "fixtures/claude_code/2.0/rewind_compaction.jsonl",
+      "byte_offset": 1104,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "claude_code",
+    "session_id": "sess-rewind-007",
+    "seq": 7,
+    "event_id": "8d385489e1af193ff19ad3748689a39c404bc7f3e5987c9c09a905668014fb9e",
+    "parent_id": null,
+    "timestamp": "1970-01-01T00:00:00Z",
+    "project": {
+      "cwd": "/Users/dev/acme/api",
+      "repo_root": null,
+      "git": {
+        "sha": "9999888877776666555544443333222211110000",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "unknown",
+      "raw_type": "summary",
+      "raw": {
+        "type": "summary",
+        "summary": "The user chose rustls for the gateway TLS layer and the connector import was updated. Conversation compacted to free context.",
+        "leafUuid": "d3ccccc3-0000-4000-8000-000000000003"
+      }
+    },
+    "provenance": {
+      "file": "fixtures/claude_code/2.0/rewind_compaction.jsonl",
+      "byte_offset": 1921,
+      "line_no": 4
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "claude_code",
+    "session_id": "sess-rewind-007",
+    "seq": 8,
+    "event_id": "d3ccccc5-0000-4000-8000-000000000005",
+    "parent_id": "d3ccccc3-0000-4000-8000-000000000003",
+    "timestamp": "2026-06-22T16:05:00Z",
+    "project": {
+      "cwd": "/Users/dev/acme/api",
+      "repo_root": null,
+      "git": {
+        "sha": "9999888877776666555544443333222211110000",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "user_turn",
+      "text": "On reflection, let's switch to native-tls after all for the gateway to match the rest of the fleet.",
+      "parts": [
+        {
+          "part": "text",
+          "text": "On reflection, let's switch to native-tls after all for the gateway to match the rest of the fleet."
+        }
+      ]
+    },
+    "provenance": {
+      "file": "fixtures/claude_code/2.0/rewind_compaction.jsonl",
+      "byte_offset": 2128,
+      "line_no": 5
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "claude_code",
+    "session_id": "sess-rewind-007",
+    "seq": 9,
+    "event_id": "d3ccccc6-0000-4000-8000-000000000006",
+    "parent_id": "d3ccccc5-0000-4000-8000-000000000005",
+    "timestamp": "2026-06-22T16:05:04Z",
+    "project": {
+      "cwd": "/Users/dev/acme/api",
+      "repo_root": null,
+      "git": {
+        "sha": "9999888877776666555544443333222211110000",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "assistant_turn",
+      "text": "Reverting the gateway TLS layer back to native-tls.",
+      "thinking": null,
+      "model": "claude-opus-4-8",
+      "usage": {
+        "input_tokens": 350,
+        "output_tokens": 70,
+        "cache_read_tokens": 0,
+        "cache_creation_tokens": 140
+      },
+      "parts": [
+        {
+          "part": "text",
+          "text": "Reverting the gateway TLS layer back to native-tls."
+        },
+        {
+          "part": "tool_use",
+          "call_id": "toolu_rewind_native",
+          "name": "Edit",
+          "args": {
+            "file_path": "/Users/dev/acme/api/src/gateway/tls.rs",
+            "old_string": "use rustls::ClientConfig;",
+            "new_string": "use native_tls::TlsConnector;"
+          }
+        }
+      ]
+    },
+    "provenance": {
+      "file": "fixtures/claude_code/2.0/rewind_compaction.jsonl",
+      "byte_offset": 2534,
+      "line_no": 6
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "claude_code",
+    "session_id": "sess-rewind-007",
+    "seq": 10,
+    "event_id": "78a838103a7e67f73cfeef3ab21c3a0a657827f94b1555081ac0e166d0b6a081",
+    "parent_id": "d3ccccc6-0000-4000-8000-000000000006",
+    "timestamp": "2026-06-22T16:05:04Z",
+    "project": {
+      "cwd": "/Users/dev/acme/api",
+      "repo_root": null,
+      "git": {
+        "sha": "9999888877776666555544443333222211110000",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "tool_call",
+      "call_id": "toolu_rewind_native",
+      "name": "Edit",
+      "args": {
+        "file_path": "/Users/dev/acme/api/src/gateway/tls.rs",
+        "old_string": "use rustls::ClientConfig;",
+        "new_string": "use native_tls::TlsConnector;"
+      }
+    },
+    "provenance": {
+      "file": "fixtures/claude_code/2.0/rewind_compaction.jsonl",
+      "byte_offset": 2534,
+      "line_no": 6
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "claude_code",
+    "session_id": "sess-rewind-007",
+    "seq": 11,
+    "event_id": "d3ccccc7-0000-4000-8000-000000000007",
+    "parent_id": "d3ccccc6-0000-4000-8000-000000000006",
+    "timestamp": "2026-06-22T16:05:04.4Z",
+    "project": {
+      "cwd": "/Users/dev/acme/api",
+      "repo_root": null,
+      "git": {
+        "sha": "9999888877776666555544443333222211110000",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "user_turn",
+      "text": "",
+      "parts": [
+        {
+          "part": "tool_result",
+          "call_id": "toolu_rewind_native",
+          "output": "The file /Users/dev/acme/api/src/gateway/tls.rs has been updated."
+        }
+      ]
+    },
+    "provenance": {
+      "file": "fixtures/claude_code/2.0/rewind_compaction.jsonl",
+      "byte_offset": 3273,
+      "line_no": 7
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "claude_code",
+    "session_id": "sess-rewind-007",
+    "seq": 12,
+    "event_id": "bb9b8b960f8fcb07bed41d97b399a9d5056ae027b6d0f4b249e509b0448d0b9c",
+    "parent_id": "d3ccccc7-0000-4000-8000-000000000007",
+    "timestamp": "2026-06-22T16:05:04.4Z",
+    "project": {
+      "cwd": "/Users/dev/acme/api",
+      "repo_root": null,
+      "git": {
+        "sha": "9999888877776666555544443333222211110000",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "tool_result",
+      "call_id": "toolu_rewind_native",
+      "ok": true,
+      "output": "The file /Users/dev/acme/api/src/gateway/tls.rs has been updated."
+    },
+    "provenance": {
+      "file": "fixtures/claude_code/2.0/rewind_compaction.jsonl",
+      "byte_offset": 3273,
+      "line_no": 7
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "claude_code",
+    "session_id": "sess-rewind-007",
+    "seq": 13,
+    "event_id": "528920ad3e5d73535a1183741c180665f17901d9dc903114de2fec6cb7da79d4",
+    "parent_id": "d3ccccc7-0000-4000-8000-000000000007",
+    "timestamp": "2026-06-22T16:05:04.4Z",
+    "project": {
+      "cwd": "/Users/dev/acme/api",
+      "repo_root": null,
+      "git": {
+        "sha": "9999888877776666555544443333222211110000",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "file_edit",
+      "call_id": "toolu_rewind_native",
+      "diff": {
+        "path": "/Users/dev/acme/api/src/gateway/tls.rs",
+        "old": "use rustls::ClientConfig;",
+        "new": "use native_tls::TlsConnector;",
+        "unified": "-use rustls::ClientConfig;\n+use native_tls::TlsConnector;",
+        "added_lines": 1,
+        "removed_lines": 1
+      }
+    },
+    "provenance": {
+      "file": "fixtures/claude_code/2.0/rewind_compaction.jsonl",
+      "byte_offset": 3273,
+      "line_no": 7
+    }
+  }
+]

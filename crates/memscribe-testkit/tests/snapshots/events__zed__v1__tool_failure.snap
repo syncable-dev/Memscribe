@@ -1,0 +1,217 @@
+---
+source: crates/memscribe-testkit/tests/golden.rs
+expression: events
+---
+[
+  {
+    "schema_version": 1,
+    "source": "zed",
+    "session_id": "zed-thread-004",
+    "seq": 0,
+    "event_id": "f01734af6017bb88b0a67c86dfeb4f8cec1d3ac3efc38443783ef097412600f5",
+    "parent_id": null,
+    "timestamp": "2026-06-22T13:00:00Z",
+    "project": {
+      "cwd": "/Users/dev/projects/orbit",
+      "repo_root": null,
+      "git": {
+        "sha": "99aa88bb77cc",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "session_start",
+      "cwd": "/Users/dev/projects/orbit",
+      "git": {
+        "sha": "99aa88bb77cc",
+        "branch": "main"
+      },
+      "model": null,
+      "tool_version": "zed 0.182.0"
+    },
+    "provenance": {
+      "file": "fixtures/zed/v1/tool_failure.jsonl",
+      "byte_offset": 0,
+      "line_no": 1
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "zed",
+    "session_id": "zed-thread-004",
+    "seq": 1,
+    "event_id": "msg-1",
+    "parent_id": null,
+    "timestamp": "2026-06-22T13:00:02Z",
+    "project": {
+      "cwd": "/Users/dev/projects/orbit",
+      "repo_root": null,
+      "git": {
+        "sha": "99aa88bb77cc",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "user_turn",
+      "text": "Rename the config field timeout_ms to timeout_millis everywhere.",
+      "parts": []
+    },
+    "provenance": {
+      "file": "fixtures/zed/v1/tool_failure.jsonl",
+      "byte_offset": 189,
+      "line_no": 2
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "zed",
+    "session_id": "zed-thread-004",
+    "seq": 2,
+    "event_id": "msg-2",
+    "parent_id": "msg-1",
+    "timestamp": "2026-06-22T13:00:06Z",
+    "project": {
+      "cwd": "/Users/dev/projects/orbit",
+      "repo_root": null,
+      "git": {
+        "sha": "99aa88bb77cc",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "assistant_turn",
+      "text": "Applying the rename.",
+      "thinking": null,
+      "model": "claude-opus-4-8",
+      "usage": null,
+      "parts": []
+    },
+    "provenance": {
+      "file": "fixtures/zed/v1/tool_failure.jsonl",
+      "byte_offset": 365,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "zed",
+    "session_id": "zed-thread-004",
+    "seq": 3,
+    "event_id": "msg-2:call:call-9",
+    "parent_id": "msg-2",
+    "timestamp": "2026-06-22T13:00:06Z",
+    "project": {
+      "cwd": "/Users/dev/projects/orbit",
+      "repo_root": null,
+      "git": {
+        "sha": "99aa88bb77cc",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "tool_call",
+      "call_id": "call-9",
+      "name": "edit_file",
+      "args": {
+        "path": "src/config.rs"
+      }
+    },
+    "provenance": {
+      "file": "fixtures/zed/v1/tool_failure.jsonl",
+      "byte_offset": 365,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "zed",
+    "session_id": "zed-thread-004",
+    "seq": 4,
+    "event_id": "msg-2:edit:0",
+    "parent_id": "msg-2",
+    "timestamp": "2026-06-22T13:00:06Z",
+    "project": {
+      "cwd": "/Users/dev/projects/orbit",
+      "repo_root": null,
+      "git": {
+        "sha": "99aa88bb77cc",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "file_edit",
+      "call_id": "call-9",
+      "diff": {
+        "path": "src/config.rs",
+        "old": "timeout_ms: u64,",
+        "new": "timeout_millis: u64,",
+        "unified": "@@ -1 +1 @@\n-timeout_ms: u64,\n+timeout_millis: u64,",
+        "added_lines": 1,
+        "removed_lines": 1
+      }
+    },
+    "provenance": {
+      "file": "fixtures/zed/v1/tool_failure.jsonl",
+      "byte_offset": 365,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "zed",
+    "session_id": "zed-thread-004",
+    "seq": 5,
+    "event_id": "msg-3",
+    "parent_id": "msg-2",
+    "timestamp": "2026-06-22T13:00:08Z",
+    "project": {
+      "cwd": "/Users/dev/projects/orbit",
+      "repo_root": null,
+      "git": {
+        "sha": "99aa88bb77cc",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "assistant_turn",
+      "text": "The edit failed — the file was locked by another process.",
+      "thinking": null,
+      "model": null,
+      "usage": null,
+      "parts": []
+    },
+    "provenance": {
+      "file": "fixtures/zed/v1/tool_failure.jsonl",
+      "byte_offset": 794,
+      "line_no": 4
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "zed",
+    "session_id": "zed-thread-004",
+    "seq": 6,
+    "event_id": "msg-3:result:call-9",
+    "parent_id": "msg-3",
+    "timestamp": "2026-06-22T13:00:08Z",
+    "project": {
+      "cwd": "/Users/dev/projects/orbit",
+      "repo_root": null,
+      "git": {
+        "sha": "99aa88bb77cc",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "tool_result",
+      "call_id": "call-9",
+      "ok": false,
+      "output": "error: could not write src/config.rs: resource temporarily unavailable"
+    },
+    "provenance": {
+      "file": "fixtures/zed/v1/tool_failure.jsonl",
+      "byte_offset": 794,
+      "line_no": 4
+    }
+  }
+]

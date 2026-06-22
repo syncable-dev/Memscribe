@@ -1,0 +1,399 @@
+---
+source: crates/memscribe-testkit/tests/golden.rs
+expression: events
+---
+[
+  {
+    "schema_version": 1,
+    "source": "claude_code",
+    "session_id": "sess-main-008",
+    "seq": 0,
+    "event_id": "f7756c9f370ddf7742449e3a7c9d38836fab85c735a603e29769a0447241316e",
+    "parent_id": null,
+    "timestamp": "2026-06-22T17:00:00Z",
+    "project": {
+      "cwd": "/Users/dev/acme/api",
+      "repo_root": null,
+      "git": {
+        "sha": "abcdefab12345678abcdefab12345678abcdefab",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "session_start",
+      "cwd": "/Users/dev/acme/api",
+      "git": {
+        "sha": "abcdefab12345678abcdefab12345678abcdefab",
+        "branch": "main"
+      },
+      "model": null,
+      "tool_version": "2.0.5"
+    },
+    "provenance": {
+      "file": "fixtures/claude_code/2.0/subagent_thread.jsonl",
+      "byte_offset": 0,
+      "line_no": 1
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "claude_code",
+    "session_id": "sess-main-008",
+    "seq": 1,
+    "event_id": "d4ddddd1-0000-4000-8000-000000000001",
+    "parent_id": null,
+    "timestamp": "2026-06-22T17:00:00Z",
+    "project": {
+      "cwd": "/Users/dev/acme/api",
+      "repo_root": null,
+      "git": {
+        "sha": "abcdefab12345678abcdefab12345678abcdefab",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "user_turn",
+      "text": "Let's use a dedicated search subagent to migrate the indexer to tantivy.",
+      "parts": [
+        {
+          "part": "text",
+          "text": "Let's use a dedicated search subagent to migrate the indexer to tantivy."
+        }
+      ]
+    },
+    "provenance": {
+      "file": "fixtures/claude_code/2.0/subagent_thread.jsonl",
+      "byte_offset": 0,
+      "line_no": 1
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "claude_code",
+    "session_id": "sess-main-008",
+    "seq": 2,
+    "event_id": "d4ddddd2-0000-4000-8000-000000000002",
+    "parent_id": "d4ddddd1-0000-4000-8000-000000000001",
+    "timestamp": "2026-06-22T17:00:03Z",
+    "project": {
+      "cwd": "/Users/dev/acme/api",
+      "repo_root": null,
+      "git": {
+        "sha": "abcdefab12345678abcdefab12345678abcdefab",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "assistant_turn",
+      "text": "Dispatching a search subagent to handle the indexer migration.",
+      "thinking": null,
+      "model": "claude-opus-4-8",
+      "usage": {
+        "input_tokens": 260,
+        "output_tokens": 55,
+        "cache_read_tokens": 0,
+        "cache_creation_tokens": 90
+      },
+      "parts": [
+        {
+          "part": "text",
+          "text": "Dispatching a search subagent to handle the indexer migration."
+        },
+        {
+          "part": "tool_use",
+          "call_id": "toolu_dispatch_subagent",
+          "name": "Task",
+          "args": {
+            "description": "Migrate indexer to tantivy",
+            "subagent_type": "search"
+          }
+        }
+      ]
+    },
+    "provenance": {
+      "file": "fixtures/claude_code/2.0/subagent_thread.jsonl",
+      "byte_offset": 395,
+      "line_no": 2
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "claude_code",
+    "session_id": "sess-main-008",
+    "seq": 3,
+    "event_id": "ffb4da23ea65520882fa0ea995d97b4a08b6cd3cfdddf667579aa803b3de5d30",
+    "parent_id": "d4ddddd2-0000-4000-8000-000000000002",
+    "timestamp": "2026-06-22T17:00:03Z",
+    "project": {
+      "cwd": "/Users/dev/acme/api",
+      "repo_root": null,
+      "git": {
+        "sha": "abcdefab12345678abcdefab12345678abcdefab",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "tool_call",
+      "call_id": "toolu_dispatch_subagent",
+      "name": "Task",
+      "args": {
+        "description": "Migrate indexer to tantivy",
+        "subagent_type": "search"
+      }
+    },
+    "provenance": {
+      "file": "fixtures/claude_code/2.0/subagent_thread.jsonl",
+      "byte_offset": 395,
+      "line_no": 2
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "claude_code",
+    "session_id": "sess-main-008",
+    "seq": 4,
+    "event_id": "d4eeeee1-0000-4000-8000-000000000011",
+    "parent_id": null,
+    "timestamp": "2026-06-22T17:00:05Z",
+    "project": {
+      "cwd": "/Users/dev/acme/api",
+      "repo_root": null,
+      "git": {
+        "sha": "abcdefab12345678abcdefab12345678abcdefab",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "user_turn",
+      "text": "Let's adopt tantivy as the search index backend in the indexer module.",
+      "parts": [
+        {
+          "part": "text",
+          "text": "Let's adopt tantivy as the search index backend in the indexer module."
+        }
+      ]
+    },
+    "provenance": {
+      "file": "fixtures/claude_code/2.0/subagent_thread.jsonl",
+      "byte_offset": 1075,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "claude_code",
+    "session_id": "sess-main-008",
+    "seq": 5,
+    "event_id": "d4eeeee2-0000-4000-8000-000000000012",
+    "parent_id": "d4eeeee1-0000-4000-8000-000000000011",
+    "timestamp": "2026-06-22T17:00:08Z",
+    "project": {
+      "cwd": "/Users/dev/acme/api",
+      "repo_root": null,
+      "git": {
+        "sha": "abcdefab12345678abcdefab12345678abcdefab",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "assistant_turn",
+      "text": "Swapping the indexer backend to tantivy.",
+      "thinking": null,
+      "model": "claude-opus-4-8",
+      "usage": {
+        "input_tokens": 280,
+        "output_tokens": 65,
+        "cache_read_tokens": 0,
+        "cache_creation_tokens": 100
+      },
+      "parts": [
+        {
+          "part": "text",
+          "text": "Swapping the indexer backend to tantivy."
+        },
+        {
+          "part": "tool_use",
+          "call_id": "toolu_sub_indexer",
+          "name": "Edit",
+          "args": {
+            "file_path": "/Users/dev/acme/api/src/indexer.rs",
+            "old_string": "use tantivy_lite::Index;",
+            "new_string": "use tantivy::Index;"
+          }
+        }
+      ]
+    },
+    "provenance": {
+      "file": "fixtures/claude_code/2.0/subagent_thread.jsonl",
+      "byte_offset": 1472,
+      "line_no": 4
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "claude_code",
+    "session_id": "sess-main-008",
+    "seq": 6,
+    "event_id": "37a2b025bf9334d617bfcd15ef9c4f4d71c6f3681ada947401666150380b5311",
+    "parent_id": "d4eeeee2-0000-4000-8000-000000000012",
+    "timestamp": "2026-06-22T17:00:08Z",
+    "project": {
+      "cwd": "/Users/dev/acme/api",
+      "repo_root": null,
+      "git": {
+        "sha": "abcdefab12345678abcdefab12345678abcdefab",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "tool_call",
+      "call_id": "toolu_sub_indexer",
+      "name": "Edit",
+      "args": {
+        "file_path": "/Users/dev/acme/api/src/indexer.rs",
+        "old_string": "use tantivy_lite::Index;",
+        "new_string": "use tantivy::Index;"
+      }
+    },
+    "provenance": {
+      "file": "fixtures/claude_code/2.0/subagent_thread.jsonl",
+      "byte_offset": 1472,
+      "line_no": 4
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "claude_code",
+    "session_id": "sess-main-008",
+    "seq": 7,
+    "event_id": "d4eeeee3-0000-4000-8000-000000000013",
+    "parent_id": "d4eeeee2-0000-4000-8000-000000000012",
+    "timestamp": "2026-06-22T17:00:08.4Z",
+    "project": {
+      "cwd": "/Users/dev/acme/api",
+      "repo_root": null,
+      "git": {
+        "sha": "abcdefab12345678abcdefab12345678abcdefab",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "user_turn",
+      "text": "",
+      "parts": [
+        {
+          "part": "tool_result",
+          "call_id": "toolu_sub_indexer",
+          "output": "The file /Users/dev/acme/api/src/indexer.rs has been updated."
+        }
+      ]
+    },
+    "provenance": {
+      "file": "fixtures/claude_code/2.0/subagent_thread.jsonl",
+      "byte_offset": 2185,
+      "line_no": 5
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "claude_code",
+    "session_id": "sess-main-008",
+    "seq": 8,
+    "event_id": "122aeba483f743e488f76e18554afe7dd8c9780e15b11528d6a61d7b08d05aeb",
+    "parent_id": "d4eeeee3-0000-4000-8000-000000000013",
+    "timestamp": "2026-06-22T17:00:08.4Z",
+    "project": {
+      "cwd": "/Users/dev/acme/api",
+      "repo_root": null,
+      "git": {
+        "sha": "abcdefab12345678abcdefab12345678abcdefab",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "tool_result",
+      "call_id": "toolu_sub_indexer",
+      "ok": true,
+      "output": "The file /Users/dev/acme/api/src/indexer.rs has been updated."
+    },
+    "provenance": {
+      "file": "fixtures/claude_code/2.0/subagent_thread.jsonl",
+      "byte_offset": 2185,
+      "line_no": 5
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "claude_code",
+    "session_id": "sess-main-008",
+    "seq": 9,
+    "event_id": "c7efff91f683749911e13fa88c774818eeab2ba921d0fbc1b4f65632ee6e22fc",
+    "parent_id": "d4eeeee3-0000-4000-8000-000000000013",
+    "timestamp": "2026-06-22T17:00:08.4Z",
+    "project": {
+      "cwd": "/Users/dev/acme/api",
+      "repo_root": null,
+      "git": {
+        "sha": "abcdefab12345678abcdefab12345678abcdefab",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "file_edit",
+      "call_id": "toolu_sub_indexer",
+      "diff": {
+        "path": "/Users/dev/acme/api/src/indexer.rs",
+        "old": "use tantivy_lite::Index;",
+        "new": "use tantivy::Index;",
+        "unified": "-use tantivy_lite::Index;\n+use tantivy::Index;",
+        "added_lines": 1,
+        "removed_lines": 1
+      }
+    },
+    "provenance": {
+      "file": "fixtures/claude_code/2.0/subagent_thread.jsonl",
+      "byte_offset": 2185,
+      "line_no": 5
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "claude_code",
+    "session_id": "sess-main-008",
+    "seq": 10,
+    "event_id": "d4ddddd3-0000-4000-8000-000000000003",
+    "parent_id": "d4ddddd2-0000-4000-8000-000000000002",
+    "timestamp": "2026-06-22T17:01:00Z",
+    "project": {
+      "cwd": "/Users/dev/acme/api",
+      "repo_root": null,
+      "git": {
+        "sha": "abcdefab12345678abcdefab12345678abcdefab",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "assistant_turn",
+      "text": "The search subagent finished the tantivy migration in the indexer.",
+      "thinking": null,
+      "model": "claude-opus-4-8",
+      "usage": {
+        "input_tokens": 320,
+        "output_tokens": 40,
+        "cache_read_tokens": 260,
+        "cache_creation_tokens": 0
+      },
+      "parts": [
+        {
+          "part": "text",
+          "text": "The search subagent finished the tantivy migration in the indexer."
+        }
+      ]
+    },
+    "provenance": {
+      "file": "fixtures/claude_code/2.0/subagent_thread.jsonl",
+      "byte_offset": 2967,
+      "line_no": 6
+    }
+  }
+]

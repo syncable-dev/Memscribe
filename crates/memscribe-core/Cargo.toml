@@ -1,0 +1,22 @@
+[package]
+name = "memscribe-core"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+description = "The deterministic, zero-LLM contract and pipeline for Memscribe: model, traits, gate, segmenter, binder, node-prep."
+
+[lints]
+workspace = true
+
+[dependencies]
+serde = { workspace = true }
+serde_json = { workspace = true }
+time = { workspace = true }
+thiserror = { workspace = true }
+blake3 = { workspace = true }
+regex = { workspace = true }
+
+[dev-dependencies]
+proptest = { workspace = true }

@@ -1,0 +1,208 @@
+---
+source: crates/memscribe-testkit/tests/golden.rs
+expression: events
+---
+[
+  {
+    "schema_version": 1,
+    "source": "codex",
+    "session_id": "01JZ8codexsess0003ban",
+    "seq": 0,
+    "event_id": "session_meta:01JZ8codexsess0003ban",
+    "parent_id": null,
+    "timestamp": "2026-06-22T16:20:00Z",
+    "project": {
+      "cwd": "/Users/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "c3d4e5f60718293a4b5c6d7e8f90010203040506",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "session_start",
+      "cwd": "/Users/dev/acme-api",
+      "git": {
+        "sha": "c3d4e5f60718293a4b5c6d7e8f90010203040506",
+        "branch": "main"
+      },
+      "model": null,
+      "tool_version": "0.6.2"
+    },
+    "provenance": {
+      "file": "fixtures/codex/v2/ban.jsonl",
+      "byte_offset": 0,
+      "line_no": 1
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "codex",
+    "session_id": "01JZ8codexsess0003ban",
+    "seq": 1,
+    "event_id": "60cfe394ca6c0aaa7a76a91648594ae96d383367677989cea6b5ad6b9c5cb2fd",
+    "parent_id": null,
+    "timestamp": "2026-06-22T16:20:07.33Z",
+    "project": {
+      "cwd": "/Users/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "c3d4e5f60718293a4b5c6d7e8f90010203040506",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "user_turn",
+      "text": "Policy: we will never add a dependency on left-pad. Do not introduce it under any circumstances, even transitively if you can avoid it.",
+      "parts": [
+        {
+          "part": "text",
+          "text": "Policy: we will never add a dependency on left-pad. Do not introduce it under any circumstances, even transitively if you can avoid it."
+        }
+      ]
+    },
+    "provenance": {
+      "file": "fixtures/codex/v2/ban.jsonl",
+      "byte_offset": 255,
+      "line_no": 2
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "codex",
+    "session_id": "01JZ8codexsess0003ban",
+    "seq": 2,
+    "event_id": "fc8db1a0f1d355dc38c71a6fd9437e63157739c6b474a6887bd92a4ee57e2b8e",
+    "parent_id": null,
+    "timestamp": "2026-06-22T16:20:12.77Z",
+    "project": {
+      "cwd": "/Users/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "c3d4e5f60718293a4b5c6d7e8f90010203040506",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "assistant_turn",
+      "text": "Acknowledged. I will never add left-pad as a dependency.",
+      "thinking": null,
+      "model": null,
+      "usage": null,
+      "parts": [
+        {
+          "part": "text",
+          "text": "Acknowledged. I will never add left-pad as a dependency."
+        }
+      ]
+    },
+    "provenance": {
+      "file": "fixtures/codex/v2/ban.jsonl",
+      "byte_offset": 541,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "codex",
+    "session_id": "01JZ8codexsess0003ban",
+    "seq": 3,
+    "event_id": "call_check_001",
+    "parent_id": null,
+    "timestamp": "2026-06-22T16:20:40.9Z",
+    "project": {
+      "cwd": "/Users/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "c3d4e5f60718293a4b5c6d7e8f90010203040506",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "tool_call",
+      "call_id": "call_check_001",
+      "name": "shell",
+      "args": {
+        "command": [
+          "rg",
+          "left-pad",
+          "package.json",
+          "Cargo.toml"
+        ]
+      }
+    },
+    "provenance": {
+      "file": "fixtures/codex/v2/ban.jsonl",
+      "byte_offset": 754,
+      "line_no": 4
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "codex",
+    "session_id": "01JZ8codexsess0003ban",
+    "seq": 4,
+    "event_id": "call_check_001:output",
+    "parent_id": "call_check_001",
+    "timestamp": "2026-06-22T16:20:41.22Z",
+    "project": {
+      "cwd": "/Users/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "c3d4e5f60718293a4b5c6d7e8f90010203040506",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "tool_result",
+      "call_id": "call_check_001",
+      "ok": false,
+      "output": {
+        "output": "",
+        "metadata": {
+          "exit_code": 1
+        }
+      }
+    },
+    "provenance": {
+      "file": "fixtures/codex/v2/ban.jsonl",
+      "byte_offset": 977,
+      "line_no": 5
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "codex",
+    "session_id": "01JZ8codexsess0003ban",
+    "seq": 5,
+    "event_id": "4df8c878f6537a8f6ebfe2847cb6a9e7604f73c374f15b94cf5072adb64353f1",
+    "parent_id": null,
+    "timestamp": "2026-06-22T16:20:44Z",
+    "project": {
+      "cwd": "/Users/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "c3d4e5f60718293a4b5c6d7e8f90010203040506",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "assistant_turn",
+      "text": "Confirmed: left-pad is not present in the manifests.",
+      "thinking": null,
+      "model": null,
+      "usage": null,
+      "parts": [
+        {
+          "part": "text",
+          "text": "Confirmed: left-pad is not present in the manifests."
+        }
+      ]
+    },
+    "provenance": {
+      "file": "fixtures/codex/v2/ban.jsonl",
+      "byte_offset": 1160,
+      "line_no": 6
+    }
+  }
+]

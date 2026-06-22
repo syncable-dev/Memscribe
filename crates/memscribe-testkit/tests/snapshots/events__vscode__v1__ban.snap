@@ -1,0 +1,134 @@
+---
+source: crates/memscribe-testkit/tests/golden.rs
+expression: events
+---
+[
+  {
+    "schema_version": 1,
+    "source": "vs_code",
+    "session_id": "vsc-sess-3",
+    "seq": 0,
+    "event_id": "5a358f6bc035fac8f141845d388596f8a927b30b8efdc8f97f7d3af247899d18",
+    "parent_id": null,
+    "timestamp": "1970-01-01T00:00:00Z",
+    "project": {
+      "cwd": "/home/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "0011223344556677",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "session_start",
+      "cwd": "/home/dev/acme-api",
+      "git": {
+        "sha": "0011223344556677",
+        "branch": "main"
+      },
+      "model": "gpt-4o",
+      "tool_version": "1.92.0"
+    },
+    "provenance": {
+      "file": "fixtures/vscode/v1/ban.jsonl",
+      "byte_offset": 0,
+      "line_no": 1
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "vs_code",
+    "session_id": "vsc-sess-3",
+    "seq": 1,
+    "event_id": "b1",
+    "parent_id": null,
+    "timestamp": "2026-06-22T12:00:00Z",
+    "project": {
+      "cwd": "/home/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "0011223344556677",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "user_turn",
+      "text": "We will never add a dependency on left-pad. Roll our own padding helper.",
+      "parts": []
+    },
+    "provenance": {
+      "file": "fixtures/vscode/v1/ban.jsonl",
+      "byte_offset": 166,
+      "line_no": 2
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "vs_code",
+    "session_id": "vsc-sess-3",
+    "seq": 2,
+    "event_id": "b2",
+    "parent_id": "b1",
+    "timestamp": "2026-06-22T12:00:06Z",
+    "project": {
+      "cwd": "/home/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "0011223344556677",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "assistant_turn",
+      "text": "Understood — no left-pad. I'll add a tiny internal pad() utility.",
+      "thinking": null,
+      "model": "gpt-4o",
+      "usage": {
+        "input_tokens": 640,
+        "output_tokens": 120,
+        "cache_read_tokens": null,
+        "cache_creation_tokens": null
+      },
+      "parts": []
+    },
+    "provenance": {
+      "file": "fixtures/vscode/v1/ban.jsonl",
+      "byte_offset": 343,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "vs_code",
+    "session_id": "vsc-sess-3",
+    "seq": 3,
+    "event_id": "b2:edit:0:src/util/pad.ts",
+    "parent_id": "b2",
+    "timestamp": "2026-06-22T12:00:06Z",
+    "project": {
+      "cwd": "/home/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "0011223344556677",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "file_edit",
+      "call_id": null,
+      "diff": {
+        "path": "src/util/pad.ts",
+        "old": null,
+        "new": "export const pad = (s, n) => s.padStart(n, '0');",
+        "unified": null,
+        "added_lines": 1,
+        "removed_lines": 0
+      }
+    },
+    "provenance": {
+      "file": "fixtures/vscode/v1/ban.jsonl",
+      "byte_offset": 343,
+      "line_no": 3
+    }
+  }
+]

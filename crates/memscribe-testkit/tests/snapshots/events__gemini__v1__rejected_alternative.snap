@@ -1,0 +1,201 @@
+---
+source: crates/memscribe-testkit/tests/golden.rs
+expression: events
+---
+[
+  {
+    "schema_version": 1,
+    "source": "gemini",
+    "session_id": "a1b2c3d4-0002",
+    "seq": 0,
+    "event_id": "cb223821b21cf2939e2a719a2690520c3c7e8b649dced8b12fdb43c3ae8b7642",
+    "parent_id": null,
+    "timestamp": "1970-01-01T00:00:00Z",
+    "project": {
+      "cwd": "/home/dev/billing",
+      "repo_root": null,
+      "git": {
+        "sha": "77ab12cd",
+        "branch": "feat/payments"
+      }
+    },
+    "kind": {
+      "event": "session_start",
+      "cwd": "/home/dev/billing",
+      "git": {
+        "sha": "77ab12cd",
+        "branch": "feat/payments"
+      },
+      "model": "gemini-2.5-pro",
+      "tool_version": "0.4.1"
+    },
+    "provenance": {
+      "file": "fixtures/gemini/v1/rejected_alternative.jsonl",
+      "byte_offset": 0,
+      "line_no": 1
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "gemini",
+    "session_id": "a1b2c3d4-0002",
+    "seq": 1,
+    "event_id": "msg-0101",
+    "parent_id": null,
+    "timestamp": "2026-06-22T11:15:00Z",
+    "project": {
+      "cwd": "/home/dev/billing",
+      "repo_root": null,
+      "git": {
+        "sha": "77ab12cd",
+        "branch": "feat/payments"
+      }
+    },
+    "kind": {
+      "event": "user_turn",
+      "text": "For the checkout flow, use Stripe instead of PayPal. Wire up the Stripe client.",
+      "parts": []
+    },
+    "provenance": {
+      "file": "fixtures/gemini/v1/rejected_alternative.jsonl",
+      "byte_offset": 156,
+      "line_no": 2
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "gemini",
+    "session_id": "a1b2c3d4-0002",
+    "seq": 2,
+    "event_id": "msg-0102",
+    "parent_id": null,
+    "timestamp": "2026-06-22T11:15:04.5Z",
+    "project": {
+      "cwd": "/home/dev/billing",
+      "repo_root": null,
+      "git": {
+        "sha": "77ab12cd",
+        "branch": "feat/payments"
+      }
+    },
+    "kind": {
+      "event": "assistant_turn",
+      "text": "Understood — Stripe it is. Adding the Stripe client and removing the PayPal stub.",
+      "thinking": "User explicitly rejected PayPal in favor of Stripe.",
+      "model": null,
+      "usage": {
+        "input_tokens": 140,
+        "output_tokens": 72,
+        "cache_read_tokens": null,
+        "cache_creation_tokens": null
+      },
+      "parts": []
+    },
+    "provenance": {
+      "file": "fixtures/gemini/v1/rejected_alternative.jsonl",
+      "byte_offset": 316,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "gemini",
+    "session_id": "a1b2c3d4-0002",
+    "seq": 3,
+    "event_id": "call-stripe-1:call",
+    "parent_id": "msg-0102",
+    "timestamp": "2026-06-22T11:15:04.5Z",
+    "project": {
+      "cwd": "/home/dev/billing",
+      "repo_root": null,
+      "git": {
+        "sha": "77ab12cd",
+        "branch": "feat/payments"
+      }
+    },
+    "kind": {
+      "event": "tool_call",
+      "call_id": "call-stripe-1",
+      "name": "write_file",
+      "args": {
+        "path": "src/payments/stripe.rs"
+      }
+    },
+    "provenance": {
+      "file": "fixtures/gemini/v1/rejected_alternative.jsonl",
+      "byte_offset": 316,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "gemini",
+    "session_id": "a1b2c3d4-0002",
+    "seq": 4,
+    "event_id": "call-stripe-1:result",
+    "parent_id": "msg-0102",
+    "timestamp": "2026-06-22T11:15:04.5Z",
+    "project": {
+      "cwd": "/home/dev/billing",
+      "repo_root": null,
+      "git": {
+        "sha": "77ab12cd",
+        "branch": "feat/payments"
+      }
+    },
+    "kind": {
+      "event": "tool_result",
+      "call_id": "call-stripe-1",
+      "ok": true,
+      "output": {
+        "fileName": "src/payments/stripe.rs",
+        "originalContent": "",
+        "newContent": "pub struct StripeClient { key: String }\n",
+        "fileDiff": "@@ -0,0 +1 @@\n+pub struct StripeClient { key: String }\n",
+        "diffStat": {
+          "added": 1,
+          "removed": 0
+        }
+      }
+    },
+    "provenance": {
+      "file": "fixtures/gemini/v1/rejected_alternative.jsonl",
+      "byte_offset": 316,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "gemini",
+    "session_id": "a1b2c3d4-0002",
+    "seq": 5,
+    "event_id": "call-stripe-1:edit",
+    "parent_id": "msg-0102",
+    "timestamp": "2026-06-22T11:15:04.5Z",
+    "project": {
+      "cwd": "/home/dev/billing",
+      "repo_root": null,
+      "git": {
+        "sha": "77ab12cd",
+        "branch": "feat/payments"
+      }
+    },
+    "kind": {
+      "event": "file_edit",
+      "call_id": "call-stripe-1",
+      "diff": {
+        "path": "src/payments/stripe.rs",
+        "old": null,
+        "new": "pub struct StripeClient { key: String }\n",
+        "unified": "@@ -0,0 +1 @@\n+pub struct StripeClient { key: String }\n",
+        "added_lines": 1,
+        "removed_lines": 0
+      }
+    },
+    "provenance": {
+      "file": "fixtures/gemini/v1/rejected_alternative.jsonl",
+      "byte_offset": 316,
+      "line_no": 3
+    }
+  }
+]

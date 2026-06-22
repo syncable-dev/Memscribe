@@ -1,0 +1,378 @@
+---
+source: crates/memscribe-testkit/tests/golden.rs
+expression: events
+---
+[
+  {
+    "schema_version": 1,
+    "source": "codex",
+    "session_id": "01JZ8codexsess0007rewindcompact",
+    "seq": 0,
+    "event_id": "session_meta:01JZ8codexsess0007rewindcompact",
+    "parent_id": null,
+    "timestamp": "2026-06-22T20:00:00Z",
+    "project": {
+      "cwd": "/Users/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "0718293a4b5c6d7e8f9001020304050607080910",
+        "branch": "feat/persistence-pivot"
+      }
+    },
+    "kind": {
+      "event": "session_start",
+      "cwd": "/Users/dev/acme-api",
+      "git": {
+        "sha": "0718293a4b5c6d7e8f9001020304050607080910",
+        "branch": "feat/persistence-pivot"
+      },
+      "model": null,
+      "tool_version": "0.6.2"
+    },
+    "provenance": {
+      "file": "fixtures/codex/v2/rewind_compaction.jsonl",
+      "byte_offset": 0,
+      "line_no": 1
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "codex",
+    "session_id": "01JZ8codexsess0007rewindcompact",
+    "seq": 1,
+    "event_id": "af025c062b71e782f169243c8043a4886b78c35e3733948a94bf11fbbef2bef9",
+    "parent_id": null,
+    "timestamp": "2026-06-22T20:00:06.3Z",
+    "project": {
+      "cwd": "/Users/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "0718293a4b5c6d7e8f9001020304050607080910",
+        "branch": "feat/persistence-pivot"
+      }
+    },
+    "kind": {
+      "event": "user_turn",
+      "text": "Let's use MongoDB for the document store. Set up the driver and the connection config.",
+      "parts": [
+        {
+          "part": "text",
+          "text": "Let's use MongoDB for the document store. Set up the driver and the connection config."
+        }
+      ]
+    },
+    "provenance": {
+      "file": "fixtures/codex/v2/rewind_compaction.jsonl",
+      "byte_offset": 283,
+      "line_no": 2
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "codex",
+    "session_id": "01JZ8codexsess0007rewindcompact",
+    "seq": 2,
+    "event_id": "addc21e1f941adcf5be1ffceb57cbd0c01536079dafd82918ec11c1b64418914",
+    "parent_id": null,
+    "timestamp": "2026-06-22T20:00:11.7Z",
+    "project": {
+      "cwd": "/Users/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "0718293a4b5c6d7e8f9001020304050607080910",
+        "branch": "feat/persistence-pivot"
+      }
+    },
+    "kind": {
+      "event": "assistant_turn",
+      "text": "Understood, I'll wire up MongoDB for the document store.",
+      "thinking": null,
+      "model": null,
+      "usage": null,
+      "parts": [
+        {
+          "part": "text",
+          "text": "Understood, I'll wire up MongoDB for the document store."
+        }
+      ]
+    },
+    "provenance": {
+      "file": "fixtures/codex/v2/rewind_compaction.jsonl",
+      "byte_offset": 520,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "codex",
+    "session_id": "01JZ8codexsess0007rewindcompact",
+    "seq": 3,
+    "event_id": "e72ff9d6c487fbc532610e0e072afeb42130cda02a0e2bdb0d841196b715cf84",
+    "parent_id": null,
+    "timestamp": "2026-06-22T20:00:30Z",
+    "project": {
+      "cwd": "/Users/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "0718293a4b5c6d7e8f9001020304050607080910",
+        "branch": "feat/persistence-pivot"
+      }
+    },
+    "kind": {
+      "event": "unknown",
+      "raw_type": "event_msg",
+      "raw": {
+        "timestamp": "2026-06-22T20:00:30.000Z",
+        "type": "event_msg",
+        "payload": {
+          "type": "compacted",
+          "reason": "auto_compact",
+          "message": "Conversation history compacted to fit the context window. The MongoDB exploration above was summarized and the verbatim early turns were dropped from the working context.",
+          "replaced_response_ids": [
+            "msg-mongo-user",
+            "msg-mongo-assistant"
+          ]
+        }
+      }
+    },
+    "provenance": {
+      "file": "fixtures/codex/v2/rewind_compaction.jsonl",
+      "byte_offset": 733,
+      "line_no": 4
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "codex",
+    "session_id": "01JZ8codexsess0007rewindcompact",
+    "seq": 4,
+    "event_id": "b27e2518664e1c5b4d0b31d9546ce984031f843158f292857b626cf2bbfcdaae",
+    "parent_id": null,
+    "timestamp": "2026-06-22T20:00:31Z",
+    "project": {
+      "cwd": "/Users/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "0718293a4b5c6d7e8f9001020304050607080910",
+        "branch": "feat/persistence-pivot"
+      }
+    },
+    "kind": {
+      "event": "unknown",
+      "raw_type": "turn_context",
+      "raw": {
+        "timestamp": "2026-06-22T20:00:31.000Z",
+        "type": "turn_context",
+        "payload": {
+          "summary": "Earlier the user explored MongoDB for the document store; that turn was compacted out of the active context.",
+          "cwd": "/Users/dev/acme-api"
+        }
+      }
+    },
+    "provenance": {
+      "file": "fixtures/codex/v2/rewind_compaction.jsonl",
+      "byte_offset": 1096,
+      "line_no": 5
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "codex",
+    "session_id": "01JZ8codexsess0007rewindcompact",
+    "seq": 5,
+    "event_id": "42174043fd82823604e1d3d21305cb37e8514aa685387e04fb425e445c217c18",
+    "parent_id": null,
+    "timestamp": "2026-06-22T20:00:40.2Z",
+    "project": {
+      "cwd": "/Users/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "0718293a4b5c6d7e8f9001020304050607080910",
+        "branch": "feat/persistence-pivot"
+      }
+    },
+    "kind": {
+      "event": "user_turn",
+      "text": "Actually let's use Postgres with JSONB for the document store instead. Switch to Postgres and drop the MongoDB plan.",
+      "parts": [
+        {
+          "part": "text",
+          "text": "Actually let's use Postgres with JSONB for the document store instead. Switch to Postgres and drop the MongoDB plan."
+        }
+      ]
+    },
+    "provenance": {
+      "file": "fixtures/codex/v2/rewind_compaction.jsonl",
+      "byte_offset": 1320,
+      "line_no": 6
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "codex",
+    "session_id": "01JZ8codexsess0007rewindcompact",
+    "seq": 6,
+    "event_id": "9285d994a655a6d45fd0b220a02c6bb65917130f7cde43d9a9472de376c6a0c4",
+    "parent_id": null,
+    "timestamp": "2026-06-22T20:00:45.9Z",
+    "project": {
+      "cwd": "/Users/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "0718293a4b5c6d7e8f9001020304050607080910",
+        "branch": "feat/persistence-pivot"
+      }
+    },
+    "kind": {
+      "event": "assistant_turn",
+      "text": "Switching the document store to Postgres with JSONB columns.",
+      "thinking": null,
+      "model": null,
+      "usage": null,
+      "parts": [
+        {
+          "part": "text",
+          "text": "Switching the document store to Postgres with JSONB columns."
+        }
+      ]
+    },
+    "provenance": {
+      "file": "fixtures/codex/v2/rewind_compaction.jsonl",
+      "byte_offset": 1587,
+      "line_no": 7
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "codex",
+    "session_id": "01JZ8codexsess0007rewindcompact",
+    "seq": 7,
+    "event_id": "call_apply_patch_rewind_001",
+    "parent_id": null,
+    "timestamp": "2026-06-22T20:00:53.4Z",
+    "project": {
+      "cwd": "/Users/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "0718293a4b5c6d7e8f9001020304050607080910",
+        "branch": "feat/persistence-pivot"
+      }
+    },
+    "kind": {
+      "event": "tool_call",
+      "call_id": "call_apply_patch_rewind_001",
+      "name": "apply_patch",
+      "args": {
+        "input": "*** Begin Patch\n*** Update File: src/store.rs\n@@\n-use mongodb::Client;\n+use sqlx::PgPool;\n@@\n-    let client = Client::with_uri_str(\"mongodb://localhost:27017\").await?;\n+    let pool = PgPool::connect(\"postgres://localhost:5432/acme\").await?;\n*** End Patch\n"
+      }
+    },
+    "provenance": {
+      "file": "fixtures/codex/v2/rewind_compaction.jsonl",
+      "byte_offset": 1804,
+      "line_no": 8
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "codex",
+    "session_id": "01JZ8codexsess0007rewindcompact",
+    "seq": 8,
+    "event_id": "db5adb3aa4e0469ccf0f56928b9e00f8244ceab7e40f5a258608725c1c82cd44",
+    "parent_id": "call_apply_patch_rewind_001",
+    "timestamp": "2026-06-22T20:00:53.4Z",
+    "project": {
+      "cwd": "/Users/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "0718293a4b5c6d7e8f9001020304050607080910",
+        "branch": "feat/persistence-pivot"
+      }
+    },
+    "kind": {
+      "event": "file_edit",
+      "call_id": "call_apply_patch_rewind_001",
+      "diff": {
+        "path": "src/store.rs",
+        "old": null,
+        "new": null,
+        "unified": "@@\n-use mongodb::Client;\n+use sqlx::PgPool;\n@@\n-    let client = Client::with_uri_str(\"mongodb://localhost:27017\").await?;\n+    let pool = PgPool::connect(\"postgres://localhost:5432/acme\").await?;",
+        "added_lines": 2,
+        "removed_lines": 2
+      }
+    },
+    "provenance": {
+      "file": "fixtures/codex/v2/rewind_compaction.jsonl",
+      "byte_offset": 1804,
+      "line_no": 8
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "codex",
+    "session_id": "01JZ8codexsess0007rewindcompact",
+    "seq": 9,
+    "event_id": "call_apply_patch_rewind_001:output",
+    "parent_id": "call_apply_patch_rewind_001",
+    "timestamp": "2026-06-22T20:00:53.7Z",
+    "project": {
+      "cwd": "/Users/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "0718293a4b5c6d7e8f9001020304050607080910",
+        "branch": "feat/persistence-pivot"
+      }
+    },
+    "kind": {
+      "event": "tool_result",
+      "call_id": "call_apply_patch_rewind_001",
+      "ok": true,
+      "output": {
+        "output": "Applied patch to 1 file: src/store.rs",
+        "metadata": {
+          "exit_code": 0,
+          "duration_ms": 36
+        }
+      }
+    },
+    "provenance": {
+      "file": "fixtures/codex/v2/rewind_compaction.jsonl",
+      "byte_offset": 2282,
+      "line_no": 9
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "codex",
+    "session_id": "01JZ8codexsess0007rewindcompact",
+    "seq": 10,
+    "event_id": "f59c29634cb1b5cfb532af0db58b5d37c91a212cf5805c1552ecb837351e4907",
+    "parent_id": null,
+    "timestamp": "2026-06-22T20:00:58Z",
+    "project": {
+      "cwd": "/Users/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "0718293a4b5c6d7e8f9001020304050607080910",
+        "branch": "feat/persistence-pivot"
+      }
+    },
+    "kind": {
+      "event": "assistant_turn",
+      "text": "Done. The document store now uses Postgres with JSONB.",
+      "thinking": null,
+      "model": null,
+      "usage": null,
+      "parts": [
+        {
+          "part": "text",
+          "text": "Done. The document store now uses Postgres with JSONB."
+        }
+      ]
+    },
+    "provenance": {
+      "file": "fixtures/codex/v2/rewind_compaction.jsonl",
+      "byte_offset": 2532,
+      "line_no": 10
+    }
+  }
+]

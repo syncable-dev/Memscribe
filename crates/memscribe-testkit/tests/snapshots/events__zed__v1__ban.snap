@@ -1,0 +1,188 @@
+---
+source: crates/memscribe-testkit/tests/golden.rs
+expression: events
+---
+[
+  {
+    "schema_version": 1,
+    "source": "zed",
+    "session_id": "zed-thread-003",
+    "seq": 0,
+    "event_id": "859026e7d1e45de90d1a7021888d56f346375b6a1dacc7ebb9c743b70ccbd2db",
+    "parent_id": null,
+    "timestamp": "2026-06-22T12:00:00Z",
+    "project": {
+      "cwd": "/Users/dev/projects/orbit",
+      "repo_root": null,
+      "git": {
+        "sha": "0011223344556677",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "session_start",
+      "cwd": "/Users/dev/projects/orbit",
+      "git": {
+        "sha": "0011223344556677",
+        "branch": "main"
+      },
+      "model": null,
+      "tool_version": "zed 0.182.0"
+    },
+    "provenance": {
+      "file": "fixtures/zed/v1/ban.jsonl",
+      "byte_offset": 0,
+      "line_no": 1
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "zed",
+    "session_id": "zed-thread-003",
+    "seq": 1,
+    "event_id": "msg-1",
+    "parent_id": null,
+    "timestamp": "2026-06-22T12:00:03Z",
+    "project": {
+      "cwd": "/Users/dev/projects/orbit",
+      "repo_root": null,
+      "git": {
+        "sha": "0011223344556677",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "user_turn",
+      "text": "We will never add a dependency on left-pad. Use the std library instead.",
+      "parts": []
+    },
+    "provenance": {
+      "file": "fixtures/zed/v1/ban.jsonl",
+      "byte_offset": 193,
+      "line_no": 2
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "zed",
+    "session_id": "zed-thread-003",
+    "seq": 2,
+    "event_id": "msg-2",
+    "parent_id": "msg-1",
+    "timestamp": "2026-06-22T12:00:07Z",
+    "project": {
+      "cwd": "/Users/dev/projects/orbit",
+      "repo_root": null,
+      "git": {
+        "sha": "0011223344556677",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "assistant_turn",
+      "text": "Understood — no left-pad dependency. I'll pad with format! from std.",
+      "thinking": null,
+      "model": "claude-opus-4-8",
+      "usage": {
+        "input_tokens": 640,
+        "output_tokens": 120,
+        "cache_read_tokens": null,
+        "cache_creation_tokens": null
+      },
+      "parts": []
+    },
+    "provenance": {
+      "file": "fixtures/zed/v1/ban.jsonl",
+      "byte_offset": 377,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "zed",
+    "session_id": "zed-thread-003",
+    "seq": 3,
+    "event_id": "msg-2:call:call-1",
+    "parent_id": "msg-2",
+    "timestamp": "2026-06-22T12:00:07Z",
+    "project": {
+      "cwd": "/Users/dev/projects/orbit",
+      "repo_root": null,
+      "git": {
+        "sha": "0011223344556677",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "tool_call",
+      "call_id": "call-1",
+      "name": "read_file",
+      "args": {
+        "path": "Cargo.toml"
+      }
+    },
+    "provenance": {
+      "file": "fixtures/zed/v1/ban.jsonl",
+      "byte_offset": 377,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "zed",
+    "session_id": "zed-thread-003",
+    "seq": 4,
+    "event_id": "msg-3",
+    "parent_id": "msg-2",
+    "timestamp": "2026-06-22T12:00:10Z",
+    "project": {
+      "cwd": "/Users/dev/projects/orbit",
+      "repo_root": null,
+      "git": {
+        "sha": "0011223344556677",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "assistant_turn",
+      "text": "Confirmed Cargo.toml has no left-pad.",
+      "thinking": null,
+      "model": null,
+      "usage": null,
+      "parts": []
+    },
+    "provenance": {
+      "file": "fixtures/zed/v1/ban.jsonl",
+      "byte_offset": 706,
+      "line_no": 4
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "zed",
+    "session_id": "zed-thread-003",
+    "seq": 5,
+    "event_id": "msg-3:result:call-1",
+    "parent_id": "msg-3",
+    "timestamp": "2026-06-22T12:00:10Z",
+    "project": {
+      "cwd": "/Users/dev/projects/orbit",
+      "repo_root": null,
+      "git": {
+        "sha": "0011223344556677",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "tool_result",
+      "call_id": "call-1",
+      "ok": true,
+      "output": "[dependencies]\nserde = \"1\"\n"
+    },
+    "provenance": {
+      "file": "fixtures/zed/v1/ban.jsonl",
+      "byte_offset": 706,
+      "line_no": 4
+    }
+  }
+]

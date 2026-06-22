@@ -1,0 +1,23 @@
+---
+source: crates/memscribe-testkit/tests/golden.rs
+expression: nodes
+---
+[
+  {
+    "node": "episode",
+    "path": "/Users/dev/acme/api/src/handler.rs",
+    "diff": {
+      "path": "/Users/dev/acme/api/src/handler.rs",
+      "old": "    let body = read(); ",
+      "new": "    let body = read();",
+      "unified": "-    let body = read(); \n+    let body = read();",
+      "added_lines": 1,
+      "removed_lines": 1
+    },
+    "git": {
+      "sha": "0a0b0c0d0e0f10111213141516171819202122ab",
+      "branch": "main"
+    },
+    "episode_id": "0137490964ce998a3a343bba5dc9af20656aef0d0fdd9cbe0626583f27cec262"
+  }
+]

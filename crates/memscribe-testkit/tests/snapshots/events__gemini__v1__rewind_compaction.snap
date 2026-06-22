@@ -1,0 +1,444 @@
+---
+source: crates/memscribe-testkit/tests/golden.rs
+expression: events
+---
+[
+  {
+    "schema_version": 1,
+    "source": "gemini",
+    "session_id": "g-rewind-0001",
+    "seq": 0,
+    "event_id": "39cf7ba48601766d8753e2ec3d314b4fc5141ef9cb0849f168f3f0829e2b8564",
+    "parent_id": null,
+    "timestamp": "1970-01-01T00:00:00Z",
+    "project": {
+      "cwd": "/home/dev/catalog",
+      "repo_root": null,
+      "git": {
+        "sha": "c3c3c3c3c3",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "session_start",
+      "cwd": "/home/dev/catalog",
+      "git": {
+        "sha": "c3c3c3c3c3",
+        "branch": "main"
+      },
+      "model": "gemini-2.5-pro",
+      "tool_version": "0.4.1"
+    },
+    "provenance": {
+      "file": "fixtures/gemini/v1/rewind_compaction.jsonl",
+      "byte_offset": 0,
+      "line_no": 1
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "gemini",
+    "session_id": "g-rewind-0001",
+    "seq": 1,
+    "event_id": "msg-rc-00",
+    "parent_id": null,
+    "timestamp": "2026-06-22T15:00:00Z",
+    "project": {
+      "cwd": "/home/dev/catalog",
+      "repo_root": null,
+      "git": {
+        "sha": "c3c3c3c3c3",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "user_turn",
+      "text": "Let's plan the storage layer for the catalog.",
+      "parts": []
+    },
+    "provenance": {
+      "file": "fixtures/gemini/v1/rewind_compaction.jsonl",
+      "byte_offset": 183,
+      "line_no": 2
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "gemini",
+    "session_id": "g-rewind-0001",
+    "seq": 2,
+    "event_id": "msg-rc-01",
+    "parent_id": null,
+    "timestamp": "2026-06-22T15:01:00Z",
+    "project": {
+      "cwd": "/home/dev/catalog",
+      "repo_root": null,
+      "git": {
+        "sha": "c3c3c3c3c3",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "user_turn",
+      "text": "Use MongoDB for the catalog store. Wire up the document client.",
+      "parts": []
+    },
+    "provenance": {
+      "file": "fixtures/gemini/v1/rewind_compaction.jsonl",
+      "byte_offset": 310,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "gemini",
+    "session_id": "g-rewind-0001",
+    "seq": 3,
+    "event_id": "msg-rc-02",
+    "parent_id": null,
+    "timestamp": "2026-06-22T15:01:03Z",
+    "project": {
+      "cwd": "/home/dev/catalog",
+      "repo_root": null,
+      "git": {
+        "sha": "c3c3c3c3c3",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "assistant_turn",
+      "text": "Setting up the MongoDB document client.",
+      "thinking": "Replace the placeholder store with a mongo client.",
+      "model": null,
+      "usage": {
+        "input_tokens": 110,
+        "output_tokens": 54,
+        "cache_read_tokens": null,
+        "cache_creation_tokens": null
+      },
+      "parts": []
+    },
+    "provenance": {
+      "file": "fixtures/gemini/v1/rewind_compaction.jsonl",
+      "byte_offset": 455,
+      "line_no": 4
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "gemini",
+    "session_id": "g-rewind-0001",
+    "seq": 4,
+    "event_id": "call-rc-mongo:call",
+    "parent_id": "msg-rc-02",
+    "timestamp": "2026-06-22T15:01:03Z",
+    "project": {
+      "cwd": "/home/dev/catalog",
+      "repo_root": null,
+      "git": {
+        "sha": "c3c3c3c3c3",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "tool_call",
+      "call_id": "call-rc-mongo",
+      "name": "write_file",
+      "args": {
+        "path": "src/store.rs"
+      }
+    },
+    "provenance": {
+      "file": "fixtures/gemini/v1/rewind_compaction.jsonl",
+      "byte_offset": 455,
+      "line_no": 4
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "gemini",
+    "session_id": "g-rewind-0001",
+    "seq": 5,
+    "event_id": "call-rc-mongo:result",
+    "parent_id": "msg-rc-02",
+    "timestamp": "2026-06-22T15:01:03Z",
+    "project": {
+      "cwd": "/home/dev/catalog",
+      "repo_root": null,
+      "git": {
+        "sha": "c3c3c3c3c3",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "tool_result",
+      "call_id": "call-rc-mongo",
+      "ok": true,
+      "output": {
+        "fileName": "src/store.rs",
+        "originalContent": "pub struct Store;\n",
+        "newContent": "use mongodb::Client;\npub struct Store(Client);\n",
+        "fileDiff": "@@ -1 +1,2 @@\n-pub struct Store;\n+use mongodb::Client;\n+pub struct Store(Client);\n",
+        "diffStat": {
+          "added": 2,
+          "removed": 1
+        }
+      }
+    },
+    "provenance": {
+      "file": "fixtures/gemini/v1/rewind_compaction.jsonl",
+      "byte_offset": 455,
+      "line_no": 4
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "gemini",
+    "session_id": "g-rewind-0001",
+    "seq": 6,
+    "event_id": "call-rc-mongo:edit",
+    "parent_id": "msg-rc-02",
+    "timestamp": "2026-06-22T15:01:03Z",
+    "project": {
+      "cwd": "/home/dev/catalog",
+      "repo_root": null,
+      "git": {
+        "sha": "c3c3c3c3c3",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "file_edit",
+      "call_id": "call-rc-mongo",
+      "diff": {
+        "path": "src/store.rs",
+        "old": "pub struct Store;\n",
+        "new": "use mongodb::Client;\npub struct Store(Client);\n",
+        "unified": "@@ -1 +1,2 @@\n-pub struct Store;\n+use mongodb::Client;\n+pub struct Store(Client);\n",
+        "added_lines": 2,
+        "removed_lines": 1
+      }
+    },
+    "provenance": {
+      "file": "fixtures/gemini/v1/rewind_compaction.jsonl",
+      "byte_offset": 455,
+      "line_no": 4
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "gemini",
+    "session_id": "g-rewind-0001",
+    "seq": 7,
+    "event_id": "c17d6e2538f83b5f0eab90658c1408979002f15d9e3bdb62a7d20272e16c82e6",
+    "parent_id": null,
+    "timestamp": "1970-01-01T00:00:00Z",
+    "project": {
+      "cwd": "/home/dev/catalog",
+      "repo_root": null,
+      "git": {
+        "sha": "c3c3c3c3c3",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "rewind",
+      "to_event": "msg-rc-00"
+    },
+    "provenance": {
+      "file": "fixtures/gemini/v1/rewind_compaction.jsonl",
+      "byte_offset": 1052,
+      "line_no": 5
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "gemini",
+    "session_id": "g-rewind-0001",
+    "seq": 8,
+    "event_id": "msg-rc-03",
+    "parent_id": null,
+    "timestamp": "2026-06-22T15:10:00Z",
+    "project": {
+      "cwd": "/home/dev/catalog",
+      "repo_root": null,
+      "git": {
+        "sha": "c3c3c3c3c3",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "user_turn",
+      "text": "On reflection, use Postgres with JSONB for the catalog store instead of MongoDB.",
+      "parts": []
+    },
+    "provenance": {
+      "file": "fixtures/gemini/v1/rewind_compaction.jsonl",
+      "byte_offset": 1078,
+      "line_no": 6
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "gemini",
+    "session_id": "g-rewind-0001",
+    "seq": 9,
+    "event_id": "msg-rc-04",
+    "parent_id": null,
+    "timestamp": "2026-06-22T15:10:03Z",
+    "project": {
+      "cwd": "/home/dev/catalog",
+      "repo_root": null,
+      "git": {
+        "sha": "c3c3c3c3c3",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "assistant_turn",
+      "text": "Replacing the store with a Postgres JSONB client.",
+      "thinking": "Swap the mongo client for a postgres client.",
+      "model": null,
+      "usage": {
+        "input_tokens": 105,
+        "output_tokens": 58,
+        "cache_read_tokens": null,
+        "cache_creation_tokens": null
+      },
+      "parts": []
+    },
+    "provenance": {
+      "file": "fixtures/gemini/v1/rewind_compaction.jsonl",
+      "byte_offset": 1240,
+      "line_no": 7
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "gemini",
+    "session_id": "g-rewind-0001",
+    "seq": 10,
+    "event_id": "call-rc-pg:call",
+    "parent_id": "msg-rc-04",
+    "timestamp": "2026-06-22T15:10:03Z",
+    "project": {
+      "cwd": "/home/dev/catalog",
+      "repo_root": null,
+      "git": {
+        "sha": "c3c3c3c3c3",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "tool_call",
+      "call_id": "call-rc-pg",
+      "name": "replace",
+      "args": {
+        "path": "src/store.rs"
+      }
+    },
+    "provenance": {
+      "file": "fixtures/gemini/v1/rewind_compaction.jsonl",
+      "byte_offset": 1240,
+      "line_no": 7
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "gemini",
+    "session_id": "g-rewind-0001",
+    "seq": 11,
+    "event_id": "call-rc-pg:result",
+    "parent_id": "msg-rc-04",
+    "timestamp": "2026-06-22T15:10:03Z",
+    "project": {
+      "cwd": "/home/dev/catalog",
+      "repo_root": null,
+      "git": {
+        "sha": "c3c3c3c3c3",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "tool_result",
+      "call_id": "call-rc-pg",
+      "ok": true,
+      "output": {
+        "fileName": "src/store.rs",
+        "originalContent": "use mongodb::Client;\npub struct Store(Client);\n",
+        "newContent": "use postgres::Client;\npub struct Store(Client);\n",
+        "fileDiff": "@@ -1,2 +1,2 @@\n-use mongodb::Client;\n+use postgres::Client;\n pub struct Store(Client);\n",
+        "diffStat": {
+          "added": 1,
+          "removed": 1
+        }
+      }
+    },
+    "provenance": {
+      "file": "fixtures/gemini/v1/rewind_compaction.jsonl",
+      "byte_offset": 1240,
+      "line_no": 7
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "gemini",
+    "session_id": "g-rewind-0001",
+    "seq": 12,
+    "event_id": "call-rc-pg:edit",
+    "parent_id": "msg-rc-04",
+    "timestamp": "2026-06-22T15:10:03Z",
+    "project": {
+      "cwd": "/home/dev/catalog",
+      "repo_root": null,
+      "git": {
+        "sha": "c3c3c3c3c3",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "file_edit",
+      "call_id": "call-rc-pg",
+      "diff": {
+        "path": "src/store.rs",
+        "old": "use mongodb::Client;\npub struct Store(Client);\n",
+        "new": "use postgres::Client;\npub struct Store(Client);\n",
+        "unified": "@@ -1,2 +1,2 @@\n-use mongodb::Client;\n+use postgres::Client;\n pub struct Store(Client);\n",
+        "added_lines": 1,
+        "removed_lines": 1
+      }
+    },
+    "provenance": {
+      "file": "fixtures/gemini/v1/rewind_compaction.jsonl",
+      "byte_offset": 1240,
+      "line_no": 7
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "gemini",
+    "session_id": "g-rewind-0001",
+    "seq": 13,
+    "event_id": "msg-rc-05",
+    "parent_id": null,
+    "timestamp": "2026-06-22T15:10:30Z",
+    "project": {
+      "cwd": "/home/dev/catalog",
+      "repo_root": null,
+      "git": {
+        "sha": "c3c3c3c3c3",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "user_turn",
+      "text": "Looks right now, thanks.",
+      "parts": []
+    },
+    "provenance": {
+      "file": "fixtures/gemini/v1/rewind_compaction.jsonl",
+      "byte_offset": 1872,
+      "line_no": 8
+    }
+  }
+]

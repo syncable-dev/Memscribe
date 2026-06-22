@@ -1,0 +1,601 @@
+---
+source: crates/memscribe-testkit/tests/golden.rs
+expression: events
+---
+[
+  {
+    "schema_version": 1,
+    "source": "claude_code",
+    "session_id": "sess-multiedit-006",
+    "seq": 0,
+    "event_id": "a7734c5a3cdff1577e96f755e63ddb3fafc1a063520a4ce402c323b567db59a7",
+    "parent_id": null,
+    "timestamp": "2026-06-22T15:00:00Z",
+    "project": {
+      "cwd": "/Users/dev/acme/api",
+      "repo_root": null,
+      "git": {
+        "sha": "aaaa1111bbbb2222cccc3333dddd4444eeee5555",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "session_start",
+      "cwd": "/Users/dev/acme/api",
+      "git": {
+        "sha": "aaaa1111bbbb2222cccc3333dddd4444eeee5555",
+        "branch": "main"
+      },
+      "model": null,
+      "tool_version": "2.0.5"
+    },
+    "provenance": {
+      "file": "fixtures/claude_code/2.0/multi_edit_single_commit.jsonl",
+      "byte_offset": 0,
+      "line_no": 1
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "claude_code",
+    "session_id": "sess-multiedit-006",
+    "seq": 1,
+    "event_id": "d2bbbbb1-0000-4000-8000-000000000001",
+    "parent_id": null,
+    "timestamp": "2026-06-22T15:00:00Z",
+    "project": {
+      "cwd": "/Users/dev/acme/api",
+      "repo_root": null,
+      "git": {
+        "sha": "aaaa1111bbbb2222cccc3333dddd4444eeee5555",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "user_turn",
+      "text": "Let's migrate to anyhow for error handling across the request, handler, and router modules.",
+      "parts": [
+        {
+          "part": "text",
+          "text": "Let's migrate to anyhow for error handling across the request, handler, and router modules."
+        }
+      ]
+    },
+    "provenance": {
+      "file": "fixtures/claude_code/2.0/multi_edit_single_commit.jsonl",
+      "byte_offset": 0,
+      "line_no": 1
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "claude_code",
+    "session_id": "sess-multiedit-006",
+    "seq": 2,
+    "event_id": "d2bbbbb2-0000-4000-8000-000000000002",
+    "parent_id": "d2bbbbb1-0000-4000-8000-000000000001",
+    "timestamp": "2026-06-22T15:00:03Z",
+    "project": {
+      "cwd": "/Users/dev/acme/api",
+      "repo_root": null,
+      "git": {
+        "sha": "aaaa1111bbbb2222cccc3333dddd4444eeee5555",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "assistant_turn",
+      "text": "I'll convert each module to anyhow::Result. Starting with request.rs.",
+      "thinking": null,
+      "model": "claude-opus-4-8",
+      "usage": {
+        "input_tokens": 420,
+        "output_tokens": 110,
+        "cache_read_tokens": 0,
+        "cache_creation_tokens": 180
+      },
+      "parts": [
+        {
+          "part": "text",
+          "text": "I'll convert each module to anyhow::Result. Starting with request.rs."
+        },
+        {
+          "part": "tool_use",
+          "call_id": "toolu_multi_request",
+          "name": "Edit",
+          "args": {
+            "file_path": "/Users/dev/acme/api/src/request.rs",
+            "old_string": "use crate::error::AppError;",
+            "new_string": "use anyhow::Result;"
+          }
+        }
+      ]
+    },
+    "provenance": {
+      "file": "fixtures/claude_code/2.0/multi_edit_single_commit.jsonl",
+      "byte_offset": 419,
+      "line_no": 2
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "claude_code",
+    "session_id": "sess-multiedit-006",
+    "seq": 3,
+    "event_id": "c95f8a23152120475186b7183f79e6f935eebb0fd2767aacbae284600fc8a84c",
+    "parent_id": "d2bbbbb2-0000-4000-8000-000000000002",
+    "timestamp": "2026-06-22T15:00:03Z",
+    "project": {
+      "cwd": "/Users/dev/acme/api",
+      "repo_root": null,
+      "git": {
+        "sha": "aaaa1111bbbb2222cccc3333dddd4444eeee5555",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "tool_call",
+      "call_id": "toolu_multi_request",
+      "name": "Edit",
+      "args": {
+        "file_path": "/Users/dev/acme/api/src/request.rs",
+        "old_string": "use crate::error::AppError;",
+        "new_string": "use anyhow::Result;"
+      }
+    },
+    "provenance": {
+      "file": "fixtures/claude_code/2.0/multi_edit_single_commit.jsonl",
+      "byte_offset": 419,
+      "line_no": 2
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "claude_code",
+    "session_id": "sess-multiedit-006",
+    "seq": 4,
+    "event_id": "d2bbbbb3-0000-4000-8000-000000000003",
+    "parent_id": "d2bbbbb2-0000-4000-8000-000000000002",
+    "timestamp": "2026-06-22T15:00:03.4Z",
+    "project": {
+      "cwd": "/Users/dev/acme/api",
+      "repo_root": null,
+      "git": {
+        "sha": "aaaa1111bbbb2222cccc3333dddd4444eeee5555",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "user_turn",
+      "text": "",
+      "parts": [
+        {
+          "part": "tool_result",
+          "call_id": "toolu_multi_request",
+          "output": "The file /Users/dev/acme/api/src/request.rs has been updated."
+        }
+      ]
+    },
+    "provenance": {
+      "file": "fixtures/claude_code/2.0/multi_edit_single_commit.jsonl",
+      "byte_offset": 1168,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "claude_code",
+    "session_id": "sess-multiedit-006",
+    "seq": 5,
+    "event_id": "20efc68a28fc836e1300f425cd2e1bdc0a78eae06ef78591f59ab943fb8630df",
+    "parent_id": "d2bbbbb3-0000-4000-8000-000000000003",
+    "timestamp": "2026-06-22T15:00:03.4Z",
+    "project": {
+      "cwd": "/Users/dev/acme/api",
+      "repo_root": null,
+      "git": {
+        "sha": "aaaa1111bbbb2222cccc3333dddd4444eeee5555",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "tool_result",
+      "call_id": "toolu_multi_request",
+      "ok": true,
+      "output": "The file /Users/dev/acme/api/src/request.rs has been updated."
+    },
+    "provenance": {
+      "file": "fixtures/claude_code/2.0/multi_edit_single_commit.jsonl",
+      "byte_offset": 1168,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "claude_code",
+    "session_id": "sess-multiedit-006",
+    "seq": 6,
+    "event_id": "a0703cd2f3f9be8afe7fffdba3bfc07d6261b77af17f6611a8f8c237cb86bed6",
+    "parent_id": "d2bbbbb3-0000-4000-8000-000000000003",
+    "timestamp": "2026-06-22T15:00:03.4Z",
+    "project": {
+      "cwd": "/Users/dev/acme/api",
+      "repo_root": null,
+      "git": {
+        "sha": "aaaa1111bbbb2222cccc3333dddd4444eeee5555",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "file_edit",
+      "call_id": "toolu_multi_request",
+      "diff": {
+        "path": "/Users/dev/acme/api/src/request.rs",
+        "old": "use crate::error::AppError;",
+        "new": "use anyhow::Result;",
+        "unified": "-use crate::error::AppError;\n+use anyhow::Result;",
+        "added_lines": 1,
+        "removed_lines": 1
+      }
+    },
+    "provenance": {
+      "file": "fixtures/claude_code/2.0/multi_edit_single_commit.jsonl",
+      "byte_offset": 1168,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "claude_code",
+    "session_id": "sess-multiedit-006",
+    "seq": 7,
+    "event_id": "d2bbbbb4-0000-4000-8000-000000000004",
+    "parent_id": "d2bbbbb3-0000-4000-8000-000000000003",
+    "timestamp": "2026-06-22T15:00:06Z",
+    "project": {
+      "cwd": "/Users/dev/acme/api",
+      "repo_root": null,
+      "git": {
+        "sha": "aaaa1111bbbb2222cccc3333dddd4444eeee5555",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "assistant_turn",
+      "text": "Now handler.rs.",
+      "thinking": null,
+      "model": "claude-opus-4-8",
+      "usage": {
+        "input_tokens": 480,
+        "output_tokens": 95,
+        "cache_read_tokens": 420,
+        "cache_creation_tokens": 0
+      },
+      "parts": [
+        {
+          "part": "text",
+          "text": "Now handler.rs."
+        },
+        {
+          "part": "tool_use",
+          "call_id": "toolu_multi_handler",
+          "name": "Edit",
+          "args": {
+            "file_path": "/Users/dev/acme/api/src/handler.rs",
+            "old_string": "use crate::error::AppError;",
+            "new_string": "use anyhow::Result;"
+          }
+        }
+      ]
+    },
+    "provenance": {
+      "file": "fixtures/claude_code/2.0/multi_edit_single_commit.jsonl",
+      "byte_offset": 1974,
+      "line_no": 4
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "claude_code",
+    "session_id": "sess-multiedit-006",
+    "seq": 8,
+    "event_id": "5c52d560ed043d41d9c2ba3a849e2285f7c0b633d4fcd65fbe66b218367eb6a2",
+    "parent_id": "d2bbbbb4-0000-4000-8000-000000000004",
+    "timestamp": "2026-06-22T15:00:06Z",
+    "project": {
+      "cwd": "/Users/dev/acme/api",
+      "repo_root": null,
+      "git": {
+        "sha": "aaaa1111bbbb2222cccc3333dddd4444eeee5555",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "tool_call",
+      "call_id": "toolu_multi_handler",
+      "name": "Edit",
+      "args": {
+        "file_path": "/Users/dev/acme/api/src/handler.rs",
+        "old_string": "use crate::error::AppError;",
+        "new_string": "use anyhow::Result;"
+      }
+    },
+    "provenance": {
+      "file": "fixtures/claude_code/2.0/multi_edit_single_commit.jsonl",
+      "byte_offset": 1974,
+      "line_no": 4
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "claude_code",
+    "session_id": "sess-multiedit-006",
+    "seq": 9,
+    "event_id": "d2bbbbb5-0000-4000-8000-000000000005",
+    "parent_id": "d2bbbbb4-0000-4000-8000-000000000004",
+    "timestamp": "2026-06-22T15:00:06.4Z",
+    "project": {
+      "cwd": "/Users/dev/acme/api",
+      "repo_root": null,
+      "git": {
+        "sha": "aaaa1111bbbb2222cccc3333dddd4444eeee5555",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "user_turn",
+      "text": "",
+      "parts": [
+        {
+          "part": "tool_result",
+          "call_id": "toolu_multi_handler",
+          "output": "The file /Users/dev/acme/api/src/handler.rs has been updated."
+        }
+      ]
+    },
+    "provenance": {
+      "file": "fixtures/claude_code/2.0/multi_edit_single_commit.jsonl",
+      "byte_offset": 2668,
+      "line_no": 5
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "claude_code",
+    "session_id": "sess-multiedit-006",
+    "seq": 10,
+    "event_id": "2acc0f8513f070532d9222d84c1a56cf557546a2cbcbe21154879778ec6420a7",
+    "parent_id": "d2bbbbb5-0000-4000-8000-000000000005",
+    "timestamp": "2026-06-22T15:00:06.4Z",
+    "project": {
+      "cwd": "/Users/dev/acme/api",
+      "repo_root": null,
+      "git": {
+        "sha": "aaaa1111bbbb2222cccc3333dddd4444eeee5555",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "tool_result",
+      "call_id": "toolu_multi_handler",
+      "ok": true,
+      "output": "The file /Users/dev/acme/api/src/handler.rs has been updated."
+    },
+    "provenance": {
+      "file": "fixtures/claude_code/2.0/multi_edit_single_commit.jsonl",
+      "byte_offset": 2668,
+      "line_no": 5
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "claude_code",
+    "session_id": "sess-multiedit-006",
+    "seq": 11,
+    "event_id": "a7e8736565115cd1477920b81020f7fc260d736559d61efd378d60d077fef12a",
+    "parent_id": "d2bbbbb5-0000-4000-8000-000000000005",
+    "timestamp": "2026-06-22T15:00:06.4Z",
+    "project": {
+      "cwd": "/Users/dev/acme/api",
+      "repo_root": null,
+      "git": {
+        "sha": "aaaa1111bbbb2222cccc3333dddd4444eeee5555",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "file_edit",
+      "call_id": "toolu_multi_handler",
+      "diff": {
+        "path": "/Users/dev/acme/api/src/handler.rs",
+        "old": "use crate::error::AppError;",
+        "new": "use anyhow::Result;",
+        "unified": "-use crate::error::AppError;\n+use anyhow::Result;",
+        "added_lines": 1,
+        "removed_lines": 1
+      }
+    },
+    "provenance": {
+      "file": "fixtures/claude_code/2.0/multi_edit_single_commit.jsonl",
+      "byte_offset": 2668,
+      "line_no": 5
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "claude_code",
+    "session_id": "sess-multiedit-006",
+    "seq": 12,
+    "event_id": "d2bbbbb6-0000-4000-8000-000000000006",
+    "parent_id": "d2bbbbb5-0000-4000-8000-000000000005",
+    "timestamp": "2026-06-22T15:00:09Z",
+    "project": {
+      "cwd": "/Users/dev/acme/api",
+      "repo_root": null,
+      "git": {
+        "sha": "aaaa1111bbbb2222cccc3333dddd4444eeee5555",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "assistant_turn",
+      "text": "And finally router.rs.",
+      "thinking": null,
+      "model": "claude-opus-4-8",
+      "usage": {
+        "input_tokens": 540,
+        "output_tokens": 95,
+        "cache_read_tokens": 480,
+        "cache_creation_tokens": 0
+      },
+      "parts": [
+        {
+          "part": "text",
+          "text": "And finally router.rs."
+        },
+        {
+          "part": "tool_use",
+          "call_id": "toolu_multi_router",
+          "name": "Edit",
+          "args": {
+            "file_path": "/Users/dev/acme/api/src/router.rs",
+            "old_string": "use crate::error::AppError;",
+            "new_string": "use anyhow::Result;"
+          }
+        }
+      ]
+    },
+    "provenance": {
+      "file": "fixtures/claude_code/2.0/multi_edit_single_commit.jsonl",
+      "byte_offset": 3474,
+      "line_no": 6
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "claude_code",
+    "session_id": "sess-multiedit-006",
+    "seq": 13,
+    "event_id": "22d3bd186b096ab920ba071c27e311e5c953d814f6a67f9f78aa831d852fe15b",
+    "parent_id": "d2bbbbb6-0000-4000-8000-000000000006",
+    "timestamp": "2026-06-22T15:00:09Z",
+    "project": {
+      "cwd": "/Users/dev/acme/api",
+      "repo_root": null,
+      "git": {
+        "sha": "aaaa1111bbbb2222cccc3333dddd4444eeee5555",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "tool_call",
+      "call_id": "toolu_multi_router",
+      "name": "Edit",
+      "args": {
+        "file_path": "/Users/dev/acme/api/src/router.rs",
+        "old_string": "use crate::error::AppError;",
+        "new_string": "use anyhow::Result;"
+      }
+    },
+    "provenance": {
+      "file": "fixtures/claude_code/2.0/multi_edit_single_commit.jsonl",
+      "byte_offset": 3474,
+      "line_no": 6
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "claude_code",
+    "session_id": "sess-multiedit-006",
+    "seq": 14,
+    "event_id": "d2bbbbb7-0000-4000-8000-000000000007",
+    "parent_id": "d2bbbbb6-0000-4000-8000-000000000006",
+    "timestamp": "2026-06-22T15:00:09.4Z",
+    "project": {
+      "cwd": "/Users/dev/acme/api",
+      "repo_root": null,
+      "git": {
+        "sha": "aaaa1111bbbb2222cccc3333dddd4444eeee5555",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "user_turn",
+      "text": "",
+      "parts": [
+        {
+          "part": "tool_result",
+          "call_id": "toolu_multi_router",
+          "output": "The file /Users/dev/acme/api/src/router.rs has been updated."
+        }
+      ]
+    },
+    "provenance": {
+      "file": "fixtures/claude_code/2.0/multi_edit_single_commit.jsonl",
+      "byte_offset": 4173,
+      "line_no": 7
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "claude_code",
+    "session_id": "sess-multiedit-006",
+    "seq": 15,
+    "event_id": "9191e66261f113d4f52c3dc83949f94cf8c36f4c856266a8d6483ab7e0815e43",
+    "parent_id": "d2bbbbb7-0000-4000-8000-000000000007",
+    "timestamp": "2026-06-22T15:00:09.4Z",
+    "project": {
+      "cwd": "/Users/dev/acme/api",
+      "repo_root": null,
+      "git": {
+        "sha": "aaaa1111bbbb2222cccc3333dddd4444eeee5555",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "tool_result",
+      "call_id": "toolu_multi_router",
+      "ok": true,
+      "output": "The file /Users/dev/acme/api/src/router.rs has been updated."
+    },
+    "provenance": {
+      "file": "fixtures/claude_code/2.0/multi_edit_single_commit.jsonl",
+      "byte_offset": 4173,
+      "line_no": 7
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "claude_code",
+    "session_id": "sess-multiedit-006",
+    "seq": 16,
+    "event_id": "8d6814cc10b737c815002e5f3bb8992d8ba7656ea98618710ea80992b841246a",
+    "parent_id": "d2bbbbb7-0000-4000-8000-000000000007",
+    "timestamp": "2026-06-22T15:00:09.4Z",
+    "project": {
+      "cwd": "/Users/dev/acme/api",
+      "repo_root": null,
+      "git": {
+        "sha": "aaaa1111bbbb2222cccc3333dddd4444eeee5555",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "file_edit",
+      "call_id": "toolu_multi_router",
+      "diff": {
+        "path": "/Users/dev/acme/api/src/router.rs",
+        "old": "use crate::error::AppError;",
+        "new": "use anyhow::Result;",
+        "unified": "-use crate::error::AppError;\n+use anyhow::Result;",
+        "added_lines": 1,
+        "removed_lines": 1
+      }
+    },
+    "provenance": {
+      "file": "fixtures/claude_code/2.0/multi_edit_single_commit.jsonl",
+      "byte_offset": 4173,
+      "line_no": 7
+    }
+  }
+]

@@ -1,0 +1,238 @@
+---
+source: crates/memscribe-testkit/tests/golden.rs
+expression: events
+---
+[
+  {
+    "schema_version": 1,
+    "source": "codex",
+    "session_id": "01JZ8codexsess0009nomarker",
+    "seq": 0,
+    "event_id": "session_meta:01JZ8codexsess0009nomarker",
+    "parent_id": null,
+    "timestamp": "2026-06-22T22:00:00Z",
+    "project": {
+      "cwd": "/Users/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "293a4b5c6d7e8f90010203040506070809101112",
+        "branch": "chore/tidy"
+      }
+    },
+    "kind": {
+      "event": "session_start",
+      "cwd": "/Users/dev/acme-api",
+      "git": {
+        "sha": "293a4b5c6d7e8f90010203040506070809101112",
+        "branch": "chore/tidy"
+      },
+      "model": null,
+      "tool_version": "0.6.2"
+    },
+    "provenance": {
+      "file": "fixtures/codex/v2/no_commitment_marker.jsonl",
+      "byte_offset": 0,
+      "line_no": 1
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "codex",
+    "session_id": "01JZ8codexsess0009nomarker",
+    "seq": 1,
+    "event_id": "8427bd17b926f36de096fe9ec0f2c947b5e5c9d3e60a5676dded6e6a8aa06125",
+    "parent_id": null,
+    "timestamp": "2026-06-22T22:00:05.4Z",
+    "project": {
+      "cwd": "/Users/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "293a4b5c6d7e8f90010203040506070809101112",
+        "branch": "chore/tidy"
+      }
+    },
+    "kind": {
+      "event": "user_turn",
+      "text": "Thanks, this looks great. Go ahead and tidy up that stray import while you're in there.",
+      "parts": [
+        {
+          "part": "text",
+          "text": "Thanks, this looks great. Go ahead and tidy up that stray import while you're in there."
+        }
+      ]
+    },
+    "provenance": {
+      "file": "fixtures/codex/v2/no_commitment_marker.jsonl",
+      "byte_offset": 266,
+      "line_no": 2
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "codex",
+    "session_id": "01JZ8codexsess0009nomarker",
+    "seq": 2,
+    "event_id": "3cbdc3874cda67270f46a4287c0301107b1473ce7db1cdc38e84c62478c3a9e6",
+    "parent_id": null,
+    "timestamp": "2026-06-22T22:00:10.1Z",
+    "project": {
+      "cwd": "/Users/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "293a4b5c6d7e8f90010203040506070809101112",
+        "branch": "chore/tidy"
+      }
+    },
+    "kind": {
+      "event": "assistant_turn",
+      "text": "Sure, removing the unused import.",
+      "thinking": null,
+      "model": null,
+      "usage": null,
+      "parts": [
+        {
+          "part": "text",
+          "text": "Sure, removing the unused import."
+        }
+      ]
+    },
+    "provenance": {
+      "file": "fixtures/codex/v2/no_commitment_marker.jsonl",
+      "byte_offset": 504,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "codex",
+    "session_id": "01JZ8codexsess0009nomarker",
+    "seq": 3,
+    "event_id": "call_apply_patch_nomark_001",
+    "parent_id": null,
+    "timestamp": "2026-06-22T22:00:16.7Z",
+    "project": {
+      "cwd": "/Users/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "293a4b5c6d7e8f90010203040506070809101112",
+        "branch": "chore/tidy"
+      }
+    },
+    "kind": {
+      "event": "tool_call",
+      "call_id": "call_apply_patch_nomark_001",
+      "name": "apply_patch",
+      "args": {
+        "input": "*** Begin Patch\n*** Update File: src/handlers.rs\n@@\n-use std::collections::HashMap;\n use std::collections::BTreeMap;\n*** End Patch\n"
+      }
+    },
+    "provenance": {
+      "file": "fixtures/codex/v2/no_commitment_marker.jsonl",
+      "byte_offset": 694,
+      "line_no": 4
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "codex",
+    "session_id": "01JZ8codexsess0009nomarker",
+    "seq": 4,
+    "event_id": "8ef38fd78b06b1090ccda79dd885ee48367107b7cf758dffa5c3cf6dd6177335",
+    "parent_id": "call_apply_patch_nomark_001",
+    "timestamp": "2026-06-22T22:00:16.7Z",
+    "project": {
+      "cwd": "/Users/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "293a4b5c6d7e8f90010203040506070809101112",
+        "branch": "chore/tidy"
+      }
+    },
+    "kind": {
+      "event": "file_edit",
+      "call_id": "call_apply_patch_nomark_001",
+      "diff": {
+        "path": "src/handlers.rs",
+        "old": null,
+        "new": null,
+        "unified": "@@\n-use std::collections::HashMap;\n use std::collections::BTreeMap;",
+        "added_lines": 0,
+        "removed_lines": 1
+      }
+    },
+    "provenance": {
+      "file": "fixtures/codex/v2/no_commitment_marker.jsonl",
+      "byte_offset": 694,
+      "line_no": 4
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "codex",
+    "session_id": "01JZ8codexsess0009nomarker",
+    "seq": 5,
+    "event_id": "call_apply_patch_nomark_001:output",
+    "parent_id": "call_apply_patch_nomark_001",
+    "timestamp": "2026-06-22T22:00:16.95Z",
+    "project": {
+      "cwd": "/Users/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "293a4b5c6d7e8f90010203040506070809101112",
+        "branch": "chore/tidy"
+      }
+    },
+    "kind": {
+      "event": "tool_result",
+      "call_id": "call_apply_patch_nomark_001",
+      "ok": true,
+      "output": {
+        "output": "Applied patch to 1 file: src/handlers.rs",
+        "metadata": {
+          "exit_code": 0,
+          "duration_ms": 21
+        }
+      }
+    },
+    "provenance": {
+      "file": "fixtures/codex/v2/no_commitment_marker.jsonl",
+      "byte_offset": 1028,
+      "line_no": 5
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "codex",
+    "session_id": "01JZ8codexsess0009nomarker",
+    "seq": 6,
+    "event_id": "fbfc46416ccf1d37161895fbd96998c80528e2781ef82a32efeef53ac3d6c3d5",
+    "parent_id": null,
+    "timestamp": "2026-06-22T22:00:21Z",
+    "project": {
+      "cwd": "/Users/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "293a4b5c6d7e8f90010203040506070809101112",
+        "branch": "chore/tidy"
+      }
+    },
+    "kind": {
+      "event": "assistant_turn",
+      "text": "Removed the stray HashMap import.",
+      "thinking": null,
+      "model": null,
+      "usage": null,
+      "parts": [
+        {
+          "part": "text",
+          "text": "Removed the stray HashMap import."
+        }
+      ]
+    },
+    "provenance": {
+      "file": "fixtures/codex/v2/no_commitment_marker.jsonl",
+      "byte_offset": 1281,
+      "line_no": 6
+    }
+  }
+]

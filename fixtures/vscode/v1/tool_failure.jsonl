@@ -1,0 +1,4 @@
+{"kind":"session_start","sessionId":"vsc-sess-4","cwd":"/home/dev/acme-api","git":{"sha":"99aabbccddeeff00","branch":"main"},"toolVersion":"1.92.0","model":"gpt-4o"}
+{"id":"t1","parentId":null,"role":"user","ts":"2026-06-22T13:00:00Z","sessionId":"vsc-sess-4","text":"Rename the config flag enableV2 to enableV2Beta everywhere."}
+{"id":"t2","parentId":"t1","role":"assistant","ts":"2026-06-22T13:00:07Z","sessionId":"vsc-sess-4","text":"I'll apply the edit to src/config.ts.","model":"gpt-4o","usage":{"input":700,"output":160},"toolCalls":[{"id":"call-edit-1","name":"applyEdit","args":{"path":"src/config.ts"}}],"edits":[{"path":"src/config.ts","callId":"call-edit-1","oldText":"enableV2","newText":"enableV2Beta","added":1,"removed":1}]}
+{"id":"t3","parentId":"t2","role":"assistant","ts":"2026-06-22T13:00:09Z","sessionId":"vsc-sess-4","text":"","toolResults":[{"id":"call-edit-1","ok":false,"output":"EDIT FAILED: file src/config.ts is read-only on disk"}]}

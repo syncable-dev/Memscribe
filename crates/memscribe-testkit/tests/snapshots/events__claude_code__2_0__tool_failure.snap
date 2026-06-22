@@ -1,0 +1,247 @@
+---
+source: crates/memscribe-testkit/tests/golden.rs
+expression: events
+---
+[
+  {
+    "schema_version": 1,
+    "source": "claude_code",
+    "session_id": "sess-fail-004",
+    "seq": 0,
+    "event_id": "28085cd8047ba49caf4c43e715e2c58af169629bf9bdc661165ddb573f24d0c1",
+    "parent_id": null,
+    "timestamp": "2026-06-22T13:45:00Z",
+    "project": {
+      "cwd": "/Users/dev/acme/api",
+      "repo_root": null,
+      "git": {
+        "sha": "feedface00000000feedface00000000feedface",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "session_start",
+      "cwd": "/Users/dev/acme/api",
+      "git": {
+        "sha": "feedface00000000feedface00000000feedface",
+        "branch": "main"
+      },
+      "model": null,
+      "tool_version": "2.0.5"
+    },
+    "provenance": {
+      "file": "fixtures/claude_code/2.0/tool_failure.jsonl",
+      "byte_offset": 0,
+      "line_no": 1
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "claude_code",
+    "session_id": "sess-fail-004",
+    "seq": 1,
+    "event_id": "ccccccc1-0000-4000-8000-000000000001",
+    "parent_id": null,
+    "timestamp": "2026-06-22T13:45:00Z",
+    "project": {
+      "cwd": "/Users/dev/acme/api",
+      "repo_root": null,
+      "git": {
+        "sha": "feedface00000000feedface00000000feedface",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "user_turn",
+      "text": "Let's use a connection pool in the orders repository.",
+      "parts": [
+        {
+          "part": "text",
+          "text": "Let's use a connection pool in the orders repository."
+        }
+      ]
+    },
+    "provenance": {
+      "file": "fixtures/claude_code/2.0/tool_failure.jsonl",
+      "byte_offset": 0,
+      "line_no": 1
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "claude_code",
+    "session_id": "sess-fail-004",
+    "seq": 2,
+    "event_id": "ccccccc2-0000-4000-8000-000000000002",
+    "parent_id": "ccccccc1-0000-4000-8000-000000000001",
+    "timestamp": "2026-06-22T13:45:03Z",
+    "project": {
+      "cwd": "/Users/dev/acme/api",
+      "repo_root": null,
+      "git": {
+        "sha": "feedface00000000feedface00000000feedface",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "assistant_turn",
+      "text": "I'll add the pool to the repository module.",
+      "thinking": null,
+      "model": "claude-opus-4-8",
+      "usage": {
+        "input_tokens": 270,
+        "output_tokens": 80,
+        "cache_read_tokens": 0,
+        "cache_creation_tokens": 0
+      },
+      "parts": [
+        {
+          "part": "text",
+          "text": "I'll add the pool to the repository module."
+        },
+        {
+          "part": "tool_use",
+          "call_id": "toolu_fail_edit",
+          "name": "Edit",
+          "args": {
+            "file_path": "/Users/dev/acme/api/src/orders/repo.rs",
+            "old_string": "let conn = Connection::new();",
+            "new_string": "let conn = pool.get()?;"
+          }
+        }
+      ]
+    },
+    "provenance": {
+      "file": "fixtures/claude_code/2.0/tool_failure.jsonl",
+      "byte_offset": 376,
+      "line_no": 2
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "claude_code",
+    "session_id": "sess-fail-004",
+    "seq": 3,
+    "event_id": "0406757d8b9aa666a1818db67009daa652893c5d2946f62154114f86dd1cfd58",
+    "parent_id": "ccccccc2-0000-4000-8000-000000000002",
+    "timestamp": "2026-06-22T13:45:03Z",
+    "project": {
+      "cwd": "/Users/dev/acme/api",
+      "repo_root": null,
+      "git": {
+        "sha": "feedface00000000feedface00000000feedface",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "tool_call",
+      "call_id": "toolu_fail_edit",
+      "name": "Edit",
+      "args": {
+        "file_path": "/Users/dev/acme/api/src/orders/repo.rs",
+        "old_string": "let conn = Connection::new();",
+        "new_string": "let conn = pool.get()?;"
+      }
+    },
+    "provenance": {
+      "file": "fixtures/claude_code/2.0/tool_failure.jsonl",
+      "byte_offset": 376,
+      "line_no": 2
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "claude_code",
+    "session_id": "sess-fail-004",
+    "seq": 4,
+    "event_id": "ccccccc3-0000-4000-8000-000000000003",
+    "parent_id": "ccccccc2-0000-4000-8000-000000000002",
+    "timestamp": "2026-06-22T13:45:03.4Z",
+    "project": {
+      "cwd": "/Users/dev/acme/api",
+      "repo_root": null,
+      "git": {
+        "sha": "feedface00000000feedface00000000feedface",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "user_turn",
+      "text": "",
+      "parts": [
+        {
+          "part": "tool_result",
+          "call_id": "toolu_fail_edit",
+          "output": "Error: String to replace not found in file. The string 'let conn = Connection::new();' does not appear in /Users/dev/acme/api/src/orders/repo.rs."
+        }
+      ]
+    },
+    "provenance": {
+      "file": "fixtures/claude_code/2.0/tool_failure.jsonl",
+      "byte_offset": 1097,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "claude_code",
+    "session_id": "sess-fail-004",
+    "seq": 5,
+    "event_id": "347d0ed2c43c443afcbbeaa0ce20d58a734305ccaa64065232e1a96394d34200",
+    "parent_id": "ccccccc3-0000-4000-8000-000000000003",
+    "timestamp": "2026-06-22T13:45:03.4Z",
+    "project": {
+      "cwd": "/Users/dev/acme/api",
+      "repo_root": null,
+      "git": {
+        "sha": "feedface00000000feedface00000000feedface",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "tool_result",
+      "call_id": "toolu_fail_edit",
+      "ok": false,
+      "output": "Error: String to replace not found in file. The string 'let conn = Connection::new();' does not appear in /Users/dev/acme/api/src/orders/repo.rs."
+    },
+    "provenance": {
+      "file": "fixtures/claude_code/2.0/tool_failure.jsonl",
+      "byte_offset": 1097,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "claude_code",
+    "session_id": "sess-fail-004",
+    "seq": 6,
+    "event_id": "2574a1c617ead0d1ef60771f17d099e5dafde107aafad122fff2bf6657c320e9",
+    "parent_id": "ccccccc3-0000-4000-8000-000000000003",
+    "timestamp": "2026-06-22T13:45:03.4Z",
+    "project": {
+      "cwd": "/Users/dev/acme/api",
+      "repo_root": null,
+      "git": {
+        "sha": "feedface00000000feedface00000000feedface",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "file_edit",
+      "call_id": "toolu_fail_edit",
+      "diff": {
+        "path": "/Users/dev/acme/api/src/orders/repo.rs",
+        "old": "let conn = Connection::new();",
+        "new": "let conn = pool.get()?;",
+        "unified": "-    let conn = Connection::new();\n+    let conn = pool.get()?;",
+        "added_lines": 1,
+        "removed_lines": 1
+      }
+    },
+    "provenance": {
+      "file": "fixtures/claude_code/2.0/tool_failure.jsonl",
+      "byte_offset": 1097,
+      "line_no": 3
+    }
+  }
+]

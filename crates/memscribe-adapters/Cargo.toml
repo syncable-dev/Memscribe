@@ -1,0 +1,47 @@
+[package]
+name = "memscribe-adapters"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+description = "Per-tool transcript adapters for Memscribe (Claude Code, Codex, Gemini, OTel, Cursor, Windsurf, Zed, VS Code, Copilot)."
+
+[lints]
+workspace = true
+
+[features]
+default = [
+    "claude_code",
+    "codex",
+    "gemini",
+    "otel",
+    "cursor",
+    "windsurf",
+    "zed",
+    "vscode",
+    "copilot",
+]
+claude_code = []
+codex = ["dep:zstd"]
+gemini = []
+otel = []
+cursor = []
+windsurf = []
+zed = []
+vscode = []
+copilot = []
+
+[dependencies]
+memscribe-core = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+time = { workspace = true }
+regex = { workspace = true }
+blake3 = { workspace = true }
+walkdir = { workspace = true }
+zstd = { workspace = true, optional = true }
+
+[dev-dependencies]
+proptest = { workspace = true }
+serde_json = { workspace = true }

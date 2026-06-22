@@ -1,0 +1,221 @@
+---
+source: crates/memscribe-testkit/tests/golden.rs
+expression: events
+---
+[
+  {
+    "schema_version": 1,
+    "source": "copilot",
+    "session_id": "copilot-thread-001",
+    "seq": 0,
+    "event_id": "375265a8449751cea57ef19c191458299045da00883ff3c6c796bc1fd40a1135",
+    "parent_id": null,
+    "timestamp": "2026-06-22T10:00:00Z",
+    "project": {
+      "cwd": "/Users/dev/projects/orbit",
+      "repo_root": null,
+      "git": {
+        "sha": "a1b2c3d4e5f6",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "session_start",
+      "cwd": "/Users/dev/projects/orbit",
+      "git": {
+        "sha": "a1b2c3d4e5f6",
+        "branch": "main"
+      },
+      "model": "gpt-4o",
+      "tool_version": "copilot-cli 1.4.0"
+    },
+    "provenance": {
+      "file": "fixtures/copilot/v1/happy_path_decision_then_edits.jsonl",
+      "byte_offset": 0,
+      "line_no": 1
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "copilot",
+    "session_id": "copilot-thread-001",
+    "seq": 1,
+    "event_id": "msg-1",
+    "parent_id": null,
+    "timestamp": "2026-06-22T10:00:05Z",
+    "project": {
+      "cwd": "/Users/dev/projects/orbit",
+      "repo_root": null,
+      "git": {
+        "sha": "a1b2c3d4e5f6",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "user_turn",
+      "text": "Let's use Postgres instead of MySQL for the persistence layer.",
+      "parts": []
+    },
+    "provenance": {
+      "file": "fixtures/copilot/v1/happy_path_decision_then_edits.jsonl",
+      "byte_offset": 216,
+      "line_no": 2
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "copilot",
+    "session_id": "copilot-thread-001",
+    "seq": 2,
+    "event_id": "msg-2",
+    "parent_id": "msg-1",
+    "timestamp": "2026-06-22T10:00:09Z",
+    "project": {
+      "cwd": "/Users/dev/projects/orbit",
+      "repo_root": null,
+      "git": {
+        "sha": "a1b2c3d4e5f6",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "assistant_turn",
+      "text": "Good call. I'll switch the connection config and the schema module to Postgres.",
+      "thinking": null,
+      "model": "gpt-4o",
+      "usage": {
+        "input_tokens": 1200,
+        "output_tokens": 340,
+        "cache_read_tokens": null,
+        "cache_creation_tokens": null
+      },
+      "parts": []
+    },
+    "provenance": {
+      "file": "fixtures/copilot/v1/happy_path_decision_then_edits.jsonl",
+      "byte_offset": 394,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "copilot",
+    "session_id": "copilot-thread-001",
+    "seq": 3,
+    "event_id": "msg-2:edit:0:src/db/config.rs",
+    "parent_id": "msg-2",
+    "timestamp": "2026-06-22T10:00:09Z",
+    "project": {
+      "cwd": "/Users/dev/projects/orbit",
+      "repo_root": null,
+      "git": {
+        "sha": "a1b2c3d4e5f6",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "file_edit",
+      "call_id": null,
+      "diff": {
+        "path": "src/db/config.rs",
+        "old": "let url = \"mysql://localhost/orbit\";",
+        "new": "let url = \"postgres://localhost/orbit\";",
+        "unified": "@@ -1 +1 @@\n-let url = \"mysql://localhost/orbit\";\n+let url = \"postgres://localhost/orbit\";",
+        "added_lines": 1,
+        "removed_lines": 1
+      }
+    },
+    "provenance": {
+      "file": "fixtures/copilot/v1/happy_path_decision_then_edits.jsonl",
+      "byte_offset": 394,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "copilot",
+    "session_id": "copilot-thread-001",
+    "seq": 4,
+    "event_id": "msg-2:edit:1:src/db/schema.rs",
+    "parent_id": "msg-2",
+    "timestamp": "2026-06-22T10:00:09Z",
+    "project": {
+      "cwd": "/Users/dev/projects/orbit",
+      "repo_root": null,
+      "git": {
+        "sha": "a1b2c3d4e5f6",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "file_edit",
+      "call_id": null,
+      "diff": {
+        "path": "src/db/schema.rs",
+        "old": "// MySQL dialect\n",
+        "new": "// Postgres dialect\nuse sqlx::postgres::PgPool;\n",
+        "unified": null,
+        "added_lines": 2,
+        "removed_lines": 1
+      }
+    },
+    "provenance": {
+      "file": "fixtures/copilot/v1/happy_path_decision_then_edits.jsonl",
+      "byte_offset": 394,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "copilot",
+    "session_id": "copilot-thread-001",
+    "seq": 5,
+    "event_id": "msg-3",
+    "parent_id": "msg-2",
+    "timestamp": "2026-06-22T10:01:00Z",
+    "project": {
+      "cwd": "/Users/dev/projects/orbit",
+      "repo_root": null,
+      "git": {
+        "sha": "a1b2c3d4e5f6",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "user_turn",
+      "text": "Looks right, thanks.",
+      "parts": []
+    },
+    "provenance": {
+      "file": "fixtures/copilot/v1/happy_path_decision_then_edits.jsonl",
+      "byte_offset": 1065,
+      "line_no": 4
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "copilot",
+    "session_id": "copilot-thread-001",
+    "seq": 6,
+    "event_id": "49ba239a7c5289521d9533277d60ea535ddb39cb92b3b7b7477d410f2326aae9",
+    "parent_id": null,
+    "timestamp": "2026-06-22T10:01:30Z",
+    "project": {
+      "cwd": "/Users/dev/projects/orbit",
+      "repo_root": null,
+      "git": {
+        "sha": "a1b2c3d4e5f6",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "session_end",
+      "reason": "user_closed"
+    },
+    "provenance": {
+      "file": "fixtures/copilot/v1/happy_path_decision_then_edits.jsonl",
+      "byte_offset": 1204,
+      "line_no": 5
+    }
+  }
+]

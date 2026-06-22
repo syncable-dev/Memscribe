@@ -1,0 +1,343 @@
+---
+source: crates/memscribe-testkit/tests/golden.rs
+expression: events
+---
+[
+  {
+    "schema_version": 1,
+    "source": "codex",
+    "session_id": "01JZ8codexsess0001happypath",
+    "seq": 0,
+    "event_id": "session_meta:01JZ8codexsess0001happypath",
+    "parent_id": null,
+    "timestamp": "2026-06-22T14:00:00Z",
+    "project": {
+      "cwd": "/Users/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "a1b2c3d4e5f60718293a4b5c6d7e8f9001020304",
+        "branch": "feat/storage-layer"
+      }
+    },
+    "kind": {
+      "event": "session_start",
+      "cwd": "/Users/dev/acme-api",
+      "git": {
+        "sha": "a1b2c3d4e5f60718293a4b5c6d7e8f9001020304",
+        "branch": "feat/storage-layer"
+      },
+      "model": null,
+      "tool_version": "0.6.2"
+    },
+    "provenance": {
+      "file": "fixtures/codex/v2/happy_path_decision_then_edits.jsonl",
+      "byte_offset": 0,
+      "line_no": 1
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "codex",
+    "session_id": "01JZ8codexsess0001happypath",
+    "seq": 1,
+    "event_id": "44f62eea08bdb9079bb6d8ce8efdc2d14d9005fb1d04c8cc86b4bb5c517affef",
+    "parent_id": null,
+    "timestamp": "2026-06-22T14:00:05.12Z",
+    "project": {
+      "cwd": "/Users/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "a1b2c3d4e5f60718293a4b5c6d7e8f9001020304",
+        "branch": "feat/storage-layer"
+      }
+    },
+    "kind": {
+      "event": "user_turn",
+      "text": "Let's use Postgres instead of MySQL for the persistence layer. Swap the driver and the connection URL.",
+      "parts": [
+        {
+          "part": "text",
+          "text": "Let's use Postgres instead of MySQL for the persistence layer. Swap the driver and the connection URL."
+        }
+      ]
+    },
+    "provenance": {
+      "file": "fixtures/codex/v2/happy_path_decision_then_edits.jsonl",
+      "byte_offset": 275,
+      "line_no": 2
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "codex",
+    "session_id": "01JZ8codexsess0001happypath",
+    "seq": 2,
+    "event_id": "1df61243852bfd57e7e6b29dafade4c4b7372fc86b7cc150932a09ccc095c34f",
+    "parent_id": null,
+    "timestamp": "2026-06-22T14:00:09.88Z",
+    "project": {
+      "cwd": "/Users/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "a1b2c3d4e5f60718293a4b5c6d7e8f9001020304",
+        "branch": "feat/storage-layer"
+      }
+    },
+    "kind": {
+      "event": "unknown",
+      "raw_type": "response_item",
+      "raw": {
+        "timestamp": "2026-06-22T14:00:09.880Z",
+        "type": "response_item",
+        "payload": {
+          "type": "reasoning",
+          "summary": [
+            "The user decided on Postgres. I'll update the Cargo deps and the connection string."
+          ]
+        }
+      }
+    },
+    "provenance": {
+      "file": "fixtures/codex/v2/happy_path_decision_then_edits.jsonl",
+      "byte_offset": 528,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "codex",
+    "session_id": "01JZ8codexsess0001happypath",
+    "seq": 3,
+    "event_id": "eabfd13ca8aff0186a54e7ca801698a6f392fc558e8440607b4e981d871df742",
+    "parent_id": null,
+    "timestamp": "2026-06-22T14:00:12.4Z",
+    "project": {
+      "cwd": "/Users/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "a1b2c3d4e5f60718293a4b5c6d7e8f9001020304",
+        "branch": "feat/storage-layer"
+      }
+    },
+    "kind": {
+      "event": "assistant_turn",
+      "text": "Switching to Postgres. I'll update Cargo.toml and the database module.",
+      "thinking": null,
+      "model": null,
+      "usage": null,
+      "parts": [
+        {
+          "part": "text",
+          "text": "Switching to Postgres. I'll update Cargo.toml and the database module."
+        }
+      ]
+    },
+    "provenance": {
+      "file": "fixtures/codex/v2/happy_path_decision_then_edits.jsonl",
+      "byte_offset": 721,
+      "line_no": 4
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "codex",
+    "session_id": "01JZ8codexsess0001happypath",
+    "seq": 4,
+    "event_id": "call_apply_patch_001",
+    "parent_id": null,
+    "timestamp": "2026-06-22T14:00:18.64Z",
+    "project": {
+      "cwd": "/Users/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "a1b2c3d4e5f60718293a4b5c6d7e8f9001020304",
+        "branch": "feat/storage-layer"
+      }
+    },
+    "kind": {
+      "event": "tool_call",
+      "call_id": "call_apply_patch_001",
+      "name": "apply_patch",
+      "args": {
+        "input": "*** Begin Patch\n*** Update File: Cargo.toml\n@@\n-mysql = \"24\"\n+sqlx = { version = \"0.7\", features = [\"postgres\", \"runtime-tokio\"] }\n*** Update File: src/db.rs\n@@\n-let url = \"mysql://localhost:3306/acme\";\n-let pool = mysql::Pool::new(url)?;\n+let url = \"postgres://localhost:5432/acme\";\n+let pool = sqlx::PgPool::connect(url).await?;\n*** End Patch\n"
+      }
+    },
+    "provenance": {
+      "file": "fixtures/codex/v2/happy_path_decision_then_edits.jsonl",
+      "byte_offset": 948,
+      "line_no": 5
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "codex",
+    "session_id": "01JZ8codexsess0001happypath",
+    "seq": 5,
+    "event_id": "b95d795c08871aafd5a6dc9ee0a39dcd9742868bb515858c02bb4a8b23e7cd2c",
+    "parent_id": "call_apply_patch_001",
+    "timestamp": "2026-06-22T14:00:18.64Z",
+    "project": {
+      "cwd": "/Users/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "a1b2c3d4e5f60718293a4b5c6d7e8f9001020304",
+        "branch": "feat/storage-layer"
+      }
+    },
+    "kind": {
+      "event": "file_edit",
+      "call_id": "call_apply_patch_001",
+      "diff": {
+        "path": "Cargo.toml",
+        "old": null,
+        "new": null,
+        "unified": "@@\n-mysql = \"24\"\n+sqlx = { version = \"0.7\", features = [\"postgres\", \"runtime-tokio\"] }",
+        "added_lines": 1,
+        "removed_lines": 1
+      }
+    },
+    "provenance": {
+      "file": "fixtures/codex/v2/happy_path_decision_then_edits.jsonl",
+      "byte_offset": 948,
+      "line_no": 5
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "codex",
+    "session_id": "01JZ8codexsess0001happypath",
+    "seq": 6,
+    "event_id": "912a555fdfd6ef8ca9d60f8b60251d6270fe7dea12f749bf8bda1122b68adb07",
+    "parent_id": "call_apply_patch_001",
+    "timestamp": "2026-06-22T14:00:18.64Z",
+    "project": {
+      "cwd": "/Users/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "a1b2c3d4e5f60718293a4b5c6d7e8f9001020304",
+        "branch": "feat/storage-layer"
+      }
+    },
+    "kind": {
+      "event": "file_edit",
+      "call_id": "call_apply_patch_001",
+      "diff": {
+        "path": "src/db.rs",
+        "old": null,
+        "new": null,
+        "unified": "@@\n-let url = \"mysql://localhost:3306/acme\";\n-let pool = mysql::Pool::new(url)?;\n+let url = \"postgres://localhost:5432/acme\";\n+let pool = sqlx::PgPool::connect(url).await?;",
+        "added_lines": 2,
+        "removed_lines": 2
+      }
+    },
+    "provenance": {
+      "file": "fixtures/codex/v2/happy_path_decision_then_edits.jsonl",
+      "byte_offset": 948,
+      "line_no": 5
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "codex",
+    "session_id": "01JZ8codexsess0001happypath",
+    "seq": 7,
+    "event_id": "call_apply_patch_001:output",
+    "parent_id": "call_apply_patch_001",
+    "timestamp": "2026-06-22T14:00:19.01Z",
+    "project": {
+      "cwd": "/Users/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "a1b2c3d4e5f60718293a4b5c6d7e8f9001020304",
+        "branch": "feat/storage-layer"
+      }
+    },
+    "kind": {
+      "event": "tool_result",
+      "call_id": "call_apply_patch_001",
+      "ok": true,
+      "output": {
+        "output": "Applied patch to 2 files: Cargo.toml, src/db.rs",
+        "metadata": {
+          "exit_code": 0,
+          "duration_ms": 42
+        }
+      }
+    },
+    "provenance": {
+      "file": "fixtures/codex/v2/happy_path_decision_then_edits.jsonl",
+      "byte_offset": 1537,
+      "line_no": 6
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "codex",
+    "session_id": "01JZ8codexsess0001happypath",
+    "seq": 8,
+    "event_id": "7a127d992906e8773bdde097d47b4a320acc727f19ff1a9f7641e987fdbd535c",
+    "parent_id": null,
+    "timestamp": "2026-06-22T14:00:25.3Z",
+    "project": {
+      "cwd": "/Users/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "a1b2c3d4e5f60718293a4b5c6d7e8f9001020304",
+        "branch": "feat/storage-layer"
+      }
+    },
+    "kind": {
+      "event": "unknown",
+      "raw_type": "event_msg",
+      "raw": {
+        "timestamp": "2026-06-22T14:00:25.300Z",
+        "type": "event_msg",
+        "payload": {
+          "type": "token_count",
+          "input_tokens": 1840,
+          "output_tokens": 260
+        }
+      }
+    },
+    "provenance": {
+      "file": "fixtures/codex/v2/happy_path_decision_then_edits.jsonl",
+      "byte_offset": 1790,
+      "line_no": 7
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "codex",
+    "session_id": "01JZ8codexsess0001happypath",
+    "seq": 9,
+    "event_id": "cd85e04b441bb669401e9e985b8d47f3a9d8d45e63a0fc0642b52a14f24dd923",
+    "parent_id": null,
+    "timestamp": "2026-06-22T14:00:26Z",
+    "project": {
+      "cwd": "/Users/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "a1b2c3d4e5f60718293a4b5c6d7e8f9001020304",
+        "branch": "feat/storage-layer"
+      }
+    },
+    "kind": {
+      "event": "assistant_turn",
+      "text": "Done. The persistence layer now uses Postgres via sqlx.",
+      "thinking": null,
+      "model": null,
+      "usage": null,
+      "parts": [
+        {
+          "part": "text",
+          "text": "Done. The persistence layer now uses Postgres via sqlx."
+        }
+      ]
+    },
+    "provenance": {
+      "file": "fixtures/codex/v2/happy_path_decision_then_edits.jsonl",
+      "byte_offset": 1923,
+      "line_no": 8
+    }
+  }
+]

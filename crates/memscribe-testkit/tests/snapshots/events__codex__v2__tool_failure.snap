@@ -1,0 +1,238 @@
+---
+source: crates/memscribe-testkit/tests/golden.rs
+expression: events
+---
+[
+  {
+    "schema_version": 1,
+    "source": "codex",
+    "session_id": "01JZ8codexsess0004toolfail",
+    "seq": 0,
+    "event_id": "session_meta:01JZ8codexsess0004toolfail",
+    "parent_id": null,
+    "timestamp": "2026-06-22T17:05:00Z",
+    "project": {
+      "cwd": "/Users/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "d4e5f60718293a4b5c6d7e8f9001020304050607",
+        "branch": "fix/config-loader"
+      }
+    },
+    "kind": {
+      "event": "session_start",
+      "cwd": "/Users/dev/acme-api",
+      "git": {
+        "sha": "d4e5f60718293a4b5c6d7e8f9001020304050607",
+        "branch": "fix/config-loader"
+      },
+      "model": null,
+      "tool_version": "0.6.2"
+    },
+    "provenance": {
+      "file": "fixtures/codex/v2/tool_failure.jsonl",
+      "byte_offset": 0,
+      "line_no": 1
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "codex",
+    "session_id": "01JZ8codexsess0004toolfail",
+    "seq": 1,
+    "event_id": "dc572a23e3174d126ae33ccdf71ce7f52af5276037f1c84a8bc51210b031263b",
+    "parent_id": null,
+    "timestamp": "2026-06-22T17:05:06.41Z",
+    "project": {
+      "cwd": "/Users/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "d4e5f60718293a4b5c6d7e8f9001020304050607",
+        "branch": "fix/config-loader"
+      }
+    },
+    "kind": {
+      "event": "user_turn",
+      "text": "Switch the config loader to read from config.toml instead of config.yaml.",
+      "parts": [
+        {
+          "part": "text",
+          "text": "Switch the config loader to read from config.toml instead of config.yaml."
+        }
+      ]
+    },
+    "provenance": {
+      "file": "fixtures/codex/v2/tool_failure.jsonl",
+      "byte_offset": 273,
+      "line_no": 2
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "codex",
+    "session_id": "01JZ8codexsess0004toolfail",
+    "seq": 2,
+    "event_id": "ce147e972f19728adb38a24bd4f737c41e866b99e69dae6a187658827e2ecd92",
+    "parent_id": null,
+    "timestamp": "2026-06-22T17:05:11.9Z",
+    "project": {
+      "cwd": "/Users/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "d4e5f60718293a4b5c6d7e8f9001020304050607",
+        "branch": "fix/config-loader"
+      }
+    },
+    "kind": {
+      "event": "assistant_turn",
+      "text": "I'll update the loader to point at config.toml.",
+      "thinking": null,
+      "model": null,
+      "usage": null,
+      "parts": [
+        {
+          "part": "text",
+          "text": "I'll update the loader to point at config.toml."
+        }
+      ]
+    },
+    "provenance": {
+      "file": "fixtures/codex/v2/tool_failure.jsonl",
+      "byte_offset": 497,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "codex",
+    "session_id": "01JZ8codexsess0004toolfail",
+    "seq": 3,
+    "event_id": "call_apply_patch_fail_001",
+    "parent_id": null,
+    "timestamp": "2026-06-22T17:05:18.22Z",
+    "project": {
+      "cwd": "/Users/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "d4e5f60718293a4b5c6d7e8f9001020304050607",
+        "branch": "fix/config-loader"
+      }
+    },
+    "kind": {
+      "event": "tool_call",
+      "call_id": "call_apply_patch_fail_001",
+      "name": "apply_patch",
+      "args": {
+        "input": "*** Begin Patch\n*** Update File: src/config.rs\n@@\n-let path = \"config.yaml\";\n+let path = \"config.toml\";\n*** End Patch\n"
+      }
+    },
+    "provenance": {
+      "file": "fixtures/codex/v2/tool_failure.jsonl",
+      "byte_offset": 701,
+      "line_no": 4
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "codex",
+    "session_id": "01JZ8codexsess0004toolfail",
+    "seq": 4,
+    "event_id": "c50dc0619d2743e40efdfaee3b103fe8a36632bd4f57face44e5a6bcdac91e82",
+    "parent_id": "call_apply_patch_fail_001",
+    "timestamp": "2026-06-22T17:05:18.22Z",
+    "project": {
+      "cwd": "/Users/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "d4e5f60718293a4b5c6d7e8f9001020304050607",
+        "branch": "fix/config-loader"
+      }
+    },
+    "kind": {
+      "event": "file_edit",
+      "call_id": "call_apply_patch_fail_001",
+      "diff": {
+        "path": "src/config.rs",
+        "old": null,
+        "new": null,
+        "unified": "@@\n-let path = \"config.yaml\";\n+let path = \"config.toml\";",
+        "added_lines": 1,
+        "removed_lines": 1
+      }
+    },
+    "provenance": {
+      "file": "fixtures/codex/v2/tool_failure.jsonl",
+      "byte_offset": 701,
+      "line_no": 4
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "codex",
+    "session_id": "01JZ8codexsess0004toolfail",
+    "seq": 5,
+    "event_id": "call_apply_patch_fail_001:output",
+    "parent_id": "call_apply_patch_fail_001",
+    "timestamp": "2026-06-22T17:05:18.56Z",
+    "project": {
+      "cwd": "/Users/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "d4e5f60718293a4b5c6d7e8f9001020304050607",
+        "branch": "fix/config-loader"
+      }
+    },
+    "kind": {
+      "event": "tool_result",
+      "call_id": "call_apply_patch_fail_001",
+      "ok": false,
+      "output": {
+        "output": "error: patch does not apply: src/config.rs: context line \"let path = \\\"config.yaml\\\";\" not found",
+        "metadata": {
+          "exit_code": 1,
+          "duration_ms": 27
+        }
+      }
+    },
+    "provenance": {
+      "file": "fixtures/codex/v2/tool_failure.jsonl",
+      "byte_offset": 1032,
+      "line_no": 5
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "codex",
+    "session_id": "01JZ8codexsess0004toolfail",
+    "seq": 6,
+    "event_id": "d04c22b3915e9ed36493345e95e7de5eb0ae2d259bac3554a64c7a440fc30ef7",
+    "parent_id": null,
+    "timestamp": "2026-06-22T17:05:25.7Z",
+    "project": {
+      "cwd": "/Users/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "d4e5f60718293a4b5c6d7e8f9001020304050607",
+        "branch": "fix/config-loader"
+      }
+    },
+    "kind": {
+      "event": "assistant_turn",
+      "text": "The patch failed to apply because the context didn't match. Let me re-read the file before retrying.",
+      "thinking": null,
+      "model": null,
+      "usage": null,
+      "parts": [
+        {
+          "part": "text",
+          "text": "The patch failed to apply because the context didn't match. Let me re-read the file before retrying."
+        }
+      ]
+    },
+    "provenance": {
+      "file": "fixtures/codex/v2/tool_failure.jsonl",
+      "byte_offset": 1345,
+      "line_no": 6
+    }
+  }
+]

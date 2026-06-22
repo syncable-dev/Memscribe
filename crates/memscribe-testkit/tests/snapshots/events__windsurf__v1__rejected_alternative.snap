@@ -1,0 +1,254 @@
+---
+source: crates/memscribe-testkit/tests/golden.rs
+expression: events
+---
+[
+  {
+    "schema_version": 1,
+    "source": "windsurf",
+    "session_id": "ws-reject-002",
+    "seq": 0,
+    "event_id": "8ef09b7040fcbdab2ce3675d1726c6f5e3974e2c78ac5efb08c99721edc66173",
+    "parent_id": null,
+    "timestamp": "1970-01-01T00:00:00Z",
+    "project": {
+      "cwd": "/Users/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "1b2d44aa",
+        "branch": "feature/cache"
+      }
+    },
+    "kind": {
+      "event": "session_start",
+      "cwd": "/Users/dev/acme-api",
+      "git": {
+        "sha": "1b2d44aa",
+        "branch": "feature/cache"
+      },
+      "model": "cascade-pro",
+      "tool_version": "1.8.2"
+    },
+    "provenance": {
+      "file": "fixtures/windsurf/v1/rejected_alternative.jsonl",
+      "byte_offset": 0,
+      "line_no": 1
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "windsurf",
+    "session_id": "ws-reject-002",
+    "seq": 1,
+    "event_id": "u1",
+    "parent_id": null,
+    "timestamp": "2026-06-22T15:10:00Z",
+    "project": {
+      "cwd": "/Users/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "1b2d44aa",
+        "branch": "feature/cache"
+      }
+    },
+    "kind": {
+      "event": "user_turn",
+      "text": "Should we use Redis or Memcached for the session cache?",
+      "parts": []
+    },
+    "provenance": {
+      "file": "fixtures/windsurf/v1/rejected_alternative.jsonl",
+      "byte_offset": 175,
+      "line_no": 2
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "windsurf",
+    "session_id": "ws-reject-002",
+    "seq": 2,
+    "event_id": "a1",
+    "parent_id": "u1",
+    "timestamp": "2026-06-22T15:10:08Z",
+    "project": {
+      "cwd": "/Users/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "1b2d44aa",
+        "branch": "feature/cache"
+      }
+    },
+    "kind": {
+      "event": "assistant_turn",
+      "text": "I considered Memcached, but we already run Redis for the queue, so I'll reuse Redis and skip Memcached to avoid a second dependency.",
+      "thinking": null,
+      "model": "cascade-pro",
+      "usage": {
+        "input_tokens": 510,
+        "output_tokens": 233,
+        "cache_read_tokens": null,
+        "cache_creation_tokens": null
+      },
+      "parts": []
+    },
+    "provenance": {
+      "file": "fixtures/windsurf/v1/rejected_alternative.jsonl",
+      "byte_offset": 338,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "windsurf",
+    "session_id": "ws-reject-002",
+    "seq": 3,
+    "event_id": "u2",
+    "parent_id": "a1",
+    "timestamp": "2026-06-22T15:11:30Z",
+    "project": {
+      "cwd": "/Users/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "1b2d44aa",
+        "branch": "feature/cache"
+      }
+    },
+    "kind": {
+      "event": "user_turn",
+      "text": "Agreed, do not add Memcached. Wire up Redis.",
+      "parts": []
+    },
+    "provenance": {
+      "file": "fixtures/windsurf/v1/rejected_alternative.jsonl",
+      "byte_offset": 640,
+      "line_no": 4
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "windsurf",
+    "session_id": "ws-reject-002",
+    "seq": 4,
+    "event_id": "a2",
+    "parent_id": "u2",
+    "timestamp": "2026-06-22T15:11:40Z",
+    "project": {
+      "cwd": "/Users/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "1b2d44aa",
+        "branch": "feature/cache"
+      }
+    },
+    "kind": {
+      "event": "assistant_turn",
+      "text": "Wiring Redis as the session store.",
+      "thinking": null,
+      "model": "cascade-pro",
+      "usage": {
+        "input_tokens": 540,
+        "output_tokens": 120,
+        "cache_read_tokens": null,
+        "cache_creation_tokens": null
+      },
+      "parts": []
+    },
+    "provenance": {
+      "file": "fixtures/windsurf/v1/rejected_alternative.jsonl",
+      "byte_offset": 792,
+      "line_no": 5
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "windsurf",
+    "session_id": "ws-reject-002",
+    "seq": 5,
+    "event_id": "a2#toolcall:call_cache_1",
+    "parent_id": "a2",
+    "timestamp": "2026-06-22T15:11:40Z",
+    "project": {
+      "cwd": "/Users/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "1b2d44aa",
+        "branch": "feature/cache"
+      }
+    },
+    "kind": {
+      "event": "tool_call",
+      "call_id": "call_cache_1",
+      "name": "edit_file",
+      "args": {
+        "path": "src/cache.rs"
+      }
+    },
+    "provenance": {
+      "file": "fixtures/windsurf/v1/rejected_alternative.jsonl",
+      "byte_offset": 792,
+      "line_no": 5
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "windsurf",
+    "session_id": "ws-reject-002",
+    "seq": 6,
+    "event_id": "a2#toolresult:call_cache_1",
+    "parent_id": "a2",
+    "timestamp": "2026-06-22T15:11:40Z",
+    "project": {
+      "cwd": "/Users/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "1b2d44aa",
+        "branch": "feature/cache"
+      }
+    },
+    "kind": {
+      "event": "tool_result",
+      "call_id": "call_cache_1",
+      "ok": true,
+      "output": "applied"
+    },
+    "provenance": {
+      "file": "fixtures/windsurf/v1/rejected_alternative.jsonl",
+      "byte_offset": 792,
+      "line_no": 5
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "windsurf",
+    "session_id": "ws-reject-002",
+    "seq": 7,
+    "event_id": "a2#edit:0",
+    "parent_id": "a2",
+    "timestamp": "2026-06-22T15:11:40Z",
+    "project": {
+      "cwd": "/Users/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "1b2d44aa",
+        "branch": "feature/cache"
+      }
+    },
+    "kind": {
+      "event": "file_edit",
+      "call_id": "call_cache_1",
+      "diff": {
+        "path": "src/cache.rs",
+        "old": "// TODO: choose cache backend",
+        "new": "let client = redis::Client::open(cfg.redis_url)?;",
+        "unified": "@@ -1,1 +1,1 @@\n-// TODO: choose cache backend\n+let client = redis::Client::open(cfg.redis_url)?;",
+        "added_lines": 1,
+        "removed_lines": 1
+      }
+    },
+    "provenance": {
+      "file": "fixtures/windsurf/v1/rejected_alternative.jsonl",
+      "byte_offset": 792,
+      "line_no": 5
+    }
+  }
+]

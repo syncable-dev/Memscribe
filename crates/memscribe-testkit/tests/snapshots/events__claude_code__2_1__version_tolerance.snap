@@ -1,0 +1,180 @@
+---
+source: crates/memscribe-testkit/tests/golden.rs
+expression: events
+---
+[
+  {
+    "schema_version": 1,
+    "source": "claude_code",
+    "session_id": "sess-v21-001",
+    "seq": 0,
+    "event_id": "8708f20fad4b5b81aa235ab722e5bba2e0438c431146ee860a8c390b8acbedc5",
+    "parent_id": null,
+    "timestamp": "2026-06-22T11:00:00Z",
+    "project": {
+      "cwd": "/Users/dev/acme/api",
+      "repo_root": null,
+      "git": {
+        "sha": "",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "session_start",
+      "cwd": "/Users/dev/acme/api",
+      "git": {
+        "sha": "",
+        "branch": "main"
+      },
+      "model": null,
+      "tool_version": "2.1.0"
+    },
+    "provenance": {
+      "file": "fixtures/claude_code/2.1/version_tolerance.jsonl",
+      "byte_offset": 0,
+      "line_no": 1
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "claude_code",
+    "session_id": "sess-v21-001",
+    "seq": 1,
+    "event_id": "21111111-1111-4111-8111-111111111111",
+    "parent_id": null,
+    "timestamp": "2026-06-22T11:00:00Z",
+    "project": {
+      "cwd": "/Users/dev/acme/api",
+      "repo_root": null,
+      "git": {
+        "sha": "",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "user_turn",
+      "text": "Let's use Postgres instead of MySQL for the orders service.",
+      "parts": [
+        {
+          "part": "text",
+          "text": "Let's use Postgres instead of MySQL for the orders service."
+        }
+      ]
+    },
+    "provenance": {
+      "file": "fixtures/claude_code/2.1/version_tolerance.jsonl",
+      "byte_offset": 0,
+      "line_no": 1
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "claude_code",
+    "session_id": "sess-v21-001",
+    "seq": 2,
+    "event_id": "22222221-2222-4222-8222-222222222222",
+    "parent_id": "21111111-1111-4111-8111-111111111111",
+    "timestamp": "2026-06-22T11:00:03.12Z",
+    "project": {
+      "cwd": "/Users/dev/acme/api",
+      "repo_root": null,
+      "git": {
+        "sha": "",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "assistant_turn",
+      "text": "Switching the orders service to Postgres now.",
+      "thinking": null,
+      "model": "claude-opus-4-8",
+      "usage": {
+        "input_tokens": 482,
+        "output_tokens": 96,
+        "cache_read_tokens": 120,
+        "cache_creation_tokens": 40
+      },
+      "parts": [
+        {
+          "part": "text",
+          "text": "Switching the orders service to Postgres now."
+        }
+      ]
+    },
+    "provenance": {
+      "file": "fixtures/claude_code/2.1/version_tolerance.jsonl",
+      "byte_offset": 444,
+      "line_no": 2
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "claude_code",
+    "session_id": "sess-v21-001",
+    "seq": 3,
+    "event_id": "6d2a8432dfe95c9015787e8aae177e5c79f876d7361641235f3d67a9975e8a2a",
+    "parent_id": null,
+    "timestamp": "2026-06-22T11:00:03.48Z",
+    "project": {
+      "cwd": "/Users/dev/acme/api",
+      "repo_root": null,
+      "git": {
+        "sha": "",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "unknown",
+      "raw_type": "telemetry",
+      "raw": {
+        "type": "telemetry",
+        "uuid": "23333331-3333-4333-8333-333333333333",
+        "parentUuid": "22222221-2222-4222-8222-222222222222",
+        "timestamp": "2026-06-22T11:00:03.480Z",
+        "sessionId": "sess-v21-001",
+        "version": "2.1.0",
+        "payload": {
+          "kind": "latency",
+          "ms": 1200
+        }
+      }
+    },
+    "provenance": {
+      "file": "fixtures/claude_code/2.1/version_tolerance.jsonl",
+      "byte_offset": 988,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "claude_code",
+    "session_id": "sess-v21-001",
+    "seq": 4,
+    "event_id": "24444441-4444-4444-8444-444444444444",
+    "parent_id": "22222221-2222-4222-8222-222222222222",
+    "timestamp": "2026-06-22T11:00:07.21Z",
+    "project": {
+      "cwd": "/Users/dev/acme/api",
+      "repo_root": null,
+      "git": {
+        "sha": "",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "user_turn",
+      "text": "Looks good, ship it.",
+      "parts": [
+        {
+          "part": "text",
+          "text": "Looks good, ship it."
+        }
+      ]
+    },
+    "provenance": {
+      "file": "fixtures/claude_code/2.1/version_tolerance.jsonl",
+      "byte_offset": 1230,
+      "line_no": 4
+    }
+  }
+]

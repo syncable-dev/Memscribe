@@ -1,0 +1,245 @@
+---
+source: crates/memscribe-testkit/tests/golden.rs
+expression: events
+---
+[
+  {
+    "schema_version": 1,
+    "source": "copilot",
+    "session_id": "copilot-thread-002",
+    "seq": 0,
+    "event_id": "581518c238196ba553d0c09adc5331811d219219050e1a0bbb90c2a46c158414",
+    "parent_id": null,
+    "timestamp": "2026-06-22T11:00:00Z",
+    "project": {
+      "cwd": "/Users/dev/projects/checkout",
+      "repo_root": null,
+      "git": {
+        "sha": "f00dcafe1234",
+        "branch": "feat/payments"
+      }
+    },
+    "kind": {
+      "event": "session_start",
+      "cwd": "/Users/dev/projects/checkout",
+      "git": {
+        "sha": "f00dcafe1234",
+        "branch": "feat/payments"
+      },
+      "model": "gpt-4o",
+      "tool_version": "copilot-cli 1.4.0"
+    },
+    "provenance": {
+      "file": "fixtures/copilot/v1/rejected_alternative.jsonl",
+      "byte_offset": 0,
+      "line_no": 1
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "copilot",
+    "session_id": "copilot-thread-002",
+    "seq": 1,
+    "event_id": "msg-1",
+    "parent_id": null,
+    "timestamp": "2026-06-22T11:00:08Z",
+    "project": {
+      "cwd": "/Users/dev/projects/checkout",
+      "repo_root": null,
+      "git": {
+        "sha": "f00dcafe1234",
+        "branch": "feat/payments"
+      }
+    },
+    "kind": {
+      "event": "user_turn",
+      "text": "Let's use Stripe instead of PayPal for the payment provider.",
+      "parts": []
+    },
+    "provenance": {
+      "file": "fixtures/copilot/v1/rejected_alternative.jsonl",
+      "byte_offset": 228,
+      "line_no": 2
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "copilot",
+    "session_id": "copilot-thread-002",
+    "seq": 2,
+    "event_id": "msg-2",
+    "parent_id": "msg-1",
+    "timestamp": "2026-06-22T11:00:14Z",
+    "project": {
+      "cwd": "/Users/dev/projects/checkout",
+      "repo_root": null,
+      "git": {
+        "sha": "f00dcafe1234",
+        "branch": "feat/payments"
+      }
+    },
+    "kind": {
+      "event": "assistant_turn",
+      "text": "Understood. I'll wire up the Stripe SDK and drop the PayPal client.",
+      "thinking": null,
+      "model": "gpt-4o",
+      "usage": {
+        "input_tokens": 980,
+        "output_tokens": 210,
+        "cache_read_tokens": null,
+        "cache_creation_tokens": null
+      },
+      "parts": []
+    },
+    "provenance": {
+      "file": "fixtures/copilot/v1/rejected_alternative.jsonl",
+      "byte_offset": 404,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "copilot",
+    "session_id": "copilot-thread-002",
+    "seq": 3,
+    "event_id": "msg-2:call:call-a1",
+    "parent_id": "msg-2",
+    "timestamp": "2026-06-22T11:00:14Z",
+    "project": {
+      "cwd": "/Users/dev/projects/checkout",
+      "repo_root": null,
+      "git": {
+        "sha": "f00dcafe1234",
+        "branch": "feat/payments"
+      }
+    },
+    "kind": {
+      "event": "tool_call",
+      "call_id": "call-a1",
+      "name": "apply_patch",
+      "args": {
+        "path": "src/payments/provider.rs"
+      }
+    },
+    "provenance": {
+      "file": "fixtures/copilot/v1/rejected_alternative.jsonl",
+      "byte_offset": 404,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "copilot",
+    "session_id": "copilot-thread-002",
+    "seq": 4,
+    "event_id": "msg-2:result:call-a1",
+    "parent_id": "msg-2",
+    "timestamp": "2026-06-22T11:00:14Z",
+    "project": {
+      "cwd": "/Users/dev/projects/checkout",
+      "repo_root": null,
+      "git": {
+        "sha": "f00dcafe1234",
+        "branch": "feat/payments"
+      }
+    },
+    "kind": {
+      "event": "tool_result",
+      "call_id": "call-a1",
+      "ok": true,
+      "output": "patch applied (1 file changed)"
+    },
+    "provenance": {
+      "file": "fixtures/copilot/v1/rejected_alternative.jsonl",
+      "byte_offset": 404,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "copilot",
+    "session_id": "copilot-thread-002",
+    "seq": 5,
+    "event_id": "msg-2:edit:0:src/payments/provider.rs",
+    "parent_id": "msg-2",
+    "timestamp": "2026-06-22T11:00:14Z",
+    "project": {
+      "cwd": "/Users/dev/projects/checkout",
+      "repo_root": null,
+      "git": {
+        "sha": "f00dcafe1234",
+        "branch": "feat/payments"
+      }
+    },
+    "kind": {
+      "event": "file_edit",
+      "call_id": "call-a1",
+      "diff": {
+        "path": "src/payments/provider.rs",
+        "old": "use paypal_sdk::Client;",
+        "new": "use stripe::Client;",
+        "unified": "@@ -1 +1 @@\n-use paypal_sdk::Client;\n+use stripe::Client;",
+        "added_lines": 1,
+        "removed_lines": 1
+      }
+    },
+    "provenance": {
+      "file": "fixtures/copilot/v1/rejected_alternative.jsonl",
+      "byte_offset": 404,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "copilot",
+    "session_id": "copilot-thread-002",
+    "seq": 6,
+    "event_id": "msg-3",
+    "parent_id": "msg-2",
+    "timestamp": "2026-06-22T11:01:20Z",
+    "project": {
+      "cwd": "/Users/dev/projects/checkout",
+      "repo_root": null,
+      "git": {
+        "sha": "f00dcafe1234",
+        "branch": "feat/payments"
+      }
+    },
+    "kind": {
+      "event": "user_turn",
+      "text": "Perfect.",
+      "parts": []
+    },
+    "provenance": {
+      "file": "fixtures/copilot/v1/rejected_alternative.jsonl",
+      "byte_offset": 1051,
+      "line_no": 4
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "copilot",
+    "session_id": "copilot-thread-002",
+    "seq": 7,
+    "event_id": "9691e9aeae7c817e723481665f6c429992006c9b4953a5ab9f687e0f6a8db66d",
+    "parent_id": null,
+    "timestamp": "2026-06-22T11:01:40Z",
+    "project": {
+      "cwd": "/Users/dev/projects/checkout",
+      "repo_root": null,
+      "git": {
+        "sha": "f00dcafe1234",
+        "branch": "feat/payments"
+      }
+    },
+    "kind": {
+      "event": "session_end",
+      "reason": "user_closed"
+    },
+    "provenance": {
+      "file": "fixtures/copilot/v1/rejected_alternative.jsonl",
+      "byte_offset": 1178,
+      "line_no": 5
+    }
+  }
+]

@@ -1,0 +1,506 @@
+---
+source: crates/memscribe-testkit/tests/golden.rs
+expression: events
+---
+[
+  {
+    "schema_version": 1,
+    "source": "codex",
+    "session_id": "01JZ8codexsess0005interleaved",
+    "seq": 0,
+    "event_id": "session_meta:01JZ8codexsess0005interleaved",
+    "parent_id": null,
+    "timestamp": "2026-06-22T18:00:00Z",
+    "project": {
+      "cwd": "/Users/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "e5f60718293a4b5c6d7e8f900102030405060708",
+        "branch": "feat/auth-overhaul"
+      }
+    },
+    "kind": {
+      "event": "session_start",
+      "cwd": "/Users/dev/acme-api",
+      "git": {
+        "sha": "e5f60718293a4b5c6d7e8f900102030405060708",
+        "branch": "feat/auth-overhaul"
+      },
+      "model": null,
+      "tool_version": "0.6.2"
+    },
+    "provenance": {
+      "file": "fixtures/codex/v2/interleaved_arcs.jsonl",
+      "byte_offset": 0,
+      "line_no": 1
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "codex",
+    "session_id": "01JZ8codexsess0005interleaved",
+    "seq": 1,
+    "event_id": "3a9543e8ab68ed9d503da81b7b3df749f66082bbef5063caab3e35a400e02c57",
+    "parent_id": null,
+    "timestamp": "2026-06-22T18:00:06.1Z",
+    "project": {
+      "cwd": "/Users/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "e5f60718293a4b5c6d7e8f900102030405060708",
+        "branch": "feat/auth-overhaul"
+      }
+    },
+    "kind": {
+      "event": "user_turn",
+      "text": "Let's use argon2 for password hashing. Update the auth module and the shared crypto helper accordingly.",
+      "parts": [
+        {
+          "part": "text",
+          "text": "Let's use argon2 for password hashing. Update the auth module and the shared crypto helper accordingly."
+        }
+      ]
+    },
+    "provenance": {
+      "file": "fixtures/codex/v2/interleaved_arcs.jsonl",
+      "byte_offset": 277,
+      "line_no": 2
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "codex",
+    "session_id": "01JZ8codexsess0005interleaved",
+    "seq": 2,
+    "event_id": "0cf556d8c3ac63ee2fbd39c361907134f97138cbf77f8a7ef4016c616b1335df",
+    "parent_id": null,
+    "timestamp": "2026-06-22T18:00:10.3Z",
+    "project": {
+      "cwd": "/Users/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "e5f60718293a4b5c6d7e8f900102030405060708",
+        "branch": "feat/auth-overhaul"
+      }
+    },
+    "kind": {
+      "event": "assistant_turn",
+      "text": "Switching the hasher to argon2 in the auth module and the shared crypto helper.",
+      "thinking": null,
+      "model": null,
+      "usage": null,
+      "parts": [
+        {
+          "part": "text",
+          "text": "Switching the hasher to argon2 in the auth module and the shared crypto helper."
+        }
+      ]
+    },
+    "provenance": {
+      "file": "fixtures/codex/v2/interleaved_arcs.jsonl",
+      "byte_offset": 531,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "codex",
+    "session_id": "01JZ8codexsess0005interleaved",
+    "seq": 3,
+    "event_id": "call_apply_patch_arc_a",
+    "parent_id": null,
+    "timestamp": "2026-06-22T18:00:16.45Z",
+    "project": {
+      "cwd": "/Users/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "e5f60718293a4b5c6d7e8f900102030405060708",
+        "branch": "feat/auth-overhaul"
+      }
+    },
+    "kind": {
+      "event": "tool_call",
+      "call_id": "call_apply_patch_arc_a",
+      "name": "apply_patch",
+      "args": {
+        "input": "*** Begin Patch\n*** Update File: src/auth.rs\n@@\n-use bcrypt::hash;\n+use argon2::Argon2;\n*** Update File: src/shared/crypto.rs\n@@\n-pub const HASH_COST: u32 = 12;\n+pub const ARGON2_MEM_KIB: u32 = 19456;\n*** End Patch\n"
+      }
+    },
+    "provenance": {
+      "file": "fixtures/codex/v2/interleaved_arcs.jsonl",
+      "byte_offset": 767,
+      "line_no": 4
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "codex",
+    "session_id": "01JZ8codexsess0005interleaved",
+    "seq": 4,
+    "event_id": "a0e26c4acdd223389282b50baa8c7931d5889707cddb86bc0bd6974aaa82289c",
+    "parent_id": "call_apply_patch_arc_a",
+    "timestamp": "2026-06-22T18:00:16.45Z",
+    "project": {
+      "cwd": "/Users/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "e5f60718293a4b5c6d7e8f900102030405060708",
+        "branch": "feat/auth-overhaul"
+      }
+    },
+    "kind": {
+      "event": "file_edit",
+      "call_id": "call_apply_patch_arc_a",
+      "diff": {
+        "path": "src/auth.rs",
+        "old": null,
+        "new": null,
+        "unified": "@@\n-use bcrypt::hash;\n+use argon2::Argon2;",
+        "added_lines": 1,
+        "removed_lines": 1
+      }
+    },
+    "provenance": {
+      "file": "fixtures/codex/v2/interleaved_arcs.jsonl",
+      "byte_offset": 767,
+      "line_no": 4
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "codex",
+    "session_id": "01JZ8codexsess0005interleaved",
+    "seq": 5,
+    "event_id": "803f07edb1bb1408291fed4e5b7f792b1c466b76d34919831479378b62e54e45",
+    "parent_id": "call_apply_patch_arc_a",
+    "timestamp": "2026-06-22T18:00:16.45Z",
+    "project": {
+      "cwd": "/Users/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "e5f60718293a4b5c6d7e8f900102030405060708",
+        "branch": "feat/auth-overhaul"
+      }
+    },
+    "kind": {
+      "event": "file_edit",
+      "call_id": "call_apply_patch_arc_a",
+      "diff": {
+        "path": "src/shared/crypto.rs",
+        "old": null,
+        "new": null,
+        "unified": "@@\n-pub const HASH_COST: u32 = 12;\n+pub const ARGON2_MEM_KIB: u32 = 19456;",
+        "added_lines": 1,
+        "removed_lines": 1
+      }
+    },
+    "provenance": {
+      "file": "fixtures/codex/v2/interleaved_arcs.jsonl",
+      "byte_offset": 767,
+      "line_no": 4
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "codex",
+    "session_id": "01JZ8codexsess0005interleaved",
+    "seq": 6,
+    "event_id": "call_apply_patch_arc_a:output",
+    "parent_id": "call_apply_patch_arc_a",
+    "timestamp": "2026-06-22T18:00:16.7Z",
+    "project": {
+      "cwd": "/Users/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "e5f60718293a4b5c6d7e8f900102030405060708",
+        "branch": "feat/auth-overhaul"
+      }
+    },
+    "kind": {
+      "event": "tool_result",
+      "call_id": "call_apply_patch_arc_a",
+      "ok": true,
+      "output": {
+        "output": "Applied patch to 2 files: src/auth.rs, src/shared/crypto.rs",
+        "metadata": {
+          "exit_code": 0,
+          "duration_ms": 38
+        }
+      }
+    },
+    "provenance": {
+      "file": "fixtures/codex/v2/interleaved_arcs.jsonl",
+      "byte_offset": 1188,
+      "line_no": 5
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "codex",
+    "session_id": "01JZ8codexsess0005interleaved",
+    "seq": 7,
+    "event_id": "26e81aff3f0f096fefea314b9f51a29757da810801b900a5139dc0afdccc56e0",
+    "parent_id": null,
+    "timestamp": "2026-06-22T18:00:24Z",
+    "project": {
+      "cwd": "/Users/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "e5f60718293a4b5c6d7e8f900102030405060708",
+        "branch": "feat/auth-overhaul"
+      }
+    },
+    "kind": {
+      "event": "assistant_turn",
+      "text": "argon2 is now wired into auth and the shared crypto helper.",
+      "thinking": null,
+      "model": null,
+      "usage": null,
+      "parts": [
+        {
+          "part": "text",
+          "text": "argon2 is now wired into auth and the shared crypto helper."
+        }
+      ]
+    },
+    "provenance": {
+      "file": "fixtures/codex/v2/interleaved_arcs.jsonl",
+      "byte_offset": 1455,
+      "line_no": 6
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "codex",
+    "session_id": "01JZ8codexsess0005interleaved",
+    "seq": 8,
+    "event_id": "baf0eaeeb14764e809ad5d4e6a29ce866a63a459e54e201bf7968415a4175bfa",
+    "parent_id": null,
+    "timestamp": "2026-06-22T18:00:40.2Z",
+    "project": {
+      "cwd": "/Users/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "e5f60718293a4b5c6d7e8f900102030405060708",
+        "branch": "feat/auth-overhaul"
+      }
+    },
+    "kind": {
+      "event": "user_turn",
+      "text": "Now let's switch to a 30-minute session TTL. Update the session manager and bump the shared default in the crypto helper's config block.",
+      "parts": [
+        {
+          "part": "text",
+          "text": "Now let's switch to a 30-minute session TTL. Update the session manager and bump the shared default in the crypto helper's config block."
+        }
+      ]
+    },
+    "provenance": {
+      "file": "fixtures/codex/v2/interleaved_arcs.jsonl",
+      "byte_offset": 1671,
+      "line_no": 7
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "codex",
+    "session_id": "01JZ8codexsess0005interleaved",
+    "seq": 9,
+    "event_id": "c1e4f1509eb39a2d703f2c2b2ea780ec4ad23171bb2219e2eab82d603498c0c6",
+    "parent_id": null,
+    "timestamp": "2026-06-22T18:00:45.6Z",
+    "project": {
+      "cwd": "/Users/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "e5f60718293a4b5c6d7e8f900102030405060708",
+        "branch": "feat/auth-overhaul"
+      }
+    },
+    "kind": {
+      "event": "assistant_turn",
+      "text": "Setting the session TTL to 30 minutes in the session manager and the shared config default.",
+      "thinking": null,
+      "model": null,
+      "usage": null,
+      "parts": [
+        {
+          "part": "text",
+          "text": "Setting the session TTL to 30 minutes in the session manager and the shared config default."
+        }
+      ]
+    },
+    "provenance": {
+      "file": "fixtures/codex/v2/interleaved_arcs.jsonl",
+      "byte_offset": 1958,
+      "line_no": 8
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "codex",
+    "session_id": "01JZ8codexsess0005interleaved",
+    "seq": 10,
+    "event_id": "call_apply_patch_arc_b",
+    "parent_id": null,
+    "timestamp": "2026-06-22T18:00:52.8Z",
+    "project": {
+      "cwd": "/Users/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "e5f60718293a4b5c6d7e8f900102030405060708",
+        "branch": "feat/auth-overhaul"
+      }
+    },
+    "kind": {
+      "event": "tool_call",
+      "call_id": "call_apply_patch_arc_b",
+      "name": "apply_patch",
+      "args": {
+        "input": "*** Begin Patch\n*** Update File: src/session.rs\n@@\n-const SESSION_TTL_SECS: u64 = 3600;\n+const SESSION_TTL_SECS: u64 = 1800;\n*** Update File: src/shared/crypto.rs\n@@\n-pub const DEFAULT_TTL_SECS: u64 = 3600;\n+pub const DEFAULT_TTL_SECS: u64 = 1800;\n*** End Patch\n"
+      }
+    },
+    "provenance": {
+      "file": "fixtures/codex/v2/interleaved_arcs.jsonl",
+      "byte_offset": 2206,
+      "line_no": 9
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "codex",
+    "session_id": "01JZ8codexsess0005interleaved",
+    "seq": 11,
+    "event_id": "d0e90e7be5b17e3c9ca5e5bb7b97bcb72a28cf9693d1301d67738d6654081d07",
+    "parent_id": "call_apply_patch_arc_b",
+    "timestamp": "2026-06-22T18:00:52.8Z",
+    "project": {
+      "cwd": "/Users/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "e5f60718293a4b5c6d7e8f900102030405060708",
+        "branch": "feat/auth-overhaul"
+      }
+    },
+    "kind": {
+      "event": "file_edit",
+      "call_id": "call_apply_patch_arc_b",
+      "diff": {
+        "path": "src/session.rs",
+        "old": null,
+        "new": null,
+        "unified": "@@\n-const SESSION_TTL_SECS: u64 = 3600;\n+const SESSION_TTL_SECS: u64 = 1800;",
+        "added_lines": 1,
+        "removed_lines": 1
+      }
+    },
+    "provenance": {
+      "file": "fixtures/codex/v2/interleaved_arcs.jsonl",
+      "byte_offset": 2206,
+      "line_no": 9
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "codex",
+    "session_id": "01JZ8codexsess0005interleaved",
+    "seq": 12,
+    "event_id": "5d99ef3371bc0b1b0eddb09ebb51affbc9e6c879e567c66bbf8e406bc1700a2a",
+    "parent_id": "call_apply_patch_arc_b",
+    "timestamp": "2026-06-22T18:00:52.8Z",
+    "project": {
+      "cwd": "/Users/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "e5f60718293a4b5c6d7e8f900102030405060708",
+        "branch": "feat/auth-overhaul"
+      }
+    },
+    "kind": {
+      "event": "file_edit",
+      "call_id": "call_apply_patch_arc_b",
+      "diff": {
+        "path": "src/shared/crypto.rs",
+        "old": null,
+        "new": null,
+        "unified": "@@\n-pub const DEFAULT_TTL_SECS: u64 = 3600;\n+pub const DEFAULT_TTL_SECS: u64 = 1800;",
+        "added_lines": 1,
+        "removed_lines": 1
+      }
+    },
+    "provenance": {
+      "file": "fixtures/codex/v2/interleaved_arcs.jsonl",
+      "byte_offset": 2206,
+      "line_no": 9
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "codex",
+    "session_id": "01JZ8codexsess0005interleaved",
+    "seq": 13,
+    "event_id": "call_apply_patch_arc_b:output",
+    "parent_id": "call_apply_patch_arc_b",
+    "timestamp": "2026-06-22T18:00:53.05Z",
+    "project": {
+      "cwd": "/Users/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "e5f60718293a4b5c6d7e8f900102030405060708",
+        "branch": "feat/auth-overhaul"
+      }
+    },
+    "kind": {
+      "event": "tool_result",
+      "call_id": "call_apply_patch_arc_b",
+      "ok": true,
+      "output": {
+        "output": "Applied patch to 2 files: src/session.rs, src/shared/crypto.rs",
+        "metadata": {
+          "exit_code": 0,
+          "duration_ms": 41
+        }
+      }
+    },
+    "provenance": {
+      "file": "fixtures/codex/v2/interleaved_arcs.jsonl",
+      "byte_offset": 2674,
+      "line_no": 10
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "codex",
+    "session_id": "01JZ8codexsess0005interleaved",
+    "seq": 14,
+    "event_id": "ed27b3a06441eed92458353bd4aa0cd6af913d19b0a75bd5e1d88d1226a546f4",
+    "parent_id": null,
+    "timestamp": "2026-06-22T18:00:58Z",
+    "project": {
+      "cwd": "/Users/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "e5f60718293a4b5c6d7e8f900102030405060708",
+        "branch": "feat/auth-overhaul"
+      }
+    },
+    "kind": {
+      "event": "assistant_turn",
+      "text": "Done. Session TTL is now 30 minutes in both the manager and the shared default.",
+      "thinking": null,
+      "model": null,
+      "usage": null,
+      "parts": [
+        {
+          "part": "text",
+          "text": "Done. Session TTL is now 30 minutes in both the manager and the shared default."
+        }
+      ]
+    },
+    "provenance": {
+      "file": "fixtures/codex/v2/interleaved_arcs.jsonl",
+      "byte_offset": 2944,
+      "line_no": 11
+    }
+  }
+]

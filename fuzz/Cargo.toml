@@ -1,0 +1,113 @@
+# Memscribe cargo-fuzz crate (whitepaper §8.4).
+#
+# This is a standalone crate, EXCLUDED from the root workspace (see the root
+# Cargo.toml `[workspace] exclude = ["fuzz"]`). It is never built by a plain
+# `cargo build`/`cargo test` of the workspace; you run it explicitly:
+#
+#     cargo +nightly fuzz run claude_code
+#
+# One target per adapter parser. Each target builds the adapter, wraps the fuzz
+# bytes in a `RawRecord`, and calls `parse()` with a fresh `ParseCtx`, asserting
+# the parser never panics and terminates (the libFuzzer harness catches panics).
+#
+# The targets also compile under a plain stable `cargo build --manifest-path
+# fuzz/Cargo.toml` (no nightly required) so CI can smoke-test that the structure
+# is intact: outside cargo-fuzz (`--cfg fuzzing` unset) each `[[bin]]` is a tiny
+# stub `main` that exercises the same shared `run()` once. The real libFuzzer
+# entry point is only wired up under `cfg(fuzzing)`, which cargo-fuzz sets.
+
+[package]
+name = "memscribe-fuzz"
+version = "0.0.0"
+edition = "2021"
+rust-version = "1.96"
+license = "MIT OR Apache-2.0"
+publish = false
+
+[package.metadata]
+cargo-fuzz = true
+
+[dependencies]
+libfuzzer-sys = "0.4"
+arbitrary = { version = "1", features = ["derive"] }
+memscribe-adapters = { path = "../crates/memscribe-adapters" }
+memscribe-core = { path = "../crates/memscribe-core" }
+
+# Prevent this crate from being mistaken for a workspace root of its own and
+# accidentally pulling the parent in.
+[workspace]
+
+[profile.release]
+debug = 1
+
+# `cargo-fuzz` compiles these targets with `--cfg fuzzing`; a plain stable
+# `cargo build` does not. Declare the cfg as known so the non-fuzzing build is
+# warning-clean instead of flagging it as an `unexpected_cfgs` condition.
+[lints.rust]
+unexpected_cfgs = { level = "warn", check-cfg = ['cfg(fuzzing)'] }
+
+# One fuzz target per adapter parser. `test = false` / `doc = false` keep these
+# binaries out of `cargo test`/`cargo doc` (they have no unit tests or docs).
+
+[[bin]]
+name = "claude_code"
+path = "fuzz_targets/claude_code.rs"
+test = false
+doc = false
+bench = false
+
+[[bin]]
+name = "codex"
+path = "fuzz_targets/codex.rs"
+test = false
+doc = false
+bench = false
+
+[[bin]]
+name = "gemini"
+path = "fuzz_targets/gemini.rs"
+test = false
+doc = false
+bench = false
+
+[[bin]]
+name = "otel"
+path = "fuzz_targets/otel.rs"
+test = false
+doc = false
+bench = false
+
+[[bin]]
+name = "cursor"
+path = "fuzz_targets/cursor.rs"
+test = false
+doc = false
+bench = false
+
+[[bin]]
+name = "windsurf"
+path = "fuzz_targets/windsurf.rs"
+test = false
+doc = false
+bench = false
+
+[[bin]]
+name = "zed"
+path = "fuzz_targets/zed.rs"
+test = false
+doc = false
+bench = false
+
+[[bin]]
+name = "vscode"
+path = "fuzz_targets/vscode.rs"
+test = false
+doc = false
+bench = false
+
+[[bin]]
+name = "copilot"
+path = "fuzz_targets/copilot.rs"
+test = false
+doc = false
+bench = false

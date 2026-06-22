@@ -1,0 +1,245 @@
+---
+source: crates/memscribe-testkit/tests/golden.rs
+expression: events
+---
+[
+  {
+    "schema_version": 1,
+    "source": "copilot",
+    "session_id": "copilot-thread-004",
+    "seq": 0,
+    "event_id": "bbed3938fda757d9109de017f2ac87f79b2361e5b46f31793415b4cf6f5e5bb2",
+    "parent_id": null,
+    "timestamp": "2026-06-22T13:00:00Z",
+    "project": {
+      "cwd": "/Users/dev/projects/api",
+      "repo_root": null,
+      "git": {
+        "sha": "0badc0de7777",
+        "branch": "fix/migration"
+      }
+    },
+    "kind": {
+      "event": "session_start",
+      "cwd": "/Users/dev/projects/api",
+      "git": {
+        "sha": "0badc0de7777",
+        "branch": "fix/migration"
+      },
+      "model": "gpt-4o",
+      "tool_version": "copilot-cli 1.4.0"
+    },
+    "provenance": {
+      "file": "fixtures/copilot/v1/tool_failure.jsonl",
+      "byte_offset": 0,
+      "line_no": 1
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "copilot",
+    "session_id": "copilot-thread-004",
+    "seq": 1,
+    "event_id": "msg-1",
+    "parent_id": null,
+    "timestamp": "2026-06-22T13:00:07Z",
+    "project": {
+      "cwd": "/Users/dev/projects/api",
+      "repo_root": null,
+      "git": {
+        "sha": "0badc0de7777",
+        "branch": "fix/migration"
+      }
+    },
+    "kind": {
+      "event": "user_turn",
+      "text": "Add a NOT NULL constraint to the users.email column.",
+      "parts": []
+    },
+    "provenance": {
+      "file": "fixtures/copilot/v1/tool_failure.jsonl",
+      "byte_offset": 223,
+      "line_no": 2
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "copilot",
+    "session_id": "copilot-thread-004",
+    "seq": 2,
+    "event_id": "msg-2",
+    "parent_id": "msg-1",
+    "timestamp": "2026-06-22T13:00:13Z",
+    "project": {
+      "cwd": "/Users/dev/projects/api",
+      "repo_root": null,
+      "git": {
+        "sha": "0badc0de7777",
+        "branch": "fix/migration"
+      }
+    },
+    "kind": {
+      "event": "assistant_turn",
+      "text": "I'll apply the migration patch.",
+      "thinking": null,
+      "model": "gpt-4o",
+      "usage": {
+        "input_tokens": 720,
+        "output_tokens": 90,
+        "cache_read_tokens": null,
+        "cache_creation_tokens": null
+      },
+      "parts": []
+    },
+    "provenance": {
+      "file": "fixtures/copilot/v1/tool_failure.jsonl",
+      "byte_offset": 391,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "copilot",
+    "session_id": "copilot-thread-004",
+    "seq": 3,
+    "event_id": "msg-2:call:call-z9",
+    "parent_id": "msg-2",
+    "timestamp": "2026-06-22T13:00:13Z",
+    "project": {
+      "cwd": "/Users/dev/projects/api",
+      "repo_root": null,
+      "git": {
+        "sha": "0badc0de7777",
+        "branch": "fix/migration"
+      }
+    },
+    "kind": {
+      "event": "tool_call",
+      "call_id": "call-z9",
+      "name": "apply_patch",
+      "args": {
+        "path": "migrations/0007_email_not_null.sql"
+      }
+    },
+    "provenance": {
+      "file": "fixtures/copilot/v1/tool_failure.jsonl",
+      "byte_offset": 391,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "copilot",
+    "session_id": "copilot-thread-004",
+    "seq": 4,
+    "event_id": "msg-2:result:call-z9",
+    "parent_id": "msg-2",
+    "timestamp": "2026-06-22T13:00:13Z",
+    "project": {
+      "cwd": "/Users/dev/projects/api",
+      "repo_root": null,
+      "git": {
+        "sha": "0badc0de7777",
+        "branch": "fix/migration"
+      }
+    },
+    "kind": {
+      "event": "tool_result",
+      "call_id": "call-z9",
+      "ok": false,
+      "output": "error: patch did not apply cleanly: hunk #1 FAILED at line 3"
+    },
+    "provenance": {
+      "file": "fixtures/copilot/v1/tool_failure.jsonl",
+      "byte_offset": 391,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "copilot",
+    "session_id": "copilot-thread-004",
+    "seq": 5,
+    "event_id": "msg-2:edit:0:migrations/0007_email_not_null.sql",
+    "parent_id": "msg-2",
+    "timestamp": "2026-06-22T13:00:13Z",
+    "project": {
+      "cwd": "/Users/dev/projects/api",
+      "repo_root": null,
+      "git": {
+        "sha": "0badc0de7777",
+        "branch": "fix/migration"
+      }
+    },
+    "kind": {
+      "event": "file_edit",
+      "call_id": "call-z9",
+      "diff": {
+        "path": "migrations/0007_email_not_null.sql",
+        "old": "email TEXT",
+        "new": "email TEXT NOT NULL",
+        "unified": "@@ -3 +3 @@\n-email TEXT\n+email TEXT NOT NULL",
+        "added_lines": 1,
+        "removed_lines": 1
+      }
+    },
+    "provenance": {
+      "file": "fixtures/copilot/v1/tool_failure.jsonl",
+      "byte_offset": 391,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "copilot",
+    "session_id": "copilot-thread-004",
+    "seq": 6,
+    "event_id": "msg-3",
+    "parent_id": "msg-2",
+    "timestamp": "2026-06-22T13:01:00Z",
+    "project": {
+      "cwd": "/Users/dev/projects/api",
+      "repo_root": null,
+      "git": {
+        "sha": "0badc0de7777",
+        "branch": "fix/migration"
+      }
+    },
+    "kind": {
+      "event": "user_turn",
+      "text": "Leave it for now, I'll handle the conflict manually.",
+      "parts": []
+    },
+    "provenance": {
+      "file": "fixtures/copilot/v1/tool_failure.jsonl",
+      "byte_offset": 1026,
+      "line_no": 4
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "copilot",
+    "session_id": "copilot-thread-004",
+    "seq": 7,
+    "event_id": "eb9e62c623409b2d1005ea8f13d6d892c05a82982374192db59b3875e6a576a8",
+    "parent_id": null,
+    "timestamp": "2026-06-22T13:01:20Z",
+    "project": {
+      "cwd": "/Users/dev/projects/api",
+      "repo_root": null,
+      "git": {
+        "sha": "0badc0de7777",
+        "branch": "fix/migration"
+      }
+    },
+    "kind": {
+      "event": "session_end",
+      "reason": "user_closed"
+    },
+    "provenance": {
+      "file": "fixtures/copilot/v1/tool_failure.jsonl",
+      "byte_offset": 1197,
+      "line_no": 5
+    }
+  }
+]

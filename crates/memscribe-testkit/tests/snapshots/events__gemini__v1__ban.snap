@@ -1,0 +1,100 @@
+---
+source: crates/memscribe-testkit/tests/golden.rs
+expression: events
+---
+[
+  {
+    "schema_version": 1,
+    "source": "gemini",
+    "session_id": "a1b2c3d4-0003",
+    "seq": 0,
+    "event_id": "9ba17a73a3ea97a439e4153d2471a5de56dbae63bfed30b23280a651d43ec27d",
+    "parent_id": null,
+    "timestamp": "1970-01-01T00:00:00Z",
+    "project": {
+      "cwd": "/home/dev/core-lib",
+      "repo_root": null,
+      "git": {
+        "sha": "0042deadbe",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "session_start",
+      "cwd": "/home/dev/core-lib",
+      "git": {
+        "sha": "0042deadbe",
+        "branch": "main"
+      },
+      "model": "gemini-2.5-pro",
+      "tool_version": "0.4.1"
+    },
+    "provenance": {
+      "file": "fixtures/gemini/v1/ban.jsonl",
+      "byte_offset": 0,
+      "line_no": 1
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "gemini",
+    "session_id": "a1b2c3d4-0003",
+    "seq": 1,
+    "event_id": "msg-0201",
+    "parent_id": null,
+    "timestamp": "2026-06-22T12:30:00Z",
+    "project": {
+      "cwd": "/home/dev/core-lib",
+      "repo_root": null,
+      "git": {
+        "sha": "0042deadbe",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "user_turn",
+      "text": "Important policy: we will never add a dependency on left-pad. Use the std library instead.",
+      "parts": []
+    },
+    "provenance": {
+      "file": "fixtures/gemini/v1/ban.jsonl",
+      "byte_offset": 150,
+      "line_no": 2
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "gemini",
+    "session_id": "a1b2c3d4-0003",
+    "seq": 2,
+    "event_id": "msg-0202",
+    "parent_id": null,
+    "timestamp": "2026-06-22T12:30:02.7Z",
+    "project": {
+      "cwd": "/home/dev/core-lib",
+      "repo_root": null,
+      "git": {
+        "sha": "0042deadbe",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "assistant_turn",
+      "text": "Acknowledged. I won't add left-pad; I'll implement padding with the standard library.",
+      "thinking": "This is a ban on the left-pad dependency.",
+      "model": null,
+      "usage": {
+        "input_tokens": 110,
+        "output_tokens": 58,
+        "cache_read_tokens": null,
+        "cache_creation_tokens": null
+      },
+      "parts": []
+    },
+    "provenance": {
+      "file": "fixtures/gemini/v1/ban.jsonl",
+      "byte_offset": 321,
+      "line_no": 3
+    }
+  }
+]

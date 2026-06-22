@@ -1,0 +1,135 @@
+---
+source: crates/memscribe-testkit/tests/golden.rs
+expression: nodes
+---
+[
+  {
+    "node": "conversation",
+    "session_id": "ws-happy-001",
+    "turn_range": {
+      "start": 1,
+      "end": 2
+    },
+    "text": "Let's use Postgres instead of MySQL for the orders service.",
+    "markers": [
+      {
+        "rule_id": "decision_verb.use",
+        "category": "decision_verb",
+        "matched_text": "use",
+        "offset": 6
+      },
+      {
+        "rule_id": "rejection.instead_of",
+        "category": "rejection",
+        "matched_text": "instead of",
+        "offset": 19
+      }
+    ],
+    "fact_status": "observed",
+    "provenance": [
+      {
+        "file": "fixtures/windsurf/v1/happy_path_decision_then_edits.jsonl",
+        "byte_offset": 166,
+        "line_no": 2
+      }
+    ]
+  },
+  {
+    "node": "decision",
+    "epitome": "Let's use Postgres instead of MySQL for the orders service.",
+    "considered_options": [
+      {
+        "text": "MySQL",
+        "chosen": false
+      },
+      {
+        "text": "Postgres",
+        "chosen": true
+      }
+    ],
+    "is_ban": false,
+    "superseded_by": null,
+    "confirmation": null,
+    "source_span": {
+      "start": 1,
+      "end": 2
+    },
+    "fact_status": "observed"
+  },
+  {
+    "node": "episode",
+    "path": "src/db/mod.rs",
+    "diff": {
+      "path": "src/db/mod.rs",
+      "old": "use mysql_async::Pool;",
+      "new": "use sqlx::postgres::PgPool;",
+      "unified": "@@ -1,1 +1,1 @@\n-use mysql_async::Pool;\n+use sqlx::postgres::PgPool;",
+      "added_lines": 1,
+      "removed_lines": 1
+    },
+    "git": {
+      "sha": "9f3c1a7e",
+      "branch": "main"
+    },
+    "episode_id": "2c213c5b2e2f7e0864fa6a49a580d052a483bc569894b8f3c32e451fcf0b21bb"
+  },
+  {
+    "node": "episode",
+    "path": "config/database.toml",
+    "diff": {
+      "path": "config/database.toml",
+      "old": "driver = \"mysql\"\nport = 3306",
+      "new": "driver = \"postgres\"\nport = 5432",
+      "unified": "@@ -1,2 +1,2 @@\n-driver = \"mysql\"\n-port = 3306\n+driver = \"postgres\"\n+port = 5432",
+      "added_lines": 2,
+      "removed_lines": 2
+    },
+    "git": {
+      "sha": "9f3c1a7e",
+      "branch": "main"
+    },
+    "episode_id": "7cb65f7f37d541ceb39094a1e95fe86b247cfec4dab0b65a889278ab73a14273"
+  },
+  {
+    "node": "binding",
+    "from": "decision:ws-happy-001:1",
+    "to": "episode:2c213c5b2e2f7e0864fa6a49a580d052a483bc569894b8f3c32e451fcf0b21bb",
+    "relation": "produced",
+    "prov": {
+      "used_session": "ws-happy-001",
+      "used_decision": "decision:ws-happy-001:1",
+      "was_generated_by_session": "ws-happy-001",
+      "t_use": "2026-06-22T14:00:00Z",
+      "t_gen": "2026-06-22T14:00:06Z"
+    },
+    "fact_status": "deterministically_derived",
+    "correlation": {
+      "support": 0.5,
+      "confidence": 0.5,
+      "lift": 1.0,
+      "phi": 0.0,
+      "p": 1.0
+    }
+  },
+  {
+    "node": "binding",
+    "from": "decision:ws-happy-001:1",
+    "to": "episode:7cb65f7f37d541ceb39094a1e95fe86b247cfec4dab0b65a889278ab73a14273",
+    "relation": "produced",
+    "prov": {
+      "used_session": "ws-happy-001",
+      "used_decision": "decision:ws-happy-001:1",
+      "was_generated_by_session": "ws-happy-001",
+      "t_use": "2026-06-22T14:00:00Z",
+      "t_gen": "2026-06-22T14:00:06Z"
+    },
+    "fact_status": "deterministically_derived",
+    "correlation": {
+      "support": 0.5,
+      "confidence": 0.5,
+      "lift": 1.0,
+      "phi": 0.0,
+      "p": 1.0
+    }
+  }
+]

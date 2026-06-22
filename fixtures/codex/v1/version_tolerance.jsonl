@@ -1,0 +1,4 @@
+{"timestamp":"2026-06-22T09:00:00.000Z","type":"session_meta","payload":{"id":"01JZ8codexsess0001legacy","cwd":"/Users/dev/acme-api","git":{"sha":"a1b2c3d4e5f60718293a4b5c6d7e8f9001020304","branch":"main"},"cli_version":"0.1.0","originator":"codex_cli_rs"}}
+{"timestamp":"2026-06-22T09:00:05.120Z","record_type":"input","role":"user","text":"Let's use Postgres instead of MySQL for the persistence layer."}
+{"timestamp":"2026-06-22T09:00:09.880Z","record_type":"output","role":"assistant","text":"Switching to Postgres."}
+{"timestamp":"2026-06-22T09:00:12.400Z","kind":"state","payload":{"phase":"awaiting_input"}}

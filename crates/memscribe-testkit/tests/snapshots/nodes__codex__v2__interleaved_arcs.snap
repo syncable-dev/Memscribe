@@ -1,0 +1,244 @@
+---
+source: crates/memscribe-testkit/tests/golden.rs
+expression: nodes
+---
+[
+  {
+    "node": "conversation",
+    "session_id": "01JZ8codexsess0005interleaved",
+    "turn_range": {
+      "start": 1,
+      "end": 2
+    },
+    "text": "Let's use argon2 for password hashing. Update the auth module and the shared crypto helper accordingly.",
+    "markers": [
+      {
+        "rule_id": "decision_verb.use",
+        "category": "decision_verb",
+        "matched_text": "use",
+        "offset": 6
+      }
+    ],
+    "fact_status": "observed",
+    "provenance": [
+      {
+        "file": "fixtures/codex/v2/interleaved_arcs.jsonl",
+        "byte_offset": 277,
+        "line_no": 2
+      }
+    ]
+  },
+  {
+    "node": "decision",
+    "epitome": "Let's use argon2 for password hashing.",
+    "considered_options": [
+      {
+        "text": "argon2",
+        "chosen": true
+      }
+    ],
+    "is_ban": false,
+    "superseded_by": null,
+    "confirmation": null,
+    "source_span": {
+      "start": 1,
+      "end": 2
+    },
+    "fact_status": "observed"
+  },
+  {
+    "node": "episode",
+    "path": "src/auth.rs",
+    "diff": {
+      "path": "src/auth.rs",
+      "old": null,
+      "new": null,
+      "unified": "@@\n-use bcrypt::hash;\n+use argon2::Argon2;",
+      "added_lines": 1,
+      "removed_lines": 1
+    },
+    "git": {
+      "sha": "e5f60718293a4b5c6d7e8f900102030405060708",
+      "branch": "feat/auth-overhaul"
+    },
+    "episode_id": "a4e4c0d70baa57d560d4fba5bd2236984971124d4a6a514239407c2872643ba7"
+  },
+  {
+    "node": "episode",
+    "path": "src/shared/crypto.rs",
+    "diff": {
+      "path": "src/shared/crypto.rs",
+      "old": null,
+      "new": null,
+      "unified": "@@\n-pub const HASH_COST: u32 = 12;\n+pub const ARGON2_MEM_KIB: u32 = 19456;",
+      "added_lines": 1,
+      "removed_lines": 1
+    },
+    "git": {
+      "sha": "e5f60718293a4b5c6d7e8f900102030405060708",
+      "branch": "feat/auth-overhaul"
+    },
+    "episode_id": "a42ee0d09ada744881547a8143cc30337a86f5dc1c5ee34de287a237dda53ed3"
+  },
+  {
+    "node": "conversation",
+    "session_id": "01JZ8codexsess0005interleaved",
+    "turn_range": {
+      "start": 8,
+      "end": 9
+    },
+    "text": "Now let's switch to a 30-minute session TTL. Update the session manager and bump the shared default in the crypto helper's config block.",
+    "markers": [
+      {
+        "rule_id": "decision_verb.use",
+        "category": "decision_verb",
+        "matched_text": "switch to",
+        "offset": 10
+      }
+    ],
+    "fact_status": "observed",
+    "provenance": [
+      {
+        "file": "fixtures/codex/v2/interleaved_arcs.jsonl",
+        "byte_offset": 1671,
+        "line_no": 7
+      }
+    ]
+  },
+  {
+    "node": "decision",
+    "epitome": "Now let's switch to a 30-minute session TTL.",
+    "considered_options": [
+      {
+        "text": "a",
+        "chosen": true
+      }
+    ],
+    "is_ban": false,
+    "superseded_by": null,
+    "confirmation": null,
+    "source_span": {
+      "start": 8,
+      "end": 9
+    },
+    "fact_status": "observed"
+  },
+  {
+    "node": "episode",
+    "path": "src/session.rs",
+    "diff": {
+      "path": "src/session.rs",
+      "old": null,
+      "new": null,
+      "unified": "@@\n-const SESSION_TTL_SECS: u64 = 3600;\n+const SESSION_TTL_SECS: u64 = 1800;",
+      "added_lines": 1,
+      "removed_lines": 1
+    },
+    "git": {
+      "sha": "e5f60718293a4b5c6d7e8f900102030405060708",
+      "branch": "feat/auth-overhaul"
+    },
+    "episode_id": "e7f5bf0a2286c1a6c3a9ef53a97af2941ea1698b7f1cabbf1f4c5c24e94d5bd2"
+  },
+  {
+    "node": "episode",
+    "path": "src/shared/crypto.rs",
+    "diff": {
+      "path": "src/shared/crypto.rs",
+      "old": null,
+      "new": null,
+      "unified": "@@\n-pub const DEFAULT_TTL_SECS: u64 = 3600;\n+pub const DEFAULT_TTL_SECS: u64 = 1800;",
+      "added_lines": 1,
+      "removed_lines": 1
+    },
+    "git": {
+      "sha": "e5f60718293a4b5c6d7e8f900102030405060708",
+      "branch": "feat/auth-overhaul"
+    },
+    "episode_id": "8950849692cc4d27e72a42f4e2a82284766365a120a24be4adc958c6fc8a8cf6"
+  },
+  {
+    "node": "binding",
+    "from": "decision:01JZ8codexsess0005interleaved:1",
+    "to": "episode:a42ee0d09ada744881547a8143cc30337a86f5dc1c5ee34de287a237dda53ed3",
+    "relation": "produced",
+    "prov": {
+      "used_session": "01JZ8codexsess0005interleaved",
+      "used_decision": "decision:01JZ8codexsess0005interleaved:1",
+      "was_generated_by_session": "01JZ8codexsess0005interleaved",
+      "t_use": "2026-06-22T18:00:06.1Z",
+      "t_gen": "2026-06-22T18:00:16.45Z"
+    },
+    "fact_status": "deterministically_derived",
+    "correlation": {
+      "support": 0.25,
+      "confidence": 0.5,
+      "lift": 1.0,
+      "phi": 0.0,
+      "p": 1.0
+    }
+  },
+  {
+    "node": "binding",
+    "from": "decision:01JZ8codexsess0005interleaved:1",
+    "to": "episode:a4e4c0d70baa57d560d4fba5bd2236984971124d4a6a514239407c2872643ba7",
+    "relation": "produced",
+    "prov": {
+      "used_session": "01JZ8codexsess0005interleaved",
+      "used_decision": "decision:01JZ8codexsess0005interleaved:1",
+      "was_generated_by_session": "01JZ8codexsess0005interleaved",
+      "t_use": "2026-06-22T18:00:06.1Z",
+      "t_gen": "2026-06-22T18:00:16.45Z"
+    },
+    "fact_status": "deterministically_derived",
+    "correlation": {
+      "support": 0.25,
+      "confidence": 0.5,
+      "lift": 2.0,
+      "phi": 0.57735,
+      "p": 0.248213
+    }
+  },
+  {
+    "node": "binding",
+    "from": "decision:01JZ8codexsess0005interleaved:8",
+    "to": "episode:8950849692cc4d27e72a42f4e2a82284766365a120a24be4adc958c6fc8a8cf6",
+    "relation": "produced",
+    "prov": {
+      "used_session": "01JZ8codexsess0005interleaved",
+      "used_decision": "decision:01JZ8codexsess0005interleaved:8",
+      "was_generated_by_session": "01JZ8codexsess0005interleaved",
+      "t_use": "2026-06-22T18:00:40.2Z",
+      "t_gen": "2026-06-22T18:00:52.8Z"
+    },
+    "fact_status": "deterministically_derived",
+    "correlation": {
+      "support": 0.25,
+      "confidence": 0.5,
+      "lift": 1.0,
+      "phi": 0.0,
+      "p": 1.0
+    }
+  },
+  {
+    "node": "binding",
+    "from": "decision:01JZ8codexsess0005interleaved:8",
+    "to": "episode:e7f5bf0a2286c1a6c3a9ef53a97af2941ea1698b7f1cabbf1f4c5c24e94d5bd2",
+    "relation": "produced",
+    "prov": {
+      "used_session": "01JZ8codexsess0005interleaved",
+      "used_decision": "decision:01JZ8codexsess0005interleaved:8",
+      "was_generated_by_session": "01JZ8codexsess0005interleaved",
+      "t_use": "2026-06-22T18:00:40.2Z",
+      "t_gen": "2026-06-22T18:00:52.8Z"
+    },
+    "fact_status": "deterministically_derived",
+    "correlation": {
+      "support": 0.25,
+      "confidence": 0.5,
+      "lift": 2.0,
+      "phi": 0.57735,
+      "p": 0.248213
+    }
+  }
+]

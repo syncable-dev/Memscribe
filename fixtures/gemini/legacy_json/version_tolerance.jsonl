@@ -1,0 +1,5 @@
+{"$set":{"sessionId":"legacy-0001","cwd":"/home/dev/shop-api","projectRoot":"/home/dev/shop-api","model":"gemini-1.5-pro","branch":"main","commit":"9f1c0aa2b3","cliVersion":"0.2.0"}}
+{"id":"leg-0001","role":"user","content":"Let's use Postgres instead of MySQL for the orders service.","timestamp":"2026-06-22T08:00:00.000Z"}
+{"id":"leg-0002","role":"model","content":"Good call. Switching the connection string to Postgres.","thoughts":"swap the dsn","timestamp":"2026-06-22T08:00:03.120Z"}
+{"id":"leg-0003","role":"system","content":"Context window compacted.","timestamp":"2026-06-22T08:00:04.000Z"}
+{"$rewindTo":"leg-0001"}

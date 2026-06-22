@@ -1,0 +1,135 @@
+---
+source: crates/memscribe-testkit/tests/golden.rs
+expression: events
+---
+[
+  {
+    "schema_version": 1,
+    "source": "codex",
+    "session_id": "01JZ8codexsess0001legacy",
+    "seq": 0,
+    "event_id": "session_meta:01JZ8codexsess0001legacy",
+    "parent_id": null,
+    "timestamp": "2026-06-22T09:00:00Z",
+    "project": {
+      "cwd": "/Users/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "a1b2c3d4e5f60718293a4b5c6d7e8f9001020304",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "session_start",
+      "cwd": "/Users/dev/acme-api",
+      "git": {
+        "sha": "a1b2c3d4e5f60718293a4b5c6d7e8f9001020304",
+        "branch": "main"
+      },
+      "model": null,
+      "tool_version": "0.1.0"
+    },
+    "provenance": {
+      "file": "fixtures/codex/v1/version_tolerance.jsonl",
+      "byte_offset": 0,
+      "line_no": 1
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "codex",
+    "session_id": "01JZ8codexsess0001legacy",
+    "seq": 1,
+    "event_id": "8a9e7f9763d69f931e5992d22ffa877274ab85c5eab6e6ffd32a91e008c9533f",
+    "parent_id": null,
+    "timestamp": "2026-06-22T09:00:05.12Z",
+    "project": {
+      "cwd": "/Users/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "a1b2c3d4e5f60718293a4b5c6d7e8f9001020304",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "unknown",
+      "raw_type": "unknown",
+      "raw": {
+        "timestamp": "2026-06-22T09:00:05.120Z",
+        "record_type": "input",
+        "role": "user",
+        "text": "Let's use Postgres instead of MySQL for the persistence layer."
+      }
+    },
+    "provenance": {
+      "file": "fixtures/codex/v1/version_tolerance.jsonl",
+      "byte_offset": 258,
+      "line_no": 2
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "codex",
+    "session_id": "01JZ8codexsess0001legacy",
+    "seq": 2,
+    "event_id": "f774cfc5829730294915b0f7e7f2427aa89b140c17eaa6c9038783f2fb865d66",
+    "parent_id": null,
+    "timestamp": "2026-06-22T09:00:09.88Z",
+    "project": {
+      "cwd": "/Users/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "a1b2c3d4e5f60718293a4b5c6d7e8f9001020304",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "unknown",
+      "raw_type": "unknown",
+      "raw": {
+        "timestamp": "2026-06-22T09:00:09.880Z",
+        "record_type": "output",
+        "role": "assistant",
+        "text": "Switching to Postgres."
+      }
+    },
+    "provenance": {
+      "file": "fixtures/codex/v1/version_tolerance.jsonl",
+      "byte_offset": 407,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "codex",
+    "session_id": "01JZ8codexsess0001legacy",
+    "seq": 3,
+    "event_id": "faebbccbcb7656e1b0d9d6f228ccb7cc4d617198913e24977dcaef237e8d56f3",
+    "parent_id": null,
+    "timestamp": "2026-06-22T09:00:12.4Z",
+    "project": {
+      "cwd": "/Users/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "a1b2c3d4e5f60718293a4b5c6d7e8f9001020304",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "unknown",
+      "raw_type": "unknown",
+      "raw": {
+        "timestamp": "2026-06-22T09:00:12.400Z",
+        "kind": "state",
+        "payload": {
+          "phase": "awaiting_input"
+        }
+      }
+    },
+    "provenance": {
+      "file": "fixtures/codex/v1/version_tolerance.jsonl",
+      "byte_offset": 522,
+      "line_no": 4
+    }
+  }
+]

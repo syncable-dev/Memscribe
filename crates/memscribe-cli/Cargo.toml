@@ -1,0 +1,36 @@
+[package]
+name = "memscribe-cli"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+description = "The `memscribe` binary: watch / hook / parse / replay / verify / redact."
+
+[lints]
+workspace = true
+
+[[bin]]
+name = "memscribe"
+path = "src/main.rs"
+
+[dependencies]
+memscribe-core = { workspace = true }
+memscribe-adapters = { workspace = true }
+memscribe-sink = { workspace = true }
+memscribe-io = { workspace = true, features = ["watch", "cursor-store"] }
+memscribe-testkit = { workspace = true }
+clap = { workspace = true }
+ctrlc = "3"
+anyhow = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+toml = "0.8"
+zstd = { workspace = true }
+tracing = { workspace = true }
+tracing-subscriber = { workspace = true }
+
+[dev-dependencies]
+assert_cmd = { workspace = true }
+predicates = { workspace = true }
+tempfile = { workspace = true }

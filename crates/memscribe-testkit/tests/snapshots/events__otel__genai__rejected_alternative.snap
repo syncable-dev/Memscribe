@@ -1,0 +1,144 @@
+---
+source: crates/memscribe-testkit/tests/golden.rs
+expression: events
+---
+[
+  {
+    "schema_version": 1,
+    "source": "otel",
+    "session_id": "sess-reject-001",
+    "seq": 0,
+    "event_id": "d84a04e91845802b1f222093afb3cd2b8885a085f17c7545b7162dedbe057855:session_start:0",
+    "parent_id": null,
+    "timestamp": "2026-06-22T11:00:00Z",
+    "project": {
+      "cwd": "/home/dev/checkout",
+      "repo_root": "/home/dev/checkout",
+      "git": {
+        "sha": "def5678",
+        "branch": "feat/payments"
+      }
+    },
+    "kind": {
+      "event": "session_start",
+      "cwd": "/home/dev/checkout",
+      "git": {
+        "sha": "def5678",
+        "branch": "feat/payments"
+      },
+      "model": "gpt-5",
+      "tool_version": null
+    },
+    "provenance": {
+      "file": "fixtures/otel/genai/rejected_alternative.jsonl",
+      "byte_offset": 0,
+      "line_no": 1
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "otel",
+    "session_id": "sess-reject-001",
+    "seq": 1,
+    "event_id": "9e46ceb387c7779c4193b18b69f41e09a4bb4583dd17a3402f31dbc169944c3c:input_msg:0",
+    "parent_id": null,
+    "timestamp": "2026-06-22T11:00:04Z",
+    "project": {
+      "cwd": "/home/dev/checkout",
+      "repo_root": "/home/dev/checkout",
+      "git": {
+        "sha": "def5678",
+        "branch": "feat/payments"
+      }
+    },
+    "kind": {
+      "event": "user_turn",
+      "text": "We should use Stripe instead of PayPal for the checkout integration.",
+      "parts": [
+        {
+          "part": "text",
+          "text": "We should use Stripe instead of PayPal for the checkout integration."
+        }
+      ]
+    },
+    "provenance": {
+      "file": "fixtures/otel/genai/rejected_alternative.jsonl",
+      "byte_offset": 283,
+      "line_no": 2
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "otel",
+    "session_id": "sess-reject-001",
+    "seq": 2,
+    "event_id": "c2f76d0e15483645951e6e80c296d723ead4a32266243ec3d73ae34486aa5883:output_msg:0",
+    "parent_id": null,
+    "timestamp": "2026-06-22T11:00:08Z",
+    "project": {
+      "cwd": "/home/dev/checkout",
+      "repo_root": "/home/dev/checkout",
+      "git": {
+        "sha": "def5678",
+        "branch": "feat/payments"
+      }
+    },
+    "kind": {
+      "event": "assistant_turn",
+      "text": "Understood, I'll wire up Stripe and drop the PayPal path.",
+      "thinking": null,
+      "model": "gpt-5",
+      "usage": {
+        "input_tokens": 210,
+        "output_tokens": 40,
+        "cache_read_tokens": null,
+        "cache_creation_tokens": null
+      },
+      "parts": [
+        {
+          "part": "text",
+          "text": "Understood, I'll wire up Stripe and drop the PayPal path."
+        }
+      ]
+    },
+    "provenance": {
+      "file": "fixtures/otel/genai/rejected_alternative.jsonl",
+      "byte_offset": 537,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "otel",
+    "session_id": "sess-reject-001",
+    "seq": 3,
+    "event_id": "8ecf501b3fff25d6cae667ef82fe84d7fb440e37f6fb7eab0a77c810e84de7e7:file_edit:0",
+    "parent_id": null,
+    "timestamp": "2026-06-22T11:00:12Z",
+    "project": {
+      "cwd": "/home/dev/checkout",
+      "repo_root": "/home/dev/checkout",
+      "git": {
+        "sha": "def5678",
+        "branch": "feat/payments"
+      }
+    },
+    "kind": {
+      "event": "file_edit",
+      "call_id": null,
+      "diff": {
+        "path": "checkout/stripe.rs",
+        "old": null,
+        "new": null,
+        "unified": null,
+        "added_lines": 48,
+        "removed_lines": 0
+      }
+    },
+    "provenance": {
+      "file": "fixtures/otel/genai/rejected_alternative.jsonl",
+      "byte_offset": 881,
+      "line_no": 4
+    }
+  }
+]

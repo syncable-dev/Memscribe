@@ -1,0 +1,57 @@
+---
+source: crates/memscribe-testkit/tests/golden.rs
+expression: events
+---
+[
+  {
+    "schema_version": 1,
+    "source": "vs_code",
+    "session_id": "vsc-native-1",
+    "seq": 0,
+    "event_id": "2c588cc1bef79d0e417388725b98f9ba899e146fc6f96692cd7af92dade2324a:req:0:user",
+    "parent_id": null,
+    "timestamp": "1970-01-01T00:00:00Z",
+    "project": {
+      "cwd": ".",
+      "repo_root": null,
+      "git": null
+    },
+    "kind": {
+      "event": "user_turn",
+      "text": "Add a health check endpoint",
+      "parts": []
+    },
+    "provenance": {
+      "file": "fixtures/vscode/v1/native_chatsession.jsonl",
+      "byte_offset": 0,
+      "line_no": 1
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "vs_code",
+    "session_id": "vsc-native-1",
+    "seq": 1,
+    "event_id": "2c588cc1bef79d0e417388725b98f9ba899e146fc6f96692cd7af92dade2324a:req:0:asst",
+    "parent_id": "2c588cc1bef79d0e417388725b98f9ba899e146fc6f96692cd7af92dade2324a:req:0:user",
+    "timestamp": "1970-01-01T00:00:00Z",
+    "project": {
+      "cwd": ".",
+      "repo_root": null,
+      "git": null
+    },
+    "kind": {
+      "event": "assistant_turn",
+      "text": "I'll add a GET /healthz route that returns 200.Done.",
+      "thinking": null,
+      "model": "GitHub Copilot",
+      "usage": null,
+      "parts": []
+    },
+    "provenance": {
+      "file": "fixtures/vscode/v1/native_chatsession.jsonl",
+      "byte_offset": 0,
+      "line_no": 1
+    }
+  }
+]

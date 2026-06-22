@@ -1,0 +1,38 @@
+[package]
+name = "memscribe-io"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+description = "Source layer for Memscribe: file reader/tailer (offset resume), hook server, and an optional OTLP receiver."
+
+[lints]
+workspace = true
+
+[features]
+default = []
+# The live notify-based tailer + persisted offset cursor store.
+watch = ["dep:notify", "dep:notify-debouncer-full", "dep:tokio"]
+# The persisted offset store backed by SQLite.
+cursor-store = ["dep:rusqlite"]
+# A loopback-only HTTP OTLP receiver (std TcpListener, no async/tonic deps).
+# Off by default: the default build opens no network ports (whitepaper §11).
+# Reuses the already-present serde_json dependency; no new crates pulled in.
+otlp = []
+
+[dependencies]
+memscribe-core = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+time = { workspace = true }
+tracing = { workspace = true }
+zstd = { workspace = true }
+walkdir = { workspace = true }
+tokio = { workspace = true, optional = true }
+notify = { workspace = true, optional = true }
+notify-debouncer-full = { workspace = true, optional = true }
+rusqlite = { workspace = true, optional = true }
+
+[dev-dependencies]
+tempfile = { workspace = true }

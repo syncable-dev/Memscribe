@@ -1,0 +1,186 @@
+# Memscribe example configuration (whitepaper §10).
+#
+# This file documents the INTENDED config surface for the `memscribe` daemon
+# (`memscribe watch --config memscribe.toml`). It mirrors, one-to-one, the
+# runtime types the pipeline already exposes:
+#
+#   [tools.*.overrides]  -> memscribe_core::DiscoverCfg.overrides
+#   [[gate.rules]]       -> CommitmentGate::from_triples (id, category, pattern)
+#   [[redact.patterns]]  -> Redactor::from_patterns      (label, pattern)
+#   [sink]               -> ndjson | sqlite | memdb
+#
+# NOTE: the TOML *loader* itself is a follow-up — today the daemon runs with the
+# compiled defaults (CommitmentGate::default_table, Redactor::default, NdjsonSink)
+# and `watch` is not yet wired. Every value below is the documented default, so
+# this file doubles as a reference for what the loader will accept.
+
+# ---------------------------------------------------------------------------
+# Capture: which tools to tail, and where their transcripts live.
+# ---------------------------------------------------------------------------
+[capture]
+# The set of adapters to enable. Slugs match `SourceKind::parse` (and the CLI
+# `--as` / `--tools` values): claude_code, codex, gemini, otel, cursor,
+# windsurf, zed, vscode, copilot.
+tools = ["claude_code", "codex", "gemini"]
+
+# Restrict discovery to a single project root (maps to
+# DiscoverCfg.project_filter). Omit to capture every project the tools wrote.
+# project_filter = "/Users/me/work/myrepo"
+
+# Override $HOME for discovery (used by sandboxes/tests; DiscoverCfg.home).
+# home = "/Users/me"
+
+# Per-tool path overrides. Each key is the tool's native environment variable;
+# the value replaces the default `<home>/.<tool>` discovery root. These land in
+# DiscoverCfg.overrides verbatim, so only keys the adapter reads have an effect.
+[tools.claude_code.overrides]
+# Default discovery root is <home>/.claude; transcripts under projects/<slug>/.
+CLAUDE_CONFIG_DIR = "/Users/me/.claude"
+
+[tools.codex.overrides]
+# Default is <home>/.codex; rollouts under sessions/YYYY/MM/DD/rollout-*.jsonl[.zst].
+CODEX_HOME = "/Users/me/.codex"
+
+# Other adapters resolve relative to `home` with no override needed:
+#   gemini   -> <home>/.gemini
+#   cursor / windsurf / zed / vscode / copilot -> their editor state dirs
+#   otel     -> a network OTLP receiver, not a path
+
+# ---------------------------------------------------------------------------
+# The commitment-marker gate (whitepaper Appendix B).
+#
+# A small, inspectable rule table over user turns. Each rule is an `id`, a
+# `category`, and a case-insensitive regex `pattern` — the exact triple shape
+# CommitmentGate::from_triples consumes. Categories (MarkerCategory):
+#   decision_verb | rejection | ban | imperative | memory | confirmation
+#
+# Leaving [[gate.rules]] out entirely uses CommitmentGate::default_table()
+# (the 8 default rules below). Provide rules to REPLACE that table.
+# ---------------------------------------------------------------------------
+[[gate.rules]]
+id       = "decision_verb.use"
+category = "decision_verb"
+pattern  = '''\b(?:use|using|adopt|adopts|go with|let'?s go with|switch to|migrate to)\b'''
+
+[[gate.rules]]
+id       = "decision_verb.decide"
+category = "decision_verb"
+pattern  = '''\b(?:decide(?:d)?|we(?:'ll| will) choose|choose|chose|settle on|going to use|pick(?:ed)?)\b'''
+
+[[gate.rules]]
+id       = "rejection.instead_of"
+category = "rejection"
+pattern  = '\binstead of\b'
+
+[[gate.rules]]
+id       = "rejection.rather_than"
+category = "rejection"
+pattern  = '\b(?:rather than|as opposed to|in favor of)\b'
+
+[[gate.rules]]
+id       = "ban.negated_use"
+category = "ban"
+pattern  = '''\b(?:never|do not|don'?t|won'?t|will not|must not|should not|shouldn'?t|no longer)\s+(?:use|add|adopt|depend|introduce|rely)\b'''
+
+[[gate.rules]]
+id       = "ban.no_dependency"
+category = "ban"
+pattern  = '\bno (?:new )?dependenc(?:y|ies)\b'
+
+[[gate.rules]]
+id       = "imperative.must_always_never"
+category = "imperative"
+pattern  = '\b(?:must|always|never|shall|required to|need to)\b'
+
+[[gate.rules]]
+id       = "memory.remember"
+category = "memory"
+pattern  = '''\b(?:remember that|keep in mind|note that|for future reference|don'?t forget)\b'''
+
+# ---------------------------------------------------------------------------
+# Redaction (whitepaper §8.6, §11).
+#
+# A deterministic pass that strips known secrets from node text BEFORE the sink.
+# Each entry is a `(label, pattern)` pair (Redactor::from_patterns); a match is
+# replaced with `[REDACTED:<label>]`, applied in listed order. Redaction is ON
+# by default. Omit [[redact.patterns]] to use Redactor::default() (the patterns
+# below).
+# ---------------------------------------------------------------------------
+[redact]
+# Structure-only mode: elide ALL verbatim text, keep only node structure
+# (the CLI `--no-content` flag). Default false.
+no_content = false
+
+[[redact.patterns]]
+label   = "anthropic_key"
+pattern = 'sk-ant-[A-Za-z0-9_-]{16,}'
+
+[[redact.patterns]]
+label   = "openai_key"
+pattern = 'sk-[A-Za-z0-9]{20,}'
+
+[[redact.patterns]]
+label   = "aws_access_key"
+pattern = 'AKIA[0-9A-Z]{16}'
+
+[[redact.patterns]]
+label   = "github_token"
+pattern = 'gh[pousr]_[A-Za-z0-9]{20,}'
+
+[[redact.patterns]]
+label   = "slack_token"
+pattern = 'xox[baprs]-[A-Za-z0-9-]{10,}'
+
+[[redact.patterns]]
+label   = "google_api_key"
+pattern = 'AIza[0-9A-Za-z_-]{35}'
+
+[[redact.patterns]]
+label   = "bearer_token"
+pattern = '(?i)bearer\s+[A-Za-z0-9._~+/-]{16,}=*'
+
+[[redact.patterns]]
+label   = "assignment_secret"
+pattern = '''(?i)\b(?:api[_-]?key|secret|token|password|passwd|access[_-]?key)\b\s*[=:]\s*[^\s'"]{6,}'''
+
+[[redact.patterns]]
+label   = "private_key_block"
+pattern = '-----BEGIN (?:RSA |EC |OPENSSH |DSA |PGP )?PRIVATE KEY-----[\s\S]*?-----END (?:RSA |EC |OPENSSH |DSA |PGP )?PRIVATE KEY-----'
+
+# ---------------------------------------------------------------------------
+# Retention & ingest cadence.
+#
+# Memscribe is append-only over the captured history; retention controls how
+# much is re-scanned on each pass, never deletion of source transcripts.
+# ---------------------------------------------------------------------------
+[ingest]
+# How often the tailer re-scans discovered transcripts for new bytes (seconds).
+poll_interval_secs = 5
+# Resume each file from its last byte offset instead of re-reading from the top.
+resume_from_offset = true
+# Only ingest records newer than this lookback window on a cold start (days).
+# Omit or set 0 to ingest the full available history.
+backfill_days = 30
+
+# ---------------------------------------------------------------------------
+# Sink: where prepared nodes go (whitepaper §6).
+#
+# target = "ndjson" | "sqlite" | "memdb". NDJSON is the canonical default and
+# needs no external service. `memdb` requires building memscribe-sink with
+# `--features memdb`.
+# ---------------------------------------------------------------------------
+[sink]
+target = "ndjson"
+
+# NDJSON: one JSON node per line. Omit `path` to write to stdout.
+[sink.ndjson]
+# path = "/var/log/memscribe/nodes.ndjson"
+
+# SQLite: a queryable local store, zero external services.
+[sink.sqlite]
+# path = "/var/lib/memscribe/memscribe.db"
+
+# MemDB: bi-temporal write for Memtrace (feature `memdb`, off by default).
+# valid_at = turn/episode time, transaction_at = ingest time, episode_id = arc.
+[sink.memdb]
+# endpoint = "127.0.0.1:7878"

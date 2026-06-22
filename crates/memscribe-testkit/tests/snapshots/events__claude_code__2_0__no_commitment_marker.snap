@@ -1,0 +1,247 @@
+---
+source: crates/memscribe-testkit/tests/golden.rs
+expression: events
+---
+[
+  {
+    "schema_version": 1,
+    "source": "claude_code",
+    "session_id": "sess-nomarker-009",
+    "seq": 0,
+    "event_id": "1ea3dae75813cc75cab54b295ece07cf4f1d3a6891415dd522607b9f5dfed176",
+    "parent_id": null,
+    "timestamp": "2026-06-22T18:00:00Z",
+    "project": {
+      "cwd": "/Users/dev/acme/api",
+      "repo_root": null,
+      "git": {
+        "sha": "0a0b0c0d0e0f10111213141516171819202122ab",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "session_start",
+      "cwd": "/Users/dev/acme/api",
+      "git": {
+        "sha": "0a0b0c0d0e0f10111213141516171819202122ab",
+        "branch": "main"
+      },
+      "model": null,
+      "tool_version": "2.0.5"
+    },
+    "provenance": {
+      "file": "fixtures/claude_code/2.0/no_commitment_marker.jsonl",
+      "byte_offset": 0,
+      "line_no": 1
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "claude_code",
+    "session_id": "sess-nomarker-009",
+    "seq": 1,
+    "event_id": "d5fffff1-0000-4000-8000-000000000001",
+    "parent_id": null,
+    "timestamp": "2026-06-22T18:00:00Z",
+    "project": {
+      "cwd": "/Users/dev/acme/api",
+      "repo_root": null,
+      "git": {
+        "sha": "0a0b0c0d0e0f10111213141516171819202122ab",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "user_turn",
+      "text": "Thanks, that looks good to me. Please tidy the trailing whitespace in the handler.",
+      "parts": [
+        {
+          "part": "text",
+          "text": "Thanks, that looks good to me. Please tidy the trailing whitespace in the handler."
+        }
+      ]
+    },
+    "provenance": {
+      "file": "fixtures/claude_code/2.0/no_commitment_marker.jsonl",
+      "byte_offset": 0,
+      "line_no": 1
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "claude_code",
+    "session_id": "sess-nomarker-009",
+    "seq": 2,
+    "event_id": "d5fffff2-0000-4000-8000-000000000002",
+    "parent_id": "d5fffff1-0000-4000-8000-000000000001",
+    "timestamp": "2026-06-22T18:00:03Z",
+    "project": {
+      "cwd": "/Users/dev/acme/api",
+      "repo_root": null,
+      "git": {
+        "sha": "0a0b0c0d0e0f10111213141516171819202122ab",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "assistant_turn",
+      "text": "Tidying the trailing whitespace in the handler now.",
+      "thinking": null,
+      "model": "claude-opus-4-8",
+      "usage": {
+        "input_tokens": 210,
+        "output_tokens": 45,
+        "cache_read_tokens": 0,
+        "cache_creation_tokens": 70
+      },
+      "parts": [
+        {
+          "part": "text",
+          "text": "Tidying the trailing whitespace in the handler now."
+        },
+        {
+          "part": "tool_use",
+          "call_id": "toolu_nomarker_fmt",
+          "name": "Edit",
+          "args": {
+            "file_path": "/Users/dev/acme/api/src/handler.rs",
+            "old_string": "    let body = read(); ",
+            "new_string": "    let body = read();"
+          }
+        }
+      ]
+    },
+    "provenance": {
+      "file": "fixtures/claude_code/2.0/no_commitment_marker.jsonl",
+      "byte_offset": 409,
+      "line_no": 2
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "claude_code",
+    "session_id": "sess-nomarker-009",
+    "seq": 3,
+    "event_id": "fbedd67c6680789bb13865302012615a92673fbaab3b144766caa097a6665b75",
+    "parent_id": "d5fffff2-0000-4000-8000-000000000002",
+    "timestamp": "2026-06-22T18:00:03Z",
+    "project": {
+      "cwd": "/Users/dev/acme/api",
+      "repo_root": null,
+      "git": {
+        "sha": "0a0b0c0d0e0f10111213141516171819202122ab",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "tool_call",
+      "call_id": "toolu_nomarker_fmt",
+      "name": "Edit",
+      "args": {
+        "file_path": "/Users/dev/acme/api/src/handler.rs",
+        "old_string": "    let body = read(); ",
+        "new_string": "    let body = read();"
+      }
+    },
+    "provenance": {
+      "file": "fixtures/claude_code/2.0/no_commitment_marker.jsonl",
+      "byte_offset": 409,
+      "line_no": 2
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "claude_code",
+    "session_id": "sess-nomarker-009",
+    "seq": 4,
+    "event_id": "d5fffff3-0000-4000-8000-000000000003",
+    "parent_id": "d5fffff2-0000-4000-8000-000000000002",
+    "timestamp": "2026-06-22T18:00:03.4Z",
+    "project": {
+      "cwd": "/Users/dev/acme/api",
+      "repo_root": null,
+      "git": {
+        "sha": "0a0b0c0d0e0f10111213141516171819202122ab",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "user_turn",
+      "text": "",
+      "parts": [
+        {
+          "part": "tool_result",
+          "call_id": "toolu_nomarker_fmt",
+          "output": "The file /Users/dev/acme/api/src/handler.rs has been updated."
+        }
+      ]
+    },
+    "provenance": {
+      "file": "fixtures/claude_code/2.0/no_commitment_marker.jsonl",
+      "byte_offset": 1135,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "claude_code",
+    "session_id": "sess-nomarker-009",
+    "seq": 5,
+    "event_id": "2b68e60c216b40d4a5278c97e5cd6710a7799f2af7ca7dddbd33cd28ca416d32",
+    "parent_id": "d5fffff3-0000-4000-8000-000000000003",
+    "timestamp": "2026-06-22T18:00:03.4Z",
+    "project": {
+      "cwd": "/Users/dev/acme/api",
+      "repo_root": null,
+      "git": {
+        "sha": "0a0b0c0d0e0f10111213141516171819202122ab",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "tool_result",
+      "call_id": "toolu_nomarker_fmt",
+      "ok": true,
+      "output": "The file /Users/dev/acme/api/src/handler.rs has been updated."
+    },
+    "provenance": {
+      "file": "fixtures/claude_code/2.0/no_commitment_marker.jsonl",
+      "byte_offset": 1135,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "claude_code",
+    "session_id": "sess-nomarker-009",
+    "seq": 6,
+    "event_id": "18b9ef56fb1ddf29da302fe4ff9ae87e39291712a4d634a22c5aa50e8fef4ff1",
+    "parent_id": "d5fffff3-0000-4000-8000-000000000003",
+    "timestamp": "2026-06-22T18:00:03.4Z",
+    "project": {
+      "cwd": "/Users/dev/acme/api",
+      "repo_root": null,
+      "git": {
+        "sha": "0a0b0c0d0e0f10111213141516171819202122ab",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "file_edit",
+      "call_id": "toolu_nomarker_fmt",
+      "diff": {
+        "path": "/Users/dev/acme/api/src/handler.rs",
+        "old": "    let body = read(); ",
+        "new": "    let body = read();",
+        "unified": "-    let body = read(); \n+    let body = read();",
+        "added_lines": 1,
+        "removed_lines": 1
+      }
+    },
+    "provenance": {
+      "file": "fixtures/claude_code/2.0/no_commitment_marker.jsonl",
+      "byte_offset": 1135,
+      "line_no": 3
+    }
+  }
+]

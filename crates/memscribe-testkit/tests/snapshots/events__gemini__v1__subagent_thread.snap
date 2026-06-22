@@ -1,0 +1,290 @@
+---
+source: crates/memscribe-testkit/tests/golden.rs
+expression: events
+---
+[
+  {
+    "schema_version": 1,
+    "source": "gemini",
+    "session_id": "g-subagent-0001",
+    "seq": 0,
+    "event_id": "468b47cea3585c2fc97471d5794be0385a078c7a064281b568615c844e3654ae",
+    "parent_id": null,
+    "timestamp": "1970-01-01T00:00:00Z",
+    "project": {
+      "cwd": "/home/dev/pipeline",
+      "repo_root": null,
+      "git": {
+        "sha": "d4d4d4d4d4",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "session_start",
+      "cwd": "/home/dev/pipeline",
+      "git": {
+        "sha": "d4d4d4d4d4",
+        "branch": "main"
+      },
+      "model": "gemini-2.5-pro",
+      "tool_version": "0.4.1"
+    },
+    "provenance": {
+      "file": "fixtures/gemini/v1/subagent_thread.jsonl",
+      "byte_offset": 0,
+      "line_no": 1
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "gemini",
+    "session_id": "g-subagent-0001",
+    "seq": 1,
+    "event_id": "msg-sa-01",
+    "parent_id": null,
+    "timestamp": "2026-06-22T16:00:00Z",
+    "project": {
+      "cwd": "/home/dev/pipeline",
+      "repo_root": null,
+      "git": {
+        "sha": "d4d4d4d4d4",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "user_turn",
+      "text": "Kick off the ingest refactor; delegate the parser rewrite to a focused sub-thread.",
+      "parts": []
+    },
+    "provenance": {
+      "file": "fixtures/gemini/v1/subagent_thread.jsonl",
+      "byte_offset": 187,
+      "line_no": 2
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "gemini",
+    "session_id": "g-subagent-0001",
+    "seq": 2,
+    "event_id": "msg-sa-02",
+    "parent_id": null,
+    "timestamp": "2026-06-22T16:00:02Z",
+    "project": {
+      "cwd": "/home/dev/pipeline",
+      "repo_root": null,
+      "git": {
+        "sha": "d4d4d4d4d4",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "assistant_turn",
+      "text": "Spawning a secondary thread to handle the parser rewrite.",
+      "thinking": "Gemini has no real subagents; modeling the sub-task as a nested threadId on the same session.",
+      "model": null,
+      "usage": {
+        "input_tokens": 90,
+        "output_tokens": 40,
+        "cache_read_tokens": null,
+        "cache_creation_tokens": null
+      },
+      "parts": []
+    },
+    "provenance": {
+      "file": "fixtures/gemini/v1/subagent_thread.jsonl",
+      "byte_offset": 369,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "gemini",
+    "session_id": "g-subagent-0001",
+    "seq": 3,
+    "event_id": "msg-sa-03",
+    "parent_id": null,
+    "timestamp": "2026-06-22T16:01:00Z",
+    "project": {
+      "cwd": "/home/dev/pipeline",
+      "repo_root": null,
+      "git": {
+        "sha": "d4d4d4d4d4",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "user_turn",
+      "text": "In this sub-thread, use a streaming pull-parser for the ingest format instead of the buffered one.",
+      "parts": []
+    },
+    "provenance": {
+      "file": "fixtures/gemini/v1/subagent_thread.jsonl",
+      "byte_offset": 668,
+      "line_no": 4
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "gemini",
+    "session_id": "g-subagent-0001",
+    "seq": 4,
+    "event_id": "msg-sa-04",
+    "parent_id": null,
+    "timestamp": "2026-06-22T16:01:03Z",
+    "project": {
+      "cwd": "/home/dev/pipeline",
+      "repo_root": null,
+      "git": {
+        "sha": "d4d4d4d4d4",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "assistant_turn",
+      "text": "Rewriting the parser to a streaming pull-parser.",
+      "thinking": "Replace the buffered reader in parser.rs.",
+      "model": null,
+      "usage": {
+        "input_tokens": 102,
+        "output_tokens": 57,
+        "cache_read_tokens": null,
+        "cache_creation_tokens": null
+      },
+      "parts": []
+    },
+    "provenance": {
+      "file": "fixtures/gemini/v1/subagent_thread.jsonl",
+      "byte_offset": 896,
+      "line_no": 5
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "gemini",
+    "session_id": "g-subagent-0001",
+    "seq": 5,
+    "event_id": "call-sa-parser:call",
+    "parent_id": "msg-sa-04",
+    "timestamp": "2026-06-22T16:01:03Z",
+    "project": {
+      "cwd": "/home/dev/pipeline",
+      "repo_root": null,
+      "git": {
+        "sha": "d4d4d4d4d4",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "tool_call",
+      "call_id": "call-sa-parser",
+      "name": "replace",
+      "args": {
+        "path": "src/ingest/parser.rs"
+      }
+    },
+    "provenance": {
+      "file": "fixtures/gemini/v1/subagent_thread.jsonl",
+      "byte_offset": 896,
+      "line_no": 5
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "gemini",
+    "session_id": "g-subagent-0001",
+    "seq": 6,
+    "event_id": "call-sa-parser:result",
+    "parent_id": "msg-sa-04",
+    "timestamp": "2026-06-22T16:01:03Z",
+    "project": {
+      "cwd": "/home/dev/pipeline",
+      "repo_root": null,
+      "git": {
+        "sha": "d4d4d4d4d4",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "tool_result",
+      "call_id": "call-sa-parser",
+      "ok": true,
+      "output": {
+        "fileName": "src/ingest/parser.rs",
+        "originalContent": "let buf = read_all(input);\n",
+        "newContent": "let mut reader = PullParser::new(input);\n",
+        "fileDiff": "@@ -1 +1 @@\n-let buf = read_all(input);\n+let mut reader = PullParser::new(input);\n",
+        "diffStat": {
+          "added": 1,
+          "removed": 1
+        }
+      }
+    },
+    "provenance": {
+      "file": "fixtures/gemini/v1/subagent_thread.jsonl",
+      "byte_offset": 896,
+      "line_no": 5
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "gemini",
+    "session_id": "g-subagent-0001",
+    "seq": 7,
+    "event_id": "call-sa-parser:edit",
+    "parent_id": "msg-sa-04",
+    "timestamp": "2026-06-22T16:01:03Z",
+    "project": {
+      "cwd": "/home/dev/pipeline",
+      "repo_root": null,
+      "git": {
+        "sha": "d4d4d4d4d4",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "file_edit",
+      "call_id": "call-sa-parser",
+      "diff": {
+        "path": "src/ingest/parser.rs",
+        "old": "let buf = read_all(input);\n",
+        "new": "let mut reader = PullParser::new(input);\n",
+        "unified": "@@ -1 +1 @@\n-let buf = read_all(input);\n+let mut reader = PullParser::new(input);\n",
+        "added_lines": 1,
+        "removed_lines": 1
+      }
+    },
+    "provenance": {
+      "file": "fixtures/gemini/v1/subagent_thread.jsonl",
+      "byte_offset": 896,
+      "line_no": 5
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "gemini",
+    "session_id": "g-subagent-0001",
+    "seq": 8,
+    "event_id": "msg-sa-05",
+    "parent_id": null,
+    "timestamp": "2026-06-22T16:02:00Z",
+    "project": {
+      "cwd": "/home/dev/pipeline",
+      "repo_root": null,
+      "git": {
+        "sha": "d4d4d4d4d4",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "user_turn",
+      "text": "Sub-thread done, looks good.",
+      "parts": []
+    },
+    "provenance": {
+      "file": "fixtures/gemini/v1/subagent_thread.jsonl",
+      "byte_offset": 1556,
+      "line_no": 6
+    }
+  }
+]

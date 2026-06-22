@@ -1,0 +1,50 @@
+---
+source: crates/memscribe-testkit/tests/golden.rs
+expression: nodes
+---
+[
+  {
+    "node": "conversation",
+    "session_id": "copilot-thread-003",
+    "turn_range": {
+      "start": 1,
+      "end": 2
+    },
+    "text": "We will never add a dependency on left-pad. Do not introduce it under any circumstances.",
+    "markers": [
+      {
+        "rule_id": "ban.negated_use",
+        "category": "ban",
+        "matched_text": "never add",
+        "offset": 8
+      },
+      {
+        "rule_id": "imperative.must_always_never",
+        "category": "imperative",
+        "matched_text": "never",
+        "offset": 8
+      }
+    ],
+    "fact_status": "observed",
+    "provenance": [
+      {
+        "file": "fixtures/copilot/v1/ban.jsonl",
+        "byte_offset": 215,
+        "line_no": 2
+      }
+    ]
+  },
+  {
+    "node": "decision",
+    "epitome": "We will never add a dependency on left-pad.",
+    "considered_options": [],
+    "is_ban": true,
+    "superseded_by": null,
+    "confirmation": null,
+    "source_span": {
+      "start": 1,
+      "end": 2
+    },
+    "fact_status": "observed"
+  }
+]

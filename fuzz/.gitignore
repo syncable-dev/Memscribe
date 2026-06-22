@@ -1,0 +1,6 @@
+# cargo-fuzz build/run artifacts.
+target
+corpus
+artifacts
+coverage
+Cargo.lock

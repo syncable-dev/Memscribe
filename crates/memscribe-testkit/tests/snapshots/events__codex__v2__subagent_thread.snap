@@ -1,0 +1,307 @@
+---
+source: crates/memscribe-testkit/tests/golden.rs
+expression: events
+---
+[
+  {
+    "schema_version": 1,
+    "source": "codex",
+    "session_id": "01JZ8codexsess0008subagent",
+    "seq": 0,
+    "event_id": "session_meta:01JZ8codexsess0008subagent",
+    "parent_id": null,
+    "timestamp": "2026-06-22T21:00:00Z",
+    "project": {
+      "cwd": "/Users/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "18293a4b5c6d7e8f900102030405060708091011",
+        "branch": "feat/worker-split"
+      }
+    },
+    "kind": {
+      "event": "session_start",
+      "cwd": "/Users/dev/acme-api",
+      "git": {
+        "sha": "18293a4b5c6d7e8f900102030405060708091011",
+        "branch": "feat/worker-split"
+      },
+      "model": null,
+      "tool_version": "0.6.2"
+    },
+    "provenance": {
+      "file": "fixtures/codex/v2/subagent_thread.jsonl",
+      "byte_offset": 0,
+      "line_no": 1
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "codex",
+    "session_id": "01JZ8codexsess0008subagent",
+    "seq": 1,
+    "event_id": "a0394bf72b7f9078fa0e05bad27253d6fb473d12a11841f6ac2e1ba5c8923e27",
+    "parent_id": null,
+    "timestamp": "2026-06-22T21:00:06.5Z",
+    "project": {
+      "cwd": "/Users/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "18293a4b5c6d7e8f900102030405060708091011",
+        "branch": "feat/worker-split"
+      }
+    },
+    "kind": {
+      "event": "user_turn",
+      "text": "Let's use a dedicated background worker for the email queue. Extract the send loop into a worker module.",
+      "parts": [
+        {
+          "part": "text",
+          "text": "Let's use a dedicated background worker for the email queue. Extract the send loop into a worker module."
+        }
+      ]
+    },
+    "provenance": {
+      "file": "fixtures/codex/v2/subagent_thread.jsonl",
+      "byte_offset": 273,
+      "line_no": 2
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "codex",
+    "session_id": "01JZ8codexsess0008subagent",
+    "seq": 2,
+    "event_id": "799050f69f84d972c36b2b0e7a637ad4b99b0fc5386a34f0416a0a68415ab644",
+    "parent_id": null,
+    "timestamp": "2026-06-22T21:00:11.8Z",
+    "project": {
+      "cwd": "/Users/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "18293a4b5c6d7e8f900102030405060708091011",
+        "branch": "feat/worker-split"
+      }
+    },
+    "kind": {
+      "event": "assistant_turn",
+      "text": "I'll extract the send loop into a dedicated worker module.",
+      "thinking": null,
+      "model": null,
+      "usage": null,
+      "parts": [
+        {
+          "part": "text",
+          "text": "I'll extract the send loop into a dedicated worker module."
+        }
+      ]
+    },
+    "provenance": {
+      "file": "fixtures/codex/v2/subagent_thread.jsonl",
+      "byte_offset": 528,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "codex",
+    "session_id": "01JZ8codexsess0008subagent",
+    "seq": 3,
+    "event_id": "df3c77013575ccaa14b9500d127f476b6e8be60caf3d96093f960ad1e0723140",
+    "parent_id": null,
+    "timestamp": "2026-06-22T21:00:14Z",
+    "project": {
+      "cwd": "/Users/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "18293a4b5c6d7e8f900102030405060708091011",
+        "branch": "feat/worker-split"
+      }
+    },
+    "kind": {
+      "event": "unknown",
+      "raw_type": "turn_context",
+      "raw": {
+        "timestamp": "2026-06-22T21:00:14.000Z",
+        "type": "turn_context",
+        "payload": {
+          "thread_id": "thread-email-worker",
+          "parent_thread_id": "01JZ8codexsess0008subagent",
+          "summary": "Nested task thread for the email worker extraction. Codex has no first-class subagent; this is a secondary thread id carried in turn_context."
+        }
+      }
+    },
+    "provenance": {
+      "file": "fixtures/codex/v2/subagent_thread.jsonl",
+      "byte_offset": 743,
+      "line_no": 4
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "codex",
+    "session_id": "01JZ8codexsess0008subagent",
+    "seq": 4,
+    "event_id": "call_apply_patch_sub_001",
+    "parent_id": null,
+    "timestamp": "2026-06-22T21:00:22.3Z",
+    "project": {
+      "cwd": "/Users/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "18293a4b5c6d7e8f900102030405060708091011",
+        "branch": "feat/worker-split"
+      }
+    },
+    "kind": {
+      "event": "tool_call",
+      "call_id": "call_apply_patch_sub_001",
+      "name": "apply_patch",
+      "args": {
+        "input": "*** Begin Patch\n*** Add File: src/worker/email.rs\n+pub async fn run_email_worker() {\n+    loop { drain_email_queue().await; }\n+}\n*** Update File: src/main.rs\n@@\n-    send_emails_inline();\n+    tokio::spawn(worker::email::run_email_worker());\n*** End Patch\n"
+      }
+    },
+    "provenance": {
+      "file": "fixtures/codex/v2/subagent_thread.jsonl",
+      "byte_offset": 1054,
+      "line_no": 5
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "codex",
+    "session_id": "01JZ8codexsess0008subagent",
+    "seq": 5,
+    "event_id": "091aea6456fde260cda2dbeb1891a25c746c0e32b07c7a14a94c2d033a288e27",
+    "parent_id": "call_apply_patch_sub_001",
+    "timestamp": "2026-06-22T21:00:22.3Z",
+    "project": {
+      "cwd": "/Users/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "18293a4b5c6d7e8f900102030405060708091011",
+        "branch": "feat/worker-split"
+      }
+    },
+    "kind": {
+      "event": "file_edit",
+      "call_id": "call_apply_patch_sub_001",
+      "diff": {
+        "path": "src/worker/email.rs",
+        "old": null,
+        "new": null,
+        "unified": "+pub async fn run_email_worker() {\n+    loop { drain_email_queue().await; }\n+}",
+        "added_lines": 3,
+        "removed_lines": 0
+      }
+    },
+    "provenance": {
+      "file": "fixtures/codex/v2/subagent_thread.jsonl",
+      "byte_offset": 1054,
+      "line_no": 5
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "codex",
+    "session_id": "01JZ8codexsess0008subagent",
+    "seq": 6,
+    "event_id": "98298da2eba010bc3a26b90a25051691e033a2aebd3f49a44d88ac26be87535b",
+    "parent_id": "call_apply_patch_sub_001",
+    "timestamp": "2026-06-22T21:00:22.3Z",
+    "project": {
+      "cwd": "/Users/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "18293a4b5c6d7e8f900102030405060708091011",
+        "branch": "feat/worker-split"
+      }
+    },
+    "kind": {
+      "event": "file_edit",
+      "call_id": "call_apply_patch_sub_001",
+      "diff": {
+        "path": "src/main.rs",
+        "old": null,
+        "new": null,
+        "unified": "@@\n-    send_emails_inline();\n+    tokio::spawn(worker::email::run_email_worker());",
+        "added_lines": 1,
+        "removed_lines": 1
+      }
+    },
+    "provenance": {
+      "file": "fixtures/codex/v2/subagent_thread.jsonl",
+      "byte_offset": 1054,
+      "line_no": 5
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "codex",
+    "session_id": "01JZ8codexsess0008subagent",
+    "seq": 7,
+    "event_id": "call_apply_patch_sub_001:output",
+    "parent_id": "call_apply_patch_sub_001",
+    "timestamp": "2026-06-22T21:00:22.6Z",
+    "project": {
+      "cwd": "/Users/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "18293a4b5c6d7e8f900102030405060708091011",
+        "branch": "feat/worker-split"
+      }
+    },
+    "kind": {
+      "event": "tool_result",
+      "call_id": "call_apply_patch_sub_001",
+      "ok": true,
+      "output": {
+        "output": "Applied patch to 2 files: src/worker/email.rs, src/main.rs",
+        "metadata": {
+          "exit_code": 0,
+          "duration_ms": 44
+        }
+      }
+    },
+    "provenance": {
+      "file": "fixtures/codex/v2/subagent_thread.jsonl",
+      "byte_offset": 1518,
+      "line_no": 6
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "codex",
+    "session_id": "01JZ8codexsess0008subagent",
+    "seq": 8,
+    "event_id": "8c8565566e6b4bebb1e675c4ab955cab7a09d0be0fca2c85aadaa7662b7e2b04",
+    "parent_id": null,
+    "timestamp": "2026-06-22T21:00:28Z",
+    "project": {
+      "cwd": "/Users/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "18293a4b5c6d7e8f900102030405060708091011",
+        "branch": "feat/worker-split"
+      }
+    },
+    "kind": {
+      "event": "assistant_turn",
+      "text": "Done. The email send loop now runs in a dedicated worker module spawned from main.",
+      "thinking": null,
+      "model": null,
+      "usage": null,
+      "parts": [
+        {
+          "part": "text",
+          "text": "Done. The email send loop now runs in a dedicated worker module spawned from main."
+        }
+      ]
+    },
+    "provenance": {
+      "file": "fixtures/codex/v2/subagent_thread.jsonl",
+      "byte_offset": 1786,
+      "line_no": 7
+    }
+  }
+]

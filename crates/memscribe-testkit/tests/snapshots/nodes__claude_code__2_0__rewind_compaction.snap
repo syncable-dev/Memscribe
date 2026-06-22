@@ -1,0 +1,156 @@
+---
+source: crates/memscribe-testkit/tests/golden.rs
+expression: nodes
+---
+[
+  {
+    "node": "conversation",
+    "session_id": "sess-rewind-007",
+    "turn_range": {
+      "start": 1,
+      "end": 2
+    },
+    "text": "Let's use rustls for the TLS layer in the gateway.",
+    "markers": [
+      {
+        "rule_id": "decision_verb.use",
+        "category": "decision_verb",
+        "matched_text": "use",
+        "offset": 6
+      }
+    ],
+    "fact_status": "observed",
+    "provenance": [
+      {
+        "file": "fixtures/claude_code/2.0/rewind_compaction.jsonl",
+        "byte_offset": 0,
+        "line_no": 1
+      }
+    ]
+  },
+  {
+    "node": "decision",
+    "epitome": "Let's use rustls for the TLS layer in the gateway.",
+    "considered_options": [
+      {
+        "text": "rustls",
+        "chosen": true
+      }
+    ],
+    "is_ban": false,
+    "superseded_by": null,
+    "confirmation": null,
+    "source_span": {
+      "start": 1,
+      "end": 2
+    },
+    "fact_status": "observed"
+  },
+  {
+    "node": "episode",
+    "path": "/Users/dev/acme/api/src/gateway/tls.rs",
+    "diff": {
+      "path": "/Users/dev/acme/api/src/gateway/tls.rs",
+      "old": "use native_tls::TlsConnector;",
+      "new": "use rustls::ClientConfig;",
+      "unified": "-use native_tls::TlsConnector;\n+use rustls::ClientConfig;",
+      "added_lines": 1,
+      "removed_lines": 1
+    },
+    "git": {
+      "sha": "9999888877776666555544443333222211110000",
+      "branch": "main"
+    },
+    "episode_id": "6e05760ec5f154e886f626f291cc328dbc8044040116dd04416710e0edd2794d"
+  },
+  {
+    "node": "conversation",
+    "session_id": "sess-rewind-007",
+    "turn_range": {
+      "start": 8,
+      "end": 9
+    },
+    "text": "On reflection, let's switch to native-tls after all for the gateway to match the rest of the fleet.",
+    "markers": [
+      {
+        "rule_id": "decision_verb.use",
+        "category": "decision_verb",
+        "matched_text": "switch to",
+        "offset": 21
+      }
+    ],
+    "fact_status": "observed",
+    "provenance": [
+      {
+        "file": "fixtures/claude_code/2.0/rewind_compaction.jsonl",
+        "byte_offset": 2128,
+        "line_no": 5
+      }
+    ]
+  },
+  {
+    "node": "decision",
+    "epitome": "On reflection, let's switch to native-tls after all for the gateway to match the rest of the fleet.",
+    "considered_options": [
+      {
+        "text": "native-tls",
+        "chosen": true
+      }
+    ],
+    "is_ban": false,
+    "superseded_by": null,
+    "confirmation": null,
+    "source_span": {
+      "start": 8,
+      "end": 9
+    },
+    "fact_status": "observed"
+  },
+  {
+    "node": "episode",
+    "path": "/Users/dev/acme/api/src/gateway/tls.rs",
+    "diff": {
+      "path": "/Users/dev/acme/api/src/gateway/tls.rs",
+      "old": "use rustls::ClientConfig;",
+      "new": "use native_tls::TlsConnector;",
+      "unified": "-use rustls::ClientConfig;\n+use native_tls::TlsConnector;",
+      "added_lines": 1,
+      "removed_lines": 1
+    },
+    "git": {
+      "sha": "9999888877776666555544443333222211110000",
+      "branch": "main"
+    },
+    "episode_id": "7087e5c0eb53ed1fee4c0b6c0a883d0fd4bb7e77d5a89d7d2dc381c52f090af9"
+  },
+  {
+    "node": "binding",
+    "from": "decision:sess-rewind-007:1",
+    "to": "episode:6e05760ec5f154e886f626f291cc328dbc8044040116dd04416710e0edd2794d",
+    "relation": "produced",
+    "prov": {
+      "used_session": "sess-rewind-007",
+      "used_decision": "decision:sess-rewind-007:1",
+      "was_generated_by_session": "sess-rewind-007",
+      "t_use": "2026-06-22T16:00:00Z",
+      "t_gen": "2026-06-22T16:00:03.4Z"
+    },
+    "fact_status": "deterministically_derived",
+    "correlation": null
+  },
+  {
+    "node": "binding",
+    "from": "decision:sess-rewind-007:8",
+    "to": "episode:7087e5c0eb53ed1fee4c0b6c0a883d0fd4bb7e77d5a89d7d2dc381c52f090af9",
+    "relation": "produced",
+    "prov": {
+      "used_session": "sess-rewind-007",
+      "used_decision": "decision:sess-rewind-007:8",
+      "was_generated_by_session": "sess-rewind-007",
+      "t_use": "2026-06-22T16:05:00Z",
+      "t_gen": "2026-06-22T16:05:04.4Z"
+    },
+    "fact_status": "deterministically_derived",
+    "correlation": null
+  }
+]

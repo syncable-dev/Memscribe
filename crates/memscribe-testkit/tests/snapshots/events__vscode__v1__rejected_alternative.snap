@@ -1,0 +1,164 @@
+---
+source: crates/memscribe-testkit/tests/golden.rs
+expression: events
+---
+[
+  {
+    "schema_version": 1,
+    "source": "vs_code",
+    "session_id": "vsc-sess-2",
+    "seq": 0,
+    "event_id": "c9969e0271967c46507a9b377be675b3d20feefc7ce35269609e82873e75ba51",
+    "parent_id": null,
+    "timestamp": "1970-01-01T00:00:00Z",
+    "project": {
+      "cwd": "/home/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "f6e5d4c3b2a1",
+        "branch": "feat/cache"
+      }
+    },
+    "kind": {
+      "event": "session_start",
+      "cwd": "/home/dev/acme-api",
+      "git": {
+        "sha": "f6e5d4c3b2a1",
+        "branch": "feat/cache"
+      },
+      "model": "gpt-4o",
+      "tool_version": "1.92.0"
+    },
+    "provenance": {
+      "file": "fixtures/vscode/v1/rejected_alternative.jsonl",
+      "byte_offset": 0,
+      "line_no": 1
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "vs_code",
+    "session_id": "vsc-sess-2",
+    "seq": 1,
+    "event_id": "r1",
+    "parent_id": null,
+    "timestamp": "2026-06-22T11:00:00Z",
+    "project": {
+      "cwd": "/home/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "f6e5d4c3b2a1",
+        "branch": "feat/cache"
+      }
+    },
+    "kind": {
+      "event": "user_turn",
+      "text": "Should we use Redis or just an in-memory LRU for the cache?",
+      "parts": []
+    },
+    "provenance": {
+      "file": "fixtures/vscode/v1/rejected_alternative.jsonl",
+      "byte_offset": 168,
+      "line_no": 2
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "vs_code",
+    "session_id": "vsc-sess-2",
+    "seq": 2,
+    "event_id": "r2",
+    "parent_id": "r1",
+    "timestamp": "2026-06-22T11:00:08Z",
+    "project": {
+      "cwd": "/home/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "f6e5d4c3b2a1",
+        "branch": "feat/cache"
+      }
+    },
+    "kind": {
+      "event": "assistant_turn",
+      "text": "We considered Redis but rejected it: it adds an external dependency we don't want for this small cache. We'll go with an in-memory LRU instead.",
+      "thinking": null,
+      "model": "gpt-4o",
+      "usage": {
+        "input_tokens": 900,
+        "output_tokens": 210,
+        "cache_read_tokens": null,
+        "cache_creation_tokens": null
+      },
+      "parts": []
+    },
+    "provenance": {
+      "file": "fixtures/vscode/v1/rejected_alternative.jsonl",
+      "byte_offset": 332,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "vs_code",
+    "session_id": "vsc-sess-2",
+    "seq": 3,
+    "event_id": "r3",
+    "parent_id": "r2",
+    "timestamp": "2026-06-22T11:00:20Z",
+    "project": {
+      "cwd": "/home/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "f6e5d4c3b2a1",
+        "branch": "feat/cache"
+      }
+    },
+    "kind": {
+      "event": "assistant_turn",
+      "text": "Implementing the LRU now.",
+      "thinking": null,
+      "model": "gpt-4o",
+      "usage": null,
+      "parts": []
+    },
+    "provenance": {
+      "file": "fixtures/vscode/v1/rejected_alternative.jsonl",
+      "byte_offset": 637,
+      "line_no": 4
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "vs_code",
+    "session_id": "vsc-sess-2",
+    "seq": 4,
+    "event_id": "r3:edit:0:src/cache/lru.ts",
+    "parent_id": "r3",
+    "timestamp": "2026-06-22T11:00:20Z",
+    "project": {
+      "cwd": "/home/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "f6e5d4c3b2a1",
+        "branch": "feat/cache"
+      }
+    },
+    "kind": {
+      "event": "file_edit",
+      "call_id": null,
+      "diff": {
+        "path": "src/cache/lru.ts",
+        "old": null,
+        "new": "export class Lru { /* ... */ }",
+        "unified": null,
+        "added_lines": 1,
+        "removed_lines": 0
+      }
+    },
+    "provenance": {
+      "file": "fixtures/vscode/v1/rejected_alternative.jsonl",
+      "byte_offset": 637,
+      "line_no": 4
+    }
+  }
+]

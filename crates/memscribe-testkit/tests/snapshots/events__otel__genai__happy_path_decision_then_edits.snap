@@ -1,0 +1,260 @@
+---
+source: crates/memscribe-testkit/tests/golden.rs
+expression: events
+---
+[
+  {
+    "schema_version": 1,
+    "source": "otel",
+    "session_id": "sess-happy-001",
+    "seq": 0,
+    "event_id": "59d021101e643dbc72408bc413a3c432a2cf36fd7fec2c942a3435d363614c07:session_start:0",
+    "parent_id": null,
+    "timestamp": "2026-06-22T10:00:00Z",
+    "project": {
+      "cwd": "/home/dev/svc",
+      "repo_root": "/home/dev/svc",
+      "git": {
+        "sha": "abc1234",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "session_start",
+      "cwd": "/home/dev/svc",
+      "git": {
+        "sha": "abc1234",
+        "branch": "main"
+      },
+      "model": "claude-opus-4-8",
+      "tool_version": null
+    },
+    "provenance": {
+      "file": "fixtures/otel/genai/happy_path_decision_then_edits.jsonl",
+      "byte_offset": 0,
+      "line_no": 1
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "otel",
+    "session_id": "sess-happy-001",
+    "seq": 1,
+    "event_id": "0dbbdc53b19ef8a702bfe04f12e1b336afcf36ab3e87cdc1a15a4293edc80b80:user_prompt:0",
+    "parent_id": null,
+    "timestamp": "2026-06-22T10:00:05Z",
+    "project": {
+      "cwd": "/home/dev/svc",
+      "repo_root": "/home/dev/svc",
+      "git": {
+        "sha": "abc1234",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "user_turn",
+      "text": "Let's use Postgres instead of MySQL for the persistence layer.",
+      "parts": [
+        {
+          "part": "text",
+          "text": "Let's use Postgres instead of MySQL for the persistence layer."
+        }
+      ]
+    },
+    "provenance": {
+      "file": "fixtures/otel/genai/happy_path_decision_then_edits.jsonl",
+      "byte_offset": 276,
+      "line_no": 2
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "otel",
+    "session_id": "sess-happy-001",
+    "seq": 2,
+    "event_id": "d55e8dfa088302e936e4b88aa6f43ca39bcb197b29cc9c099fe3598a82c9fe11:output_msg:0",
+    "parent_id": null,
+    "timestamp": "2026-06-22T10:00:09Z",
+    "project": {
+      "cwd": "/home/dev/svc",
+      "repo_root": "/home/dev/svc",
+      "git": {
+        "sha": "abc1234",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "assistant_turn",
+      "text": "Agreed. I'll switch the persistence layer to Postgres and update the config.",
+      "thinking": null,
+      "model": "claude-opus-4-8",
+      "usage": {
+        "input_tokens": 420,
+        "output_tokens": 88,
+        "cache_read_tokens": null,
+        "cache_creation_tokens": null
+      },
+      "parts": [
+        {
+          "part": "text",
+          "text": "Agreed. I'll switch the persistence layer to Postgres and update the config."
+        }
+      ]
+    },
+    "provenance": {
+      "file": "fixtures/otel/genai/happy_path_decision_then_edits.jsonl",
+      "byte_offset": 499,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "otel",
+    "session_id": "sess-happy-001",
+    "seq": 3,
+    "event_id": "c7cc03ee310af61eb6f93be5d7f0d1b483711c6ca26269b1592be2bc851a34a8:tool_call:0",
+    "parent_id": null,
+    "timestamp": "2026-06-22T10:00:12Z",
+    "project": {
+      "cwd": "/home/dev/svc",
+      "repo_root": "/home/dev/svc",
+      "git": {
+        "sha": "abc1234",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "tool_call",
+      "call_id": "call-edit-1",
+      "name": "edit_file",
+      "args": null
+    },
+    "provenance": {
+      "file": "fixtures/otel/genai/happy_path_decision_then_edits.jsonl",
+      "byte_offset": 874,
+      "line_no": 4
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "otel",
+    "session_id": "sess-happy-001",
+    "seq": 4,
+    "event_id": "c7cc03ee310af61eb6f93be5d7f0d1b483711c6ca26269b1592be2bc851a34a8:tool_result:0",
+    "parent_id": null,
+    "timestamp": "2026-06-22T10:00:12Z",
+    "project": {
+      "cwd": "/home/dev/svc",
+      "repo_root": "/home/dev/svc",
+      "git": {
+        "sha": "abc1234",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "tool_result",
+      "call_id": "call-edit-1",
+      "ok": true,
+      "output": "ok"
+    },
+    "provenance": {
+      "file": "fixtures/otel/genai/happy_path_decision_then_edits.jsonl",
+      "byte_offset": 874,
+      "line_no": 4
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "otel",
+    "session_id": "sess-happy-001",
+    "seq": 5,
+    "event_id": "c7cc03ee310af61eb6f93be5d7f0d1b483711c6ca26269b1592be2bc851a34a8:file_edit:0",
+    "parent_id": null,
+    "timestamp": "2026-06-22T10:00:12Z",
+    "project": {
+      "cwd": "/home/dev/svc",
+      "repo_root": "/home/dev/svc",
+      "git": {
+        "sha": "abc1234",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "file_edit",
+      "call_id": "call-edit-1",
+      "diff": {
+        "path": "db/config.rs",
+        "old": null,
+        "new": null,
+        "unified": null,
+        "added_lines": 12,
+        "removed_lines": 4
+      }
+    },
+    "provenance": {
+      "file": "fixtures/otel/genai/happy_path_decision_then_edits.jsonl",
+      "byte_offset": 874,
+      "line_no": 4
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "otel",
+    "session_id": "sess-happy-001",
+    "seq": 6,
+    "event_id": "610a6620f9def7e4d0ff0e62caa2ca8d9b27d751fa2f17f4db7198e831228656:file_edit:0",
+    "parent_id": null,
+    "timestamp": "2026-06-22T10:00:15Z",
+    "project": {
+      "cwd": "/home/dev/svc",
+      "repo_root": "/home/dev/svc",
+      "git": {
+        "sha": "abc1234",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "file_edit",
+      "call_id": null,
+      "diff": {
+        "path": "db/pool.rs",
+        "old": null,
+        "new": null,
+        "unified": null,
+        "added_lines": 30,
+        "removed_lines": 9
+      }
+    },
+    "provenance": {
+      "file": "fixtures/otel/genai/happy_path_decision_then_edits.jsonl",
+      "byte_offset": 1182,
+      "line_no": 5
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "otel",
+    "session_id": "sess-happy-001",
+    "seq": 7,
+    "event_id": "5f057a5bb00511120a31401a5018da0493b454b21f45003f34ca98a9ec076aa3:session_end:0",
+    "parent_id": null,
+    "timestamp": "2026-06-22T10:00:20Z",
+    "project": {
+      "cwd": "/home/dev/svc",
+      "repo_root": "/home/dev/svc",
+      "git": {
+        "sha": "abc1234",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "session_end",
+      "reason": "completed"
+    },
+    "provenance": {
+      "file": "fixtures/otel/genai/happy_path_decision_then_edits.jsonl",
+      "byte_offset": 1395,
+      "line_no": 6
+    }
+  }
+]

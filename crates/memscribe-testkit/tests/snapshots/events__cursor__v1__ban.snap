@@ -1,0 +1,202 @@
+---
+source: crates/memscribe-testkit/tests/golden.rs
+expression: events
+---
+[
+  {
+    "schema_version": 1,
+    "source": "cursor",
+    "session_id": "cur-sess-003",
+    "seq": 0,
+    "event_id": "183398368baef6a254adbb482303071b26c377d8cda59bb52fcad8dc37602d9a",
+    "parent_id": null,
+    "timestamp": "1970-01-01T00:00:00Z",
+    "project": {
+      "cwd": "/Users/dev/projects/payments-core",
+      "repo_root": null,
+      "git": {
+        "sha": "a17de4490b22",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "session_start",
+      "cwd": "/Users/dev/projects/payments-core",
+      "git": {
+        "sha": "a17de4490b22",
+        "branch": "main"
+      },
+      "model": null,
+      "tool_version": "0.43.2"
+    },
+    "provenance": {
+      "file": "fixtures/cursor/v1/ban.jsonl",
+      "byte_offset": 0,
+      "line_no": 1
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "cursor",
+    "session_id": "cur-sess-003",
+    "seq": 1,
+    "event_id": "msg-201",
+    "parent_id": null,
+    "timestamp": "2026-06-22T16:20:00Z",
+    "project": {
+      "cwd": "/Users/dev/projects/payments-core",
+      "repo_root": null,
+      "git": {
+        "sha": "a17de4490b22",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "user_turn",
+      "text": "We will never add a dependency on left-pad. Use the standard library padding instead, always.",
+      "parts": [
+        {
+          "part": "text",
+          "text": "We will never add a dependency on left-pad. Use the standard library padding instead, always."
+        }
+      ]
+    },
+    "provenance": {
+      "file": "fixtures/cursor/v1/ban.jsonl",
+      "byte_offset": 162,
+      "line_no": 2
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "cursor",
+    "session_id": "cur-sess-003",
+    "seq": 2,
+    "event_id": "msg-202",
+    "parent_id": "msg-201",
+    "timestamp": "2026-06-22T16:20:11Z",
+    "project": {
+      "cwd": "/Users/dev/projects/payments-core",
+      "repo_root": null,
+      "git": {
+        "sha": "a17de4490b22",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "assistant_turn",
+      "text": "Understood — no left-pad dependency, ever. I'll use String::repeat / format width specifiers for any padding we need.",
+      "thinking": null,
+      "model": "cursor-fast",
+      "usage": {
+        "input_tokens": 140,
+        "output_tokens": 58,
+        "cache_read_tokens": null,
+        "cache_creation_tokens": null
+      },
+      "parts": [
+        {
+          "part": "text",
+          "text": "Understood — no left-pad dependency, ever. I'll use String::repeat / format width specifiers for any padding we need."
+        }
+      ]
+    },
+    "provenance": {
+      "file": "fixtures/cursor/v1/ban.jsonl",
+      "byte_offset": 367,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "cursor",
+    "session_id": "cur-sess-003",
+    "seq": 3,
+    "event_id": "msg-202#toolcall:call-edit-3",
+    "parent_id": "msg-202",
+    "timestamp": "2026-06-22T16:20:11Z",
+    "project": {
+      "cwd": "/Users/dev/projects/payments-core",
+      "repo_root": null,
+      "git": {
+        "sha": "a17de4490b22",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "tool_call",
+      "call_id": "call-edit-3",
+      "name": "edit_file",
+      "args": {
+        "path": "src/format.rs"
+      }
+    },
+    "provenance": {
+      "file": "fixtures/cursor/v1/ban.jsonl",
+      "byte_offset": 367,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "cursor",
+    "session_id": "cur-sess-003",
+    "seq": 4,
+    "event_id": "msg-202#toolresult:call-edit-3",
+    "parent_id": "msg-202",
+    "timestamp": "2026-06-22T16:20:11Z",
+    "project": {
+      "cwd": "/Users/dev/projects/payments-core",
+      "repo_root": null,
+      "git": {
+        "sha": "a17de4490b22",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "tool_result",
+      "call_id": "call-edit-3",
+      "ok": true,
+      "output": "applied 1 edit"
+    },
+    "provenance": {
+      "file": "fixtures/cursor/v1/ban.jsonl",
+      "byte_offset": 367,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "cursor",
+    "session_id": "cur-sess-003",
+    "seq": 5,
+    "event_id": "msg-202#edit:0",
+    "parent_id": "msg-202",
+    "timestamp": "2026-06-22T16:20:11Z",
+    "project": {
+      "cwd": "/Users/dev/projects/payments-core",
+      "repo_root": null,
+      "git": {
+        "sha": "a17de4490b22",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "file_edit",
+      "call_id": null,
+      "diff": {
+        "path": "src/format.rs",
+        "old": "use left_pad::left_pad;\nlet s = left_pad(id, 8);",
+        "new": "let s = format!(\"{id:>8}\");",
+        "unified": "@@ -1,2 +1 @@\n-use left_pad::left_pad;\n-let s = left_pad(id, 8);\n+let s = format!(\"{id:>8}\");\n",
+        "added_lines": 1,
+        "removed_lines": 2
+      }
+    },
+    "provenance": {
+      "file": "fixtures/cursor/v1/ban.jsonl",
+      "byte_offset": 367,
+      "line_no": 3
+    }
+  }
+]

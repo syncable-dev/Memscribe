@@ -1,0 +1,633 @@
+---
+source: crates/memscribe-testkit/tests/golden.rs
+expression: events
+---
+[
+  {
+    "schema_version": 1,
+    "source": "claude_code",
+    "session_id": "sess-interleaved-005",
+    "seq": 0,
+    "event_id": "3a1423ea740421651cd930118216a75453f1f7661de6d315a86406e48b9d2d88",
+    "parent_id": null,
+    "timestamp": "2026-06-22T14:00:00Z",
+    "project": {
+      "cwd": "/Users/dev/acme/api",
+      "repo_root": null,
+      "git": {
+        "sha": "1111111122222222333333334444444455555555",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "session_start",
+      "cwd": "/Users/dev/acme/api",
+      "git": {
+        "sha": "1111111122222222333333334444444455555555",
+        "branch": "main"
+      },
+      "model": null,
+      "tool_version": "2.0.5"
+    },
+    "provenance": {
+      "file": "fixtures/claude_code/2.0/interleaved_arcs.jsonl",
+      "byte_offset": 0,
+      "line_no": 1
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "claude_code",
+    "session_id": "sess-interleaved-005",
+    "seq": 1,
+    "event_id": "d1aaaaa1-0000-4000-8000-000000000001",
+    "parent_id": null,
+    "timestamp": "2026-06-22T14:00:00Z",
+    "project": {
+      "cwd": "/Users/dev/acme/api",
+      "repo_root": null,
+      "git": {
+        "sha": "1111111122222222333333334444444455555555",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "user_turn",
+      "text": "Let's use argon2 for password hashing in the auth module.",
+      "parts": [
+        {
+          "part": "text",
+          "text": "Let's use argon2 for password hashing in the auth module."
+        }
+      ]
+    },
+    "provenance": {
+      "file": "fixtures/claude_code/2.0/interleaved_arcs.jsonl",
+      "byte_offset": 0,
+      "line_no": 1
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "claude_code",
+    "session_id": "sess-interleaved-005",
+    "seq": 2,
+    "event_id": "d1aaaaa2-0000-4000-8000-000000000002",
+    "parent_id": "d1aaaaa1-0000-4000-8000-000000000001",
+    "timestamp": "2026-06-22T14:00:03Z",
+    "project": {
+      "cwd": "/Users/dev/acme/api",
+      "repo_root": null,
+      "git": {
+        "sha": "1111111122222222333333334444444455555555",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "assistant_turn",
+      "text": "Switching the hasher to argon2 in the auth module.",
+      "thinking": null,
+      "model": "claude-opus-4-8",
+      "usage": {
+        "input_tokens": 300,
+        "output_tokens": 70,
+        "cache_read_tokens": 0,
+        "cache_creation_tokens": 120
+      },
+      "parts": [
+        {
+          "part": "text",
+          "text": "Switching the hasher to argon2 in the auth module."
+        },
+        {
+          "part": "tool_use",
+          "call_id": "toolu_arc_a_auth",
+          "name": "Edit",
+          "args": {
+            "file_path": "/Users/dev/acme/api/src/auth.rs",
+            "old_string": "use bcrypt::hash;",
+            "new_string": "use argon2::hash;"
+          }
+        }
+      ]
+    },
+    "provenance": {
+      "file": "fixtures/claude_code/2.0/interleaved_arcs.jsonl",
+      "byte_offset": 387,
+      "line_no": 2
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "claude_code",
+    "session_id": "sess-interleaved-005",
+    "seq": 3,
+    "event_id": "d360d7fe354ddb00e4a56bc26d64486e1e853bb0d18fc62f3e7684ff0e8809d5",
+    "parent_id": "d1aaaaa2-0000-4000-8000-000000000002",
+    "timestamp": "2026-06-22T14:00:03Z",
+    "project": {
+      "cwd": "/Users/dev/acme/api",
+      "repo_root": null,
+      "git": {
+        "sha": "1111111122222222333333334444444455555555",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "tool_call",
+      "call_id": "toolu_arc_a_auth",
+      "name": "Edit",
+      "args": {
+        "file_path": "/Users/dev/acme/api/src/auth.rs",
+        "old_string": "use bcrypt::hash;",
+        "new_string": "use argon2::hash;"
+      }
+    },
+    "provenance": {
+      "file": "fixtures/claude_code/2.0/interleaved_arcs.jsonl",
+      "byte_offset": 387,
+      "line_no": 2
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "claude_code",
+    "session_id": "sess-interleaved-005",
+    "seq": 4,
+    "event_id": "d1aaaaa3-0000-4000-8000-000000000003",
+    "parent_id": "d1aaaaa2-0000-4000-8000-000000000002",
+    "timestamp": "2026-06-22T14:00:03.5Z",
+    "project": {
+      "cwd": "/Users/dev/acme/api",
+      "repo_root": null,
+      "git": {
+        "sha": "1111111122222222333333334444444455555555",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "user_turn",
+      "text": "",
+      "parts": [
+        {
+          "part": "tool_result",
+          "call_id": "toolu_arc_a_auth",
+          "output": "The file /Users/dev/acme/api/src/auth.rs has been updated."
+        }
+      ]
+    },
+    "provenance": {
+      "file": "fixtures/claude_code/2.0/interleaved_arcs.jsonl",
+      "byte_offset": 1100,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "claude_code",
+    "session_id": "sess-interleaved-005",
+    "seq": 5,
+    "event_id": "f23451a2b3e5837d27f6183c6417bbf74dbdd915d40a4eb24b9228fcda7ff3ef",
+    "parent_id": "d1aaaaa3-0000-4000-8000-000000000003",
+    "timestamp": "2026-06-22T14:00:03.5Z",
+    "project": {
+      "cwd": "/Users/dev/acme/api",
+      "repo_root": null,
+      "git": {
+        "sha": "1111111122222222333333334444444455555555",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "tool_result",
+      "call_id": "toolu_arc_a_auth",
+      "ok": true,
+      "output": "The file /Users/dev/acme/api/src/auth.rs has been updated."
+    },
+    "provenance": {
+      "file": "fixtures/claude_code/2.0/interleaved_arcs.jsonl",
+      "byte_offset": 1100,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "claude_code",
+    "session_id": "sess-interleaved-005",
+    "seq": 6,
+    "event_id": "a78a0e286df422ff98681b4b8fd006cdefa69203c5da74e28b5e1b4ac9ea05ab",
+    "parent_id": "d1aaaaa3-0000-4000-8000-000000000003",
+    "timestamp": "2026-06-22T14:00:03.5Z",
+    "project": {
+      "cwd": "/Users/dev/acme/api",
+      "repo_root": null,
+      "git": {
+        "sha": "1111111122222222333333334444444455555555",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "file_edit",
+      "call_id": "toolu_arc_a_auth",
+      "diff": {
+        "path": "/Users/dev/acme/api/src/auth.rs",
+        "old": "use bcrypt::hash;",
+        "new": "use argon2::hash;",
+        "unified": "-use bcrypt::hash;\n+use argon2::hash;",
+        "added_lines": 1,
+        "removed_lines": 1
+      }
+    },
+    "provenance": {
+      "file": "fixtures/claude_code/2.0/interleaved_arcs.jsonl",
+      "byte_offset": 1100,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "claude_code",
+    "session_id": "sess-interleaved-005",
+    "seq": 7,
+    "event_id": "d1aaaaa4-0000-4000-8000-000000000004",
+    "parent_id": "d1aaaaa3-0000-4000-8000-000000000003",
+    "timestamp": "2026-06-22T14:01:00Z",
+    "project": {
+      "cwd": "/Users/dev/acme/api",
+      "repo_root": null,
+      "git": {
+        "sha": "1111111122222222333333334444444455555555",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "user_turn",
+      "text": "Actually, let's switch to scrypt for the auth module and tune the cost in config.",
+      "parts": [
+        {
+          "part": "text",
+          "text": "Actually, let's switch to scrypt for the auth module and tune the cost in config."
+        }
+      ]
+    },
+    "provenance": {
+      "file": "fixtures/claude_code/2.0/interleaved_arcs.jsonl",
+      "byte_offset": 1853,
+      "line_no": 4
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "claude_code",
+    "session_id": "sess-interleaved-005",
+    "seq": 8,
+    "event_id": "d1aaaaa5-0000-4000-8000-000000000005",
+    "parent_id": "d1aaaaa4-0000-4000-8000-000000000004",
+    "timestamp": "2026-06-22T14:01:04Z",
+    "project": {
+      "cwd": "/Users/dev/acme/api",
+      "repo_root": null,
+      "git": {
+        "sha": "1111111122222222333333334444444455555555",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "assistant_turn",
+      "text": "Re-pointing the auth hasher to scrypt.",
+      "thinking": null,
+      "model": "claude-opus-4-8",
+      "usage": {
+        "input_tokens": 360,
+        "output_tokens": 90,
+        "cache_read_tokens": 300,
+        "cache_creation_tokens": 0
+      },
+      "parts": [
+        {
+          "part": "text",
+          "text": "Re-pointing the auth hasher to scrypt."
+        },
+        {
+          "part": "tool_use",
+          "call_id": "toolu_arc_b_auth",
+          "name": "Edit",
+          "args": {
+            "file_path": "/Users/dev/acme/api/src/auth.rs",
+            "old_string": "use argon2::hash;",
+            "new_string": "use scrypt::hash;"
+          }
+        }
+      ]
+    },
+    "provenance": {
+      "file": "fixtures/claude_code/2.0/interleaved_arcs.jsonl",
+      "byte_offset": 2246,
+      "line_no": 5
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "claude_code",
+    "session_id": "sess-interleaved-005",
+    "seq": 9,
+    "event_id": "a719d5a45c6af5850df2e6257d5e7996517ff24e4de7a44ed12416619a4e288a",
+    "parent_id": "d1aaaaa5-0000-4000-8000-000000000005",
+    "timestamp": "2026-06-22T14:01:04Z",
+    "project": {
+      "cwd": "/Users/dev/acme/api",
+      "repo_root": null,
+      "git": {
+        "sha": "1111111122222222333333334444444455555555",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "tool_call",
+      "call_id": "toolu_arc_b_auth",
+      "name": "Edit",
+      "args": {
+        "file_path": "/Users/dev/acme/api/src/auth.rs",
+        "old_string": "use argon2::hash;",
+        "new_string": "use scrypt::hash;"
+      }
+    },
+    "provenance": {
+      "file": "fixtures/claude_code/2.0/interleaved_arcs.jsonl",
+      "byte_offset": 2246,
+      "line_no": 5
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "claude_code",
+    "session_id": "sess-interleaved-005",
+    "seq": 10,
+    "event_id": "d1aaaaa6-0000-4000-8000-000000000006",
+    "parent_id": "d1aaaaa5-0000-4000-8000-000000000005",
+    "timestamp": "2026-06-22T14:01:04.5Z",
+    "project": {
+      "cwd": "/Users/dev/acme/api",
+      "repo_root": null,
+      "git": {
+        "sha": "1111111122222222333333334444444455555555",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "user_turn",
+      "text": "",
+      "parts": [
+        {
+          "part": "tool_result",
+          "call_id": "toolu_arc_b_auth",
+          "output": "The file /Users/dev/acme/api/src/auth.rs has been updated."
+        }
+      ]
+    },
+    "provenance": {
+      "file": "fixtures/claude_code/2.0/interleaved_arcs.jsonl",
+      "byte_offset": 2947,
+      "line_no": 6
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "claude_code",
+    "session_id": "sess-interleaved-005",
+    "seq": 11,
+    "event_id": "a56f837bcc848d86066ce95c684beb3901b7e56c918c1293b40f80a7eca63c73",
+    "parent_id": "d1aaaaa6-0000-4000-8000-000000000006",
+    "timestamp": "2026-06-22T14:01:04.5Z",
+    "project": {
+      "cwd": "/Users/dev/acme/api",
+      "repo_root": null,
+      "git": {
+        "sha": "1111111122222222333333334444444455555555",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "tool_result",
+      "call_id": "toolu_arc_b_auth",
+      "ok": true,
+      "output": "The file /Users/dev/acme/api/src/auth.rs has been updated."
+    },
+    "provenance": {
+      "file": "fixtures/claude_code/2.0/interleaved_arcs.jsonl",
+      "byte_offset": 2947,
+      "line_no": 6
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "claude_code",
+    "session_id": "sess-interleaved-005",
+    "seq": 12,
+    "event_id": "80107084a3da3c00da57c882d34f636980a1d0b8ccbb03732a5dbf92c2c032ae",
+    "parent_id": "d1aaaaa6-0000-4000-8000-000000000006",
+    "timestamp": "2026-06-22T14:01:04.5Z",
+    "project": {
+      "cwd": "/Users/dev/acme/api",
+      "repo_root": null,
+      "git": {
+        "sha": "1111111122222222333333334444444455555555",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "file_edit",
+      "call_id": "toolu_arc_b_auth",
+      "diff": {
+        "path": "/Users/dev/acme/api/src/auth.rs",
+        "old": "use argon2::hash;",
+        "new": "use scrypt::hash;",
+        "unified": "-use argon2::hash;\n+use scrypt::hash;",
+        "added_lines": 1,
+        "removed_lines": 1
+      }
+    },
+    "provenance": {
+      "file": "fixtures/claude_code/2.0/interleaved_arcs.jsonl",
+      "byte_offset": 2947,
+      "line_no": 6
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "claude_code",
+    "session_id": "sess-interleaved-005",
+    "seq": 13,
+    "event_id": "d1aaaaa7-0000-4000-8000-000000000007",
+    "parent_id": "d1aaaaa6-0000-4000-8000-000000000006",
+    "timestamp": "2026-06-22T14:01:08Z",
+    "project": {
+      "cwd": "/Users/dev/acme/api",
+      "repo_root": null,
+      "git": {
+        "sha": "1111111122222222333333334444444455555555",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "assistant_turn",
+      "text": "Tuning the scrypt cost parameter in config.",
+      "thinking": null,
+      "model": "claude-opus-4-8",
+      "usage": {
+        "input_tokens": 410,
+        "output_tokens": 85,
+        "cache_read_tokens": 360,
+        "cache_creation_tokens": 0
+      },
+      "parts": [
+        {
+          "part": "text",
+          "text": "Tuning the scrypt cost parameter in config."
+        },
+        {
+          "part": "tool_use",
+          "call_id": "toolu_arc_b_config",
+          "name": "Edit",
+          "args": {
+            "file_path": "/Users/dev/acme/api/src/config.rs",
+            "old_string": "const HASH_COST: u32 = 10;",
+            "new_string": "const HASH_COST: u32 = 15;"
+          }
+        }
+      ]
+    },
+    "provenance": {
+      "file": "fixtures/claude_code/2.0/interleaved_arcs.jsonl",
+      "byte_offset": 3700,
+      "line_no": 7
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "claude_code",
+    "session_id": "sess-interleaved-005",
+    "seq": 14,
+    "event_id": "0ef15c7fdec7df16bc3b5eb3b0dd370b67dab8b1c45f1eea3950c21d4a61917b",
+    "parent_id": "d1aaaaa7-0000-4000-8000-000000000007",
+    "timestamp": "2026-06-22T14:01:08Z",
+    "project": {
+      "cwd": "/Users/dev/acme/api",
+      "repo_root": null,
+      "git": {
+        "sha": "1111111122222222333333334444444455555555",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "tool_call",
+      "call_id": "toolu_arc_b_config",
+      "name": "Edit",
+      "args": {
+        "file_path": "/Users/dev/acme/api/src/config.rs",
+        "old_string": "const HASH_COST: u32 = 10;",
+        "new_string": "const HASH_COST: u32 = 15;"
+      }
+    },
+    "provenance": {
+      "file": "fixtures/claude_code/2.0/interleaved_arcs.jsonl",
+      "byte_offset": 3700,
+      "line_no": 7
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "claude_code",
+    "session_id": "sess-interleaved-005",
+    "seq": 15,
+    "event_id": "d1aaaaa8-0000-4000-8000-000000000008",
+    "parent_id": "d1aaaaa7-0000-4000-8000-000000000007",
+    "timestamp": "2026-06-22T14:01:08.5Z",
+    "project": {
+      "cwd": "/Users/dev/acme/api",
+      "repo_root": null,
+      "git": {
+        "sha": "1111111122222222333333334444444455555555",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "user_turn",
+      "text": "",
+      "parts": [
+        {
+          "part": "tool_result",
+          "call_id": "toolu_arc_b_config",
+          "output": "The file /Users/dev/acme/api/src/config.rs has been updated."
+        }
+      ]
+    },
+    "provenance": {
+      "file": "fixtures/claude_code/2.0/interleaved_arcs.jsonl",
+      "byte_offset": 4428,
+      "line_no": 8
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "claude_code",
+    "session_id": "sess-interleaved-005",
+    "seq": 16,
+    "event_id": "560a8c8a172b4fc34b59e0a118d1579a7b384e5d3e4feb08c9c5c020116a15f6",
+    "parent_id": "d1aaaaa8-0000-4000-8000-000000000008",
+    "timestamp": "2026-06-22T14:01:08.5Z",
+    "project": {
+      "cwd": "/Users/dev/acme/api",
+      "repo_root": null,
+      "git": {
+        "sha": "1111111122222222333333334444444455555555",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "tool_result",
+      "call_id": "toolu_arc_b_config",
+      "ok": true,
+      "output": "The file /Users/dev/acme/api/src/config.rs has been updated."
+    },
+    "provenance": {
+      "file": "fixtures/claude_code/2.0/interleaved_arcs.jsonl",
+      "byte_offset": 4428,
+      "line_no": 8
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "claude_code",
+    "session_id": "sess-interleaved-005",
+    "seq": 17,
+    "event_id": "ccaf7c474b51d55025baba21ea22f808b5197b85cea212ce045f9dc9a3a2a83e",
+    "parent_id": "d1aaaaa8-0000-4000-8000-000000000008",
+    "timestamp": "2026-06-22T14:01:08.5Z",
+    "project": {
+      "cwd": "/Users/dev/acme/api",
+      "repo_root": null,
+      "git": {
+        "sha": "1111111122222222333333334444444455555555",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "file_edit",
+      "call_id": "toolu_arc_b_config",
+      "diff": {
+        "path": "/Users/dev/acme/api/src/config.rs",
+        "old": "const HASH_COST: u32 = 10;",
+        "new": "const HASH_COST: u32 = 15;",
+        "unified": "-const HASH_COST: u32 = 10;\n+const HASH_COST: u32 = 15;",
+        "added_lines": 1,
+        "removed_lines": 1
+      }
+    },
+    "provenance": {
+      "file": "fixtures/claude_code/2.0/interleaved_arcs.jsonl",
+      "byte_offset": 4428,
+      "line_no": 8
+    }
+  }
+]

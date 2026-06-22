@@ -1,0 +1,23 @@
+[package]
+name = "memscribe-testkit"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+description = "Test harness for Memscribe: golden-file loaders, invariant checks, conformance scenarios, synthetic generators."
+
+[lints]
+workspace = true
+
+[dependencies]
+memscribe-core = { workspace = true }
+memscribe-adapters = { workspace = true }
+memscribe-sink = { workspace = true }
+memscribe-io = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+
+[dev-dependencies]
+insta = { workspace = true }
+proptest = { workspace = true }
