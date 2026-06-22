@@ -1,7 +1,7 @@
 # Contributing to Memscribe
 
 Thanks for helping. Memscribe is the **deterministic, zero-LLM** data layer
-beneath MemCortex / Memtrace. The bar for a change is unusual: the output must be
+beneath MemCortex (which Memtrace builds on). The bar for a change is unusual: the output must be
 an *exact function* of the input, so the test suite is the contract. Read
 [ARCHITECTURE.md](./ARCHITECTURE.md) first — it explains the pipeline and the
 contract types you must not break.

@@ -1,14 +1,16 @@
 # Memscribe architecture
 
 Memscribe is a **deterministic, zero-LLM** pipeline that turns the transcript
-logs AI coding agents already write into typed nodes a downstream
-inference-and-governance layer (MemCortex / Memtrace) can consume. No model is
-ever called: capture is reading and parsing, never summarizing. The output is an
-exact function of the input, which is what makes the whole module golden-file,
+logs AI coding agents already write into typed nodes the downstream
+inference-and-governance layer (**MemCortex**) can consume. No model is ever
+called: capture is reading and parsing, never summarizing. The output is an exact
+function of the input, which is what makes the whole module golden-file,
 property, and fuzz testable.
 
-The dependency direction is strictly one-way: **Memtrace depends on Memscribe,
-never the reverse.** `memscribe-core` depends on nothing else in the workspace.
+It is the bottom of a three-layer stack — **Memtrace** uses **MemCortex**, and
+**MemCortex** uses **Memscribe**. The dependency direction is strictly one-way:
+each layer depends only on the one below it, and `memscribe-core` depends on
+nothing else in the workspace. Memscribe never calls upward.
 
 ---
 

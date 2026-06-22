@@ -227,7 +227,7 @@ pub struct BindingEdge {
     pub correlation: Option<CorrelationTuple>,
 }
 
-/// The typed data a consumer (MemCortex / Memtrace) ingests.
+/// The typed data the consumer layer (MemCortex) ingests.
 #[derive(Clone, Debug, Serialize, Deserialize, PartialEq)]
 #[serde(tag = "node", rename_all = "snake_case")]
 pub enum PreparedNode {

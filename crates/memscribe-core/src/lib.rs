@@ -7,8 +7,8 @@
 //!
 //! - The normalized event model ([`CaptureEvent`] / [`EventKind`]) — the system
 //!   of record produced by adapters.
-//! - The output contract ([`node::PreparedNode`]) — the typed nodes a consumer
-//!   (MemCortex / Memtrace) ingests, each carrying a [`node::FactStatus`].
+//! - The output contract ([`node::PreparedNode`]) — the typed nodes the
+//!   consumer layer (MemCortex) ingests, each carrying a [`node::FactStatus`].
 //! - The [`TranscriptAdapter`] and [`Sink`] traits — the two plug points.
 //! - The deterministic pipeline: [`gate`] → [`segmenter`] → [`binder`] →
 //!   [`nodeprep`], plus a [`redact`] pass.

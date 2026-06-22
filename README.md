@@ -24,8 +24,17 @@ A coding agent is a stream of decisions and edits — *"use Postgres instead of 
 
 That single property is the whole point. It makes capture **golden-file, property, and fuzz testable**, so the day a tool changes its format, the test suite fails loudly instead of silently corrupting your memory.
 
-> [!NOTE]
-> Memscribe is the **data layer**. An inference-and-governance layer (MemCortex / [Memtrace](https://github.com/syncable-dev/memtrace)) sits on top and does the judgment calls. The boundary between them is a single stable data type. Memscribe depends on *nothing* downstream — the dependency is one-way.
+### Where Memscribe sits
+
+Memscribe is the foundation of a three-layer stack. Each layer uses the one below it, and the dependency only ever points **downward**:
+
+| Layer | Role | Calls a model? |
+|:------|:-----|:--------------:|
+| [**Memtrace**](https://github.com/syncable-dev/memtrace) | The product — a code-intelligence graph with agent memory | — |
+| **MemCortex** | Inference & governance — the judgment calls on top of the captured data | yes |
+| **Memscribe** | Deterministic capture — normalizes transcripts into typed nodes *(this repo)* | **no** |
+
+Memtrace builds on MemCortex; MemCortex builds on Memscribe. Because Memscribe sits at the bottom, depends on nothing above it, and never calls a model, the boundary between the layers is a single stable data type — which is exactly what keeps this layer small, auditable, and exhaustively testable.
 
 ## The pipeline
 
