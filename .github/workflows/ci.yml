@@ -30,6 +30,13 @@ env:
   RUST_BACKTRACE: 1
   # Pinned toolchain — keep in lockstep with rust-toolchain.toml.
   RUST_PINNED: 1.96.0
+  # Resilience against transient crates.io download blips (SSL EOFs, flaky
+  # mirrors): retry network ops aggressively and fetch the index over the
+  # sparse protocol with the git CLI, which recovers from partial transfers
+  # better than the built-in downloader.
+  CARGO_NET_RETRY: 10
+  CARGO_NET_GIT_FETCH_WITH_CLI: "true"
+  CARGO_REGISTRIES_CRATES_IO_PROTOCOL: sparse
 
 jobs:
   # 1. The deterministic test suite: unit + golden + conformance + property.
