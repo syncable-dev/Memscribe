@@ -1,0 +1,283 @@
+---
+source: crates/memscribe-testkit/tests/golden.rs
+expression: events
+---
+[
+  {
+    "schema_version": 1,
+    "source": "zed",
+    "session_id": "zed-thread-008",
+    "seq": 0,
+    "event_id": "2c855916024ea8c890308ef541a0e3514bb4e20979ecb91802d8b7b58b315e33",
+    "parent_id": null,
+    "timestamp": "2026-06-22T16:00:00Z",
+    "project": {
+      "cwd": "/Users/dev/projects/pipeline",
+      "repo_root": null,
+      "git": {
+        "sha": "d4d4d4d4d4d4",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "session_start",
+      "cwd": "/Users/dev/projects/pipeline",
+      "git": {
+        "sha": "d4d4d4d4d4d4",
+        "branch": "main"
+      },
+      "model": null,
+      "tool_version": "zed 0.182.0"
+    },
+    "provenance": {
+      "file": "fixtures/zed/v1/subagent_thread.jsonl",
+      "byte_offset": 0,
+      "line_no": 1
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "zed",
+    "session_id": "zed-thread-008",
+    "seq": 1,
+    "event_id": "msg-1",
+    "parent_id": null,
+    "timestamp": "2026-06-22T16:00:00Z",
+    "project": {
+      "cwd": "/Users/dev/projects/pipeline",
+      "repo_root": null,
+      "git": {
+        "sha": "d4d4d4d4d4d4",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "user_turn",
+      "text": "Kick off the ingest refactor; delegate the parser rewrite to a focused sub-thread.",
+      "parts": []
+    },
+    "provenance": {
+      "file": "fixtures/zed/v1/subagent_thread.jsonl",
+      "byte_offset": 192,
+      "line_no": 2
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "zed",
+    "session_id": "zed-thread-008",
+    "seq": 2,
+    "event_id": "msg-2",
+    "parent_id": "msg-1",
+    "timestamp": "2026-06-22T16:00:02Z",
+    "project": {
+      "cwd": "/Users/dev/projects/pipeline",
+      "repo_root": null,
+      "git": {
+        "sha": "d4d4d4d4d4d4",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "assistant_turn",
+      "text": "Spawning a secondary thread to handle the parser rewrite.",
+      "thinking": null,
+      "model": "claude-opus-4-8",
+      "usage": {
+        "input_tokens": 90,
+        "output_tokens": 40,
+        "cache_read_tokens": null,
+        "cache_creation_tokens": null
+      },
+      "parts": []
+    },
+    "provenance": {
+      "file": "fixtures/zed/v1/subagent_thread.jsonl",
+      "byte_offset": 404,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "zed",
+    "session_id": "zed-thread-008",
+    "seq": 3,
+    "event_id": "a0ff76b5381929dbb7e854c249708dd4d240502ed58798cf4c7bc194afcb35ab",
+    "parent_id": null,
+    "timestamp": "2026-06-22T16:00:30Z",
+    "project": {
+      "cwd": "/Users/dev/projects/pipeline",
+      "repo_root": null,
+      "git": {
+        "sha": "d4d4d4d4d4d4",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "unknown",
+      "raw_type": "unknown",
+      "raw": {
+        "kind": "subthread_spawn",
+        "sessionId": "zed-thread-008",
+        "ts": "2026-06-22T16:00:30Z",
+        "threadId": "sub-parser",
+        "parentThreadId": "main",
+        "note": "Zed has no native subagent/subthread concept; this marker plus the threadId fields on messages are a minimal faithful analog. The adapter routes this kind to EventKind::Unknown and ignores threadId on messages, so all turns parse in the single session."
+      }
+    },
+    "provenance": {
+      "file": "fixtures/zed/v1/subagent_thread.jsonl",
+      "byte_offset": 658,
+      "line_no": 4
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "zed",
+    "session_id": "zed-thread-008",
+    "seq": 4,
+    "event_id": "msg-3",
+    "parent_id": "msg-2",
+    "timestamp": "2026-06-22T16:01:00Z",
+    "project": {
+      "cwd": "/Users/dev/projects/pipeline",
+      "repo_root": null,
+      "git": {
+        "sha": "d4d4d4d4d4d4",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "user_turn",
+      "text": "In this sub-thread, use a streaming pull-parser for the ingest format instead of the buffered one.",
+      "parts": []
+    },
+    "provenance": {
+      "file": "fixtures/zed/v1/subagent_thread.jsonl",
+      "byte_offset": 1052,
+      "line_no": 5
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "zed",
+    "session_id": "zed-thread-008",
+    "seq": 5,
+    "event_id": "msg-4",
+    "parent_id": "msg-3",
+    "timestamp": "2026-06-22T16:01:03Z",
+    "project": {
+      "cwd": "/Users/dev/projects/pipeline",
+      "repo_root": null,
+      "git": {
+        "sha": "d4d4d4d4d4d4",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "assistant_turn",
+      "text": "Rewriting the parser to a streaming pull-parser.",
+      "thinking": null,
+      "model": "claude-opus-4-8",
+      "usage": {
+        "input_tokens": 102,
+        "output_tokens": 57,
+        "cache_read_tokens": null,
+        "cache_creation_tokens": null
+      },
+      "parts": []
+    },
+    "provenance": {
+      "file": "fixtures/zed/v1/subagent_thread.jsonl",
+      "byte_offset": 1313,
+      "line_no": 6
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "zed",
+    "session_id": "zed-thread-008",
+    "seq": 6,
+    "event_id": "msg-4:edit:0",
+    "parent_id": "msg-4",
+    "timestamp": "2026-06-22T16:01:03Z",
+    "project": {
+      "cwd": "/Users/dev/projects/pipeline",
+      "repo_root": null,
+      "git": {
+        "sha": "d4d4d4d4d4d4",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "file_edit",
+      "call_id": null,
+      "diff": {
+        "path": "src/ingest/parser.rs",
+        "old": "let buf = read_all(input);\n",
+        "new": "let mut reader = PullParser::new(input);\n",
+        "unified": "@@ -1 +1 @@\n-let buf = read_all(input);\n+let mut reader = PullParser::new(input);\n",
+        "added_lines": 1,
+        "removed_lines": 1
+      }
+    },
+    "provenance": {
+      "file": "fixtures/zed/v1/subagent_thread.jsonl",
+      "byte_offset": 1313,
+      "line_no": 6
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "zed",
+    "session_id": "zed-thread-008",
+    "seq": 7,
+    "event_id": "msg-5",
+    "parent_id": "msg-4",
+    "timestamp": "2026-06-22T16:02:00Z",
+    "project": {
+      "cwd": "/Users/dev/projects/pipeline",
+      "repo_root": null,
+      "git": {
+        "sha": "d4d4d4d4d4d4",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "user_turn",
+      "text": "Sub-thread done, looks good.",
+      "parts": []
+    },
+    "provenance": {
+      "file": "fixtures/zed/v1/subagent_thread.jsonl",
+      "byte_offset": 1844,
+      "line_no": 7
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "zed",
+    "session_id": "zed-thread-008",
+    "seq": 8,
+    "event_id": "dc738ec8f343eddba92ec3c7beed2ea6c4103f351ae834b537f05ae0230f180e",
+    "parent_id": null,
+    "timestamp": "2026-06-22T16:02:30Z",
+    "project": {
+      "cwd": "/Users/dev/projects/pipeline",
+      "repo_root": null,
+      "git": {
+        "sha": "d4d4d4d4d4d4",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "session_end",
+      "reason": "user_closed"
+    },
+    "provenance": {
+      "file": "fixtures/zed/v1/subagent_thread.jsonl",
+      "byte_offset": 2005,
+      "line_no": 8
+    }
+  }
+]

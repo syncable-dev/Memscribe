@@ -1,0 +1,346 @@
+---
+source: crates/memscribe-testkit/tests/golden.rs
+expression: events
+---
+[
+  {
+    "schema_version": 1,
+    "source": "vs_code",
+    "session_id": "vsc-sess-sub",
+    "seq": 0,
+    "event_id": "7ec818f116c0e9240fe69044f4914c072c198276e57aa3224bcc027d7786a232",
+    "parent_id": null,
+    "timestamp": "1970-01-01T00:00:00Z",
+    "project": {
+      "cwd": "/home/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "0fed1cba98765432",
+        "branch": "feat/worker-split"
+      }
+    },
+    "kind": {
+      "event": "session_start",
+      "cwd": "/home/dev/acme-api",
+      "git": {
+        "sha": "0fed1cba98765432",
+        "branch": "feat/worker-split"
+      },
+      "model": "gpt-4o",
+      "tool_version": "1.92.0"
+    },
+    "provenance": {
+      "file": "fixtures/vscode/v1/subagent_thread.jsonl",
+      "byte_offset": 0,
+      "line_no": 1
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "vs_code",
+    "session_id": "vsc-sess-sub",
+    "seq": 1,
+    "event_id": "sa-u1",
+    "parent_id": null,
+    "timestamp": "2026-06-22T17:00:00Z",
+    "project": {
+      "cwd": "/home/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "0fed1cba98765432",
+        "branch": "feat/worker-split"
+      }
+    },
+    "kind": {
+      "event": "user_turn",
+      "text": "Let's use a dedicated background worker for the email queue. Extract the send loop into a worker module.",
+      "parts": []
+    },
+    "provenance": {
+      "file": "fixtures/vscode/v1/subagent_thread.jsonl",
+      "byte_offset": 181,
+      "line_no": 2
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "vs_code",
+    "session_id": "vsc-sess-sub",
+    "seq": 2,
+    "event_id": "sa-a1",
+    "parent_id": "sa-u1",
+    "timestamp": "2026-06-22T17:00:07Z",
+    "project": {
+      "cwd": "/home/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "0fed1cba98765432",
+        "branch": "feat/worker-split"
+      }
+    },
+    "kind": {
+      "event": "assistant_turn",
+      "text": "Extracting the send loop into a dedicated worker module.",
+      "thinking": null,
+      "model": "gpt-4o",
+      "usage": {
+        "input_tokens": 780,
+        "output_tokens": 170,
+        "cache_read_tokens": null,
+        "cache_creation_tokens": null
+      },
+      "parts": []
+    },
+    "provenance": {
+      "file": "fixtures/vscode/v1/subagent_thread.jsonl",
+      "byte_offset": 395,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "vs_code",
+    "session_id": "vsc-sess-sub",
+    "seq": 3,
+    "event_id": "sa-a1:toolcall:0:call-sa-1",
+    "parent_id": "sa-a1",
+    "timestamp": "2026-06-22T17:00:07Z",
+    "project": {
+      "cwd": "/home/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "0fed1cba98765432",
+        "branch": "feat/worker-split"
+      }
+    },
+    "kind": {
+      "event": "tool_call",
+      "call_id": "call-sa-1",
+      "name": "applyEdit",
+      "args": {
+        "path": "src/worker/email.ts"
+      }
+    },
+    "provenance": {
+      "file": "fixtures/vscode/v1/subagent_thread.jsonl",
+      "byte_offset": 395,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "vs_code",
+    "session_id": "vsc-sess-sub",
+    "seq": 4,
+    "event_id": "sa-a1:edit:0:src/worker/email.ts",
+    "parent_id": "sa-a1",
+    "timestamp": "2026-06-22T17:00:07Z",
+    "project": {
+      "cwd": "/home/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "0fed1cba98765432",
+        "branch": "feat/worker-split"
+      }
+    },
+    "kind": {
+      "event": "file_edit",
+      "call_id": "call-sa-1",
+      "diff": {
+        "path": "src/worker/email.ts",
+        "old": null,
+        "new": "export async function runEmailWorker() { for (;;) await drainQueue(); }",
+        "unified": null,
+        "added_lines": 1,
+        "removed_lines": 0
+      }
+    },
+    "provenance": {
+      "file": "fixtures/vscode/v1/subagent_thread.jsonl",
+      "byte_offset": 395,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "vs_code",
+    "session_id": "vsc-sess-sub",
+    "seq": 5,
+    "event_id": "sa-nu1",
+    "parent_id": null,
+    "timestamp": "2026-06-22T17:00:20Z",
+    "project": {
+      "cwd": "/home/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "0fed1cba98765432",
+        "branch": "feat/worker-split"
+      }
+    },
+    "kind": {
+      "event": "user_turn",
+      "text": "Within this worker thread, let's use exponential backoff for failed sends. Add a retry helper.",
+      "parts": []
+    },
+    "provenance": {
+      "file": "fixtures/vscode/v1/subagent_thread.jsonl",
+      "byte_offset": 892,
+      "line_no": 4
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "vs_code",
+    "session_id": "vsc-sess-sub",
+    "seq": 6,
+    "event_id": "sa-na1",
+    "parent_id": "sa-nu1",
+    "timestamp": "2026-06-22T17:00:27Z",
+    "project": {
+      "cwd": "/home/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "0fed1cba98765432",
+        "branch": "feat/worker-split"
+      }
+    },
+    "kind": {
+      "event": "assistant_turn",
+      "text": "Adding an exponential-backoff retry helper to the worker thread.",
+      "thinking": null,
+      "model": "gpt-4o",
+      "usage": {
+        "input_tokens": 410,
+        "output_tokens": 120,
+        "cache_read_tokens": null,
+        "cache_creation_tokens": null
+      },
+      "parts": []
+    },
+    "provenance": {
+      "file": "fixtures/vscode/v1/subagent_thread.jsonl",
+      "byte_offset": 1181,
+      "line_no": 5
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "vs_code",
+    "session_id": "vsc-sess-sub",
+    "seq": 7,
+    "event_id": "sa-na1:toolcall:0:call-sa-2",
+    "parent_id": "sa-na1",
+    "timestamp": "2026-06-22T17:00:27Z",
+    "project": {
+      "cwd": "/home/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "0fed1cba98765432",
+        "branch": "feat/worker-split"
+      }
+    },
+    "kind": {
+      "event": "tool_call",
+      "call_id": "call-sa-2",
+      "name": "applyEdit",
+      "args": {
+        "path": "src/worker/retry.ts"
+      }
+    },
+    "provenance": {
+      "file": "fixtures/vscode/v1/subagent_thread.jsonl",
+      "byte_offset": 1181,
+      "line_no": 5
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "vs_code",
+    "session_id": "vsc-sess-sub",
+    "seq": 8,
+    "event_id": "sa-na1:edit:0:src/worker/retry.ts",
+    "parent_id": "sa-na1",
+    "timestamp": "2026-06-22T17:00:27Z",
+    "project": {
+      "cwd": "/home/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "0fed1cba98765432",
+        "branch": "feat/worker-split"
+      }
+    },
+    "kind": {
+      "event": "file_edit",
+      "call_id": "call-sa-2",
+      "diff": {
+        "path": "src/worker/retry.ts",
+        "old": null,
+        "new": "export const backoff = (n) => Math.min(2 ** n, 60) * 1000;",
+        "unified": null,
+        "added_lines": 1,
+        "removed_lines": 0
+      }
+    },
+    "provenance": {
+      "file": "fixtures/vscode/v1/subagent_thread.jsonl",
+      "byte_offset": 1181,
+      "line_no": 5
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "vs_code",
+    "session_id": "vsc-sess-sub",
+    "seq": 9,
+    "event_id": "sa-a2",
+    "parent_id": "sa-a1",
+    "timestamp": "2026-06-22T17:00:40Z",
+    "project": {
+      "cwd": "/home/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "0fed1cba98765432",
+        "branch": "feat/worker-split"
+      }
+    },
+    "kind": {
+      "event": "assistant_turn",
+      "text": "Done. The email send loop runs in a dedicated worker, with backoff handled in the nested retry thread.",
+      "thinking": null,
+      "model": "gpt-4o",
+      "usage": null,
+      "parts": []
+    },
+    "provenance": {
+      "file": "fixtures/vscode/v1/subagent_thread.jsonl",
+      "byte_offset": 1759,
+      "line_no": 6
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "vs_code",
+    "session_id": "vsc-sess-sub",
+    "seq": 10,
+    "event_id": "a4148f5a0a636526357deabec82e1a09d24a4677a8b33bfce06a8e4b0dff34c1",
+    "parent_id": null,
+    "timestamp": "2026-06-22T17:01:30Z",
+    "project": {
+      "cwd": "/home/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "0fed1cba98765432",
+        "branch": "feat/worker-split"
+      }
+    },
+    "kind": {
+      "event": "session_end",
+      "reason": "user_closed"
+    },
+    "provenance": {
+      "file": "fixtures/vscode/v1/subagent_thread.jsonl",
+      "byte_offset": 1996,
+      "line_no": 7
+    }
+  }
+]

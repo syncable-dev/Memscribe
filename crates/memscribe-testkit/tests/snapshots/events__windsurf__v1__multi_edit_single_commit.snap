@@ -1,0 +1,403 @@
+---
+source: crates/memscribe-testkit/tests/golden.rs
+expression: events
+---
+[
+  {
+    "schema_version": 1,
+    "source": "windsurf",
+    "session_id": "ws-multiedit-006",
+    "seq": 0,
+    "event_id": "5a7a70ee4ff756339a1240636fc2dd247242929d024c6fe7ad46ce8640d9417b",
+    "parent_id": null,
+    "timestamp": "1970-01-01T00:00:00Z",
+    "project": {
+      "cwd": "/Users/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "b2b2b2b2",
+        "branch": "feat/argon2"
+      }
+    },
+    "kind": {
+      "event": "session_start",
+      "cwd": "/Users/dev/acme-api",
+      "git": {
+        "sha": "b2b2b2b2",
+        "branch": "feat/argon2"
+      },
+      "model": "cascade-pro",
+      "tool_version": "1.8.2"
+    },
+    "provenance": {
+      "file": "fixtures/windsurf/v1/multi_edit_single_commit.jsonl",
+      "byte_offset": 0,
+      "line_no": 1
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "windsurf",
+    "session_id": "ws-multiedit-006",
+    "seq": 1,
+    "event_id": "u1",
+    "parent_id": null,
+    "timestamp": "2026-06-22T14:00:00Z",
+    "project": {
+      "cwd": "/Users/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "b2b2b2b2",
+        "branch": "feat/argon2"
+      }
+    },
+    "kind": {
+      "event": "user_turn",
+      "text": "We will use Argon2 for password hashing across the auth service. Update the hasher, the verifier, and the config in one pass.",
+      "parts": []
+    },
+    "provenance": {
+      "file": "fixtures/windsurf/v1/multi_edit_single_commit.jsonl",
+      "byte_offset": 198,
+      "line_no": 2
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "windsurf",
+    "session_id": "ws-multiedit-006",
+    "seq": 2,
+    "event_id": "a1",
+    "parent_id": "u1",
+    "timestamp": "2026-06-22T14:00:08Z",
+    "project": {
+      "cwd": "/Users/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "b2b2b2b2",
+        "branch": "feat/argon2"
+      }
+    },
+    "kind": {
+      "event": "assistant_turn",
+      "text": "Rolling Argon2 through the hasher, verifier, and config as a single change.",
+      "thinking": null,
+      "model": "cascade-pro",
+      "usage": {
+        "input_tokens": 160,
+        "output_tokens": 88,
+        "cache_read_tokens": null,
+        "cache_creation_tokens": null
+      },
+      "parts": []
+    },
+    "provenance": {
+      "file": "fixtures/windsurf/v1/multi_edit_single_commit.jsonl",
+      "byte_offset": 434,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "windsurf",
+    "session_id": "ws-multiedit-006",
+    "seq": 3,
+    "event_id": "a1#toolcall:call_me_hash",
+    "parent_id": "a1",
+    "timestamp": "2026-06-22T14:00:08Z",
+    "project": {
+      "cwd": "/Users/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "b2b2b2b2",
+        "branch": "feat/argon2"
+      }
+    },
+    "kind": {
+      "event": "tool_call",
+      "call_id": "call_me_hash",
+      "name": "edit_file",
+      "args": {
+        "path": "src/auth/hasher.rs"
+      }
+    },
+    "provenance": {
+      "file": "fixtures/windsurf/v1/multi_edit_single_commit.jsonl",
+      "byte_offset": 434,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "windsurf",
+    "session_id": "ws-multiedit-006",
+    "seq": 4,
+    "event_id": "a1#toolcall:call_me_verify",
+    "parent_id": "a1",
+    "timestamp": "2026-06-22T14:00:08Z",
+    "project": {
+      "cwd": "/Users/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "b2b2b2b2",
+        "branch": "feat/argon2"
+      }
+    },
+    "kind": {
+      "event": "tool_call",
+      "call_id": "call_me_verify",
+      "name": "edit_file",
+      "args": {
+        "path": "src/auth/verifier.rs"
+      }
+    },
+    "provenance": {
+      "file": "fixtures/windsurf/v1/multi_edit_single_commit.jsonl",
+      "byte_offset": 434,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "windsurf",
+    "session_id": "ws-multiedit-006",
+    "seq": 5,
+    "event_id": "a1#toolcall:call_me_config",
+    "parent_id": "a1",
+    "timestamp": "2026-06-22T14:00:08Z",
+    "project": {
+      "cwd": "/Users/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "b2b2b2b2",
+        "branch": "feat/argon2"
+      }
+    },
+    "kind": {
+      "event": "tool_call",
+      "call_id": "call_me_config",
+      "name": "edit_file",
+      "args": {
+        "path": "config/auth.toml"
+      }
+    },
+    "provenance": {
+      "file": "fixtures/windsurf/v1/multi_edit_single_commit.jsonl",
+      "byte_offset": 434,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "windsurf",
+    "session_id": "ws-multiedit-006",
+    "seq": 6,
+    "event_id": "a1#toolresult:call_me_hash",
+    "parent_id": "a1",
+    "timestamp": "2026-06-22T14:00:08Z",
+    "project": {
+      "cwd": "/Users/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "b2b2b2b2",
+        "branch": "feat/argon2"
+      }
+    },
+    "kind": {
+      "event": "tool_result",
+      "call_id": "call_me_hash",
+      "ok": true,
+      "output": "applied"
+    },
+    "provenance": {
+      "file": "fixtures/windsurf/v1/multi_edit_single_commit.jsonl",
+      "byte_offset": 434,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "windsurf",
+    "session_id": "ws-multiedit-006",
+    "seq": 7,
+    "event_id": "a1#toolresult:call_me_verify",
+    "parent_id": "a1",
+    "timestamp": "2026-06-22T14:00:08Z",
+    "project": {
+      "cwd": "/Users/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "b2b2b2b2",
+        "branch": "feat/argon2"
+      }
+    },
+    "kind": {
+      "event": "tool_result",
+      "call_id": "call_me_verify",
+      "ok": true,
+      "output": "applied"
+    },
+    "provenance": {
+      "file": "fixtures/windsurf/v1/multi_edit_single_commit.jsonl",
+      "byte_offset": 434,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "windsurf",
+    "session_id": "ws-multiedit-006",
+    "seq": 8,
+    "event_id": "a1#toolresult:call_me_config",
+    "parent_id": "a1",
+    "timestamp": "2026-06-22T14:00:08Z",
+    "project": {
+      "cwd": "/Users/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "b2b2b2b2",
+        "branch": "feat/argon2"
+      }
+    },
+    "kind": {
+      "event": "tool_result",
+      "call_id": "call_me_config",
+      "ok": true,
+      "output": "applied"
+    },
+    "provenance": {
+      "file": "fixtures/windsurf/v1/multi_edit_single_commit.jsonl",
+      "byte_offset": 434,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "windsurf",
+    "session_id": "ws-multiedit-006",
+    "seq": 9,
+    "event_id": "a1#edit:0",
+    "parent_id": "a1",
+    "timestamp": "2026-06-22T14:00:08Z",
+    "project": {
+      "cwd": "/Users/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "b2b2b2b2",
+        "branch": "feat/argon2"
+      }
+    },
+    "kind": {
+      "event": "file_edit",
+      "call_id": "call_me_hash",
+      "diff": {
+        "path": "src/auth/hasher.rs",
+        "old": "use bcrypt::hash;",
+        "new": "use argon2::Argon2;",
+        "unified": "@@ -1,1 +1,1 @@\n-use bcrypt::hash;\n+use argon2::Argon2;",
+        "added_lines": 1,
+        "removed_lines": 1
+      }
+    },
+    "provenance": {
+      "file": "fixtures/windsurf/v1/multi_edit_single_commit.jsonl",
+      "byte_offset": 434,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "windsurf",
+    "session_id": "ws-multiedit-006",
+    "seq": 10,
+    "event_id": "a1#edit:1",
+    "parent_id": "a1",
+    "timestamp": "2026-06-22T14:00:08Z",
+    "project": {
+      "cwd": "/Users/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "b2b2b2b2",
+        "branch": "feat/argon2"
+      }
+    },
+    "kind": {
+      "event": "file_edit",
+      "call_id": "call_me_verify",
+      "diff": {
+        "path": "src/auth/verifier.rs",
+        "old": "use bcrypt::verify;",
+        "new": "use argon2::PasswordVerifier;",
+        "unified": "@@ -1,1 +1,1 @@\n-use bcrypt::verify;\n+use argon2::PasswordVerifier;",
+        "added_lines": 1,
+        "removed_lines": 1
+      }
+    },
+    "provenance": {
+      "file": "fixtures/windsurf/v1/multi_edit_single_commit.jsonl",
+      "byte_offset": 434,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "windsurf",
+    "session_id": "ws-multiedit-006",
+    "seq": 11,
+    "event_id": "a1#edit:2",
+    "parent_id": "a1",
+    "timestamp": "2026-06-22T14:00:08Z",
+    "project": {
+      "cwd": "/Users/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "b2b2b2b2",
+        "branch": "feat/argon2"
+      }
+    },
+    "kind": {
+      "event": "file_edit",
+      "call_id": "call_me_config",
+      "diff": {
+        "path": "config/auth.toml",
+        "old": "hash = \"bcrypt\"",
+        "new": "hash = \"argon2\"",
+        "unified": "@@ -1,1 +1,1 @@\n-hash = \"bcrypt\"\n+hash = \"argon2\"",
+        "added_lines": 1,
+        "removed_lines": 1
+      }
+    },
+    "provenance": {
+      "file": "fixtures/windsurf/v1/multi_edit_single_commit.jsonl",
+      "byte_offset": 434,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "windsurf",
+    "session_id": "ws-multiedit-006",
+    "seq": 12,
+    "event_id": "u2",
+    "parent_id": "a1",
+    "timestamp": "2026-06-22T14:01:00Z",
+    "project": {
+      "cwd": "/Users/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "b2b2b2b2",
+        "branch": "feat/argon2"
+      }
+    },
+    "kind": {
+      "event": "user_turn",
+      "text": "Perfect, ship it.",
+      "parts": []
+    },
+    "provenance": {
+      "file": "fixtures/windsurf/v1/multi_edit_single_commit.jsonl",
+      "byte_offset": 1743,
+      "line_no": 4
+    }
+  }
+]

@@ -1,0 +1,465 @@
+---
+source: crates/memscribe-testkit/tests/golden.rs
+expression: events
+---
+[
+  {
+    "schema_version": 1,
+    "source": "windsurf",
+    "session_id": "ws-interleaved-005",
+    "seq": 0,
+    "event_id": "d508b2690a09b81b0bd4a9bc934812fc6d40b741f7539b3138faf20ac956ce86",
+    "parent_id": null,
+    "timestamp": "1970-01-01T00:00:00Z",
+    "project": {
+      "cwd": "/Users/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "a1a1a1a1",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "session_start",
+      "cwd": "/Users/dev/acme-api",
+      "git": {
+        "sha": "a1a1a1a1",
+        "branch": "main"
+      },
+      "model": "cascade-base",
+      "tool_version": "1.8.2"
+    },
+    "provenance": {
+      "file": "fixtures/windsurf/v1/interleaved_arcs.jsonl",
+      "byte_offset": 0,
+      "line_no": 1
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "windsurf",
+    "session_id": "ws-interleaved-005",
+    "seq": 1,
+    "event_id": "u1",
+    "parent_id": null,
+    "timestamp": "2026-06-22T09:00:00Z",
+    "project": {
+      "cwd": "/Users/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "a1a1a1a1",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "user_turn",
+      "text": "Let's use Postgres for the orders store. Update the connection module.",
+      "parts": []
+    },
+    "provenance": {
+      "file": "fixtures/windsurf/v1/interleaved_arcs.jsonl",
+      "byte_offset": 172,
+      "line_no": 2
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "windsurf",
+    "session_id": "ws-interleaved-005",
+    "seq": 2,
+    "event_id": "a1",
+    "parent_id": "u1",
+    "timestamp": "2026-06-22T09:00:06Z",
+    "project": {
+      "cwd": "/Users/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "a1a1a1a1",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "assistant_turn",
+      "text": "Switching the orders store to a single Postgres client in the db module.",
+      "thinking": null,
+      "model": "cascade-base",
+      "usage": {
+        "input_tokens": 120,
+        "output_tokens": 61,
+        "cache_read_tokens": null,
+        "cache_creation_tokens": null
+      },
+      "parts": []
+    },
+    "provenance": {
+      "file": "fixtures/windsurf/v1/interleaved_arcs.jsonl",
+      "byte_offset": 355,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "windsurf",
+    "session_id": "ws-interleaved-005",
+    "seq": 3,
+    "event_id": "a1#toolcall:call_ia_db1",
+    "parent_id": "a1",
+    "timestamp": "2026-06-22T09:00:06Z",
+    "project": {
+      "cwd": "/Users/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "a1a1a1a1",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "tool_call",
+      "call_id": "call_ia_db1",
+      "name": "edit_file",
+      "args": {
+        "path": "src/db/mod.rs"
+      }
+    },
+    "provenance": {
+      "file": "fixtures/windsurf/v1/interleaved_arcs.jsonl",
+      "byte_offset": 355,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "windsurf",
+    "session_id": "ws-interleaved-005",
+    "seq": 4,
+    "event_id": "a1#toolresult:call_ia_db1",
+    "parent_id": "a1",
+    "timestamp": "2026-06-22T09:00:06Z",
+    "project": {
+      "cwd": "/Users/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "a1a1a1a1",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "tool_result",
+      "call_id": "call_ia_db1",
+      "ok": true,
+      "output": "applied"
+    },
+    "provenance": {
+      "file": "fixtures/windsurf/v1/interleaved_arcs.jsonl",
+      "byte_offset": 355,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "windsurf",
+    "session_id": "ws-interleaved-005",
+    "seq": 5,
+    "event_id": "a1#edit:0",
+    "parent_id": "a1",
+    "timestamp": "2026-06-22T09:00:06Z",
+    "project": {
+      "cwd": "/Users/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "a1a1a1a1",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "file_edit",
+      "call_id": "call_ia_db1",
+      "diff": {
+        "path": "src/db/mod.rs",
+        "old": "use mysql_async::Pool;",
+        "new": "use postgres::Client;",
+        "unified": "@@ -1,1 +1,1 @@\n-use mysql_async::Pool;\n+use postgres::Client;",
+        "added_lines": 1,
+        "removed_lines": 1
+      }
+    },
+    "provenance": {
+      "file": "fixtures/windsurf/v1/interleaved_arcs.jsonl",
+      "byte_offset": 355,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "windsurf",
+    "session_id": "ws-interleaved-005",
+    "seq": 6,
+    "event_id": "u2",
+    "parent_id": "a1",
+    "timestamp": "2026-06-22T09:05:00Z",
+    "project": {
+      "cwd": "/Users/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "a1a1a1a1",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "user_turn",
+      "text": "Now switch to a bounded connection pool in the same db module instead of a single client.",
+      "parts": []
+    },
+    "provenance": {
+      "file": "fixtures/windsurf/v1/interleaved_arcs.jsonl",
+      "byte_offset": 973,
+      "line_no": 4
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "windsurf",
+    "session_id": "ws-interleaved-005",
+    "seq": 7,
+    "event_id": "a2",
+    "parent_id": "u2",
+    "timestamp": "2026-06-22T09:05:06Z",
+    "project": {
+      "cwd": "/Users/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "a1a1a1a1",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "assistant_turn",
+      "text": "Re-editing the db module to use a bounded pool and adding a pool config.",
+      "thinking": null,
+      "model": "cascade-base",
+      "usage": {
+        "input_tokens": 98,
+        "output_tokens": 52,
+        "cache_read_tokens": null,
+        "cache_creation_tokens": null
+      },
+      "parts": []
+    },
+    "provenance": {
+      "file": "fixtures/windsurf/v1/interleaved_arcs.jsonl",
+      "byte_offset": 1175,
+      "line_no": 5
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "windsurf",
+    "session_id": "ws-interleaved-005",
+    "seq": 8,
+    "event_id": "a2#toolcall:call_ia_db2",
+    "parent_id": "a2",
+    "timestamp": "2026-06-22T09:05:06Z",
+    "project": {
+      "cwd": "/Users/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "a1a1a1a1",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "tool_call",
+      "call_id": "call_ia_db2",
+      "name": "edit_file",
+      "args": {
+        "path": "src/db/mod.rs"
+      }
+    },
+    "provenance": {
+      "file": "fixtures/windsurf/v1/interleaved_arcs.jsonl",
+      "byte_offset": 1175,
+      "line_no": 5
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "windsurf",
+    "session_id": "ws-interleaved-005",
+    "seq": 9,
+    "event_id": "a2#toolcall:call_ia_pool1",
+    "parent_id": "a2",
+    "timestamp": "2026-06-22T09:05:06Z",
+    "project": {
+      "cwd": "/Users/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "a1a1a1a1",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "tool_call",
+      "call_id": "call_ia_pool1",
+      "name": "edit_file",
+      "args": {
+        "path": "src/db/pool.rs"
+      }
+    },
+    "provenance": {
+      "file": "fixtures/windsurf/v1/interleaved_arcs.jsonl",
+      "byte_offset": 1175,
+      "line_no": 5
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "windsurf",
+    "session_id": "ws-interleaved-005",
+    "seq": 10,
+    "event_id": "a2#toolresult:call_ia_db2",
+    "parent_id": "a2",
+    "timestamp": "2026-06-22T09:05:06Z",
+    "project": {
+      "cwd": "/Users/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "a1a1a1a1",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "tool_result",
+      "call_id": "call_ia_db2",
+      "ok": true,
+      "output": "applied"
+    },
+    "provenance": {
+      "file": "fixtures/windsurf/v1/interleaved_arcs.jsonl",
+      "byte_offset": 1175,
+      "line_no": 5
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "windsurf",
+    "session_id": "ws-interleaved-005",
+    "seq": 11,
+    "event_id": "a2#toolresult:call_ia_pool1",
+    "parent_id": "a2",
+    "timestamp": "2026-06-22T09:05:06Z",
+    "project": {
+      "cwd": "/Users/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "a1a1a1a1",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "tool_result",
+      "call_id": "call_ia_pool1",
+      "ok": true,
+      "output": "applied"
+    },
+    "provenance": {
+      "file": "fixtures/windsurf/v1/interleaved_arcs.jsonl",
+      "byte_offset": 1175,
+      "line_no": 5
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "windsurf",
+    "session_id": "ws-interleaved-005",
+    "seq": 12,
+    "event_id": "a2#edit:0",
+    "parent_id": "a2",
+    "timestamp": "2026-06-22T09:05:06Z",
+    "project": {
+      "cwd": "/Users/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "a1a1a1a1",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "file_edit",
+      "call_id": "call_ia_db2",
+      "diff": {
+        "path": "src/db/mod.rs",
+        "old": "use postgres::Client;",
+        "new": "use deadpool_postgres::Pool;",
+        "unified": "@@ -1,1 +1,1 @@\n-use postgres::Client;\n+use deadpool_postgres::Pool;",
+        "added_lines": 1,
+        "removed_lines": 1
+      }
+    },
+    "provenance": {
+      "file": "fixtures/windsurf/v1/interleaved_arcs.jsonl",
+      "byte_offset": 1175,
+      "line_no": 5
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "windsurf",
+    "session_id": "ws-interleaved-005",
+    "seq": 13,
+    "event_id": "a2#edit:1",
+    "parent_id": "a2",
+    "timestamp": "2026-06-22T09:05:06Z",
+    "project": {
+      "cwd": "/Users/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "a1a1a1a1",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "file_edit",
+      "call_id": "call_ia_pool1",
+      "diff": {
+        "path": "src/db/pool.rs",
+        "old": "",
+        "new": "pub struct PoolCfg { pub max: usize }",
+        "unified": "@@ -0,0 +1,1 @@\n+pub struct PoolCfg { pub max: usize }",
+        "added_lines": 1,
+        "removed_lines": 0
+      }
+    },
+    "provenance": {
+      "file": "fixtures/windsurf/v1/interleaved_arcs.jsonl",
+      "byte_offset": 1175,
+      "line_no": 5
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "windsurf",
+    "session_id": "ws-interleaved-005",
+    "seq": 14,
+    "event_id": "u3",
+    "parent_id": "a2",
+    "timestamp": "2026-06-22T09:05:30Z",
+    "project": {
+      "cwd": "/Users/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "a1a1a1a1",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "user_turn",
+      "text": "Great, that covers it.",
+      "parts": []
+    },
+    "provenance": {
+      "file": "fixtures/windsurf/v1/interleaved_arcs.jsonl",
+      "byte_offset": 2128,
+      "line_no": 6
+    }
+  }
+]

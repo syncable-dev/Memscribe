@@ -1,0 +1,294 @@
+---
+source: crates/memscribe-testkit/tests/golden.rs
+expression: events
+---
+[
+  {
+    "schema_version": 1,
+    "source": "otel",
+    "session_id": "sess-otel-multiedit-006",
+    "seq": 0,
+    "event_id": "83c9e0fcef2730e3f7412e64dbd5880a291876f6055b0a7abef76a28e9636e7b:session_start:0",
+    "parent_id": null,
+    "timestamp": "2026-06-22T15:00:00Z",
+    "project": {
+      "cwd": "/home/dev/acme-api",
+      "repo_root": "/home/dev/acme-api",
+      "git": {
+        "sha": "aaaa1111bbbb2222cccc",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "session_start",
+      "cwd": "/home/dev/acme-api",
+      "git": {
+        "sha": "aaaa1111bbbb2222cccc",
+        "branch": "main"
+      },
+      "model": "claude-opus-4-8",
+      "tool_version": null
+    },
+    "provenance": {
+      "file": "fixtures/otel/genai/multi_edit_single_commit.jsonl",
+      "byte_offset": 0,
+      "line_no": 1
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "otel",
+    "session_id": "sess-otel-multiedit-006",
+    "seq": 1,
+    "event_id": "35380642e21fa900f1f999c3bf58fa63f91db15d1a797180d6670e046a01ad72:user_prompt:0",
+    "parent_id": null,
+    "timestamp": "2026-06-22T15:00:05Z",
+    "project": {
+      "cwd": "/home/dev/acme-api",
+      "repo_root": "/home/dev/acme-api",
+      "git": {
+        "sha": "aaaa1111bbbb2222cccc",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "user_turn",
+      "text": "Let's migrate to anyhow for error handling across the request, handler, and router modules.",
+      "parts": [
+        {
+          "part": "text",
+          "text": "Let's migrate to anyhow for error handling across the request, handler, and router modules."
+        }
+      ]
+    },
+    "provenance": {
+      "file": "fixtures/otel/genai/multi_edit_single_commit.jsonl",
+      "byte_offset": 308,
+      "line_no": 2
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "otel",
+    "session_id": "sess-otel-multiedit-006",
+    "seq": 2,
+    "event_id": "b699f9e69a71cd82038c959cadf2aa3d3489b78a1d9c67471e5e0dce362f69ba:output_msg:0",
+    "parent_id": null,
+    "timestamp": "2026-06-22T15:00:09Z",
+    "project": {
+      "cwd": "/home/dev/acme-api",
+      "repo_root": "/home/dev/acme-api",
+      "git": {
+        "sha": "aaaa1111bbbb2222cccc",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "assistant_turn",
+      "text": "I'll convert each module to anyhow::Result, starting with request.rs.",
+      "thinking": null,
+      "model": "claude-opus-4-8",
+      "usage": {
+        "input_tokens": 420,
+        "output_tokens": 110,
+        "cache_read_tokens": null,
+        "cache_creation_tokens": null
+      },
+      "parts": [
+        {
+          "part": "text",
+          "text": "I'll convert each module to anyhow::Result, starting with request.rs."
+        }
+      ]
+    },
+    "provenance": {
+      "file": "fixtures/otel/genai/multi_edit_single_commit.jsonl",
+      "byte_offset": 569,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "otel",
+    "session_id": "sess-otel-multiedit-006",
+    "seq": 3,
+    "event_id": "9ad23f57faea0ba457cde0aee4a5d03582f1fc98c737bff32688eb55aea60123:tool_call:0",
+    "parent_id": null,
+    "timestamp": "2026-06-22T15:00:12Z",
+    "project": {
+      "cwd": "/home/dev/acme-api",
+      "repo_root": "/home/dev/acme-api",
+      "git": {
+        "sha": "aaaa1111bbbb2222cccc",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "tool_call",
+      "call_id": "call-multi-request",
+      "name": "edit_file",
+      "args": null
+    },
+    "provenance": {
+      "file": "fixtures/otel/genai/multi_edit_single_commit.jsonl",
+      "byte_offset": 947,
+      "line_no": 4
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "otel",
+    "session_id": "sess-otel-multiedit-006",
+    "seq": 4,
+    "event_id": "9ad23f57faea0ba457cde0aee4a5d03582f1fc98c737bff32688eb55aea60123:tool_result:0",
+    "parent_id": null,
+    "timestamp": "2026-06-22T15:00:12Z",
+    "project": {
+      "cwd": "/home/dev/acme-api",
+      "repo_root": "/home/dev/acme-api",
+      "git": {
+        "sha": "aaaa1111bbbb2222cccc",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "tool_result",
+      "call_id": "call-multi-request",
+      "ok": true,
+      "output": "ok"
+    },
+    "provenance": {
+      "file": "fixtures/otel/genai/multi_edit_single_commit.jsonl",
+      "byte_offset": 947,
+      "line_no": 4
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "otel",
+    "session_id": "sess-otel-multiedit-006",
+    "seq": 5,
+    "event_id": "9ad23f57faea0ba457cde0aee4a5d03582f1fc98c737bff32688eb55aea60123:file_edit:0",
+    "parent_id": null,
+    "timestamp": "2026-06-22T15:00:12Z",
+    "project": {
+      "cwd": "/home/dev/acme-api",
+      "repo_root": "/home/dev/acme-api",
+      "git": {
+        "sha": "aaaa1111bbbb2222cccc",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "file_edit",
+      "call_id": "call-multi-request",
+      "diff": {
+        "path": "src/request.rs",
+        "old": null,
+        "new": null,
+        "unified": null,
+        "added_lines": 1,
+        "removed_lines": 1
+      }
+    },
+    "provenance": {
+      "file": "fixtures/otel/genai/multi_edit_single_commit.jsonl",
+      "byte_offset": 947,
+      "line_no": 4
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "otel",
+    "session_id": "sess-otel-multiedit-006",
+    "seq": 6,
+    "event_id": "4cc7b3658465dc7939f5da61e277282eb529876e02dae3adba74729180a60288:file_edit:0",
+    "parent_id": null,
+    "timestamp": "2026-06-22T15:00:16Z",
+    "project": {
+      "cwd": "/home/dev/acme-api",
+      "repo_root": "/home/dev/acme-api",
+      "git": {
+        "sha": "aaaa1111bbbb2222cccc",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "file_edit",
+      "call_id": null,
+      "diff": {
+        "path": "src/handler.rs",
+        "old": null,
+        "new": null,
+        "unified": null,
+        "added_lines": 1,
+        "removed_lines": 1
+      }
+    },
+    "provenance": {
+      "file": "fixtures/otel/genai/multi_edit_single_commit.jsonl",
+      "byte_offset": 1272,
+      "line_no": 5
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "otel",
+    "session_id": "sess-otel-multiedit-006",
+    "seq": 7,
+    "event_id": "0e0068b53eb6d46304e338efb854dc3651f85c28b6edc765d85d4316ae08749f:file_edit:0",
+    "parent_id": null,
+    "timestamp": "2026-06-22T15:00:20Z",
+    "project": {
+      "cwd": "/home/dev/acme-api",
+      "repo_root": "/home/dev/acme-api",
+      "git": {
+        "sha": "aaaa1111bbbb2222cccc",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "file_edit",
+      "call_id": null,
+      "diff": {
+        "path": "src/router.rs",
+        "old": null,
+        "new": null,
+        "unified": null,
+        "added_lines": 1,
+        "removed_lines": 1
+      }
+    },
+    "provenance": {
+      "file": "fixtures/otel/genai/multi_edit_single_commit.jsonl",
+      "byte_offset": 1497,
+      "line_no": 6
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "otel",
+    "session_id": "sess-otel-multiedit-006",
+    "seq": 8,
+    "event_id": "ea2f1d6fa9a14f39e0986679d849a89f8b767e87b378c7622c2aaae642d8209d:session_end:0",
+    "parent_id": null,
+    "timestamp": "2026-06-22T15:00:26Z",
+    "project": {
+      "cwd": "/home/dev/acme-api",
+      "repo_root": "/home/dev/acme-api",
+      "git": {
+        "sha": "aaaa1111bbbb2222cccc",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "session_end",
+      "reason": "completed"
+    },
+    "provenance": {
+      "file": "fixtures/otel/genai/multi_edit_single_commit.jsonl",
+      "byte_offset": 1721,
+      "line_no": 7
+    }
+  }
+]

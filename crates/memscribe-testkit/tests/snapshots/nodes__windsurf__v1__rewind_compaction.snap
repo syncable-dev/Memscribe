@@ -1,0 +1,166 @@
+---
+source: crates/memscribe-testkit/tests/golden.rs
+expression: nodes
+---
+[
+  {
+    "node": "conversation",
+    "session_id": "ws-rewind-007",
+    "turn_range": {
+      "start": 2,
+      "end": 3
+    },
+    "text": "Use MongoDB for the catalog store. Wire up the document client.",
+    "markers": [
+      {
+        "rule_id": "decision_verb.use",
+        "category": "decision_verb",
+        "matched_text": "Use",
+        "offset": 0
+      }
+    ],
+    "fact_status": "observed",
+    "provenance": [
+      {
+        "file": "fixtures/windsurf/v1/rewind_compaction.jsonl",
+        "byte_offset": 319,
+        "line_no": 3
+      }
+    ]
+  },
+  {
+    "node": "decision",
+    "epitome": "Use MongoDB for the catalog store.",
+    "considered_options": [
+      {
+        "text": "MongoDB",
+        "chosen": true
+      }
+    ],
+    "is_ban": false,
+    "superseded_by": null,
+    "confirmation": null,
+    "source_span": {
+      "start": 2,
+      "end": 3
+    },
+    "fact_status": "observed"
+  },
+  {
+    "node": "episode",
+    "path": "src/store.rs",
+    "diff": {
+      "path": "src/store.rs",
+      "old": "pub struct Store;",
+      "new": "use mongodb::Client;\npub struct Store(Client);",
+      "unified": "@@ -1,1 +1,2 @@\n-pub struct Store;\n+use mongodb::Client;\n+pub struct Store(Client);",
+      "added_lines": 2,
+      "removed_lines": 1
+    },
+    "git": {
+      "sha": "c3c3c3c3",
+      "branch": "main"
+    },
+    "episode_id": "4805c275bcba2f7bb3b4f40c4bfd6f8e6650eff4180eb3586f50899256f8cd34"
+  },
+  {
+    "node": "conversation",
+    "session_id": "ws-rewind-007",
+    "turn_range": {
+      "start": 8,
+      "end": 9
+    },
+    "text": "On reflection, use Postgres with JSONB for the catalog store instead of MongoDB.",
+    "markers": [
+      {
+        "rule_id": "decision_verb.use",
+        "category": "decision_verb",
+        "matched_text": "use",
+        "offset": 15
+      },
+      {
+        "rule_id": "rejection.instead_of",
+        "category": "rejection",
+        "matched_text": "instead of",
+        "offset": 61
+      }
+    ],
+    "fact_status": "observed",
+    "provenance": [
+      {
+        "file": "fixtures/windsurf/v1/rewind_compaction.jsonl",
+        "byte_offset": 1327,
+        "line_no": 6
+      }
+    ]
+  },
+  {
+    "node": "decision",
+    "epitome": "On reflection, use Postgres with JSONB for the catalog store instead of MongoDB.",
+    "considered_options": [
+      {
+        "text": "MongoDB",
+        "chosen": false
+      },
+      {
+        "text": "Postgres",
+        "chosen": true
+      }
+    ],
+    "is_ban": false,
+    "superseded_by": null,
+    "confirmation": null,
+    "source_span": {
+      "start": 8,
+      "end": 9
+    },
+    "fact_status": "observed"
+  },
+  {
+    "node": "episode",
+    "path": "src/store.rs",
+    "diff": {
+      "path": "src/store.rs",
+      "old": "use mongodb::Client;\npub struct Store(Client);",
+      "new": "use postgres::Client;\npub struct Store(Client);",
+      "unified": "@@ -1,2 +1,2 @@\n-use mongodb::Client;\n+use postgres::Client;\n pub struct Store(Client);",
+      "added_lines": 1,
+      "removed_lines": 1
+    },
+    "git": {
+      "sha": "c3c3c3c3",
+      "branch": "main"
+    },
+    "episode_id": "66af100c852c5ebbeaf04177773782f3dfbfd784e6dc73e7646916567514fd66"
+  },
+  {
+    "node": "binding",
+    "from": "decision:ws-rewind-007:2",
+    "to": "episode:4805c275bcba2f7bb3b4f40c4bfd6f8e6650eff4180eb3586f50899256f8cd34",
+    "relation": "produced",
+    "prov": {
+      "used_session": "ws-rewind-007",
+      "used_decision": "decision:ws-rewind-007:2",
+      "was_generated_by_session": "ws-rewind-007",
+      "t_use": "2026-06-22T15:01:00Z",
+      "t_gen": "2026-06-22T15:01:06Z"
+    },
+    "fact_status": "deterministically_derived",
+    "correlation": null
+  },
+  {
+    "node": "binding",
+    "from": "decision:ws-rewind-007:8",
+    "to": "episode:66af100c852c5ebbeaf04177773782f3dfbfd784e6dc73e7646916567514fd66",
+    "relation": "produced",
+    "prov": {
+      "used_session": "ws-rewind-007",
+      "used_decision": "decision:ws-rewind-007:8",
+      "was_generated_by_session": "ws-rewind-007",
+      "t_use": "2026-06-22T15:10:00Z",
+      "t_gen": "2026-06-22T15:10:06Z"
+    },
+    "fact_status": "deterministically_derived",
+    "correlation": null
+  }
+]

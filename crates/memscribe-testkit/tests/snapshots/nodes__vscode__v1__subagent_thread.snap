@@ -1,0 +1,156 @@
+---
+source: crates/memscribe-testkit/tests/golden.rs
+expression: nodes
+---
+[
+  {
+    "node": "conversation",
+    "session_id": "vsc-sess-sub",
+    "turn_range": {
+      "start": 1,
+      "end": 2
+    },
+    "text": "Let's use a dedicated background worker for the email queue. Extract the send loop into a worker module.",
+    "markers": [
+      {
+        "rule_id": "decision_verb.use",
+        "category": "decision_verb",
+        "matched_text": "use",
+        "offset": 6
+      }
+    ],
+    "fact_status": "observed",
+    "provenance": [
+      {
+        "file": "fixtures/vscode/v1/subagent_thread.jsonl",
+        "byte_offset": 181,
+        "line_no": 2
+      }
+    ]
+  },
+  {
+    "node": "decision",
+    "epitome": "Let's use a dedicated background worker for the email queue.",
+    "considered_options": [
+      {
+        "text": "a",
+        "chosen": true
+      }
+    ],
+    "is_ban": false,
+    "superseded_by": null,
+    "confirmation": null,
+    "source_span": {
+      "start": 1,
+      "end": 2
+    },
+    "fact_status": "observed"
+  },
+  {
+    "node": "episode",
+    "path": "src/worker/email.ts",
+    "diff": {
+      "path": "src/worker/email.ts",
+      "old": null,
+      "new": "export async function runEmailWorker() { for (;;) await drainQueue(); }",
+      "unified": null,
+      "added_lines": 1,
+      "removed_lines": 0
+    },
+    "git": {
+      "sha": "0fed1cba98765432",
+      "branch": "feat/worker-split"
+    },
+    "episode_id": "2e8a5e0a771552f8bad2036bf6c6341514fda7c3c42fb31b41d07a4544ebf57b"
+  },
+  {
+    "node": "conversation",
+    "session_id": "vsc-sess-sub",
+    "turn_range": {
+      "start": 5,
+      "end": 6
+    },
+    "text": "Within this worker thread, let's use exponential backoff for failed sends. Add a retry helper.",
+    "markers": [
+      {
+        "rule_id": "decision_verb.use",
+        "category": "decision_verb",
+        "matched_text": "use",
+        "offset": 33
+      }
+    ],
+    "fact_status": "observed",
+    "provenance": [
+      {
+        "file": "fixtures/vscode/v1/subagent_thread.jsonl",
+        "byte_offset": 892,
+        "line_no": 4
+      }
+    ]
+  },
+  {
+    "node": "decision",
+    "epitome": "Within this worker thread, let's use exponential backoff for failed sends.",
+    "considered_options": [
+      {
+        "text": "exponential",
+        "chosen": true
+      }
+    ],
+    "is_ban": false,
+    "superseded_by": null,
+    "confirmation": null,
+    "source_span": {
+      "start": 5,
+      "end": 6
+    },
+    "fact_status": "observed"
+  },
+  {
+    "node": "episode",
+    "path": "src/worker/retry.ts",
+    "diff": {
+      "path": "src/worker/retry.ts",
+      "old": null,
+      "new": "export const backoff = (n) => Math.min(2 ** n, 60) * 1000;",
+      "unified": null,
+      "added_lines": 1,
+      "removed_lines": 0
+    },
+    "git": {
+      "sha": "0fed1cba98765432",
+      "branch": "feat/worker-split"
+    },
+    "episode_id": "8eece3d8697fde8019ab70f318a32d84e8652cdbfec3e9c45322e16dedfc50c8"
+  },
+  {
+    "node": "binding",
+    "from": "decision:vsc-sess-sub:1",
+    "to": "episode:2e8a5e0a771552f8bad2036bf6c6341514fda7c3c42fb31b41d07a4544ebf57b",
+    "relation": "produced",
+    "prov": {
+      "used_session": "vsc-sess-sub",
+      "used_decision": "decision:vsc-sess-sub:1",
+      "was_generated_by_session": "vsc-sess-sub",
+      "t_use": "2026-06-22T17:00:00Z",
+      "t_gen": "2026-06-22T17:00:07Z"
+    },
+    "fact_status": "deterministically_derived",
+    "correlation": null
+  },
+  {
+    "node": "binding",
+    "from": "decision:vsc-sess-sub:5",
+    "to": "episode:8eece3d8697fde8019ab70f318a32d84e8652cdbfec3e9c45322e16dedfc50c8",
+    "relation": "produced",
+    "prov": {
+      "used_session": "vsc-sess-sub",
+      "used_decision": "decision:vsc-sess-sub:5",
+      "was_generated_by_session": "vsc-sess-sub",
+      "t_use": "2026-06-22T17:00:20Z",
+      "t_gen": "2026-06-22T17:00:27Z"
+    },
+    "fact_status": "deterministically_derived",
+    "correlation": null
+  }
+]

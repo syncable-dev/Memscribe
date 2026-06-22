@@ -1,0 +1,23 @@
+---
+source: crates/memscribe-testkit/tests/golden.rs
+expression: nodes
+---
+[
+  {
+    "node": "episode",
+    "path": "src/handlers.rs",
+    "diff": {
+      "path": "src/handlers.rs",
+      "old": "use std::collections::HashMap;\nuse std::collections::BTreeMap;",
+      "new": "use std::collections::BTreeMap;",
+      "unified": "@@ -1,2 +1 @@\n-use std::collections::HashMap;\n use std::collections::BTreeMap;\n",
+      "added_lines": 0,
+      "removed_lines": 1
+    },
+    "git": {
+      "sha": "293a4b5c6d7e",
+      "branch": "chore/tidy"
+    },
+    "episode_id": "b12893dc88ce908353f2356153ebd11ac7343033119d31eecfa75a221ac69f8b"
+  }
+]

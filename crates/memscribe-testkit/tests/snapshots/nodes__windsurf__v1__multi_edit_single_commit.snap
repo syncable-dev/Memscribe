@@ -1,0 +1,163 @@
+---
+source: crates/memscribe-testkit/tests/golden.rs
+expression: nodes
+---
+[
+  {
+    "node": "conversation",
+    "session_id": "ws-multiedit-006",
+    "turn_range": {
+      "start": 1,
+      "end": 2
+    },
+    "text": "We will use Argon2 for password hashing across the auth service. Update the hasher, the verifier, and the config in one pass.",
+    "markers": [
+      {
+        "rule_id": "decision_verb.use",
+        "category": "decision_verb",
+        "matched_text": "use",
+        "offset": 8
+      }
+    ],
+    "fact_status": "observed",
+    "provenance": [
+      {
+        "file": "fixtures/windsurf/v1/multi_edit_single_commit.jsonl",
+        "byte_offset": 198,
+        "line_no": 2
+      }
+    ]
+  },
+  {
+    "node": "decision",
+    "epitome": "We will use Argon2 for password hashing across the auth service.",
+    "considered_options": [
+      {
+        "text": "Argon2",
+        "chosen": true
+      }
+    ],
+    "is_ban": false,
+    "superseded_by": null,
+    "confirmation": null,
+    "source_span": {
+      "start": 1,
+      "end": 2
+    },
+    "fact_status": "observed"
+  },
+  {
+    "node": "episode",
+    "path": "src/auth/hasher.rs",
+    "diff": {
+      "path": "src/auth/hasher.rs",
+      "old": "use bcrypt::hash;",
+      "new": "use argon2::Argon2;",
+      "unified": "@@ -1,1 +1,1 @@\n-use bcrypt::hash;\n+use argon2::Argon2;",
+      "added_lines": 1,
+      "removed_lines": 1
+    },
+    "git": {
+      "sha": "b2b2b2b2",
+      "branch": "feat/argon2"
+    },
+    "episode_id": "28b79b8dfc9bb8a9d1064938a002927706371f1cf9ee474129cca68097f3328b"
+  },
+  {
+    "node": "episode",
+    "path": "src/auth/verifier.rs",
+    "diff": {
+      "path": "src/auth/verifier.rs",
+      "old": "use bcrypt::verify;",
+      "new": "use argon2::PasswordVerifier;",
+      "unified": "@@ -1,1 +1,1 @@\n-use bcrypt::verify;\n+use argon2::PasswordVerifier;",
+      "added_lines": 1,
+      "removed_lines": 1
+    },
+    "git": {
+      "sha": "b2b2b2b2",
+      "branch": "feat/argon2"
+    },
+    "episode_id": "b2bffbaa8b0253f45730c536c7d58577f766d66f38d887a0073ddb424df26d76"
+  },
+  {
+    "node": "episode",
+    "path": "config/auth.toml",
+    "diff": {
+      "path": "config/auth.toml",
+      "old": "hash = \"bcrypt\"",
+      "new": "hash = \"argon2\"",
+      "unified": "@@ -1,1 +1,1 @@\n-hash = \"bcrypt\"\n+hash = \"argon2\"",
+      "added_lines": 1,
+      "removed_lines": 1
+    },
+    "git": {
+      "sha": "b2b2b2b2",
+      "branch": "feat/argon2"
+    },
+    "episode_id": "ee20cc7d21701fee22940ba1c0eaa80bf052d886ffec5cc3bac781577c6c0a10"
+  },
+  {
+    "node": "binding",
+    "from": "decision:ws-multiedit-006:1",
+    "to": "episode:28b79b8dfc9bb8a9d1064938a002927706371f1cf9ee474129cca68097f3328b",
+    "relation": "produced",
+    "prov": {
+      "used_session": "ws-multiedit-006",
+      "used_decision": "decision:ws-multiedit-006:1",
+      "was_generated_by_session": "ws-multiedit-006",
+      "t_use": "2026-06-22T14:00:00Z",
+      "t_gen": "2026-06-22T14:00:08Z"
+    },
+    "fact_status": "deterministically_derived",
+    "correlation": {
+      "support": 0.333333,
+      "confidence": 0.333333,
+      "lift": 1.0,
+      "phi": 0.0,
+      "p": 1.0
+    }
+  },
+  {
+    "node": "binding",
+    "from": "decision:ws-multiedit-006:1",
+    "to": "episode:b2bffbaa8b0253f45730c536c7d58577f766d66f38d887a0073ddb424df26d76",
+    "relation": "produced",
+    "prov": {
+      "used_session": "ws-multiedit-006",
+      "used_decision": "decision:ws-multiedit-006:1",
+      "was_generated_by_session": "ws-multiedit-006",
+      "t_use": "2026-06-22T14:00:00Z",
+      "t_gen": "2026-06-22T14:00:08Z"
+    },
+    "fact_status": "deterministically_derived",
+    "correlation": {
+      "support": 0.333333,
+      "confidence": 0.333333,
+      "lift": 1.0,
+      "phi": 0.0,
+      "p": 1.0
+    }
+  },
+  {
+    "node": "binding",
+    "from": "decision:ws-multiedit-006:1",
+    "to": "episode:ee20cc7d21701fee22940ba1c0eaa80bf052d886ffec5cc3bac781577c6c0a10",
+    "relation": "produced",
+    "prov": {
+      "used_session": "ws-multiedit-006",
+      "used_decision": "decision:ws-multiedit-006:1",
+      "was_generated_by_session": "ws-multiedit-006",
+      "t_use": "2026-06-22T14:00:00Z",
+      "t_gen": "2026-06-22T14:00:08Z"
+    },
+    "fact_status": "deterministically_derived",
+    "correlation": {
+      "support": 0.333333,
+      "confidence": 0.333333,
+      "lift": 1.0,
+      "phi": 0.0,
+      "p": 1.0
+    }
+  }
+]

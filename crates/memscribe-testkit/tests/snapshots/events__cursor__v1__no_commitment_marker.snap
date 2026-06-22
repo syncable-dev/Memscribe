@@ -1,0 +1,268 @@
+---
+source: crates/memscribe-testkit/tests/golden.rs
+expression: events
+---
+[
+  {
+    "schema_version": 1,
+    "source": "cursor",
+    "session_id": "cur-sess-009",
+    "seq": 0,
+    "event_id": "957dc16bf1f65a2976710bd596caf8975c2ece7fe74534ec3a7808aa5eddfae6",
+    "parent_id": null,
+    "timestamp": "1970-01-01T00:00:00Z",
+    "project": {
+      "cwd": "/Users/dev/projects/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "293a4b5c6d7e",
+        "branch": "chore/tidy"
+      }
+    },
+    "kind": {
+      "event": "session_start",
+      "cwd": "/Users/dev/projects/acme-api",
+      "git": {
+        "sha": "293a4b5c6d7e",
+        "branch": "chore/tidy"
+      },
+      "model": "cursor-fast",
+      "tool_version": "0.43.2"
+    },
+    "provenance": {
+      "file": "fixtures/cursor/v1/no_commitment_marker.jsonl",
+      "byte_offset": 0,
+      "line_no": 1
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "cursor",
+    "session_id": "cur-sess-009",
+    "seq": 1,
+    "event_id": "msg-801",
+    "parent_id": null,
+    "timestamp": "2026-06-22T22:00:05Z",
+    "project": {
+      "cwd": "/Users/dev/projects/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "293a4b5c6d7e",
+        "branch": "chore/tidy"
+      }
+    },
+    "kind": {
+      "event": "user_turn",
+      "text": "Thanks, this looks great. Go ahead and tidy up that stray import while you're in there.",
+      "parts": [
+        {
+          "part": "text",
+          "text": "Thanks, this looks great. Go ahead and tidy up that stray import while you're in there."
+        }
+      ]
+    },
+    "provenance": {
+      "file": "fixtures/cursor/v1/no_commitment_marker.jsonl",
+      "byte_offset": 185,
+      "line_no": 2
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "cursor",
+    "session_id": "cur-sess-009",
+    "seq": 2,
+    "event_id": "msg-802",
+    "parent_id": "msg-801",
+    "timestamp": "2026-06-22T22:00:10Z",
+    "project": {
+      "cwd": "/Users/dev/projects/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "293a4b5c6d7e",
+        "branch": "chore/tidy"
+      }
+    },
+    "kind": {
+      "event": "assistant_turn",
+      "text": "Sure, removing the unused import.",
+      "thinking": null,
+      "model": "cursor-fast",
+      "usage": {
+        "input_tokens": 120,
+        "output_tokens": 40,
+        "cache_read_tokens": null,
+        "cache_creation_tokens": null
+      },
+      "parts": [
+        {
+          "part": "text",
+          "text": "Sure, removing the unused import."
+        }
+      ]
+    },
+    "provenance": {
+      "file": "fixtures/cursor/v1/no_commitment_marker.jsonl",
+      "byte_offset": 384,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "cursor",
+    "session_id": "cur-sess-009",
+    "seq": 3,
+    "event_id": "msg-802#toolcall:call-nomark-handlers",
+    "parent_id": "msg-802",
+    "timestamp": "2026-06-22T22:00:10Z",
+    "project": {
+      "cwd": "/Users/dev/projects/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "293a4b5c6d7e",
+        "branch": "chore/tidy"
+      }
+    },
+    "kind": {
+      "event": "tool_call",
+      "call_id": "call-nomark-handlers",
+      "name": "edit_file",
+      "args": {
+        "path": "src/handlers.rs"
+      }
+    },
+    "provenance": {
+      "file": "fixtures/cursor/v1/no_commitment_marker.jsonl",
+      "byte_offset": 384,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "cursor",
+    "session_id": "cur-sess-009",
+    "seq": 4,
+    "event_id": "msg-802#toolresult:call-nomark-handlers",
+    "parent_id": "msg-802",
+    "timestamp": "2026-06-22T22:00:10Z",
+    "project": {
+      "cwd": "/Users/dev/projects/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "293a4b5c6d7e",
+        "branch": "chore/tidy"
+      }
+    },
+    "kind": {
+      "event": "tool_result",
+      "call_id": "call-nomark-handlers",
+      "ok": true,
+      "output": "applied 1 edit"
+    },
+    "provenance": {
+      "file": "fixtures/cursor/v1/no_commitment_marker.jsonl",
+      "byte_offset": 384,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "cursor",
+    "session_id": "cur-sess-009",
+    "seq": 5,
+    "event_id": "msg-802#edit:0",
+    "parent_id": "msg-802",
+    "timestamp": "2026-06-22T22:00:10Z",
+    "project": {
+      "cwd": "/Users/dev/projects/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "293a4b5c6d7e",
+        "branch": "chore/tidy"
+      }
+    },
+    "kind": {
+      "event": "file_edit",
+      "call_id": "call-nomark-handlers",
+      "diff": {
+        "path": "src/handlers.rs",
+        "old": "use std::collections::HashMap;\nuse std::collections::BTreeMap;",
+        "new": "use std::collections::BTreeMap;",
+        "unified": "@@ -1,2 +1 @@\n-use std::collections::HashMap;\n use std::collections::BTreeMap;\n",
+        "added_lines": 0,
+        "removed_lines": 1
+      }
+    },
+    "provenance": {
+      "file": "fixtures/cursor/v1/no_commitment_marker.jsonl",
+      "byte_offset": 384,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "cursor",
+    "session_id": "cur-sess-009",
+    "seq": 6,
+    "event_id": "msg-803",
+    "parent_id": "msg-802",
+    "timestamp": "2026-06-22T22:00:21Z",
+    "project": {
+      "cwd": "/Users/dev/projects/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "293a4b5c6d7e",
+        "branch": "chore/tidy"
+      }
+    },
+    "kind": {
+      "event": "assistant_turn",
+      "text": "Removed the stray HashMap import.",
+      "thinking": null,
+      "model": "cursor-fast",
+      "usage": {
+        "input_tokens": 140,
+        "output_tokens": 28,
+        "cache_read_tokens": null,
+        "cache_creation_tokens": null
+      },
+      "parts": [
+        {
+          "part": "text",
+          "text": "Removed the stray HashMap import."
+        }
+      ]
+    },
+    "provenance": {
+      "file": "fixtures/cursor/v1/no_commitment_marker.jsonl",
+      "byte_offset": 1077,
+      "line_no": 4
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "cursor",
+    "session_id": "cur-sess-009",
+    "seq": 7,
+    "event_id": "1e37bb2079b986cd3521766b5755012fa9fae1500a1fd2e078886606920b5f0a",
+    "parent_id": null,
+    "timestamp": "2026-06-22T22:00:45Z",
+    "project": {
+      "cwd": "/Users/dev/projects/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "293a4b5c6d7e",
+        "branch": "chore/tidy"
+      }
+    },
+    "kind": {
+      "event": "session_end",
+      "reason": "user_closed"
+    },
+    "provenance": {
+      "file": "fixtures/cursor/v1/no_commitment_marker.jsonl",
+      "byte_offset": 1288,
+      "line_no": 5
+    }
+  }
+]

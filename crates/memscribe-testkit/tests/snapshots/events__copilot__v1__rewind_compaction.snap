@@ -1,0 +1,459 @@
+---
+source: crates/memscribe-testkit/tests/golden.rs
+expression: events
+---
+[
+  {
+    "schema_version": 1,
+    "source": "copilot",
+    "session_id": "copilot-thread-103",
+    "seq": 0,
+    "event_id": "d9906b6a7d5e739fd8c5764e8a7e11af8e20f4f3834d9536c80815c502c4b4a1",
+    "parent_id": null,
+    "timestamp": "2026-06-22T15:00:00Z",
+    "project": {
+      "cwd": "/Users/dev/projects/catalog",
+      "repo_root": null,
+      "git": {
+        "sha": "c3c3c3c3c3c3",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "session_start",
+      "cwd": "/Users/dev/projects/catalog",
+      "git": {
+        "sha": "c3c3c3c3c3c3",
+        "branch": "main"
+      },
+      "model": "gpt-4o",
+      "tool_version": "copilot-cli 1.4.0"
+    },
+    "provenance": {
+      "file": "fixtures/copilot/v1/rewind_compaction.jsonl",
+      "byte_offset": 0,
+      "line_no": 1
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "copilot",
+    "session_id": "copilot-thread-103",
+    "seq": 1,
+    "event_id": "msg-0",
+    "parent_id": null,
+    "timestamp": "2026-06-22T15:00:00Z",
+    "project": {
+      "cwd": "/Users/dev/projects/catalog",
+      "repo_root": null,
+      "git": {
+        "sha": "c3c3c3c3c3c3",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "user_turn",
+      "text": "Let's plan the storage layer for the catalog.",
+      "parts": []
+    },
+    "provenance": {
+      "file": "fixtures/copilot/v1/rewind_compaction.jsonl",
+      "byte_offset": 218,
+      "line_no": 2
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "copilot",
+    "session_id": "copilot-thread-103",
+    "seq": 2,
+    "event_id": "msg-1",
+    "parent_id": "msg-0",
+    "timestamp": "2026-06-22T15:01:00Z",
+    "project": {
+      "cwd": "/Users/dev/projects/catalog",
+      "repo_root": null,
+      "git": {
+        "sha": "c3c3c3c3c3c3",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "user_turn",
+      "text": "Use MongoDB for the catalog store. Wire up the document client.",
+      "parts": []
+    },
+    "provenance": {
+      "file": "fixtures/copilot/v1/rewind_compaction.jsonl",
+      "byte_offset": 379,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "copilot",
+    "session_id": "copilot-thread-103",
+    "seq": 3,
+    "event_id": "msg-2",
+    "parent_id": "msg-1",
+    "timestamp": "2026-06-22T15:01:03Z",
+    "project": {
+      "cwd": "/Users/dev/projects/catalog",
+      "repo_root": null,
+      "git": {
+        "sha": "c3c3c3c3c3c3",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "assistant_turn",
+      "text": "Setting up the MongoDB document client.",
+      "thinking": null,
+      "model": "gpt-4o",
+      "usage": {
+        "input_tokens": 110,
+        "output_tokens": 54,
+        "cache_read_tokens": null,
+        "cache_creation_tokens": null
+      },
+      "parts": []
+    },
+    "provenance": {
+      "file": "fixtures/copilot/v1/rewind_compaction.jsonl",
+      "byte_offset": 561,
+      "line_no": 4
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "copilot",
+    "session_id": "copilot-thread-103",
+    "seq": 4,
+    "event_id": "msg-2:call:call-mongo",
+    "parent_id": "msg-2",
+    "timestamp": "2026-06-22T15:01:03Z",
+    "project": {
+      "cwd": "/Users/dev/projects/catalog",
+      "repo_root": null,
+      "git": {
+        "sha": "c3c3c3c3c3c3",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "tool_call",
+      "call_id": "call-mongo",
+      "name": "create_file",
+      "args": {
+        "path": "src/store.rs"
+      }
+    },
+    "provenance": {
+      "file": "fixtures/copilot/v1/rewind_compaction.jsonl",
+      "byte_offset": 561,
+      "line_no": 4
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "copilot",
+    "session_id": "copilot-thread-103",
+    "seq": 5,
+    "event_id": "msg-2:result:call-mongo",
+    "parent_id": "msg-2",
+    "timestamp": "2026-06-22T15:01:03Z",
+    "project": {
+      "cwd": "/Users/dev/projects/catalog",
+      "repo_root": null,
+      "git": {
+        "sha": "c3c3c3c3c3c3",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "tool_result",
+      "call_id": "call-mongo",
+      "ok": true,
+      "output": "file created"
+    },
+    "provenance": {
+      "file": "fixtures/copilot/v1/rewind_compaction.jsonl",
+      "byte_offset": 561,
+      "line_no": 4
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "copilot",
+    "session_id": "copilot-thread-103",
+    "seq": 6,
+    "event_id": "msg-2:edit:0:src/store.rs",
+    "parent_id": "msg-2",
+    "timestamp": "2026-06-22T15:01:03Z",
+    "project": {
+      "cwd": "/Users/dev/projects/catalog",
+      "repo_root": null,
+      "git": {
+        "sha": "c3c3c3c3c3c3",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "file_edit",
+      "call_id": "call-mongo",
+      "diff": {
+        "path": "src/store.rs",
+        "old": "pub struct Store;",
+        "new": "use mongodb::Client;\npub struct Store(Client);",
+        "unified": "@@ -1 +1,2 @@\n-pub struct Store;\n+use mongodb::Client;\n+pub struct Store(Client);",
+        "added_lines": 2,
+        "removed_lines": 1
+      }
+    },
+    "provenance": {
+      "file": "fixtures/copilot/v1/rewind_compaction.jsonl",
+      "byte_offset": 561,
+      "line_no": 4
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "copilot",
+    "session_id": "copilot-thread-103",
+    "seq": 7,
+    "event_id": "047531ff66b85477322fd0f0d0579d82872c9479b77516c2e67d715daf9dc612",
+    "parent_id": null,
+    "timestamp": "2026-06-22T15:09:00Z",
+    "project": {
+      "cwd": "/Users/dev/projects/catalog",
+      "repo_root": null,
+      "git": {
+        "sha": "c3c3c3c3c3c3",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "unknown",
+      "raw_type": "unknown",
+      "raw": {
+        "kind": "rewind",
+        "sessionId": "copilot-thread-103",
+        "ts": "2026-06-22T15:09:00Z",
+        "to": "msg-0",
+        "note": "copilot export has no native rewind/compaction record; this synthetic control line is preserved losslessly as EventKind::Unknown and carries NO supersede semantics through the copilot adapter (unlike gemini $rewindTo / codex compaction)"
+      }
+    },
+    "provenance": {
+      "file": "fixtures/copilot/v1/rewind_compaction.jsonl",
+      "byte_offset": 1193,
+      "line_no": 5
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "copilot",
+    "session_id": "copilot-thread-103",
+    "seq": 8,
+    "event_id": "msg-3",
+    "parent_id": "msg-0",
+    "timestamp": "2026-06-22T15:10:00Z",
+    "project": {
+      "cwd": "/Users/dev/projects/catalog",
+      "repo_root": null,
+      "git": {
+        "sha": "c3c3c3c3c3c3",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "user_turn",
+      "text": "On reflection, use Postgres with JSONB for the catalog store instead of MongoDB.",
+      "parts": []
+    },
+    "provenance": {
+      "file": "fixtures/copilot/v1/rewind_compaction.jsonl",
+      "byte_offset": 1531,
+      "line_no": 6
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "copilot",
+    "session_id": "copilot-thread-103",
+    "seq": 9,
+    "event_id": "msg-4",
+    "parent_id": "msg-3",
+    "timestamp": "2026-06-22T15:10:03Z",
+    "project": {
+      "cwd": "/Users/dev/projects/catalog",
+      "repo_root": null,
+      "git": {
+        "sha": "c3c3c3c3c3c3",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "assistant_turn",
+      "text": "Replacing the store with a Postgres JSONB client.",
+      "thinking": null,
+      "model": "gpt-4o",
+      "usage": {
+        "input_tokens": 105,
+        "output_tokens": 58,
+        "cache_read_tokens": null,
+        "cache_creation_tokens": null
+      },
+      "parts": []
+    },
+    "provenance": {
+      "file": "fixtures/copilot/v1/rewind_compaction.jsonl",
+      "byte_offset": 1730,
+      "line_no": 7
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "copilot",
+    "session_id": "copilot-thread-103",
+    "seq": 10,
+    "event_id": "msg-4:call:call-pg",
+    "parent_id": "msg-4",
+    "timestamp": "2026-06-22T15:10:03Z",
+    "project": {
+      "cwd": "/Users/dev/projects/catalog",
+      "repo_root": null,
+      "git": {
+        "sha": "c3c3c3c3c3c3",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "tool_call",
+      "call_id": "call-pg",
+      "name": "apply_patch",
+      "args": {
+        "path": "src/store.rs"
+      }
+    },
+    "provenance": {
+      "file": "fixtures/copilot/v1/rewind_compaction.jsonl",
+      "byte_offset": 1730,
+      "line_no": 7
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "copilot",
+    "session_id": "copilot-thread-103",
+    "seq": 11,
+    "event_id": "msg-4:result:call-pg",
+    "parent_id": "msg-4",
+    "timestamp": "2026-06-22T15:10:03Z",
+    "project": {
+      "cwd": "/Users/dev/projects/catalog",
+      "repo_root": null,
+      "git": {
+        "sha": "c3c3c3c3c3c3",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "tool_result",
+      "call_id": "call-pg",
+      "ok": true,
+      "output": "patch applied (1 file changed)"
+    },
+    "provenance": {
+      "file": "fixtures/copilot/v1/rewind_compaction.jsonl",
+      "byte_offset": 1730,
+      "line_no": 7
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "copilot",
+    "session_id": "copilot-thread-103",
+    "seq": 12,
+    "event_id": "msg-4:edit:0:src/store.rs",
+    "parent_id": "msg-4",
+    "timestamp": "2026-06-22T15:10:03Z",
+    "project": {
+      "cwd": "/Users/dev/projects/catalog",
+      "repo_root": null,
+      "git": {
+        "sha": "c3c3c3c3c3c3",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "file_edit",
+      "call_id": "call-pg",
+      "diff": {
+        "path": "src/store.rs",
+        "old": "use mongodb::Client;\npub struct Store(Client);",
+        "new": "use postgres::Client;\npub struct Store(Client);",
+        "unified": "@@ -1,2 +1,2 @@\n-use mongodb::Client;\n+use postgres::Client;\n pub struct Store(Client);",
+        "added_lines": 1,
+        "removed_lines": 1
+      }
+    },
+    "provenance": {
+      "file": "fixtures/copilot/v1/rewind_compaction.jsonl",
+      "byte_offset": 1730,
+      "line_no": 7
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "copilot",
+    "session_id": "copilot-thread-103",
+    "seq": 13,
+    "event_id": "msg-5",
+    "parent_id": "msg-4",
+    "timestamp": "2026-06-22T15:10:30Z",
+    "project": {
+      "cwd": "/Users/dev/projects/catalog",
+      "repo_root": null,
+      "git": {
+        "sha": "c3c3c3c3c3c3",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "user_turn",
+      "text": "Looks right now, thanks.",
+      "parts": []
+    },
+    "provenance": {
+      "file": "fixtures/copilot/v1/rewind_compaction.jsonl",
+      "byte_offset": 2418,
+      "line_no": 8
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "copilot",
+    "session_id": "copilot-thread-103",
+    "seq": 14,
+    "event_id": "69bc3594c0f265f32fa29592f6e9b60535d921c3b26712897182db54160a872f",
+    "parent_id": null,
+    "timestamp": "2026-06-22T15:11:00Z",
+    "project": {
+      "cwd": "/Users/dev/projects/catalog",
+      "repo_root": null,
+      "git": {
+        "sha": "c3c3c3c3c3c3",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "session_end",
+      "reason": "user_closed"
+    },
+    "provenance": {
+      "file": "fixtures/copilot/v1/rewind_compaction.jsonl",
+      "byte_offset": 2561,
+      "line_no": 9
+    }
+  }
+]

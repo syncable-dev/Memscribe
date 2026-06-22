@@ -1,0 +1,250 @@
+---
+source: crates/memscribe-testkit/tests/golden.rs
+expression: nodes
+---
+[
+  {
+    "node": "conversation",
+    "session_id": "zed-thread-005",
+    "turn_range": {
+      "start": 1,
+      "end": 2
+    },
+    "text": "Let's use Postgres for the orders store. Update the connection module and the schema.",
+    "markers": [
+      {
+        "rule_id": "decision_verb.use",
+        "category": "decision_verb",
+        "matched_text": "use",
+        "offset": 6
+      }
+    ],
+    "fact_status": "observed",
+    "provenance": [
+      {
+        "file": "fixtures/zed/v1/interleaved_arcs.jsonl",
+        "byte_offset": 194,
+        "line_no": 2
+      }
+    ]
+  },
+  {
+    "node": "decision",
+    "epitome": "Let's use Postgres for the orders store.",
+    "considered_options": [
+      {
+        "text": "Postgres",
+        "chosen": true
+      }
+    ],
+    "is_ban": false,
+    "superseded_by": null,
+    "confirmation": null,
+    "source_span": {
+      "start": 1,
+      "end": 2
+    },
+    "fact_status": "observed"
+  },
+  {
+    "node": "episode",
+    "path": "src/db.rs",
+    "diff": {
+      "path": "src/db.rs",
+      "old": "use mysql::Pool;\n",
+      "new": "use postgres::Client;\n",
+      "unified": "@@ -1 +1 @@\n-use mysql::Pool;\n+use postgres::Client;\n",
+      "added_lines": 1,
+      "removed_lines": 1
+    },
+    "git": {
+      "sha": "a1a1a1a1a1a1",
+      "branch": "main"
+    },
+    "episode_id": "b0c2f1475307d82b69bcc05019a85f3dcabc480d4a509be7b5c9588d7255d880"
+  },
+  {
+    "node": "episode",
+    "path": "src/schema.rs",
+    "diff": {
+      "path": "src/schema.rs",
+      "old": "-- mysql schema\n",
+      "new": "-- postgres schema\n",
+      "unified": "@@ -1 +1 @@\n--- mysql schema\n+-- postgres schema\n",
+      "added_lines": 1,
+      "removed_lines": 1
+    },
+    "git": {
+      "sha": "a1a1a1a1a1a1",
+      "branch": "main"
+    },
+    "episode_id": "b2d0205f0044469e6304c509129325961c4436d0271479091f1dfaf4840c6222"
+  },
+  {
+    "node": "conversation",
+    "session_id": "zed-thread-005",
+    "turn_range": {
+      "start": 5,
+      "end": 6
+    },
+    "text": "Now switch to a bounded connection pool in the same db module instead of a single client.",
+    "markers": [
+      {
+        "rule_id": "decision_verb.use",
+        "category": "decision_verb",
+        "matched_text": "switch to",
+        "offset": 4
+      },
+      {
+        "rule_id": "rejection.instead_of",
+        "category": "rejection",
+        "matched_text": "instead of",
+        "offset": 62
+      }
+    ],
+    "fact_status": "observed",
+    "provenance": [
+      {
+        "file": "fixtures/zed/v1/interleaved_arcs.jsonl",
+        "byte_offset": 972,
+        "line_no": 4
+      }
+    ]
+  },
+  {
+    "node": "decision",
+    "epitome": "Now switch to a bounded connection pool in the same db module instead of a single client.",
+    "considered_options": [
+      {
+        "text": "a",
+        "chosen": false
+      }
+    ],
+    "is_ban": false,
+    "superseded_by": null,
+    "confirmation": null,
+    "source_span": {
+      "start": 5,
+      "end": 6
+    },
+    "fact_status": "observed"
+  },
+  {
+    "node": "episode",
+    "path": "src/db.rs",
+    "diff": {
+      "path": "src/db.rs",
+      "old": "use postgres::Client;\n",
+      "new": "use deadpool_postgres::Pool;\n",
+      "unified": "@@ -1 +1 @@\n-use postgres::Client;\n+use deadpool_postgres::Pool;\n",
+      "added_lines": 1,
+      "removed_lines": 1
+    },
+    "git": {
+      "sha": "a1a1a1a1a1a1",
+      "branch": "main"
+    },
+    "episode_id": "cec95d52bf5aeba4126f3bfd6aa62fb316fb88f5a35d7002421e704870f67798"
+  },
+  {
+    "node": "episode",
+    "path": "src/pool.rs",
+    "diff": {
+      "path": "src/pool.rs",
+      "old": "",
+      "new": "pub struct PoolCfg { pub max: usize }\n",
+      "unified": "@@ -0,0 +1 @@\n+pub struct PoolCfg { pub max: usize }\n",
+      "added_lines": 1,
+      "removed_lines": 0
+    },
+    "git": {
+      "sha": "a1a1a1a1a1a1",
+      "branch": "main"
+    },
+    "episode_id": "5d1fb9637e968c49a569af11205fb19a7adfe27fe8afb9379a964c3fdb40549d"
+  },
+  {
+    "node": "binding",
+    "from": "decision:zed-thread-005:1",
+    "to": "episode:b0c2f1475307d82b69bcc05019a85f3dcabc480d4a509be7b5c9588d7255d880",
+    "relation": "produced",
+    "prov": {
+      "used_session": "zed-thread-005",
+      "used_decision": "decision:zed-thread-005:1",
+      "was_generated_by_session": "zed-thread-005",
+      "t_use": "2026-06-22T09:00:00Z",
+      "t_gen": "2026-06-22T09:00:02Z"
+    },
+    "fact_status": "deterministically_derived",
+    "correlation": {
+      "support": 0.25,
+      "confidence": 0.5,
+      "lift": 1.0,
+      "phi": 0.0,
+      "p": 1.0
+    }
+  },
+  {
+    "node": "binding",
+    "from": "decision:zed-thread-005:1",
+    "to": "episode:b2d0205f0044469e6304c509129325961c4436d0271479091f1dfaf4840c6222",
+    "relation": "produced",
+    "prov": {
+      "used_session": "zed-thread-005",
+      "used_decision": "decision:zed-thread-005:1",
+      "was_generated_by_session": "zed-thread-005",
+      "t_use": "2026-06-22T09:00:00Z",
+      "t_gen": "2026-06-22T09:00:02Z"
+    },
+    "fact_status": "deterministically_derived",
+    "correlation": {
+      "support": 0.25,
+      "confidence": 0.5,
+      "lift": 2.0,
+      "phi": 0.57735,
+      "p": 0.248213
+    }
+  },
+  {
+    "node": "binding",
+    "from": "decision:zed-thread-005:5",
+    "to": "episode:5d1fb9637e968c49a569af11205fb19a7adfe27fe8afb9379a964c3fdb40549d",
+    "relation": "produced",
+    "prov": {
+      "used_session": "zed-thread-005",
+      "used_decision": "decision:zed-thread-005:5",
+      "was_generated_by_session": "zed-thread-005",
+      "t_use": "2026-06-22T09:05:00Z",
+      "t_gen": "2026-06-22T09:05:02Z"
+    },
+    "fact_status": "deterministically_derived",
+    "correlation": {
+      "support": 0.25,
+      "confidence": 0.5,
+      "lift": 2.0,
+      "phi": 0.57735,
+      "p": 0.248213
+    }
+  },
+  {
+    "node": "binding",
+    "from": "decision:zed-thread-005:5",
+    "to": "episode:cec95d52bf5aeba4126f3bfd6aa62fb316fb88f5a35d7002421e704870f67798",
+    "relation": "produced",
+    "prov": {
+      "used_session": "zed-thread-005",
+      "used_decision": "decision:zed-thread-005:5",
+      "was_generated_by_session": "zed-thread-005",
+      "t_use": "2026-06-22T09:05:00Z",
+      "t_gen": "2026-06-22T09:05:02Z"
+    },
+    "fact_status": "deterministically_derived",
+    "correlation": {
+      "support": 0.25,
+      "confidence": 0.5,
+      "lift": 1.0,
+      "phi": 0.0,
+      "p": 1.0
+    }
+  }
+]

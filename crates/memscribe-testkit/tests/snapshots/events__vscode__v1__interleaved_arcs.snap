@@ -1,0 +1,504 @@
+---
+source: crates/memscribe-testkit/tests/golden.rs
+expression: events
+---
+[
+  {
+    "schema_version": 1,
+    "source": "vs_code",
+    "session_id": "vsc-sess-int",
+    "seq": 0,
+    "event_id": "58381da04881d3fd348a30eec8766d5ed3cca65d037e684675ac976188c1af43",
+    "parent_id": null,
+    "timestamp": "1970-01-01T00:00:00Z",
+    "project": {
+      "cwd": "/home/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "aa11bb22cc33dd44",
+        "branch": "feat/auth-pivot"
+      }
+    },
+    "kind": {
+      "event": "session_start",
+      "cwd": "/home/dev/acme-api",
+      "git": {
+        "sha": "aa11bb22cc33dd44",
+        "branch": "feat/auth-pivot"
+      },
+      "model": "gpt-4o",
+      "tool_version": "1.92.0"
+    },
+    "provenance": {
+      "file": "fixtures/vscode/v1/interleaved_arcs.jsonl",
+      "byte_offset": 0,
+      "line_no": 1
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "vs_code",
+    "session_id": "vsc-sess-int",
+    "seq": 1,
+    "event_id": "ia-u1",
+    "parent_id": null,
+    "timestamp": "2026-06-22T14:00:00Z",
+    "project": {
+      "cwd": "/home/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "aa11bb22cc33dd44",
+        "branch": "feat/auth-pivot"
+      }
+    },
+    "kind": {
+      "event": "user_turn",
+      "text": "Let's use JWT for session auth. Wire it into the auth module and the middleware.",
+      "parts": []
+    },
+    "provenance": {
+      "file": "fixtures/vscode/v1/interleaved_arcs.jsonl",
+      "byte_offset": 179,
+      "line_no": 2
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "vs_code",
+    "session_id": "vsc-sess-int",
+    "seq": 2,
+    "event_id": "ia-a1",
+    "parent_id": "ia-u1",
+    "timestamp": "2026-06-22T14:00:06Z",
+    "project": {
+      "cwd": "/home/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "aa11bb22cc33dd44",
+        "branch": "feat/auth-pivot"
+      }
+    },
+    "kind": {
+      "event": "assistant_turn",
+      "text": "Switching session auth to JWT in the auth module and middleware.",
+      "thinking": null,
+      "model": "gpt-4o",
+      "usage": {
+        "input_tokens": 820,
+        "output_tokens": 190,
+        "cache_read_tokens": null,
+        "cache_creation_tokens": null
+      },
+      "parts": []
+    },
+    "provenance": {
+      "file": "fixtures/vscode/v1/interleaved_arcs.jsonl",
+      "byte_offset": 369,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "vs_code",
+    "session_id": "vsc-sess-int",
+    "seq": 3,
+    "event_id": "ia-a1:toolcall:0:call-ia-1",
+    "parent_id": "ia-a1",
+    "timestamp": "2026-06-22T14:00:06Z",
+    "project": {
+      "cwd": "/home/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "aa11bb22cc33dd44",
+        "branch": "feat/auth-pivot"
+      }
+    },
+    "kind": {
+      "event": "tool_call",
+      "call_id": "call-ia-1",
+      "name": "applyEdit",
+      "args": {
+        "path": "src/auth/token.ts"
+      }
+    },
+    "provenance": {
+      "file": "fixtures/vscode/v1/interleaved_arcs.jsonl",
+      "byte_offset": 369,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "vs_code",
+    "session_id": "vsc-sess-int",
+    "seq": 4,
+    "event_id": "ia-a1:edit:0:src/auth/token.ts",
+    "parent_id": "ia-a1",
+    "timestamp": "2026-06-22T14:00:06Z",
+    "project": {
+      "cwd": "/home/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "aa11bb22cc33dd44",
+        "branch": "feat/auth-pivot"
+      }
+    },
+    "kind": {
+      "event": "file_edit",
+      "call_id": "call-ia-1",
+      "diff": {
+        "path": "src/auth/token.ts",
+        "old": "// session cookie",
+        "new": "export function signJwt(claims) { /* ... */ }",
+        "unified": "@@ -1 +1,3 @@\n-// session cookie\n+export function signJwt(claims) { /* ... */ }",
+        "added_lines": 3,
+        "removed_lines": 1
+      }
+    },
+    "provenance": {
+      "file": "fixtures/vscode/v1/interleaved_arcs.jsonl",
+      "byte_offset": 369,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "vs_code",
+    "session_id": "vsc-sess-int",
+    "seq": 5,
+    "event_id": "ia-a2",
+    "parent_id": "ia-a1",
+    "timestamp": "2026-06-22T14:00:12Z",
+    "project": {
+      "cwd": "/home/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "aa11bb22cc33dd44",
+        "branch": "feat/auth-pivot"
+      }
+    },
+    "kind": {
+      "event": "assistant_turn",
+      "text": "Applying the middleware change for JWT.",
+      "thinking": null,
+      "model": "gpt-4o",
+      "usage": null,
+      "parts": []
+    },
+    "provenance": {
+      "file": "fixtures/vscode/v1/interleaved_arcs.jsonl",
+      "byte_offset": 952,
+      "line_no": 4
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "vs_code",
+    "session_id": "vsc-sess-int",
+    "seq": 6,
+    "event_id": "ia-a2:toolcall:0:call-ia-2",
+    "parent_id": "ia-a2",
+    "timestamp": "2026-06-22T14:00:12Z",
+    "project": {
+      "cwd": "/home/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "aa11bb22cc33dd44",
+        "branch": "feat/auth-pivot"
+      }
+    },
+    "kind": {
+      "event": "tool_call",
+      "call_id": "call-ia-2",
+      "name": "applyEdit",
+      "args": {
+        "path": "src/middleware/auth.ts"
+      }
+    },
+    "provenance": {
+      "file": "fixtures/vscode/v1/interleaved_arcs.jsonl",
+      "byte_offset": 952,
+      "line_no": 4
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "vs_code",
+    "session_id": "vsc-sess-int",
+    "seq": 7,
+    "event_id": "ia-a2:edit:0:src/middleware/auth.ts",
+    "parent_id": "ia-a2",
+    "timestamp": "2026-06-22T14:00:12Z",
+    "project": {
+      "cwd": "/home/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "aa11bb22cc33dd44",
+        "branch": "feat/auth-pivot"
+      }
+    },
+    "kind": {
+      "event": "file_edit",
+      "call_id": "call-ia-2",
+      "diff": {
+        "path": "src/middleware/auth.ts",
+        "old": "req.session",
+        "new": "verifyJwt(req.headers.authorization)",
+        "unified": null,
+        "added_lines": 2,
+        "removed_lines": 1
+      }
+    },
+    "provenance": {
+      "file": "fixtures/vscode/v1/interleaved_arcs.jsonl",
+      "byte_offset": 952,
+      "line_no": 4
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "vs_code",
+    "session_id": "vsc-sess-int",
+    "seq": 8,
+    "event_id": "ia-u2",
+    "parent_id": "ia-a2",
+    "timestamp": "2026-06-22T14:01:00Z",
+    "project": {
+      "cwd": "/home/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "aa11bb22cc33dd44",
+        "branch": "feat/auth-pivot"
+      }
+    },
+    "kind": {
+      "event": "user_turn",
+      "text": "Now let's use argon2 for password hashing. Update the auth module and the user model.",
+      "parts": []
+    },
+    "provenance": {
+      "file": "fixtures/vscode/v1/interleaved_arcs.jsonl",
+      "byte_offset": 1379,
+      "line_no": 5
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "vs_code",
+    "session_id": "vsc-sess-int",
+    "seq": 9,
+    "event_id": "ia-a3",
+    "parent_id": "ia-u2",
+    "timestamp": "2026-06-22T14:01:07Z",
+    "project": {
+      "cwd": "/home/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "aa11bb22cc33dd44",
+        "branch": "feat/auth-pivot"
+      }
+    },
+    "kind": {
+      "event": "assistant_turn",
+      "text": "Switching password hashing to argon2 in the auth module and user model.",
+      "thinking": null,
+      "model": "gpt-4o",
+      "usage": {
+        "input_tokens": 740,
+        "output_tokens": 160,
+        "cache_read_tokens": null,
+        "cache_creation_tokens": null
+      },
+      "parts": []
+    },
+    "provenance": {
+      "file": "fixtures/vscode/v1/interleaved_arcs.jsonl",
+      "byte_offset": 1577,
+      "line_no": 6
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "vs_code",
+    "session_id": "vsc-sess-int",
+    "seq": 10,
+    "event_id": "ia-a3:toolcall:0:call-ia-3",
+    "parent_id": "ia-a3",
+    "timestamp": "2026-06-22T14:01:07Z",
+    "project": {
+      "cwd": "/home/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "aa11bb22cc33dd44",
+        "branch": "feat/auth-pivot"
+      }
+    },
+    "kind": {
+      "event": "tool_call",
+      "call_id": "call-ia-3",
+      "name": "applyEdit",
+      "args": {
+        "path": "src/auth/token.ts"
+      }
+    },
+    "provenance": {
+      "file": "fixtures/vscode/v1/interleaved_arcs.jsonl",
+      "byte_offset": 1577,
+      "line_no": 6
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "vs_code",
+    "session_id": "vsc-sess-int",
+    "seq": 11,
+    "event_id": "ia-a3:edit:0:src/auth/token.ts",
+    "parent_id": "ia-a3",
+    "timestamp": "2026-06-22T14:01:07Z",
+    "project": {
+      "cwd": "/home/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "aa11bb22cc33dd44",
+        "branch": "feat/auth-pivot"
+      }
+    },
+    "kind": {
+      "event": "file_edit",
+      "call_id": "call-ia-3",
+      "diff": {
+        "path": "src/auth/token.ts",
+        "old": "import bcrypt from 'bcrypt';",
+        "new": "import argon2 from 'argon2';",
+        "unified": null,
+        "added_lines": 1,
+        "removed_lines": 1
+      }
+    },
+    "provenance": {
+      "file": "fixtures/vscode/v1/interleaved_arcs.jsonl",
+      "byte_offset": 1577,
+      "line_no": 6
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "vs_code",
+    "session_id": "vsc-sess-int",
+    "seq": 12,
+    "event_id": "ia-a4",
+    "parent_id": "ia-a3",
+    "timestamp": "2026-06-22T14:01:13Z",
+    "project": {
+      "cwd": "/home/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "aa11bb22cc33dd44",
+        "branch": "feat/auth-pivot"
+      }
+    },
+    "kind": {
+      "event": "assistant_turn",
+      "text": "Updating the user model to hash with argon2.",
+      "thinking": null,
+      "model": "gpt-4o",
+      "usage": null,
+      "parts": []
+    },
+    "provenance": {
+      "file": "fixtures/vscode/v1/interleaved_arcs.jsonl",
+      "byte_offset": 2070,
+      "line_no": 7
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "vs_code",
+    "session_id": "vsc-sess-int",
+    "seq": 13,
+    "event_id": "ia-a4:toolcall:0:call-ia-4",
+    "parent_id": "ia-a4",
+    "timestamp": "2026-06-22T14:01:13Z",
+    "project": {
+      "cwd": "/home/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "aa11bb22cc33dd44",
+        "branch": "feat/auth-pivot"
+      }
+    },
+    "kind": {
+      "event": "tool_call",
+      "call_id": "call-ia-4",
+      "name": "applyEdit",
+      "args": {
+        "path": "src/models/user.ts"
+      }
+    },
+    "provenance": {
+      "file": "fixtures/vscode/v1/interleaved_arcs.jsonl",
+      "byte_offset": 2070,
+      "line_no": 7
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "vs_code",
+    "session_id": "vsc-sess-int",
+    "seq": 14,
+    "event_id": "ia-a4:edit:0:src/models/user.ts",
+    "parent_id": "ia-a4",
+    "timestamp": "2026-06-22T14:01:13Z",
+    "project": {
+      "cwd": "/home/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "aa11bb22cc33dd44",
+        "branch": "feat/auth-pivot"
+      }
+    },
+    "kind": {
+      "event": "file_edit",
+      "call_id": "call-ia-4",
+      "diff": {
+        "path": "src/models/user.ts",
+        "old": "bcrypt.hash(pw, 10)",
+        "new": "argon2.hash(pw)",
+        "unified": null,
+        "added_lines": 1,
+        "removed_lines": 1
+      }
+    },
+    "provenance": {
+      "file": "fixtures/vscode/v1/interleaved_arcs.jsonl",
+      "byte_offset": 2070,
+      "line_no": 7
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "vs_code",
+    "session_id": "vsc-sess-int",
+    "seq": 15,
+    "event_id": "e96c909cf5f68066342fa3b0928bda8aac5d0b4f0197d4ccd61a98ce2003fe73",
+    "parent_id": null,
+    "timestamp": "2026-06-22T14:02:00Z",
+    "project": {
+      "cwd": "/home/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "aa11bb22cc33dd44",
+        "branch": "feat/auth-pivot"
+      }
+    },
+    "kind": {
+      "event": "session_end",
+      "reason": "user_closed"
+    },
+    "provenance": {
+      "file": "fixtures/vscode/v1/interleaved_arcs.jsonl",
+      "byte_offset": 2481,
+      "line_no": 8
+    }
+  }
+]

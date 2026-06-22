@@ -1,0 +1,429 @@
+---
+source: crates/memscribe-testkit/tests/golden.rs
+expression: events
+---
+[
+  {
+    "schema_version": 1,
+    "source": "copilot",
+    "session_id": "copilot-thread-102",
+    "seq": 0,
+    "event_id": "edc94319ecfb8757f6b125273dd160c892187bbda04046d9f012feb919d57f6f",
+    "parent_id": null,
+    "timestamp": "2026-06-22T14:00:00Z",
+    "project": {
+      "cwd": "/Users/dev/projects/auth-svc",
+      "repo_root": null,
+      "git": {
+        "sha": "b2b2b2b2b2b2",
+        "branch": "feat/argon2"
+      }
+    },
+    "kind": {
+      "event": "session_start",
+      "cwd": "/Users/dev/projects/auth-svc",
+      "git": {
+        "sha": "b2b2b2b2b2b2",
+        "branch": "feat/argon2"
+      },
+      "model": "gpt-4o",
+      "tool_version": "copilot-cli 1.4.0"
+    },
+    "provenance": {
+      "file": "fixtures/copilot/v1/multi_edit_single_commit.jsonl",
+      "byte_offset": 0,
+      "line_no": 1
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "copilot",
+    "session_id": "copilot-thread-102",
+    "seq": 1,
+    "event_id": "msg-1",
+    "parent_id": null,
+    "timestamp": "2026-06-22T14:00:05Z",
+    "project": {
+      "cwd": "/Users/dev/projects/auth-svc",
+      "repo_root": null,
+      "git": {
+        "sha": "b2b2b2b2b2b2",
+        "branch": "feat/argon2"
+      }
+    },
+    "kind": {
+      "event": "user_turn",
+      "text": "We will use Argon2 for password hashing across the auth service. Update the hasher, the verifier, and the config in one pass.",
+      "parts": []
+    },
+    "provenance": {
+      "file": "fixtures/copilot/v1/multi_edit_single_commit.jsonl",
+      "byte_offset": 226,
+      "line_no": 2
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "copilot",
+    "session_id": "copilot-thread-102",
+    "seq": 2,
+    "event_id": "msg-2",
+    "parent_id": "msg-1",
+    "timestamp": "2026-06-22T14:00:09Z",
+    "project": {
+      "cwd": "/Users/dev/projects/auth-svc",
+      "repo_root": null,
+      "git": {
+        "sha": "b2b2b2b2b2b2",
+        "branch": "feat/argon2"
+      }
+    },
+    "kind": {
+      "event": "assistant_turn",
+      "text": "Rolling Argon2 through the hasher, verifier, and config as a single change.",
+      "thinking": null,
+      "model": "gpt-4o",
+      "usage": {
+        "input_tokens": 160,
+        "output_tokens": 88,
+        "cache_read_tokens": null,
+        "cache_creation_tokens": null
+      },
+      "parts": []
+    },
+    "provenance": {
+      "file": "fixtures/copilot/v1/multi_edit_single_commit.jsonl",
+      "byte_offset": 467,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "copilot",
+    "session_id": "copilot-thread-102",
+    "seq": 3,
+    "event_id": "msg-2:call:call-hash",
+    "parent_id": "msg-2",
+    "timestamp": "2026-06-22T14:00:09Z",
+    "project": {
+      "cwd": "/Users/dev/projects/auth-svc",
+      "repo_root": null,
+      "git": {
+        "sha": "b2b2b2b2b2b2",
+        "branch": "feat/argon2"
+      }
+    },
+    "kind": {
+      "event": "tool_call",
+      "call_id": "call-hash",
+      "name": "apply_patch",
+      "args": {
+        "path": "src/auth/hasher.rs"
+      }
+    },
+    "provenance": {
+      "file": "fixtures/copilot/v1/multi_edit_single_commit.jsonl",
+      "byte_offset": 467,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "copilot",
+    "session_id": "copilot-thread-102",
+    "seq": 4,
+    "event_id": "msg-2:call:call-verify",
+    "parent_id": "msg-2",
+    "timestamp": "2026-06-22T14:00:09Z",
+    "project": {
+      "cwd": "/Users/dev/projects/auth-svc",
+      "repo_root": null,
+      "git": {
+        "sha": "b2b2b2b2b2b2",
+        "branch": "feat/argon2"
+      }
+    },
+    "kind": {
+      "event": "tool_call",
+      "call_id": "call-verify",
+      "name": "apply_patch",
+      "args": {
+        "path": "src/auth/verifier.rs"
+      }
+    },
+    "provenance": {
+      "file": "fixtures/copilot/v1/multi_edit_single_commit.jsonl",
+      "byte_offset": 467,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "copilot",
+    "session_id": "copilot-thread-102",
+    "seq": 5,
+    "event_id": "msg-2:call:call-config",
+    "parent_id": "msg-2",
+    "timestamp": "2026-06-22T14:00:09Z",
+    "project": {
+      "cwd": "/Users/dev/projects/auth-svc",
+      "repo_root": null,
+      "git": {
+        "sha": "b2b2b2b2b2b2",
+        "branch": "feat/argon2"
+      }
+    },
+    "kind": {
+      "event": "tool_call",
+      "call_id": "call-config",
+      "name": "apply_patch",
+      "args": {
+        "path": "config/auth.toml"
+      }
+    },
+    "provenance": {
+      "file": "fixtures/copilot/v1/multi_edit_single_commit.jsonl",
+      "byte_offset": 467,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "copilot",
+    "session_id": "copilot-thread-102",
+    "seq": 6,
+    "event_id": "msg-2:result:call-hash",
+    "parent_id": "msg-2",
+    "timestamp": "2026-06-22T14:00:09Z",
+    "project": {
+      "cwd": "/Users/dev/projects/auth-svc",
+      "repo_root": null,
+      "git": {
+        "sha": "b2b2b2b2b2b2",
+        "branch": "feat/argon2"
+      }
+    },
+    "kind": {
+      "event": "tool_result",
+      "call_id": "call-hash",
+      "ok": true,
+      "output": "patch applied (1 file changed)"
+    },
+    "provenance": {
+      "file": "fixtures/copilot/v1/multi_edit_single_commit.jsonl",
+      "byte_offset": 467,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "copilot",
+    "session_id": "copilot-thread-102",
+    "seq": 7,
+    "event_id": "msg-2:result:call-verify",
+    "parent_id": "msg-2",
+    "timestamp": "2026-06-22T14:00:09Z",
+    "project": {
+      "cwd": "/Users/dev/projects/auth-svc",
+      "repo_root": null,
+      "git": {
+        "sha": "b2b2b2b2b2b2",
+        "branch": "feat/argon2"
+      }
+    },
+    "kind": {
+      "event": "tool_result",
+      "call_id": "call-verify",
+      "ok": true,
+      "output": "patch applied (1 file changed)"
+    },
+    "provenance": {
+      "file": "fixtures/copilot/v1/multi_edit_single_commit.jsonl",
+      "byte_offset": 467,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "copilot",
+    "session_id": "copilot-thread-102",
+    "seq": 8,
+    "event_id": "msg-2:result:call-config",
+    "parent_id": "msg-2",
+    "timestamp": "2026-06-22T14:00:09Z",
+    "project": {
+      "cwd": "/Users/dev/projects/auth-svc",
+      "repo_root": null,
+      "git": {
+        "sha": "b2b2b2b2b2b2",
+        "branch": "feat/argon2"
+      }
+    },
+    "kind": {
+      "event": "tool_result",
+      "call_id": "call-config",
+      "ok": true,
+      "output": "patch applied (1 file changed)"
+    },
+    "provenance": {
+      "file": "fixtures/copilot/v1/multi_edit_single_commit.jsonl",
+      "byte_offset": 467,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "copilot",
+    "session_id": "copilot-thread-102",
+    "seq": 9,
+    "event_id": "msg-2:edit:0:src/auth/hasher.rs",
+    "parent_id": "msg-2",
+    "timestamp": "2026-06-22T14:00:09Z",
+    "project": {
+      "cwd": "/Users/dev/projects/auth-svc",
+      "repo_root": null,
+      "git": {
+        "sha": "b2b2b2b2b2b2",
+        "branch": "feat/argon2"
+      }
+    },
+    "kind": {
+      "event": "file_edit",
+      "call_id": "call-hash",
+      "diff": {
+        "path": "src/auth/hasher.rs",
+        "old": "use bcrypt::hash;",
+        "new": "use argon2::Argon2;",
+        "unified": "@@ -1 +1 @@\n-use bcrypt::hash;\n+use argon2::Argon2;",
+        "added_lines": 1,
+        "removed_lines": 1
+      }
+    },
+    "provenance": {
+      "file": "fixtures/copilot/v1/multi_edit_single_commit.jsonl",
+      "byte_offset": 467,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "copilot",
+    "session_id": "copilot-thread-102",
+    "seq": 10,
+    "event_id": "msg-2:edit:1:src/auth/verifier.rs",
+    "parent_id": "msg-2",
+    "timestamp": "2026-06-22T14:00:09Z",
+    "project": {
+      "cwd": "/Users/dev/projects/auth-svc",
+      "repo_root": null,
+      "git": {
+        "sha": "b2b2b2b2b2b2",
+        "branch": "feat/argon2"
+      }
+    },
+    "kind": {
+      "event": "file_edit",
+      "call_id": "call-verify",
+      "diff": {
+        "path": "src/auth/verifier.rs",
+        "old": "use bcrypt::verify;",
+        "new": "use argon2::PasswordVerifier;",
+        "unified": "@@ -1 +1 @@\n-use bcrypt::verify;\n+use argon2::PasswordVerifier;",
+        "added_lines": 1,
+        "removed_lines": 1
+      }
+    },
+    "provenance": {
+      "file": "fixtures/copilot/v1/multi_edit_single_commit.jsonl",
+      "byte_offset": 467,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "copilot",
+    "session_id": "copilot-thread-102",
+    "seq": 11,
+    "event_id": "msg-2:edit:2:config/auth.toml",
+    "parent_id": "msg-2",
+    "timestamp": "2026-06-22T14:00:09Z",
+    "project": {
+      "cwd": "/Users/dev/projects/auth-svc",
+      "repo_root": null,
+      "git": {
+        "sha": "b2b2b2b2b2b2",
+        "branch": "feat/argon2"
+      }
+    },
+    "kind": {
+      "event": "file_edit",
+      "call_id": "call-config",
+      "diff": {
+        "path": "config/auth.toml",
+        "old": "hash = \"bcrypt\"",
+        "new": "hash = \"argon2\"",
+        "unified": "@@ -1 +1 @@\n-hash = \"bcrypt\"\n+hash = \"argon2\"",
+        "added_lines": 1,
+        "removed_lines": 1
+      }
+    },
+    "provenance": {
+      "file": "fixtures/copilot/v1/multi_edit_single_commit.jsonl",
+      "byte_offset": 467,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "copilot",
+    "session_id": "copilot-thread-102",
+    "seq": 12,
+    "event_id": "msg-3",
+    "parent_id": "msg-2",
+    "timestamp": "2026-06-22T14:01:00Z",
+    "project": {
+      "cwd": "/Users/dev/projects/auth-svc",
+      "repo_root": null,
+      "git": {
+        "sha": "b2b2b2b2b2b2",
+        "branch": "feat/argon2"
+      }
+    },
+    "kind": {
+      "event": "user_turn",
+      "text": "Perfect, ship it.",
+      "parts": []
+    },
+    "provenance": {
+      "file": "fixtures/copilot/v1/multi_edit_single_commit.jsonl",
+      "byte_offset": 1827,
+      "line_no": 4
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "copilot",
+    "session_id": "copilot-thread-102",
+    "seq": 13,
+    "event_id": "ba3e1c20aae4e03d73d34bad873446326ac914075236133320dc095e4404948b",
+    "parent_id": null,
+    "timestamp": "2026-06-22T14:01:20Z",
+    "project": {
+      "cwd": "/Users/dev/projects/auth-svc",
+      "repo_root": null,
+      "git": {
+        "sha": "b2b2b2b2b2b2",
+        "branch": "feat/argon2"
+      }
+    },
+    "kind": {
+      "event": "session_end",
+      "reason": "user_closed"
+    },
+    "provenance": {
+      "file": "fixtures/copilot/v1/multi_edit_single_commit.jsonl",
+      "byte_offset": 1963,
+      "line_no": 5
+    }
+  }
+]

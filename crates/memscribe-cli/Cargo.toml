@@ -34,3 +34,6 @@ tracing-subscriber = { workspace = true }
 assert_cmd = { workspace = true }
 predicates = { workspace = true }
 tempfile = { workspace = true }
+# The `watch.rs` integration test reads the sqlite sink's `nodes` table back to
+# prove the `--sink sqlite` path persists rows (bundled = no system libsqlite).
+rusqlite = { workspace = true }

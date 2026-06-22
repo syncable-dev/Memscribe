@@ -1,0 +1,422 @@
+---
+source: crates/memscribe-testkit/tests/golden.rs
+expression: events
+---
+[
+  {
+    "schema_version": 1,
+    "source": "otel",
+    "session_id": "sess-otel-interleaved-005",
+    "seq": 0,
+    "event_id": "c131dee6e263454a232dafd547d6753eb5b601a972fdf7097670d5d04adc49ef:session_start:0",
+    "parent_id": null,
+    "timestamp": "2026-06-22T14:00:00Z",
+    "project": {
+      "cwd": "/home/dev/acme-api",
+      "repo_root": "/home/dev/acme-api",
+      "git": {
+        "sha": "11112222333344445555",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "session_start",
+      "cwd": "/home/dev/acme-api",
+      "git": {
+        "sha": "11112222333344445555",
+        "branch": "main"
+      },
+      "model": "claude-opus-4-8",
+      "tool_version": null
+    },
+    "provenance": {
+      "file": "fixtures/otel/genai/interleaved_arcs.jsonl",
+      "byte_offset": 0,
+      "line_no": 1
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "otel",
+    "session_id": "sess-otel-interleaved-005",
+    "seq": 1,
+    "event_id": "f08634b8bdc06260d4bfe40609b9415195ada6ed297b352c1cd4d53d4709f00a:user_prompt:0",
+    "parent_id": null,
+    "timestamp": "2026-06-22T14:00:05Z",
+    "project": {
+      "cwd": "/home/dev/acme-api",
+      "repo_root": "/home/dev/acme-api",
+      "git": {
+        "sha": "11112222333344445555",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "user_turn",
+      "text": "Let's use argon2 for password hashing in the auth module.",
+      "parts": [
+        {
+          "part": "text",
+          "text": "Let's use argon2 for password hashing in the auth module."
+        }
+      ]
+    },
+    "provenance": {
+      "file": "fixtures/otel/genai/interleaved_arcs.jsonl",
+      "byte_offset": 310,
+      "line_no": 2
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "otel",
+    "session_id": "sess-otel-interleaved-005",
+    "seq": 2,
+    "event_id": "40f05d219e68df2d763106d92594b2ac012dfc1fb52d5732818f52d3993f6917:output_msg:0",
+    "parent_id": null,
+    "timestamp": "2026-06-22T14:00:09Z",
+    "project": {
+      "cwd": "/home/dev/acme-api",
+      "repo_root": "/home/dev/acme-api",
+      "git": {
+        "sha": "11112222333344445555",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "assistant_turn",
+      "text": "Switching the hasher to argon2 in the auth module.",
+      "thinking": null,
+      "model": "claude-opus-4-8",
+      "usage": {
+        "input_tokens": 300,
+        "output_tokens": 70,
+        "cache_read_tokens": null,
+        "cache_creation_tokens": null
+      },
+      "parts": [
+        {
+          "part": "text",
+          "text": "Switching the hasher to argon2 in the auth module."
+        }
+      ]
+    },
+    "provenance": {
+      "file": "fixtures/otel/genai/interleaved_arcs.jsonl",
+      "byte_offset": 539,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "otel",
+    "session_id": "sess-otel-interleaved-005",
+    "seq": 3,
+    "event_id": "7597cb7f025b190d534248f517041e50bbb3d3202a0561aa8f2ffea2fba1466c:tool_call:0",
+    "parent_id": null,
+    "timestamp": "2026-06-22T14:00:12Z",
+    "project": {
+      "cwd": "/home/dev/acme-api",
+      "repo_root": "/home/dev/acme-api",
+      "git": {
+        "sha": "11112222333344445555",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "tool_call",
+      "call_id": "call-arc-a-auth",
+      "name": "edit_file",
+      "args": null
+    },
+    "provenance": {
+      "file": "fixtures/otel/genai/interleaved_arcs.jsonl",
+      "byte_offset": 899,
+      "line_no": 4
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "otel",
+    "session_id": "sess-otel-interleaved-005",
+    "seq": 4,
+    "event_id": "7597cb7f025b190d534248f517041e50bbb3d3202a0561aa8f2ffea2fba1466c:tool_result:0",
+    "parent_id": null,
+    "timestamp": "2026-06-22T14:00:12Z",
+    "project": {
+      "cwd": "/home/dev/acme-api",
+      "repo_root": "/home/dev/acme-api",
+      "git": {
+        "sha": "11112222333344445555",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "tool_result",
+      "call_id": "call-arc-a-auth",
+      "ok": true,
+      "output": "ok"
+    },
+    "provenance": {
+      "file": "fixtures/otel/genai/interleaved_arcs.jsonl",
+      "byte_offset": 899,
+      "line_no": 4
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "otel",
+    "session_id": "sess-otel-interleaved-005",
+    "seq": 5,
+    "event_id": "7597cb7f025b190d534248f517041e50bbb3d3202a0561aa8f2ffea2fba1466c:file_edit:0",
+    "parent_id": null,
+    "timestamp": "2026-06-22T14:00:12Z",
+    "project": {
+      "cwd": "/home/dev/acme-api",
+      "repo_root": "/home/dev/acme-api",
+      "git": {
+        "sha": "11112222333344445555",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "file_edit",
+      "call_id": "call-arc-a-auth",
+      "diff": {
+        "path": "src/auth.rs",
+        "old": null,
+        "new": null,
+        "unified": null,
+        "added_lines": 4,
+        "removed_lines": 4
+      }
+    },
+    "provenance": {
+      "file": "fixtures/otel/genai/interleaved_arcs.jsonl",
+      "byte_offset": 899,
+      "line_no": 4
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "otel",
+    "session_id": "sess-otel-interleaved-005",
+    "seq": 6,
+    "event_id": "4ad523ce171de45e2fd400349ee9b0d952f4adc5486e2aa8c7ff79768cf159b1:user_prompt:0",
+    "parent_id": null,
+    "timestamp": "2026-06-22T14:01:00Z",
+    "project": {
+      "cwd": "/home/dev/acme-api",
+      "repo_root": "/home/dev/acme-api",
+      "git": {
+        "sha": "11112222333344445555",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "user_turn",
+      "text": "Actually, let's switch to scrypt for the auth module and tune the cost in config.",
+      "parts": [
+        {
+          "part": "text",
+          "text": "Actually, let's switch to scrypt for the auth module and tune the cost in config."
+        }
+      ]
+    },
+    "provenance": {
+      "file": "fixtures/otel/genai/interleaved_arcs.jsonl",
+      "byte_offset": 1220,
+      "line_no": 5
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "otel",
+    "session_id": "sess-otel-interleaved-005",
+    "seq": 7,
+    "event_id": "ddd025cbb130c6d290df35c138f73b4a8a3be60f47d22a679261fd9df12b8014:output_msg:0",
+    "parent_id": null,
+    "timestamp": "2026-06-22T14:01:04Z",
+    "project": {
+      "cwd": "/home/dev/acme-api",
+      "repo_root": "/home/dev/acme-api",
+      "git": {
+        "sha": "11112222333344445555",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "assistant_turn",
+      "text": "Re-pointing the auth hasher to scrypt.",
+      "thinking": null,
+      "model": "claude-opus-4-8",
+      "usage": {
+        "input_tokens": 360,
+        "output_tokens": 90,
+        "cache_read_tokens": null,
+        "cache_creation_tokens": null
+      },
+      "parts": [
+        {
+          "part": "text",
+          "text": "Re-pointing the auth hasher to scrypt."
+        }
+      ]
+    },
+    "provenance": {
+      "file": "fixtures/otel/genai/interleaved_arcs.jsonl",
+      "byte_offset": 1473,
+      "line_no": 6
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "otel",
+    "session_id": "sess-otel-interleaved-005",
+    "seq": 8,
+    "event_id": "db9b604b4b929fdfbbb0b863d3b37715af055e9485639ddbcd17df1e0c7aee75:tool_call:0",
+    "parent_id": null,
+    "timestamp": "2026-06-22T14:01:08Z",
+    "project": {
+      "cwd": "/home/dev/acme-api",
+      "repo_root": "/home/dev/acme-api",
+      "git": {
+        "sha": "11112222333344445555",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "tool_call",
+      "call_id": "call-arc-b-auth",
+      "name": "edit_file",
+      "args": null
+    },
+    "provenance": {
+      "file": "fixtures/otel/genai/interleaved_arcs.jsonl",
+      "byte_offset": 1821,
+      "line_no": 7
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "otel",
+    "session_id": "sess-otel-interleaved-005",
+    "seq": 9,
+    "event_id": "db9b604b4b929fdfbbb0b863d3b37715af055e9485639ddbcd17df1e0c7aee75:tool_result:0",
+    "parent_id": null,
+    "timestamp": "2026-06-22T14:01:08Z",
+    "project": {
+      "cwd": "/home/dev/acme-api",
+      "repo_root": "/home/dev/acme-api",
+      "git": {
+        "sha": "11112222333344445555",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "tool_result",
+      "call_id": "call-arc-b-auth",
+      "ok": true,
+      "output": "ok"
+    },
+    "provenance": {
+      "file": "fixtures/otel/genai/interleaved_arcs.jsonl",
+      "byte_offset": 1821,
+      "line_no": 7
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "otel",
+    "session_id": "sess-otel-interleaved-005",
+    "seq": 10,
+    "event_id": "db9b604b4b929fdfbbb0b863d3b37715af055e9485639ddbcd17df1e0c7aee75:file_edit:0",
+    "parent_id": null,
+    "timestamp": "2026-06-22T14:01:08Z",
+    "project": {
+      "cwd": "/home/dev/acme-api",
+      "repo_root": "/home/dev/acme-api",
+      "git": {
+        "sha": "11112222333344445555",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "file_edit",
+      "call_id": "call-arc-b-auth",
+      "diff": {
+        "path": "src/auth.rs",
+        "old": null,
+        "new": null,
+        "unified": null,
+        "added_lines": 4,
+        "removed_lines": 4
+      }
+    },
+    "provenance": {
+      "file": "fixtures/otel/genai/interleaved_arcs.jsonl",
+      "byte_offset": 1821,
+      "line_no": 7
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "otel",
+    "session_id": "sess-otel-interleaved-005",
+    "seq": 11,
+    "event_id": "7f7c2b37d1c613463bb1146789b9838be9de818faa722a8c740ccd70a55a36d4:file_edit:0",
+    "parent_id": null,
+    "timestamp": "2026-06-22T14:01:12Z",
+    "project": {
+      "cwd": "/home/dev/acme-api",
+      "repo_root": "/home/dev/acme-api",
+      "git": {
+        "sha": "11112222333344445555",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "file_edit",
+      "call_id": null,
+      "diff": {
+        "path": "src/config.rs",
+        "old": null,
+        "new": null,
+        "unified": null,
+        "added_lines": 1,
+        "removed_lines": 1
+      }
+    },
+    "provenance": {
+      "file": "fixtures/otel/genai/interleaved_arcs.jsonl",
+      "byte_offset": 2142,
+      "line_no": 8
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "otel",
+    "session_id": "sess-otel-interleaved-005",
+    "seq": 12,
+    "event_id": "074cada8c3fa03d1228f66ad55278f3d09e112535e641ddf4b17d53e0da13a57:session_end:0",
+    "parent_id": null,
+    "timestamp": "2026-06-22T14:01:20Z",
+    "project": {
+      "cwd": "/home/dev/acme-api",
+      "repo_root": "/home/dev/acme-api",
+      "git": {
+        "sha": "11112222333344445555",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "session_end",
+      "reason": "completed"
+    },
+    "provenance": {
+      "file": "fixtures/otel/genai/interleaved_arcs.jsonl",
+      "byte_offset": 2368,
+      "line_no": 9
+    }
+  }
+]

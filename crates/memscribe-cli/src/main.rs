@@ -538,17 +538,27 @@ fn cmd_watch(
     // project_filter). When no config is present this is the default cfg.
     let disc_cfg = cfg.as_ref().map(Config::discover_cfg).unwrap_or_default();
 
-    // Resolve scan roots: explicit `--root`s, else the config/`$HOME` home dir.
-    let roots: Vec<PathBuf> = if roots.is_empty() {
-        vec![disc_cfg.home_dir()]
-    } else {
+    // Did the caller scope the scan with explicit `--root`s? If so, those roots
+    // are AUTHORITATIVE: we walk exactly them and do NOT also consult each
+    // adapter's home-based `discover()`. Mixing the two would let a `--root
+    // <tmp>` scan silently pick up the user's real `~/.claude` sessions — which
+    // breaks the scoping contract (an empty `--root` must discover nothing) and
+    // makes the command non-hermetic. When no `--root` is given we fall back to
+    // the config/`$HOME` home dir AND the adapters' own discovery (the latter is
+    // what consumes the config's per-tool path overrides like `CODEX_HOME`).
+    let roots_explicit = !roots.is_empty();
+    let roots: Vec<PathBuf> = if roots_explicit {
         roots.to_vec()
+    } else {
+        vec![disc_cfg.home_dir()]
     };
 
-    // Discover candidate transcripts and bucket each to a tool. Two sources are
-    // merged: (1) the extension walk over `roots` (the default discovery), and
-    // (2) each wanted adapter's own `discover(&disc_cfg)` — which is what
-    // actually consumes the config's per-tool path overrides.
+    // Discover candidate transcripts and bucket each to a tool.
+    //   (1) The extension walk over `roots` — always run; with explicit roots
+    //       this is the *only* source, so the scan stays scoped to them.
+    //   (2) Each wanted adapter's own `discover(&disc_cfg)` — only when roots
+    //       were NOT given explicitly, so the home-based product paths (and the
+    //       config's per-tool overrides) are honored in the default mode.
     let mut targets: Vec<(SourceKind, PathBuf)> = Vec::new();
     for root in &roots {
         for disc in find_transcripts(root, TRANSCRIPT_EXTS) {
@@ -559,10 +569,12 @@ fn cmd_watch(
             }
         }
     }
-    for kind in &wanted {
-        if let Some(adapter) = memscribe_adapters::adapter_for(*kind) {
-            for handle in adapter.discover(&disc_cfg) {
-                targets.push((handle.source, handle.path));
+    if !roots_explicit {
+        for kind in &wanted {
+            if let Some(adapter) = memscribe_adapters::adapter_for(*kind) {
+                for handle in adapter.discover(&disc_cfg) {
+                    targets.push((handle.source, handle.path));
+                }
             }
         }
     }

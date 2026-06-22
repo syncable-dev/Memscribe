@@ -18,4 +18,4 @@ pub use sqlite::SqliteSink;
 #[cfg(feature = "memdb")]
 pub mod memdb;
 #[cfg(feature = "memdb")]
-pub use memdb::MemDbSink;
+pub use memdb::{BiTemporal, MemDbRecord, MemDbSink, Prop, PropValue, RecordKindTag};

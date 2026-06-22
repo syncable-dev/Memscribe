@@ -1,0 +1,345 @@
+---
+source: crates/memscribe-testkit/tests/golden.rs
+expression: events
+---
+[
+  {
+    "schema_version": 1,
+    "source": "vs_code",
+    "session_id": "vsc-sess-multi",
+    "seq": 0,
+    "event_id": "9644e85ecc98c6ee1bd307b1f3bebbe778b5f03bf264aafda4488a438a7d2596",
+    "parent_id": null,
+    "timestamp": "1970-01-01T00:00:00Z",
+    "project": {
+      "cwd": "/home/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "112233445566778899aa",
+        "branch": "feat/logging-pivot"
+      }
+    },
+    "kind": {
+      "event": "session_start",
+      "cwd": "/home/dev/acme-api",
+      "git": {
+        "sha": "112233445566778899aa",
+        "branch": "feat/logging-pivot"
+      },
+      "model": "gpt-4o",
+      "tool_version": "1.92.0"
+    },
+    "provenance": {
+      "file": "fixtures/vscode/v1/multi_edit_single_commit.jsonl",
+      "byte_offset": 0,
+      "line_no": 1
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "vs_code",
+    "session_id": "vsc-sess-multi",
+    "seq": 1,
+    "event_id": "me-u1",
+    "parent_id": null,
+    "timestamp": "2026-06-22T15:00:00Z",
+    "project": {
+      "cwd": "/home/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "112233445566778899aa",
+        "branch": "feat/logging-pivot"
+      }
+    },
+    "kind": {
+      "event": "user_turn",
+      "text": "Let's use structured JSON logging across the service. Switch every module to the new logger.",
+      "parts": []
+    },
+    "provenance": {
+      "file": "fixtures/vscode/v1/multi_edit_single_commit.jsonl",
+      "byte_offset": 188,
+      "line_no": 2
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "vs_code",
+    "session_id": "vsc-sess-multi",
+    "seq": 2,
+    "event_id": "me-a1",
+    "parent_id": "me-u1",
+    "timestamp": "2026-06-22T15:00:08Z",
+    "project": {
+      "cwd": "/home/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "112233445566778899aa",
+        "branch": "feat/logging-pivot"
+      }
+    },
+    "kind": {
+      "event": "assistant_turn",
+      "text": "Switching all three modules to the structured JSON logger now.",
+      "thinking": null,
+      "model": "gpt-4o",
+      "usage": {
+        "input_tokens": 1040,
+        "output_tokens": 260,
+        "cache_read_tokens": null,
+        "cache_creation_tokens": null
+      },
+      "parts": []
+    },
+    "provenance": {
+      "file": "fixtures/vscode/v1/multi_edit_single_commit.jsonl",
+      "byte_offset": 392,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "vs_code",
+    "session_id": "vsc-sess-multi",
+    "seq": 3,
+    "event_id": "me-a1:toolcall:0:call-me-1",
+    "parent_id": "me-a1",
+    "timestamp": "2026-06-22T15:00:08Z",
+    "project": {
+      "cwd": "/home/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "112233445566778899aa",
+        "branch": "feat/logging-pivot"
+      }
+    },
+    "kind": {
+      "event": "tool_call",
+      "call_id": "call-me-1",
+      "name": "applyEdit",
+      "args": {
+        "path": "src/server.ts"
+      }
+    },
+    "provenance": {
+      "file": "fixtures/vscode/v1/multi_edit_single_commit.jsonl",
+      "byte_offset": 392,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "vs_code",
+    "session_id": "vsc-sess-multi",
+    "seq": 4,
+    "event_id": "me-a1:toolcall:1:call-me-2",
+    "parent_id": "me-a1",
+    "timestamp": "2026-06-22T15:00:08Z",
+    "project": {
+      "cwd": "/home/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "112233445566778899aa",
+        "branch": "feat/logging-pivot"
+      }
+    },
+    "kind": {
+      "event": "tool_call",
+      "call_id": "call-me-2",
+      "name": "applyEdit",
+      "args": {
+        "path": "src/db/connect.ts"
+      }
+    },
+    "provenance": {
+      "file": "fixtures/vscode/v1/multi_edit_single_commit.jsonl",
+      "byte_offset": 392,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "vs_code",
+    "session_id": "vsc-sess-multi",
+    "seq": 5,
+    "event_id": "me-a1:toolcall:2:call-me-3",
+    "parent_id": "me-a1",
+    "timestamp": "2026-06-22T15:00:08Z",
+    "project": {
+      "cwd": "/home/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "112233445566778899aa",
+        "branch": "feat/logging-pivot"
+      }
+    },
+    "kind": {
+      "event": "tool_call",
+      "call_id": "call-me-3",
+      "name": "applyEdit",
+      "args": {
+        "path": "src/jobs/worker.ts"
+      }
+    },
+    "provenance": {
+      "file": "fixtures/vscode/v1/multi_edit_single_commit.jsonl",
+      "byte_offset": 392,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "vs_code",
+    "session_id": "vsc-sess-multi",
+    "seq": 6,
+    "event_id": "me-a1:edit:0:src/server.ts",
+    "parent_id": "me-a1",
+    "timestamp": "2026-06-22T15:00:08Z",
+    "project": {
+      "cwd": "/home/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "112233445566778899aa",
+        "branch": "feat/logging-pivot"
+      }
+    },
+    "kind": {
+      "event": "file_edit",
+      "call_id": "call-me-1",
+      "diff": {
+        "path": "src/server.ts",
+        "old": "console.log(msg)",
+        "new": "logger.info({ msg })",
+        "unified": "@@ -1 +1 @@\n-console.log(msg)\n+logger.info({ msg })",
+        "added_lines": 1,
+        "removed_lines": 1
+      }
+    },
+    "provenance": {
+      "file": "fixtures/vscode/v1/multi_edit_single_commit.jsonl",
+      "byte_offset": 392,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "vs_code",
+    "session_id": "vsc-sess-multi",
+    "seq": 7,
+    "event_id": "me-a1:edit:1:src/db/connect.ts",
+    "parent_id": "me-a1",
+    "timestamp": "2026-06-22T15:00:08Z",
+    "project": {
+      "cwd": "/home/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "112233445566778899aa",
+        "branch": "feat/logging-pivot"
+      }
+    },
+    "kind": {
+      "event": "file_edit",
+      "call_id": "call-me-2",
+      "diff": {
+        "path": "src/db/connect.ts",
+        "old": "console.log('connected')",
+        "new": "logger.info({ event: 'db_connected' })",
+        "unified": null,
+        "added_lines": 1,
+        "removed_lines": 1
+      }
+    },
+    "provenance": {
+      "file": "fixtures/vscode/v1/multi_edit_single_commit.jsonl",
+      "byte_offset": 392,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "vs_code",
+    "session_id": "vsc-sess-multi",
+    "seq": 8,
+    "event_id": "me-a1:edit:2:src/jobs/worker.ts",
+    "parent_id": "me-a1",
+    "timestamp": "2026-06-22T15:00:08Z",
+    "project": {
+      "cwd": "/home/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "112233445566778899aa",
+        "branch": "feat/logging-pivot"
+      }
+    },
+    "kind": {
+      "event": "file_edit",
+      "call_id": "call-me-3",
+      "diff": {
+        "path": "src/jobs/worker.ts",
+        "old": "console.log('job done')",
+        "new": "logger.info({ event: 'job_done' })",
+        "unified": null,
+        "added_lines": 1,
+        "removed_lines": 1
+      }
+    },
+    "provenance": {
+      "file": "fixtures/vscode/v1/multi_edit_single_commit.jsonl",
+      "byte_offset": 392,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "vs_code",
+    "session_id": "vsc-sess-multi",
+    "seq": 9,
+    "event_id": "me-u2",
+    "parent_id": "me-a1",
+    "timestamp": "2026-06-22T15:01:00Z",
+    "project": {
+      "cwd": "/home/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "112233445566778899aa",
+        "branch": "feat/logging-pivot"
+      }
+    },
+    "kind": {
+      "event": "user_turn",
+      "text": "Great, that covers the whole service. Thanks.",
+      "parts": []
+    },
+    "provenance": {
+      "file": "fixtures/vscode/v1/multi_edit_single_commit.jsonl",
+      "byte_offset": 1379,
+      "line_no": 4
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "vs_code",
+    "session_id": "vsc-sess-multi",
+    "seq": 10,
+    "event_id": "9c86f793a37c3381465576663f42a37a3ae1ecd0bff0cb49482a614b20663009",
+    "parent_id": null,
+    "timestamp": "2026-06-22T15:02:00Z",
+    "project": {
+      "cwd": "/home/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "112233445566778899aa",
+        "branch": "feat/logging-pivot"
+      }
+    },
+    "kind": {
+      "event": "session_end",
+      "reason": "user_closed"
+    },
+    "provenance": {
+      "file": "fixtures/vscode/v1/multi_edit_single_commit.jsonl",
+      "byte_offset": 1539,
+      "line_no": 5
+    }
+  }
+]

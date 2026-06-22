@@ -1,0 +1,337 @@
+---
+source: crates/memscribe-testkit/tests/golden.rs
+expression: events
+---
+[
+  {
+    "schema_version": 1,
+    "source": "otel",
+    "session_id": "sess-otel-rewind-007",
+    "seq": 0,
+    "event_id": "b3129fd505a917653ecab8d4f781d661e990fc14a2dd3bd85b07b9958dda3cac:session_start:0",
+    "parent_id": null,
+    "timestamp": "2026-06-22T20:00:00Z",
+    "project": {
+      "cwd": "/home/dev/acme-api",
+      "repo_root": "/home/dev/acme-api",
+      "git": {
+        "sha": "0718293a4b5c6d7e8f90",
+        "branch": "feat/persistence-pivot"
+      }
+    },
+    "kind": {
+      "event": "session_start",
+      "cwd": "/home/dev/acme-api",
+      "git": {
+        "sha": "0718293a4b5c6d7e8f90",
+        "branch": "feat/persistence-pivot"
+      },
+      "model": "claude-opus-4-8",
+      "tool_version": null
+    },
+    "provenance": {
+      "file": "fixtures/otel/genai/rewind_compaction.jsonl",
+      "byte_offset": 0,
+      "line_no": 1
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "otel",
+    "session_id": "sess-otel-rewind-007",
+    "seq": 1,
+    "event_id": "02a934ec53bef8b13c5f944b9a3f2238653da47c7043bd6469629d9ea9462b64:user_prompt:0",
+    "parent_id": null,
+    "timestamp": "2026-06-22T20:00:06Z",
+    "project": {
+      "cwd": "/home/dev/acme-api",
+      "repo_root": "/home/dev/acme-api",
+      "git": {
+        "sha": "0718293a4b5c6d7e8f90",
+        "branch": "feat/persistence-pivot"
+      }
+    },
+    "kind": {
+      "event": "user_turn",
+      "text": "Let's use MongoDB for the document store. Set up the driver and the connection config.",
+      "parts": [
+        {
+          "part": "text",
+          "text": "Let's use MongoDB for the document store. Set up the driver and the connection config."
+        }
+      ]
+    },
+    "provenance": {
+      "file": "fixtures/otel/genai/rewind_compaction.jsonl",
+      "byte_offset": 323,
+      "line_no": 2
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "otel",
+    "session_id": "sess-otel-rewind-007",
+    "seq": 2,
+    "event_id": "0f5f6f8084451be28981389f52652912632dbd79d7ed668de8fce10ef2b0c16b:output_msg:0",
+    "parent_id": null,
+    "timestamp": "2026-06-22T20:00:11Z",
+    "project": {
+      "cwd": "/home/dev/acme-api",
+      "repo_root": "/home/dev/acme-api",
+      "git": {
+        "sha": "0718293a4b5c6d7e8f90",
+        "branch": "feat/persistence-pivot"
+      }
+    },
+    "kind": {
+      "event": "assistant_turn",
+      "text": "Understood, I'll wire up MongoDB for the document store.",
+      "thinking": null,
+      "model": "claude-opus-4-8",
+      "usage": {
+        "input_tokens": 260,
+        "output_tokens": 48,
+        "cache_read_tokens": null,
+        "cache_creation_tokens": null
+      },
+      "parts": [
+        {
+          "part": "text",
+          "text": "Understood, I'll wire up MongoDB for the document store."
+        }
+      ]
+    },
+    "provenance": {
+      "file": "fixtures/otel/genai/rewind_compaction.jsonl",
+      "byte_offset": 576,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "otel",
+    "session_id": "sess-otel-rewind-007",
+    "seq": 3,
+    "event_id": "1d730b7cbf9c77ac83ed6b63ac0ce4844d8b0194427177a0786e022c12473790",
+    "parent_id": null,
+    "timestamp": "2026-06-22T20:00:30Z",
+    "project": {
+      "cwd": "/home/dev/acme-api",
+      "repo_root": "/home/dev/acme-api",
+      "git": {
+        "sha": "0718293a4b5c6d7e8f90",
+        "branch": "feat/persistence-pivot"
+      }
+    },
+    "kind": {
+      "event": "unknown",
+      "raw_type": "unknown",
+      "raw": {
+        "_note": "OTel GenAI semconv has NO native rewind/compaction record; only gemini ($rewindTo) and codex (compacted/event_msg) carry first-class supersede markers. The closest faithful OTel export of a context-window compaction is this unrecognized operation, which the adapter routes losslessly to EventKind::Unknown and the segmenter ignores. CONSEQUENCE: the MongoDB decision is NOT stamped superseded_by for otel; both decision turns survive and both verbatim turns are preserved. Conformance should assert the invariant that genuinely holds here (verbatim retention + lossless Unknown passthrough), not supersession.",
+        "time": "2026-06-22T20:00:30Z",
+        "gen_ai.system": "anthropic",
+        "gen_ai.operation.name": "context.compaction",
+        "gen_ai.conversation.id": "sess-otel-rewind-007",
+        "reason": "auto_compact",
+        "gen_ai.compaction.replaced_message_ids": [
+          "msg-mongo-user",
+          "msg-mongo-assistant"
+        ],
+        "summary": "The MongoDB exploration above was summarized and the verbatim early turns were dropped from the active context window."
+      }
+    },
+    "provenance": {
+      "file": "fixtures/otel/genai/rewind_compaction.jsonl",
+      "byte_offset": 937,
+      "line_no": 4
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "otel",
+    "session_id": "sess-otel-rewind-007",
+    "seq": 4,
+    "event_id": "8e6d040b3815a94e315bdf14545370e1ea8457dd62d37387c08ddc184708ed9d:user_prompt:0",
+    "parent_id": null,
+    "timestamp": "2026-06-22T20:00:40Z",
+    "project": {
+      "cwd": "/home/dev/acme-api",
+      "repo_root": "/home/dev/acme-api",
+      "git": {
+        "sha": "0718293a4b5c6d7e8f90",
+        "branch": "feat/persistence-pivot"
+      }
+    },
+    "kind": {
+      "event": "user_turn",
+      "text": "Actually let's use Postgres with JSONB for the document store instead. Switch to Postgres and drop the MongoDB plan.",
+      "parts": [
+        {
+          "part": "text",
+          "text": "Actually let's use Postgres with JSONB for the document store instead. Switch to Postgres and drop the MongoDB plan."
+        }
+      ]
+    },
+    "provenance": {
+      "file": "fixtures/otel/genai/rewind_compaction.jsonl",
+      "byte_offset": 1947,
+      "line_no": 5
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "otel",
+    "session_id": "sess-otel-rewind-007",
+    "seq": 5,
+    "event_id": "d07bdc9b0d20e4d2cb4a4b4cc086cbbf38691ff4db551257b68b8f567379b96f:output_msg:0",
+    "parent_id": null,
+    "timestamp": "2026-06-22T20:00:45Z",
+    "project": {
+      "cwd": "/home/dev/acme-api",
+      "repo_root": "/home/dev/acme-api",
+      "git": {
+        "sha": "0718293a4b5c6d7e8f90",
+        "branch": "feat/persistence-pivot"
+      }
+    },
+    "kind": {
+      "event": "assistant_turn",
+      "text": "Switching the document store to Postgres with JSONB columns.",
+      "thinking": null,
+      "model": "claude-opus-4-8",
+      "usage": {
+        "input_tokens": 300,
+        "output_tokens": 60,
+        "cache_read_tokens": null,
+        "cache_creation_tokens": null
+      },
+      "parts": [
+        {
+          "part": "text",
+          "text": "Switching the document store to Postgres with JSONB columns."
+        }
+      ]
+    },
+    "provenance": {
+      "file": "fixtures/otel/genai/rewind_compaction.jsonl",
+      "byte_offset": 2230,
+      "line_no": 6
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "otel",
+    "session_id": "sess-otel-rewind-007",
+    "seq": 6,
+    "event_id": "265c4bf20f1eb6195df0e81a5915c825732b026d8e0bfafb50af20ebd0d28111:tool_call:0",
+    "parent_id": null,
+    "timestamp": "2026-06-22T20:00:53Z",
+    "project": {
+      "cwd": "/home/dev/acme-api",
+      "repo_root": "/home/dev/acme-api",
+      "git": {
+        "sha": "0718293a4b5c6d7e8f90",
+        "branch": "feat/persistence-pivot"
+      }
+    },
+    "kind": {
+      "event": "tool_call",
+      "call_id": "call-rewind-store",
+      "name": "edit_file",
+      "args": null
+    },
+    "provenance": {
+      "file": "fixtures/otel/genai/rewind_compaction.jsonl",
+      "byte_offset": 2595,
+      "line_no": 7
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "otel",
+    "session_id": "sess-otel-rewind-007",
+    "seq": 7,
+    "event_id": "265c4bf20f1eb6195df0e81a5915c825732b026d8e0bfafb50af20ebd0d28111:tool_result:0",
+    "parent_id": null,
+    "timestamp": "2026-06-22T20:00:53Z",
+    "project": {
+      "cwd": "/home/dev/acme-api",
+      "repo_root": "/home/dev/acme-api",
+      "git": {
+        "sha": "0718293a4b5c6d7e8f90",
+        "branch": "feat/persistence-pivot"
+      }
+    },
+    "kind": {
+      "event": "tool_result",
+      "call_id": "call-rewind-store",
+      "ok": true,
+      "output": "ok"
+    },
+    "provenance": {
+      "file": "fixtures/otel/genai/rewind_compaction.jsonl",
+      "byte_offset": 2595,
+      "line_no": 7
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "otel",
+    "session_id": "sess-otel-rewind-007",
+    "seq": 8,
+    "event_id": "265c4bf20f1eb6195df0e81a5915c825732b026d8e0bfafb50af20ebd0d28111:file_edit:0",
+    "parent_id": null,
+    "timestamp": "2026-06-22T20:00:53Z",
+    "project": {
+      "cwd": "/home/dev/acme-api",
+      "repo_root": "/home/dev/acme-api",
+      "git": {
+        "sha": "0718293a4b5c6d7e8f90",
+        "branch": "feat/persistence-pivot"
+      }
+    },
+    "kind": {
+      "event": "file_edit",
+      "call_id": "call-rewind-store",
+      "diff": {
+        "path": "src/store.rs",
+        "old": null,
+        "new": null,
+        "unified": null,
+        "added_lines": 2,
+        "removed_lines": 2
+      }
+    },
+    "provenance": {
+      "file": "fixtures/otel/genai/rewind_compaction.jsonl",
+      "byte_offset": 2595,
+      "line_no": 7
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "otel",
+    "session_id": "sess-otel-rewind-007",
+    "seq": 9,
+    "event_id": "c5e63fa71a189d391c0c5a6766df80beb5e10f91f87ef0080171d2a0a206e032:session_end:0",
+    "parent_id": null,
+    "timestamp": "2026-06-22T20:00:58Z",
+    "project": {
+      "cwd": "/home/dev/acme-api",
+      "repo_root": "/home/dev/acme-api",
+      "git": {
+        "sha": "0718293a4b5c6d7e8f90",
+        "branch": "feat/persistence-pivot"
+      }
+    },
+    "kind": {
+      "event": "session_end",
+      "reason": "completed"
+    },
+    "provenance": {
+      "file": "fixtures/otel/genai/rewind_compaction.jsonl",
+      "byte_offset": 2914,
+      "line_no": 8
+    }
+  }
+]

@@ -1,0 +1,255 @@
+---
+source: crates/memscribe-testkit/tests/golden.rs
+expression: events
+---
+[
+  {
+    "schema_version": 1,
+    "source": "zed",
+    "session_id": "zed-thread-006",
+    "seq": 0,
+    "event_id": "d6f478ce08d707460584ef990526cefa9455b2bf06acc81f1072461cd1afe83d",
+    "parent_id": null,
+    "timestamp": "2026-06-22T14:00:00Z",
+    "project": {
+      "cwd": "/Users/dev/projects/auth-svc",
+      "repo_root": null,
+      "git": {
+        "sha": "b2b2b2b2b2b2",
+        "branch": "feat/argon2"
+      }
+    },
+    "kind": {
+      "event": "session_start",
+      "cwd": "/Users/dev/projects/auth-svc",
+      "git": {
+        "sha": "b2b2b2b2b2b2",
+        "branch": "feat/argon2"
+      },
+      "model": null,
+      "tool_version": "zed 0.182.0"
+    },
+    "provenance": {
+      "file": "fixtures/zed/v1/multi_edit_single_commit.jsonl",
+      "byte_offset": 0,
+      "line_no": 1
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "zed",
+    "session_id": "zed-thread-006",
+    "seq": 1,
+    "event_id": "msg-1",
+    "parent_id": null,
+    "timestamp": "2026-06-22T14:00:00Z",
+    "project": {
+      "cwd": "/Users/dev/projects/auth-svc",
+      "repo_root": null,
+      "git": {
+        "sha": "b2b2b2b2b2b2",
+        "branch": "feat/argon2"
+      }
+    },
+    "kind": {
+      "event": "user_turn",
+      "text": "We will use Argon2 for password hashing across the auth service. Update the hasher, the verifier, and the config in one pass.",
+      "parts": []
+    },
+    "provenance": {
+      "file": "fixtures/zed/v1/multi_edit_single_commit.jsonl",
+      "byte_offset": 199,
+      "line_no": 2
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "zed",
+    "session_id": "zed-thread-006",
+    "seq": 2,
+    "event_id": "msg-2",
+    "parent_id": "msg-1",
+    "timestamp": "2026-06-22T14:00:03Z",
+    "project": {
+      "cwd": "/Users/dev/projects/auth-svc",
+      "repo_root": null,
+      "git": {
+        "sha": "b2b2b2b2b2b2",
+        "branch": "feat/argon2"
+      }
+    },
+    "kind": {
+      "event": "assistant_turn",
+      "text": "Rolling Argon2 through the hasher, verifier, and config as a single change.",
+      "thinking": null,
+      "model": "claude-opus-4-8",
+      "usage": {
+        "input_tokens": 160,
+        "output_tokens": 88,
+        "cache_read_tokens": null,
+        "cache_creation_tokens": null
+      },
+      "parts": []
+    },
+    "provenance": {
+      "file": "fixtures/zed/v1/multi_edit_single_commit.jsonl",
+      "byte_offset": 436,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "zed",
+    "session_id": "zed-thread-006",
+    "seq": 3,
+    "event_id": "msg-2:edit:0",
+    "parent_id": "msg-2",
+    "timestamp": "2026-06-22T14:00:03Z",
+    "project": {
+      "cwd": "/Users/dev/projects/auth-svc",
+      "repo_root": null,
+      "git": {
+        "sha": "b2b2b2b2b2b2",
+        "branch": "feat/argon2"
+      }
+    },
+    "kind": {
+      "event": "file_edit",
+      "call_id": null,
+      "diff": {
+        "path": "src/auth/hasher.rs",
+        "old": "use bcrypt::hash;\n",
+        "new": "use argon2::Argon2;\n",
+        "unified": "@@ -1 +1 @@\n-use bcrypt::hash;\n+use argon2::Argon2;\n",
+        "added_lines": 1,
+        "removed_lines": 1
+      }
+    },
+    "provenance": {
+      "file": "fixtures/zed/v1/multi_edit_single_commit.jsonl",
+      "byte_offset": 436,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "zed",
+    "session_id": "zed-thread-006",
+    "seq": 4,
+    "event_id": "msg-2:edit:1",
+    "parent_id": "msg-2",
+    "timestamp": "2026-06-22T14:00:03Z",
+    "project": {
+      "cwd": "/Users/dev/projects/auth-svc",
+      "repo_root": null,
+      "git": {
+        "sha": "b2b2b2b2b2b2",
+        "branch": "feat/argon2"
+      }
+    },
+    "kind": {
+      "event": "file_edit",
+      "call_id": null,
+      "diff": {
+        "path": "src/auth/verifier.rs",
+        "old": "use bcrypt::verify;\n",
+        "new": "use argon2::PasswordVerifier;\n",
+        "unified": "@@ -1 +1 @@\n-use bcrypt::verify;\n+use argon2::PasswordVerifier;\n",
+        "added_lines": 1,
+        "removed_lines": 1
+      }
+    },
+    "provenance": {
+      "file": "fixtures/zed/v1/multi_edit_single_commit.jsonl",
+      "byte_offset": 436,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "zed",
+    "session_id": "zed-thread-006",
+    "seq": 5,
+    "event_id": "msg-2:edit:2",
+    "parent_id": "msg-2",
+    "timestamp": "2026-06-22T14:00:03Z",
+    "project": {
+      "cwd": "/Users/dev/projects/auth-svc",
+      "repo_root": null,
+      "git": {
+        "sha": "b2b2b2b2b2b2",
+        "branch": "feat/argon2"
+      }
+    },
+    "kind": {
+      "event": "file_edit",
+      "call_id": null,
+      "diff": {
+        "path": "config/auth.toml",
+        "old": "hash = \"bcrypt\"\n",
+        "new": "hash = \"argon2\"\n",
+        "unified": "@@ -1 +1 @@\n-hash = \"bcrypt\"\n+hash = \"argon2\"\n",
+        "added_lines": 1,
+        "removed_lines": 1
+      }
+    },
+    "provenance": {
+      "file": "fixtures/zed/v1/multi_edit_single_commit.jsonl",
+      "byte_offset": 436,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "zed",
+    "session_id": "zed-thread-006",
+    "seq": 6,
+    "event_id": "msg-3",
+    "parent_id": "msg-2",
+    "timestamp": "2026-06-22T14:01:00Z",
+    "project": {
+      "cwd": "/Users/dev/projects/auth-svc",
+      "repo_root": null,
+      "git": {
+        "sha": "b2b2b2b2b2b2",
+        "branch": "feat/argon2"
+      }
+    },
+    "kind": {
+      "event": "user_turn",
+      "text": "Perfect, ship it.",
+      "parts": []
+    },
+    "provenance": {
+      "file": "fixtures/zed/v1/multi_edit_single_commit.jsonl",
+      "byte_offset": 1270,
+      "line_no": 4
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "zed",
+    "session_id": "zed-thread-006",
+    "seq": 7,
+    "event_id": "c4b46d1c674617386125ec3a4023a60eebd0550055fd755107ecd43de2dc0954",
+    "parent_id": null,
+    "timestamp": "2026-06-22T14:01:30Z",
+    "project": {
+      "cwd": "/Users/dev/projects/auth-svc",
+      "repo_root": null,
+      "git": {
+        "sha": "b2b2b2b2b2b2",
+        "branch": "feat/argon2"
+      }
+    },
+    "kind": {
+      "event": "session_end",
+      "reason": "user_closed"
+    },
+    "provenance": {
+      "file": "fixtures/zed/v1/multi_edit_single_commit.jsonl",
+      "byte_offset": 1402,
+      "line_no": 5
+    }
+  }
+]

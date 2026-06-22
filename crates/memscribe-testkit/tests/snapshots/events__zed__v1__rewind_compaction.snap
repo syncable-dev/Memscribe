@@ -1,0 +1,343 @@
+---
+source: crates/memscribe-testkit/tests/golden.rs
+expression: events
+---
+[
+  {
+    "schema_version": 1,
+    "source": "zed",
+    "session_id": "zed-thread-007",
+    "seq": 0,
+    "event_id": "aae47aa328873d3ad65943edeca39344709319a1dcf06cfd3fb7682de32c250c",
+    "parent_id": null,
+    "timestamp": "2026-06-22T15:00:00Z",
+    "project": {
+      "cwd": "/Users/dev/projects/catalog",
+      "repo_root": null,
+      "git": {
+        "sha": "c3c3c3c3c3c3",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "session_start",
+      "cwd": "/Users/dev/projects/catalog",
+      "git": {
+        "sha": "c3c3c3c3c3c3",
+        "branch": "main"
+      },
+      "model": null,
+      "tool_version": "zed 0.182.0"
+    },
+    "provenance": {
+      "file": "fixtures/zed/v1/rewind_compaction.jsonl",
+      "byte_offset": 0,
+      "line_no": 1
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "zed",
+    "session_id": "zed-thread-007",
+    "seq": 1,
+    "event_id": "msg-1",
+    "parent_id": null,
+    "timestamp": "2026-06-22T15:00:00Z",
+    "project": {
+      "cwd": "/Users/dev/projects/catalog",
+      "repo_root": null,
+      "git": {
+        "sha": "c3c3c3c3c3c3",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "user_turn",
+      "text": "Let's plan the storage layer for the catalog.",
+      "parts": []
+    },
+    "provenance": {
+      "file": "fixtures/zed/v1/rewind_compaction.jsonl",
+      "byte_offset": 191,
+      "line_no": 2
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "zed",
+    "session_id": "zed-thread-007",
+    "seq": 2,
+    "event_id": "msg-2",
+    "parent_id": "msg-1",
+    "timestamp": "2026-06-22T15:01:00Z",
+    "project": {
+      "cwd": "/Users/dev/projects/catalog",
+      "repo_root": null,
+      "git": {
+        "sha": "c3c3c3c3c3c3",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "user_turn",
+      "text": "Use MongoDB for the catalog store. Wire up the document client.",
+      "parts": []
+    },
+    "provenance": {
+      "file": "fixtures/zed/v1/rewind_compaction.jsonl",
+      "byte_offset": 348,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "zed",
+    "session_id": "zed-thread-007",
+    "seq": 3,
+    "event_id": "msg-3",
+    "parent_id": "msg-2",
+    "timestamp": "2026-06-22T15:01:03Z",
+    "project": {
+      "cwd": "/Users/dev/projects/catalog",
+      "repo_root": null,
+      "git": {
+        "sha": "c3c3c3c3c3c3",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "assistant_turn",
+      "text": "Setting up the MongoDB document client.",
+      "thinking": null,
+      "model": "claude-opus-4-8",
+      "usage": {
+        "input_tokens": 110,
+        "output_tokens": 54,
+        "cache_read_tokens": null,
+        "cache_creation_tokens": null
+      },
+      "parts": []
+    },
+    "provenance": {
+      "file": "fixtures/zed/v1/rewind_compaction.jsonl",
+      "byte_offset": 526,
+      "line_no": 4
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "zed",
+    "session_id": "zed-thread-007",
+    "seq": 4,
+    "event_id": "msg-3:edit:0",
+    "parent_id": "msg-3",
+    "timestamp": "2026-06-22T15:01:03Z",
+    "project": {
+      "cwd": "/Users/dev/projects/catalog",
+      "repo_root": null,
+      "git": {
+        "sha": "c3c3c3c3c3c3",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "file_edit",
+      "call_id": null,
+      "diff": {
+        "path": "src/store.rs",
+        "old": "pub struct Store;\n",
+        "new": "use mongodb::Client;\npub struct Store(Client);\n",
+        "unified": "@@ -1 +1,2 @@\n-pub struct Store;\n+use mongodb::Client;\n+pub struct Store(Client);\n",
+        "added_lines": 2,
+        "removed_lines": 1
+      }
+    },
+    "provenance": {
+      "file": "fixtures/zed/v1/rewind_compaction.jsonl",
+      "byte_offset": 526,
+      "line_no": 4
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "zed",
+    "session_id": "zed-thread-007",
+    "seq": 5,
+    "event_id": "085b574d113112bbf53c620a153c2290b34d31c85a2c5d719b3854cd42388aad",
+    "parent_id": null,
+    "timestamp": "2026-06-22T15:09:00Z",
+    "project": {
+      "cwd": "/Users/dev/projects/catalog",
+      "repo_root": null,
+      "git": {
+        "sha": "c3c3c3c3c3c3",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "unknown",
+      "raw_type": "unknown",
+      "raw": {
+        "kind": "thread_rewind",
+        "sessionId": "zed-thread-007",
+        "ts": "2026-06-22T15:09:00Z",
+        "toEventId": "msg-1",
+        "note": "Zed export has no native rewind/compaction record; this marker is a faithful analog. The adapter routes it to EventKind::Unknown (lossless), so the segmenter emits NO superseded_by for msg-2."
+      }
+    },
+    "provenance": {
+      "file": "fixtures/zed/v1/rewind_compaction.jsonl",
+      "byte_offset": 991,
+      "line_no": 5
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "zed",
+    "session_id": "zed-thread-007",
+    "seq": 6,
+    "event_id": "msg-4",
+    "parent_id": "msg-1",
+    "timestamp": "2026-06-22T15:10:00Z",
+    "project": {
+      "cwd": "/Users/dev/projects/catalog",
+      "repo_root": null,
+      "git": {
+        "sha": "c3c3c3c3c3c3",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "user_turn",
+      "text": "On reflection, use Postgres with JSONB for the catalog store instead of MongoDB.",
+      "parts": []
+    },
+    "provenance": {
+      "file": "fixtures/zed/v1/rewind_compaction.jsonl",
+      "byte_offset": 1294,
+      "line_no": 6
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "zed",
+    "session_id": "zed-thread-007",
+    "seq": 7,
+    "event_id": "msg-5",
+    "parent_id": "msg-4",
+    "timestamp": "2026-06-22T15:10:03Z",
+    "project": {
+      "cwd": "/Users/dev/projects/catalog",
+      "repo_root": null,
+      "git": {
+        "sha": "c3c3c3c3c3c3",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "assistant_turn",
+      "text": "Replacing the store with a Postgres JSONB client.",
+      "thinking": null,
+      "model": "claude-opus-4-8",
+      "usage": {
+        "input_tokens": 105,
+        "output_tokens": 58,
+        "cache_read_tokens": null,
+        "cache_creation_tokens": null
+      },
+      "parts": []
+    },
+    "provenance": {
+      "file": "fixtures/zed/v1/rewind_compaction.jsonl",
+      "byte_offset": 1489,
+      "line_no": 7
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "zed",
+    "session_id": "zed-thread-007",
+    "seq": 8,
+    "event_id": "msg-5:edit:0",
+    "parent_id": "msg-5",
+    "timestamp": "2026-06-22T15:10:03Z",
+    "project": {
+      "cwd": "/Users/dev/projects/catalog",
+      "repo_root": null,
+      "git": {
+        "sha": "c3c3c3c3c3c3",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "file_edit",
+      "call_id": null,
+      "diff": {
+        "path": "src/store.rs",
+        "old": "use mongodb::Client;\npub struct Store(Client);\n",
+        "new": "use postgres::Client;\npub struct Store(Client);\n",
+        "unified": "@@ -1,2 +1,2 @@\n-use mongodb::Client;\n+use postgres::Client;\n pub struct Store(Client);\n",
+        "added_lines": 1,
+        "removed_lines": 1
+      }
+    },
+    "provenance": {
+      "file": "fixtures/zed/v1/rewind_compaction.jsonl",
+      "byte_offset": 1489,
+      "line_no": 7
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "zed",
+    "session_id": "zed-thread-007",
+    "seq": 9,
+    "event_id": "msg-6",
+    "parent_id": "msg-5",
+    "timestamp": "2026-06-22T15:10:30Z",
+    "project": {
+      "cwd": "/Users/dev/projects/catalog",
+      "repo_root": null,
+      "git": {
+        "sha": "c3c3c3c3c3c3",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "user_turn",
+      "text": "Looks right now, thanks.",
+      "parts": []
+    },
+    "provenance": {
+      "file": "fixtures/zed/v1/rewind_compaction.jsonl",
+      "byte_offset": 2001,
+      "line_no": 8
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "zed",
+    "session_id": "zed-thread-007",
+    "seq": 10,
+    "event_id": "9344c0d4bec875d04b678d61eab055a65043e63cad4047fff65c18364951ef93",
+    "parent_id": null,
+    "timestamp": "2026-06-22T15:11:00Z",
+    "project": {
+      "cwd": "/Users/dev/projects/catalog",
+      "repo_root": null,
+      "git": {
+        "sha": "c3c3c3c3c3c3",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "session_end",
+      "reason": "user_closed"
+    },
+    "provenance": {
+      "file": "fixtures/zed/v1/rewind_compaction.jsonl",
+      "byte_offset": 2140,
+      "line_no": 9
+    }
+  }
+]

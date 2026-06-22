@@ -1,0 +1,338 @@
+---
+source: crates/memscribe-testkit/tests/golden.rs
+expression: events
+---
+[
+  {
+    "schema_version": 1,
+    "source": "otel",
+    "session_id": "sess-otel-main-008",
+    "seq": 0,
+    "event_id": "002b4c1556e9bfdd6bbcc3a2b6302c5d04afe7e3c5db3fbf26576d03466683df:session_start:0",
+    "parent_id": null,
+    "timestamp": "2026-06-22T21:00:00Z",
+    "project": {
+      "cwd": "/home/dev/acme-api",
+      "repo_root": "/home/dev/acme-api",
+      "git": {
+        "sha": "18293a4b5c6d7e8f9001",
+        "branch": "feat/worker-split"
+      }
+    },
+    "kind": {
+      "event": "session_start",
+      "cwd": "/home/dev/acme-api",
+      "git": {
+        "sha": "18293a4b5c6d7e8f9001",
+        "branch": "feat/worker-split"
+      },
+      "model": "claude-opus-4-8",
+      "tool_version": null
+    },
+    "provenance": {
+      "file": "fixtures/otel/genai/subagent_thread.jsonl",
+      "byte_offset": 0,
+      "line_no": 1
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "otel",
+    "session_id": "sess-otel-main-008",
+    "seq": 1,
+    "event_id": "5dceef2241b908eb6b49f0b39b43cc78ac1e7618028ed944f6354c684b158271:user_prompt:0",
+    "parent_id": null,
+    "timestamp": "2026-06-22T21:00:06Z",
+    "project": {
+      "cwd": "/home/dev/acme-api",
+      "repo_root": "/home/dev/acme-api",
+      "git": {
+        "sha": "18293a4b5c6d7e8f9001",
+        "branch": "feat/worker-split"
+      }
+    },
+    "kind": {
+      "event": "user_turn",
+      "text": "Let's use a dedicated background worker for the email queue. Extract the send loop into a worker module.",
+      "parts": [
+        {
+          "part": "text",
+          "text": "Let's use a dedicated background worker for the email queue. Extract the send loop into a worker module."
+        }
+      ]
+    },
+    "provenance": {
+      "file": "fixtures/otel/genai/subagent_thread.jsonl",
+      "byte_offset": 316,
+      "line_no": 2
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "otel",
+    "session_id": "sess-otel-main-008",
+    "seq": 2,
+    "event_id": "1ea62158412351043f8deabbd978b863a32825026b405843b38fe4895075021c:output_msg:0",
+    "parent_id": null,
+    "timestamp": "2026-06-22T21:00:11Z",
+    "project": {
+      "cwd": "/home/dev/acme-api",
+      "repo_root": "/home/dev/acme-api",
+      "git": {
+        "sha": "18293a4b5c6d7e8f9001",
+        "branch": "feat/worker-split"
+      }
+    },
+    "kind": {
+      "event": "assistant_turn",
+      "text": "I'll extract the send loop into a dedicated worker module via a nested task thread.",
+      "thinking": null,
+      "model": "claude-opus-4-8",
+      "usage": {
+        "input_tokens": 260,
+        "output_tokens": 55,
+        "cache_read_tokens": null,
+        "cache_creation_tokens": null
+      },
+      "parts": [
+        {
+          "part": "text",
+          "text": "I'll extract the send loop into a dedicated worker module via a nested task thread."
+        }
+      ]
+    },
+    "provenance": {
+      "file": "fixtures/otel/genai/subagent_thread.jsonl",
+      "byte_offset": 585,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "otel",
+    "session_id": "sess-otel-main-008",
+    "seq": 3,
+    "event_id": "1ea531958469df075e6cea883141c8bf1dfc7158a108c92bbdd4dfc83e4f444d:user_prompt:0",
+    "parent_id": null,
+    "timestamp": "2026-06-22T21:00:14Z",
+    "project": {
+      "cwd": "/home/dev/acme-api",
+      "repo_root": "/home/dev/acme-api",
+      "git": {
+        "sha": "18293a4b5c6d7e8f9001",
+        "branch": "feat/worker-split"
+      }
+    },
+    "kind": {
+      "event": "user_turn",
+      "text": "Let's adopt a tokio worker loop for the email queue in the worker module.",
+      "parts": [
+        {
+          "part": "text",
+          "text": "Let's adopt a tokio worker loop for the email queue in the worker module."
+        }
+      ]
+    },
+    "provenance": {
+      "file": "fixtures/otel/genai/subagent_thread.jsonl",
+      "byte_offset": 971,
+      "line_no": 4
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "otel",
+    "session_id": "sess-otel-main-008",
+    "seq": 4,
+    "event_id": "32717954649511acfa50e88fd0d48b0cb9a9d9192d604806a6a8a21559d9e2a4:output_msg:0",
+    "parent_id": null,
+    "timestamp": "2026-06-22T21:00:18Z",
+    "project": {
+      "cwd": "/home/dev/acme-api",
+      "repo_root": "/home/dev/acme-api",
+      "git": {
+        "sha": "18293a4b5c6d7e8f9001",
+        "branch": "feat/worker-split"
+      }
+    },
+    "kind": {
+      "event": "assistant_turn",
+      "text": "Adding the worker module and spawning it from main.",
+      "thinking": null,
+      "model": "claude-opus-4-8",
+      "usage": {
+        "input_tokens": 280,
+        "output_tokens": 65,
+        "cache_read_tokens": null,
+        "cache_creation_tokens": null
+      },
+      "parts": [
+        {
+          "part": "text",
+          "text": "Adding the worker module and spawning it from main."
+        }
+      ]
+    },
+    "provenance": {
+      "file": "fixtures/otel/genai/subagent_thread.jsonl",
+      "byte_offset": 1812,
+      "line_no": 5
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "otel",
+    "session_id": "sess-otel-main-008",
+    "seq": 5,
+    "event_id": "a3eb6461c3dcd750df77e908211a04bb23aae4640d2314912965c97ae97d81cb:tool_call:0",
+    "parent_id": null,
+    "timestamp": "2026-06-22T21:00:22Z",
+    "project": {
+      "cwd": "/home/dev/acme-api",
+      "repo_root": "/home/dev/acme-api",
+      "git": {
+        "sha": "18293a4b5c6d7e8f9001",
+        "branch": "feat/worker-split"
+      }
+    },
+    "kind": {
+      "event": "tool_call",
+      "call_id": "call-sub-worker",
+      "name": "edit_file",
+      "args": null
+    },
+    "provenance": {
+      "file": "fixtures/otel/genai/subagent_thread.jsonl",
+      "byte_offset": 2177,
+      "line_no": 6
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "otel",
+    "session_id": "sess-otel-main-008",
+    "seq": 6,
+    "event_id": "a3eb6461c3dcd750df77e908211a04bb23aae4640d2314912965c97ae97d81cb:tool_result:0",
+    "parent_id": null,
+    "timestamp": "2026-06-22T21:00:22Z",
+    "project": {
+      "cwd": "/home/dev/acme-api",
+      "repo_root": "/home/dev/acme-api",
+      "git": {
+        "sha": "18293a4b5c6d7e8f9001",
+        "branch": "feat/worker-split"
+      }
+    },
+    "kind": {
+      "event": "tool_result",
+      "call_id": "call-sub-worker",
+      "ok": true,
+      "output": "ok"
+    },
+    "provenance": {
+      "file": "fixtures/otel/genai/subagent_thread.jsonl",
+      "byte_offset": 2177,
+      "line_no": 6
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "otel",
+    "session_id": "sess-otel-main-008",
+    "seq": 7,
+    "event_id": "a3eb6461c3dcd750df77e908211a04bb23aae4640d2314912965c97ae97d81cb:file_edit:0",
+    "parent_id": null,
+    "timestamp": "2026-06-22T21:00:22Z",
+    "project": {
+      "cwd": "/home/dev/acme-api",
+      "repo_root": "/home/dev/acme-api",
+      "git": {
+        "sha": "18293a4b5c6d7e8f9001",
+        "branch": "feat/worker-split"
+      }
+    },
+    "kind": {
+      "event": "file_edit",
+      "call_id": "call-sub-worker",
+      "diff": {
+        "path": "src/worker/email.rs",
+        "old": null,
+        "new": null,
+        "unified": null,
+        "added_lines": 3,
+        "removed_lines": 0
+      }
+    },
+    "provenance": {
+      "file": "fixtures/otel/genai/subagent_thread.jsonl",
+      "byte_offset": 2177,
+      "line_no": 6
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "otel",
+    "session_id": "sess-otel-main-008",
+    "seq": 8,
+    "event_id": "a4440bf96a138f072b770fe2de8afb0bd9e5b5a1d63dc8c137131840aec20c74:output_msg:0",
+    "parent_id": null,
+    "timestamp": "2026-06-22T21:00:28Z",
+    "project": {
+      "cwd": "/home/dev/acme-api",
+      "repo_root": "/home/dev/acme-api",
+      "git": {
+        "sha": "18293a4b5c6d7e8f9001",
+        "branch": "feat/worker-split"
+      }
+    },
+    "kind": {
+      "event": "assistant_turn",
+      "text": "The nested worker thread finished extracting the email send loop.",
+      "thinking": null,
+      "model": "claude-opus-4-8",
+      "usage": {
+        "input_tokens": 320,
+        "output_tokens": 40,
+        "cache_read_tokens": null,
+        "cache_creation_tokens": null
+      },
+      "parts": [
+        {
+          "part": "text",
+          "text": "The nested worker thread finished extracting the email send loop."
+        }
+      ]
+    },
+    "provenance": {
+      "file": "fixtures/otel/genai/subagent_thread.jsonl",
+      "byte_offset": 2510,
+      "line_no": 7
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "otel",
+    "session_id": "sess-otel-main-008",
+    "seq": 9,
+    "event_id": "c79b0e39be5790b9b0cb2d6f8e64285f341f4ef6d6ddf099ce0bc1e68c78187c:session_end:0",
+    "parent_id": null,
+    "timestamp": "2026-06-22T21:00:32Z",
+    "project": {
+      "cwd": "/home/dev/acme-api",
+      "repo_root": "/home/dev/acme-api",
+      "git": {
+        "sha": "18293a4b5c6d7e8f9001",
+        "branch": "feat/worker-split"
+      }
+    },
+    "kind": {
+      "event": "session_end",
+      "reason": "completed"
+    },
+    "provenance": {
+      "file": "fixtures/otel/genai/subagent_thread.jsonl",
+      "byte_offset": 2878,
+      "line_no": 8
+    }
+  }
+]

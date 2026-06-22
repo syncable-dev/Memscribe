@@ -1,0 +1,433 @@
+---
+source: crates/memscribe-testkit/tests/golden.rs
+expression: events
+---
+[
+  {
+    "schema_version": 1,
+    "source": "windsurf",
+    "session_id": "ws-rewind-007",
+    "seq": 0,
+    "event_id": "69972ae63bce94ebdcd92777d9ff11e2ecdd2249e376fedb12117e61fb51a5f6",
+    "parent_id": null,
+    "timestamp": "1970-01-01T00:00:00Z",
+    "project": {
+      "cwd": "/Users/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "c3c3c3c3",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "session_start",
+      "cwd": "/Users/dev/acme-api",
+      "git": {
+        "sha": "c3c3c3c3",
+        "branch": "main"
+      },
+      "model": "cascade-pro",
+      "tool_version": "1.8.2"
+    },
+    "provenance": {
+      "file": "fixtures/windsurf/v1/rewind_compaction.jsonl",
+      "byte_offset": 0,
+      "line_no": 1
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "windsurf",
+    "session_id": "ws-rewind-007",
+    "seq": 1,
+    "event_id": "u0",
+    "parent_id": null,
+    "timestamp": "2026-06-22T15:00:00Z",
+    "project": {
+      "cwd": "/Users/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "c3c3c3c3",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "user_turn",
+      "text": "Let's plan the storage layer for the catalog.",
+      "parts": []
+    },
+    "provenance": {
+      "file": "fixtures/windsurf/v1/rewind_compaction.jsonl",
+      "byte_offset": 166,
+      "line_no": 2
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "windsurf",
+    "session_id": "ws-rewind-007",
+    "seq": 2,
+    "event_id": "u1",
+    "parent_id": "u0",
+    "timestamp": "2026-06-22T15:01:00Z",
+    "project": {
+      "cwd": "/Users/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "c3c3c3c3",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "user_turn",
+      "text": "Use MongoDB for the catalog store. Wire up the document client.",
+      "parts": []
+    },
+    "provenance": {
+      "file": "fixtures/windsurf/v1/rewind_compaction.jsonl",
+      "byte_offset": 319,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "windsurf",
+    "session_id": "ws-rewind-007",
+    "seq": 3,
+    "event_id": "a1",
+    "parent_id": "u1",
+    "timestamp": "2026-06-22T15:01:06Z",
+    "project": {
+      "cwd": "/Users/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "c3c3c3c3",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "assistant_turn",
+      "text": "Setting up the MongoDB document client.",
+      "thinking": null,
+      "model": "cascade-pro",
+      "usage": {
+        "input_tokens": 110,
+        "output_tokens": 54,
+        "cache_read_tokens": null,
+        "cache_creation_tokens": null
+      },
+      "parts": []
+    },
+    "provenance": {
+      "file": "fixtures/windsurf/v1/rewind_compaction.jsonl",
+      "byte_offset": 490,
+      "line_no": 4
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "windsurf",
+    "session_id": "ws-rewind-007",
+    "seq": 4,
+    "event_id": "a1#toolcall:call_rc_mongo",
+    "parent_id": "a1",
+    "timestamp": "2026-06-22T15:01:06Z",
+    "project": {
+      "cwd": "/Users/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "c3c3c3c3",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "tool_call",
+      "call_id": "call_rc_mongo",
+      "name": "edit_file",
+      "args": {
+        "path": "src/store.rs"
+      }
+    },
+    "provenance": {
+      "file": "fixtures/windsurf/v1/rewind_compaction.jsonl",
+      "byte_offset": 490,
+      "line_no": 4
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "windsurf",
+    "session_id": "ws-rewind-007",
+    "seq": 5,
+    "event_id": "a1#toolresult:call_rc_mongo",
+    "parent_id": "a1",
+    "timestamp": "2026-06-22T15:01:06Z",
+    "project": {
+      "cwd": "/Users/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "c3c3c3c3",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "tool_result",
+      "call_id": "call_rc_mongo",
+      "ok": true,
+      "output": "applied"
+    },
+    "provenance": {
+      "file": "fixtures/windsurf/v1/rewind_compaction.jsonl",
+      "byte_offset": 490,
+      "line_no": 4
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "windsurf",
+    "session_id": "ws-rewind-007",
+    "seq": 6,
+    "event_id": "a1#edit:0",
+    "parent_id": "a1",
+    "timestamp": "2026-06-22T15:01:06Z",
+    "project": {
+      "cwd": "/Users/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "c3c3c3c3",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "file_edit",
+      "call_id": "call_rc_mongo",
+      "diff": {
+        "path": "src/store.rs",
+        "old": "pub struct Store;",
+        "new": "use mongodb::Client;\npub struct Store(Client);",
+        "unified": "@@ -1,1 +1,2 @@\n-pub struct Store;\n+use mongodb::Client;\n+pub struct Store(Client);",
+        "added_lines": 2,
+        "removed_lines": 1
+      }
+    },
+    "provenance": {
+      "file": "fixtures/windsurf/v1/rewind_compaction.jsonl",
+      "byte_offset": 490,
+      "line_no": 4
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "windsurf",
+    "session_id": "ws-rewind-007",
+    "seq": 7,
+    "event_id": "368498b59f2833222393533f26e78fb517fbf0fde15926934d15dbc15a163b22",
+    "parent_id": null,
+    "timestamp": "2026-06-22T15:09:30Z",
+    "project": {
+      "cwd": "/Users/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "c3c3c3c3",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "unknown",
+      "raw_type": "unknown",
+      "raw": {
+        "kind": "checkpoint_restore",
+        "sessionId": "ws-rewind-007",
+        "ts": "2026-06-22T15:09:30Z",
+        "restoreToId": "u0",
+        "note": "Cascade conversation rewound to checkpoint u0; messages after u0 discarded from the live thread."
+      }
+    },
+    "provenance": {
+      "file": "fixtures/windsurf/v1/rewind_compaction.jsonl",
+      "byte_offset": 1116,
+      "line_no": 5
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "windsurf",
+    "session_id": "ws-rewind-007",
+    "seq": 8,
+    "event_id": "u2",
+    "parent_id": "u0",
+    "timestamp": "2026-06-22T15:10:00Z",
+    "project": {
+      "cwd": "/Users/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "c3c3c3c3",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "user_turn",
+      "text": "On reflection, use Postgres with JSONB for the catalog store instead of MongoDB.",
+      "parts": []
+    },
+    "provenance": {
+      "file": "fixtures/windsurf/v1/rewind_compaction.jsonl",
+      "byte_offset": 1327,
+      "line_no": 6
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "windsurf",
+    "session_id": "ws-rewind-007",
+    "seq": 9,
+    "event_id": "a2",
+    "parent_id": "u2",
+    "timestamp": "2026-06-22T15:10:06Z",
+    "project": {
+      "cwd": "/Users/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "c3c3c3c3",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "assistant_turn",
+      "text": "Replacing the store with a Postgres JSONB client.",
+      "thinking": null,
+      "model": "cascade-pro",
+      "usage": {
+        "input_tokens": 105,
+        "output_tokens": 58,
+        "cache_read_tokens": null,
+        "cache_creation_tokens": null
+      },
+      "parts": []
+    },
+    "provenance": {
+      "file": "fixtures/windsurf/v1/rewind_compaction.jsonl",
+      "byte_offset": 1515,
+      "line_no": 7
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "windsurf",
+    "session_id": "ws-rewind-007",
+    "seq": 10,
+    "event_id": "a2#toolcall:call_rc_pg",
+    "parent_id": "a2",
+    "timestamp": "2026-06-22T15:10:06Z",
+    "project": {
+      "cwd": "/Users/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "c3c3c3c3",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "tool_call",
+      "call_id": "call_rc_pg",
+      "name": "edit_file",
+      "args": {
+        "path": "src/store.rs"
+      }
+    },
+    "provenance": {
+      "file": "fixtures/windsurf/v1/rewind_compaction.jsonl",
+      "byte_offset": 1515,
+      "line_no": 7
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "windsurf",
+    "session_id": "ws-rewind-007",
+    "seq": 11,
+    "event_id": "a2#toolresult:call_rc_pg",
+    "parent_id": "a2",
+    "timestamp": "2026-06-22T15:10:06Z",
+    "project": {
+      "cwd": "/Users/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "c3c3c3c3",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "tool_result",
+      "call_id": "call_rc_pg",
+      "ok": true,
+      "output": "applied"
+    },
+    "provenance": {
+      "file": "fixtures/windsurf/v1/rewind_compaction.jsonl",
+      "byte_offset": 1515,
+      "line_no": 7
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "windsurf",
+    "session_id": "ws-rewind-007",
+    "seq": 12,
+    "event_id": "a2#edit:0",
+    "parent_id": "a2",
+    "timestamp": "2026-06-22T15:10:06Z",
+    "project": {
+      "cwd": "/Users/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "c3c3c3c3",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "file_edit",
+      "call_id": "call_rc_pg",
+      "diff": {
+        "path": "src/store.rs",
+        "old": "use mongodb::Client;\npub struct Store(Client);",
+        "new": "use postgres::Client;\npub struct Store(Client);",
+        "unified": "@@ -1,2 +1,2 @@\n-use mongodb::Client;\n+use postgres::Client;\n pub struct Store(Client);",
+        "added_lines": 1,
+        "removed_lines": 1
+      }
+    },
+    "provenance": {
+      "file": "fixtures/windsurf/v1/rewind_compaction.jsonl",
+      "byte_offset": 1515,
+      "line_no": 7
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "windsurf",
+    "session_id": "ws-rewind-007",
+    "seq": 13,
+    "event_id": "u3",
+    "parent_id": "a2",
+    "timestamp": "2026-06-22T15:10:30Z",
+    "project": {
+      "cwd": "/Users/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "c3c3c3c3",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "user_turn",
+      "text": "Looks right now, thanks.",
+      "parts": []
+    },
+    "provenance": {
+      "file": "fixtures/windsurf/v1/rewind_compaction.jsonl",
+      "byte_offset": 2177,
+      "line_no": 8
+    }
+  }
+]

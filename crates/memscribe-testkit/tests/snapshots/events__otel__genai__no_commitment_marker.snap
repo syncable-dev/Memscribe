@@ -1,0 +1,170 @@
+---
+source: crates/memscribe-testkit/tests/golden.rs
+expression: events
+---
+[
+  {
+    "schema_version": 1,
+    "source": "otel",
+    "session_id": "sess-otel-nomarker-009",
+    "seq": 0,
+    "event_id": "912097fb85dfac74a40a97b8fb5bcdacd96573d0c4a825e06f1d320fa7209b90:session_start:0",
+    "parent_id": null,
+    "timestamp": "2026-06-22T18:00:00Z",
+    "project": {
+      "cwd": "/home/dev/acme-api",
+      "repo_root": "/home/dev/acme-api",
+      "git": {
+        "sha": "0a0b0c0d0e0f10111213",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "session_start",
+      "cwd": "/home/dev/acme-api",
+      "git": {
+        "sha": "0a0b0c0d0e0f10111213",
+        "branch": "main"
+      },
+      "model": "claude-opus-4-8",
+      "tool_version": null
+    },
+    "provenance": {
+      "file": "fixtures/otel/genai/no_commitment_marker.jsonl",
+      "byte_offset": 0,
+      "line_no": 1
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "otel",
+    "session_id": "sess-otel-nomarker-009",
+    "seq": 1,
+    "event_id": "bbf3471cf58900a47e8d456708a33e8cf55d8e91cd96bfdfcce529cac1a434b1:user_prompt:0",
+    "parent_id": null,
+    "timestamp": "2026-06-22T18:00:05Z",
+    "project": {
+      "cwd": "/home/dev/acme-api",
+      "repo_root": "/home/dev/acme-api",
+      "git": {
+        "sha": "0a0b0c0d0e0f10111213",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "user_turn",
+      "text": "Thanks, that looks good to me. Please tidy the trailing whitespace in the handler.",
+      "parts": [
+        {
+          "part": "text",
+          "text": "Thanks, that looks good to me. Please tidy the trailing whitespace in the handler."
+        }
+      ]
+    },
+    "provenance": {
+      "file": "fixtures/otel/genai/no_commitment_marker.jsonl",
+      "byte_offset": 307,
+      "line_no": 2
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "otel",
+    "session_id": "sess-otel-nomarker-009",
+    "seq": 2,
+    "event_id": "2f98ac5da308a84aa012e27e67ac5249ac33ba39d14c49e01ecf60ab592b4eb0:output_msg:0",
+    "parent_id": null,
+    "timestamp": "2026-06-22T18:00:09Z",
+    "project": {
+      "cwd": "/home/dev/acme-api",
+      "repo_root": "/home/dev/acme-api",
+      "git": {
+        "sha": "0a0b0c0d0e0f10111213",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "assistant_turn",
+      "text": "Tidying the trailing whitespace in the handler now.",
+      "thinking": null,
+      "model": "claude-opus-4-8",
+      "usage": {
+        "input_tokens": 210,
+        "output_tokens": 45,
+        "cache_read_tokens": null,
+        "cache_creation_tokens": null
+      },
+      "parts": [
+        {
+          "part": "text",
+          "text": "Tidying the trailing whitespace in the handler now."
+        }
+      ]
+    },
+    "provenance": {
+      "file": "fixtures/otel/genai/no_commitment_marker.jsonl",
+      "byte_offset": 558,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "otel",
+    "session_id": "sess-otel-nomarker-009",
+    "seq": 3,
+    "event_id": "e56247ebbe8c1728768b93b20253e3f2d1e6b1e01da042489ed8b658e2eaa4f2:file_edit:0",
+    "parent_id": null,
+    "timestamp": "2026-06-22T18:00:12Z",
+    "project": {
+      "cwd": "/home/dev/acme-api",
+      "repo_root": "/home/dev/acme-api",
+      "git": {
+        "sha": "0a0b0c0d0e0f10111213",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "file_edit",
+      "call_id": null,
+      "diff": {
+        "path": "src/handler.rs",
+        "old": null,
+        "new": null,
+        "unified": null,
+        "added_lines": 1,
+        "removed_lines": 1
+      }
+    },
+    "provenance": {
+      "file": "fixtures/otel/genai/no_commitment_marker.jsonl",
+      "byte_offset": 916,
+      "line_no": 4
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "otel",
+    "session_id": "sess-otel-nomarker-009",
+    "seq": 4,
+    "event_id": "df57e28eb43b906286988f8733199738ef9cff49db17457fe6668aef0f486ca2:session_end:0",
+    "parent_id": null,
+    "timestamp": "2026-06-22T18:00:18Z",
+    "project": {
+      "cwd": "/home/dev/acme-api",
+      "repo_root": "/home/dev/acme-api",
+      "git": {
+        "sha": "0a0b0c0d0e0f10111213",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "session_end",
+      "reason": "completed"
+    },
+    "provenance": {
+      "file": "fixtures/otel/genai/no_commitment_marker.jsonl",
+      "byte_offset": 1140,
+      "line_no": 5
+    }
+  }
+]

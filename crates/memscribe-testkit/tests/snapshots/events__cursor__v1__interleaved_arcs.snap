@@ -1,0 +1,616 @@
+---
+source: crates/memscribe-testkit/tests/golden.rs
+expression: events
+---
+[
+  {
+    "schema_version": 1,
+    "source": "cursor",
+    "session_id": "cur-sess-005",
+    "seq": 0,
+    "event_id": "5f23e14f9c05ea2e5672ac3c82e9447042a2d9615891562a6d6b8499ee32fb8e",
+    "parent_id": null,
+    "timestamp": "1970-01-01T00:00:00Z",
+    "project": {
+      "cwd": "/Users/dev/projects/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "e5f60718293a",
+        "branch": "feat/auth-overhaul"
+      }
+    },
+    "kind": {
+      "event": "session_start",
+      "cwd": "/Users/dev/projects/acme-api",
+      "git": {
+        "sha": "e5f60718293a",
+        "branch": "feat/auth-overhaul"
+      },
+      "model": "cursor-pro",
+      "tool_version": "0.43.2"
+    },
+    "provenance": {
+      "file": "fixtures/cursor/v1/interleaved_arcs.jsonl",
+      "byte_offset": 0,
+      "line_no": 1
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "cursor",
+    "session_id": "cur-sess-005",
+    "seq": 1,
+    "event_id": "msg-401",
+    "parent_id": null,
+    "timestamp": "2026-06-22T18:00:06Z",
+    "project": {
+      "cwd": "/Users/dev/projects/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "e5f60718293a",
+        "branch": "feat/auth-overhaul"
+      }
+    },
+    "kind": {
+      "event": "user_turn",
+      "text": "Let's use argon2 for password hashing in the auth module. Update the hasher and the shared crypto helper.",
+      "parts": [
+        {
+          "part": "text",
+          "text": "Let's use argon2 for password hashing in the auth module. Update the hasher and the shared crypto helper."
+        }
+      ]
+    },
+    "provenance": {
+      "file": "fixtures/cursor/v1/interleaved_arcs.jsonl",
+      "byte_offset": 192,
+      "line_no": 2
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "cursor",
+    "session_id": "cur-sess-005",
+    "seq": 2,
+    "event_id": "msg-402",
+    "parent_id": "msg-401",
+    "timestamp": "2026-06-22T18:00:10Z",
+    "project": {
+      "cwd": "/Users/dev/projects/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "e5f60718293a",
+        "branch": "feat/auth-overhaul"
+      }
+    },
+    "kind": {
+      "event": "assistant_turn",
+      "text": "Switching the hasher to argon2 in the auth module and the shared crypto helper.",
+      "thinking": null,
+      "model": "cursor-pro",
+      "usage": {
+        "input_tokens": 300,
+        "output_tokens": 70,
+        "cache_read_tokens": null,
+        "cache_creation_tokens": null
+      },
+      "parts": [
+        {
+          "part": "text",
+          "text": "Switching the hasher to argon2 in the auth module and the shared crypto helper."
+        }
+      ]
+    },
+    "provenance": {
+      "file": "fixtures/cursor/v1/interleaved_arcs.jsonl",
+      "byte_offset": 409,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "cursor",
+    "session_id": "cur-sess-005",
+    "seq": 3,
+    "event_id": "msg-402#toolcall:call-arc-a-auth",
+    "parent_id": "msg-402",
+    "timestamp": "2026-06-22T18:00:10Z",
+    "project": {
+      "cwd": "/Users/dev/projects/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "e5f60718293a",
+        "branch": "feat/auth-overhaul"
+      }
+    },
+    "kind": {
+      "event": "tool_call",
+      "call_id": "call-arc-a-auth",
+      "name": "edit_file",
+      "args": {
+        "path": "src/auth.rs"
+      }
+    },
+    "provenance": {
+      "file": "fixtures/cursor/v1/interleaved_arcs.jsonl",
+      "byte_offset": 409,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "cursor",
+    "session_id": "cur-sess-005",
+    "seq": 4,
+    "event_id": "msg-402#toolcall:call-arc-a-crypto",
+    "parent_id": "msg-402",
+    "timestamp": "2026-06-22T18:00:10Z",
+    "project": {
+      "cwd": "/Users/dev/projects/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "e5f60718293a",
+        "branch": "feat/auth-overhaul"
+      }
+    },
+    "kind": {
+      "event": "tool_call",
+      "call_id": "call-arc-a-crypto",
+      "name": "edit_file",
+      "args": {
+        "path": "src/shared/crypto.rs"
+      }
+    },
+    "provenance": {
+      "file": "fixtures/cursor/v1/interleaved_arcs.jsonl",
+      "byte_offset": 409,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "cursor",
+    "session_id": "cur-sess-005",
+    "seq": 5,
+    "event_id": "msg-402#toolresult:call-arc-a-auth",
+    "parent_id": "msg-402",
+    "timestamp": "2026-06-22T18:00:10Z",
+    "project": {
+      "cwd": "/Users/dev/projects/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "e5f60718293a",
+        "branch": "feat/auth-overhaul"
+      }
+    },
+    "kind": {
+      "event": "tool_result",
+      "call_id": "call-arc-a-auth",
+      "ok": true,
+      "output": "applied 1 edit"
+    },
+    "provenance": {
+      "file": "fixtures/cursor/v1/interleaved_arcs.jsonl",
+      "byte_offset": 409,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "cursor",
+    "session_id": "cur-sess-005",
+    "seq": 6,
+    "event_id": "msg-402#toolresult:call-arc-a-crypto",
+    "parent_id": "msg-402",
+    "timestamp": "2026-06-22T18:00:10Z",
+    "project": {
+      "cwd": "/Users/dev/projects/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "e5f60718293a",
+        "branch": "feat/auth-overhaul"
+      }
+    },
+    "kind": {
+      "event": "tool_result",
+      "call_id": "call-arc-a-crypto",
+      "ok": true,
+      "output": "applied 1 edit"
+    },
+    "provenance": {
+      "file": "fixtures/cursor/v1/interleaved_arcs.jsonl",
+      "byte_offset": 409,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "cursor",
+    "session_id": "cur-sess-005",
+    "seq": 7,
+    "event_id": "msg-402#edit:0",
+    "parent_id": "msg-402",
+    "timestamp": "2026-06-22T18:00:10Z",
+    "project": {
+      "cwd": "/Users/dev/projects/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "e5f60718293a",
+        "branch": "feat/auth-overhaul"
+      }
+    },
+    "kind": {
+      "event": "file_edit",
+      "call_id": "call-arc-a-auth",
+      "diff": {
+        "path": "src/auth.rs",
+        "old": "use bcrypt::hash;",
+        "new": "use argon2::Argon2;",
+        "unified": "@@ -1 +1 @@\n-use bcrypt::hash;\n+use argon2::Argon2;\n",
+        "added_lines": 1,
+        "removed_lines": 1
+      }
+    },
+    "provenance": {
+      "file": "fixtures/cursor/v1/interleaved_arcs.jsonl",
+      "byte_offset": 409,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "cursor",
+    "session_id": "cur-sess-005",
+    "seq": 8,
+    "event_id": "msg-402#edit:1",
+    "parent_id": "msg-402",
+    "timestamp": "2026-06-22T18:00:10Z",
+    "project": {
+      "cwd": "/Users/dev/projects/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "e5f60718293a",
+        "branch": "feat/auth-overhaul"
+      }
+    },
+    "kind": {
+      "event": "file_edit",
+      "call_id": "call-arc-a-crypto",
+      "diff": {
+        "path": "src/shared/crypto.rs",
+        "old": "pub const HASH_COST: u32 = 12;",
+        "new": "pub const ARGON2_MEM_KIB: u32 = 19456;",
+        "unified": "@@ -1 +1 @@\n-pub const HASH_COST: u32 = 12;\n+pub const ARGON2_MEM_KIB: u32 = 19456;\n",
+        "added_lines": 1,
+        "removed_lines": 1
+      }
+    },
+    "provenance": {
+      "file": "fixtures/cursor/v1/interleaved_arcs.jsonl",
+      "byte_offset": 409,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "cursor",
+    "session_id": "cur-sess-005",
+    "seq": 9,
+    "event_id": "msg-403",
+    "parent_id": "msg-402",
+    "timestamp": "2026-06-22T18:00:40Z",
+    "project": {
+      "cwd": "/Users/dev/projects/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "e5f60718293a",
+        "branch": "feat/auth-overhaul"
+      }
+    },
+    "kind": {
+      "event": "user_turn",
+      "text": "Now let's switch to a 30-minute session TTL. Update the session manager and bump the shared default in the crypto helper's config block.",
+      "parts": [
+        {
+          "part": "text",
+          "text": "Now let's switch to a 30-minute session TTL. Update the session manager and bump the shared default in the crypto helper's config block."
+        }
+      ]
+    },
+    "provenance": {
+      "file": "fixtures/cursor/v1/interleaved_arcs.jsonl",
+      "byte_offset": 1461,
+      "line_no": 4
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "cursor",
+    "session_id": "cur-sess-005",
+    "seq": 10,
+    "event_id": "msg-404",
+    "parent_id": "msg-403",
+    "timestamp": "2026-06-22T18:00:45Z",
+    "project": {
+      "cwd": "/Users/dev/projects/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "e5f60718293a",
+        "branch": "feat/auth-overhaul"
+      }
+    },
+    "kind": {
+      "event": "assistant_turn",
+      "text": "Setting the session TTL to 30 minutes in the session manager and the shared config default.",
+      "thinking": null,
+      "model": "cursor-pro",
+      "usage": {
+        "input_tokens": 340,
+        "output_tokens": 88,
+        "cache_read_tokens": null,
+        "cache_creation_tokens": null
+      },
+      "parts": [
+        {
+          "part": "text",
+          "text": "Setting the session TTL to 30 minutes in the session manager and the shared config default."
+        }
+      ]
+    },
+    "provenance": {
+      "file": "fixtures/cursor/v1/interleaved_arcs.jsonl",
+      "byte_offset": 1714,
+      "line_no": 5
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "cursor",
+    "session_id": "cur-sess-005",
+    "seq": 11,
+    "event_id": "msg-404#toolcall:call-arc-b-session",
+    "parent_id": "msg-404",
+    "timestamp": "2026-06-22T18:00:45Z",
+    "project": {
+      "cwd": "/Users/dev/projects/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "e5f60718293a",
+        "branch": "feat/auth-overhaul"
+      }
+    },
+    "kind": {
+      "event": "tool_call",
+      "call_id": "call-arc-b-session",
+      "name": "edit_file",
+      "args": {
+        "path": "src/session.rs"
+      }
+    },
+    "provenance": {
+      "file": "fixtures/cursor/v1/interleaved_arcs.jsonl",
+      "byte_offset": 1714,
+      "line_no": 5
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "cursor",
+    "session_id": "cur-sess-005",
+    "seq": 12,
+    "event_id": "msg-404#toolcall:call-arc-b-crypto",
+    "parent_id": "msg-404",
+    "timestamp": "2026-06-22T18:00:45Z",
+    "project": {
+      "cwd": "/Users/dev/projects/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "e5f60718293a",
+        "branch": "feat/auth-overhaul"
+      }
+    },
+    "kind": {
+      "event": "tool_call",
+      "call_id": "call-arc-b-crypto",
+      "name": "edit_file",
+      "args": {
+        "path": "src/shared/crypto.rs"
+      }
+    },
+    "provenance": {
+      "file": "fixtures/cursor/v1/interleaved_arcs.jsonl",
+      "byte_offset": 1714,
+      "line_no": 5
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "cursor",
+    "session_id": "cur-sess-005",
+    "seq": 13,
+    "event_id": "msg-404#toolresult:call-arc-b-session",
+    "parent_id": "msg-404",
+    "timestamp": "2026-06-22T18:00:45Z",
+    "project": {
+      "cwd": "/Users/dev/projects/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "e5f60718293a",
+        "branch": "feat/auth-overhaul"
+      }
+    },
+    "kind": {
+      "event": "tool_result",
+      "call_id": "call-arc-b-session",
+      "ok": true,
+      "output": "applied 1 edit"
+    },
+    "provenance": {
+      "file": "fixtures/cursor/v1/interleaved_arcs.jsonl",
+      "byte_offset": 1714,
+      "line_no": 5
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "cursor",
+    "session_id": "cur-sess-005",
+    "seq": 14,
+    "event_id": "msg-404#toolresult:call-arc-b-crypto",
+    "parent_id": "msg-404",
+    "timestamp": "2026-06-22T18:00:45Z",
+    "project": {
+      "cwd": "/Users/dev/projects/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "e5f60718293a",
+        "branch": "feat/auth-overhaul"
+      }
+    },
+    "kind": {
+      "event": "tool_result",
+      "call_id": "call-arc-b-crypto",
+      "ok": true,
+      "output": "applied 1 edit"
+    },
+    "provenance": {
+      "file": "fixtures/cursor/v1/interleaved_arcs.jsonl",
+      "byte_offset": 1714,
+      "line_no": 5
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "cursor",
+    "session_id": "cur-sess-005",
+    "seq": 15,
+    "event_id": "msg-404#edit:0",
+    "parent_id": "msg-404",
+    "timestamp": "2026-06-22T18:00:45Z",
+    "project": {
+      "cwd": "/Users/dev/projects/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "e5f60718293a",
+        "branch": "feat/auth-overhaul"
+      }
+    },
+    "kind": {
+      "event": "file_edit",
+      "call_id": "call-arc-b-session",
+      "diff": {
+        "path": "src/session.rs",
+        "old": "const SESSION_TTL_SECS: u64 = 3600;",
+        "new": "const SESSION_TTL_SECS: u64 = 1800;",
+        "unified": "@@ -1 +1 @@\n-const SESSION_TTL_SECS: u64 = 3600;\n+const SESSION_TTL_SECS: u64 = 1800;\n",
+        "added_lines": 1,
+        "removed_lines": 1
+      }
+    },
+    "provenance": {
+      "file": "fixtures/cursor/v1/interleaved_arcs.jsonl",
+      "byte_offset": 1714,
+      "line_no": 5
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "cursor",
+    "session_id": "cur-sess-005",
+    "seq": 16,
+    "event_id": "msg-404#edit:1",
+    "parent_id": "msg-404",
+    "timestamp": "2026-06-22T18:00:45Z",
+    "project": {
+      "cwd": "/Users/dev/projects/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "e5f60718293a",
+        "branch": "feat/auth-overhaul"
+      }
+    },
+    "kind": {
+      "event": "file_edit",
+      "call_id": "call-arc-b-crypto",
+      "diff": {
+        "path": "src/shared/crypto.rs",
+        "old": "pub const DEFAULT_TTL_SECS: u64 = 3600;",
+        "new": "pub const DEFAULT_TTL_SECS: u64 = 1800;",
+        "unified": "@@ -1 +1 @@\n-pub const DEFAULT_TTL_SECS: u64 = 3600;\n+pub const DEFAULT_TTL_SECS: u64 = 1800;\n",
+        "added_lines": 1,
+        "removed_lines": 1
+      }
+    },
+    "provenance": {
+      "file": "fixtures/cursor/v1/interleaved_arcs.jsonl",
+      "byte_offset": 1714,
+      "line_no": 5
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "cursor",
+    "session_id": "cur-sess-005",
+    "seq": 17,
+    "event_id": "msg-405",
+    "parent_id": "msg-404",
+    "timestamp": "2026-06-22T18:00:58Z",
+    "project": {
+      "cwd": "/Users/dev/projects/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "e5f60718293a",
+        "branch": "feat/auth-overhaul"
+      }
+    },
+    "kind": {
+      "event": "assistant_turn",
+      "text": "Done. argon2 is wired into auth and shared crypto, and the session TTL is now 30 minutes in both the manager and the shared default.",
+      "thinking": null,
+      "model": "cursor-pro",
+      "usage": {
+        "input_tokens": 410,
+        "output_tokens": 40,
+        "cache_read_tokens": null,
+        "cache_creation_tokens": null
+      },
+      "parts": [
+        {
+          "part": "text",
+          "text": "Done. argon2 is wired into auth and shared crypto, and the session TTL is now 30 minutes in both the manager and the shared default."
+        }
+      ]
+    },
+    "provenance": {
+      "file": "fixtures/cursor/v1/interleaved_arcs.jsonl",
+      "byte_offset": 2881,
+      "line_no": 6
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "cursor",
+    "session_id": "cur-sess-005",
+    "seq": 18,
+    "event_id": "5ee9d798be10aaaa27e9932f6196fe0ac544348ec19d3b6fe73bd73eded70953",
+    "parent_id": null,
+    "timestamp": "2026-06-22T18:01:30Z",
+    "project": {
+      "cwd": "/Users/dev/projects/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "e5f60718293a",
+        "branch": "feat/auth-overhaul"
+      }
+    },
+    "kind": {
+      "event": "session_end",
+      "reason": "user_closed"
+    },
+    "provenance": {
+      "file": "fixtures/cursor/v1/interleaved_arcs.jsonl",
+      "byte_offset": 3190,
+      "line_no": 7
+    }
+  }
+]

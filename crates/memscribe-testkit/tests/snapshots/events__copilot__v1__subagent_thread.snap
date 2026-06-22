@@ -1,0 +1,307 @@
+---
+source: crates/memscribe-testkit/tests/golden.rs
+expression: events
+---
+[
+  {
+    "schema_version": 1,
+    "source": "copilot",
+    "session_id": "copilot-thread-104",
+    "seq": 0,
+    "event_id": "e861367259d6c16fe6deafb4a21f14792b46e5a56001d0f123669b8e5b88e048",
+    "parent_id": null,
+    "timestamp": "2026-06-22T16:00:00Z",
+    "project": {
+      "cwd": "/Users/dev/projects/pipeline",
+      "repo_root": null,
+      "git": {
+        "sha": "d4d4d4d4d4d4",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "session_start",
+      "cwd": "/Users/dev/projects/pipeline",
+      "git": {
+        "sha": "d4d4d4d4d4d4",
+        "branch": "main"
+      },
+      "model": "gpt-4o",
+      "tool_version": "copilot-cli 1.4.0"
+    },
+    "provenance": {
+      "file": "fixtures/copilot/v1/subagent_thread.jsonl",
+      "byte_offset": 0,
+      "line_no": 1
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "copilot",
+    "session_id": "copilot-thread-104",
+    "seq": 1,
+    "event_id": "msg-1",
+    "parent_id": null,
+    "timestamp": "2026-06-22T16:00:00Z",
+    "project": {
+      "cwd": "/Users/dev/projects/pipeline",
+      "repo_root": null,
+      "git": {
+        "sha": "d4d4d4d4d4d4",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "user_turn",
+      "text": "Kick off the ingest refactor; delegate the parser rewrite to a focused sub-thread.",
+      "parts": []
+    },
+    "provenance": {
+      "file": "fixtures/copilot/v1/subagent_thread.jsonl",
+      "byte_offset": 219,
+      "line_no": 2
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "copilot",
+    "session_id": "copilot-thread-104",
+    "seq": 2,
+    "event_id": "msg-2",
+    "parent_id": "msg-1",
+    "timestamp": "2026-06-22T16:00:02Z",
+    "project": {
+      "cwd": "/Users/dev/projects/pipeline",
+      "repo_root": null,
+      "git": {
+        "sha": "d4d4d4d4d4d4",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "assistant_turn",
+      "text": "Copilot has no real subagents; modeling the sub-task as a nested threadId on the same exported session.",
+      "thinking": null,
+      "model": "gpt-4o",
+      "usage": {
+        "input_tokens": 90,
+        "output_tokens": 40,
+        "cache_read_tokens": null,
+        "cache_creation_tokens": null
+      },
+      "parts": []
+    },
+    "provenance": {
+      "file": "fixtures/copilot/v1/subagent_thread.jsonl",
+      "byte_offset": 435,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "copilot",
+    "session_id": "copilot-thread-104",
+    "seq": 3,
+    "event_id": "msg-3",
+    "parent_id": "msg-2",
+    "timestamp": "2026-06-22T16:01:00Z",
+    "project": {
+      "cwd": "/Users/dev/projects/pipeline",
+      "repo_root": null,
+      "git": {
+        "sha": "d4d4d4d4d4d4",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "user_turn",
+      "text": "In this sub-thread, use a streaming pull-parser for the ingest format instead of the buffered one.",
+      "parts": []
+    },
+    "provenance": {
+      "file": "fixtures/copilot/v1/subagent_thread.jsonl",
+      "byte_offset": 730,
+      "line_no": 4
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "copilot",
+    "session_id": "copilot-thread-104",
+    "seq": 4,
+    "event_id": "msg-4",
+    "parent_id": "msg-3",
+    "timestamp": "2026-06-22T16:01:03Z",
+    "project": {
+      "cwd": "/Users/dev/projects/pipeline",
+      "repo_root": null,
+      "git": {
+        "sha": "d4d4d4d4d4d4",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "assistant_turn",
+      "text": "Rewriting the parser to a streaming pull-parser.",
+      "thinking": null,
+      "model": "gpt-4o",
+      "usage": {
+        "input_tokens": 102,
+        "output_tokens": 57,
+        "cache_read_tokens": null,
+        "cache_creation_tokens": null
+      },
+      "parts": []
+    },
+    "provenance": {
+      "file": "fixtures/copilot/v1/subagent_thread.jsonl",
+      "byte_offset": 995,
+      "line_no": 5
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "copilot",
+    "session_id": "copilot-thread-104",
+    "seq": 5,
+    "event_id": "msg-4:call:call-parser",
+    "parent_id": "msg-4",
+    "timestamp": "2026-06-22T16:01:03Z",
+    "project": {
+      "cwd": "/Users/dev/projects/pipeline",
+      "repo_root": null,
+      "git": {
+        "sha": "d4d4d4d4d4d4",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "tool_call",
+      "call_id": "call-parser",
+      "name": "apply_patch",
+      "args": {
+        "path": "src/ingest/parser.rs"
+      }
+    },
+    "provenance": {
+      "file": "fixtures/copilot/v1/subagent_thread.jsonl",
+      "byte_offset": 995,
+      "line_no": 5
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "copilot",
+    "session_id": "copilot-thread-104",
+    "seq": 6,
+    "event_id": "msg-4:result:call-parser",
+    "parent_id": "msg-4",
+    "timestamp": "2026-06-22T16:01:03Z",
+    "project": {
+      "cwd": "/Users/dev/projects/pipeline",
+      "repo_root": null,
+      "git": {
+        "sha": "d4d4d4d4d4d4",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "tool_result",
+      "call_id": "call-parser",
+      "ok": true,
+      "output": "patch applied (1 file changed)"
+    },
+    "provenance": {
+      "file": "fixtures/copilot/v1/subagent_thread.jsonl",
+      "byte_offset": 995,
+      "line_no": 5
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "copilot",
+    "session_id": "copilot-thread-104",
+    "seq": 7,
+    "event_id": "msg-4:edit:0:src/ingest/parser.rs",
+    "parent_id": "msg-4",
+    "timestamp": "2026-06-22T16:01:03Z",
+    "project": {
+      "cwd": "/Users/dev/projects/pipeline",
+      "repo_root": null,
+      "git": {
+        "sha": "d4d4d4d4d4d4",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "file_edit",
+      "call_id": "call-parser",
+      "diff": {
+        "path": "src/ingest/parser.rs",
+        "old": "let buf = read_all(input);",
+        "new": "let mut reader = PullParser::new(input);",
+        "unified": "@@ -1 +1 @@\n-let buf = read_all(input);\n+let mut reader = PullParser::new(input);",
+        "added_lines": 1,
+        "removed_lines": 1
+      }
+    },
+    "provenance": {
+      "file": "fixtures/copilot/v1/subagent_thread.jsonl",
+      "byte_offset": 995,
+      "line_no": 5
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "copilot",
+    "session_id": "copilot-thread-104",
+    "seq": 8,
+    "event_id": "msg-5",
+    "parent_id": "msg-4",
+    "timestamp": "2026-06-22T16:02:00Z",
+    "project": {
+      "cwd": "/Users/dev/projects/pipeline",
+      "repo_root": null,
+      "git": {
+        "sha": "d4d4d4d4d4d4",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "user_turn",
+      "text": "Sub-thread done, looks good.",
+      "parts": []
+    },
+    "provenance": {
+      "file": "fixtures/copilot/v1/subagent_thread.jsonl",
+      "byte_offset": 1722,
+      "line_no": 6
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "copilot",
+    "session_id": "copilot-thread-104",
+    "seq": 9,
+    "event_id": "7508b146328de55c36caf94a19d8a4a8bb443a4c7b2ecb7f6e9b18d2d43a3dba",
+    "parent_id": null,
+    "timestamp": "2026-06-22T16:02:30Z",
+    "project": {
+      "cwd": "/Users/dev/projects/pipeline",
+      "repo_root": null,
+      "git": {
+        "sha": "d4d4d4d4d4d4",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "session_end",
+      "reason": "user_closed"
+    },
+    "provenance": {
+      "file": "fixtures/copilot/v1/subagent_thread.jsonl",
+      "byte_offset": 1887,
+      "line_no": 7
+    }
+  }
+]

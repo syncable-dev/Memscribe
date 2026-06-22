@@ -1,0 +1,220 @@
+---
+source: crates/memscribe-testkit/tests/golden.rs
+expression: events
+---
+[
+  {
+    "schema_version": 1,
+    "source": "vs_code",
+    "session_id": "vsc-sess-nomark",
+    "seq": 0,
+    "event_id": "c4df9573819d2be65d9af2e00db7f7de35fb385fd694510587104aee4d960c59",
+    "parent_id": null,
+    "timestamp": "1970-01-01T00:00:00Z",
+    "project": {
+      "cwd": "/home/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "7c0ffee1234500ab",
+        "branch": "chore/tidy"
+      }
+    },
+    "kind": {
+      "event": "session_start",
+      "cwd": "/home/dev/acme-api",
+      "git": {
+        "sha": "7c0ffee1234500ab",
+        "branch": "chore/tidy"
+      },
+      "model": "gpt-4o",
+      "tool_version": "1.92.0"
+    },
+    "provenance": {
+      "file": "fixtures/vscode/v1/no_commitment_marker.jsonl",
+      "byte_offset": 0,
+      "line_no": 1
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "vs_code",
+    "session_id": "vsc-sess-nomark",
+    "seq": 1,
+    "event_id": "nm-u1",
+    "parent_id": null,
+    "timestamp": "2026-06-22T18:00:00Z",
+    "project": {
+      "cwd": "/home/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "7c0ffee1234500ab",
+        "branch": "chore/tidy"
+      }
+    },
+    "kind": {
+      "event": "user_turn",
+      "text": "Thanks, this looks good. Go ahead and clean up that stray import while you're in there.",
+      "parts": []
+    },
+    "provenance": {
+      "file": "fixtures/vscode/v1/no_commitment_marker.jsonl",
+      "byte_offset": 177,
+      "line_no": 2
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "vs_code",
+    "session_id": "vsc-sess-nomark",
+    "seq": 2,
+    "event_id": "nm-a1",
+    "parent_id": "nm-u1",
+    "timestamp": "2026-06-22T18:00:06Z",
+    "project": {
+      "cwd": "/home/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "7c0ffee1234500ab",
+        "branch": "chore/tidy"
+      }
+    },
+    "kind": {
+      "event": "assistant_turn",
+      "text": "Sure, removing the unused import.",
+      "thinking": null,
+      "model": "gpt-4o",
+      "usage": {
+        "input_tokens": 300,
+        "output_tokens": 40,
+        "cache_read_tokens": null,
+        "cache_creation_tokens": null
+      },
+      "parts": []
+    },
+    "provenance": {
+      "file": "fixtures/vscode/v1/no_commitment_marker.jsonl",
+      "byte_offset": 377,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "vs_code",
+    "session_id": "vsc-sess-nomark",
+    "seq": 3,
+    "event_id": "nm-a1:toolcall:0:call-nm-1",
+    "parent_id": "nm-a1",
+    "timestamp": "2026-06-22T18:00:06Z",
+    "project": {
+      "cwd": "/home/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "7c0ffee1234500ab",
+        "branch": "chore/tidy"
+      }
+    },
+    "kind": {
+      "event": "tool_call",
+      "call_id": "call-nm-1",
+      "name": "applyEdit",
+      "args": {
+        "path": "src/handlers.ts"
+      }
+    },
+    "provenance": {
+      "file": "fixtures/vscode/v1/no_commitment_marker.jsonl",
+      "byte_offset": 377,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "vs_code",
+    "session_id": "vsc-sess-nomark",
+    "seq": 4,
+    "event_id": "nm-a1:edit:0:src/handlers.ts",
+    "parent_id": "nm-a1",
+    "timestamp": "2026-06-22T18:00:06Z",
+    "project": {
+      "cwd": "/home/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "7c0ffee1234500ab",
+        "branch": "chore/tidy"
+      }
+    },
+    "kind": {
+      "event": "file_edit",
+      "call_id": "call-nm-1",
+      "diff": {
+        "path": "src/handlers.ts",
+        "old": "import { HashMap } from './collections';",
+        "new": null,
+        "unified": "@@ -1 +0,0 @@\n-import { HashMap } from './collections';",
+        "added_lines": 0,
+        "removed_lines": 1
+      }
+    },
+    "provenance": {
+      "file": "fixtures/vscode/v1/no_commitment_marker.jsonl",
+      "byte_offset": 377,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "vs_code",
+    "session_id": "vsc-sess-nomark",
+    "seq": 5,
+    "event_id": "nm-a2",
+    "parent_id": "nm-a1",
+    "timestamp": "2026-06-22T18:00:09Z",
+    "project": {
+      "cwd": "/home/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "7c0ffee1234500ab",
+        "branch": "chore/tidy"
+      }
+    },
+    "kind": {
+      "event": "assistant_turn",
+      "text": "Removed the stray HashMap import.",
+      "thinking": null,
+      "model": "gpt-4o",
+      "usage": null,
+      "parts": []
+    },
+    "provenance": {
+      "file": "fixtures/vscode/v1/no_commitment_marker.jsonl",
+      "byte_offset": 880,
+      "line_no": 4
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "vs_code",
+    "session_id": "vsc-sess-nomark",
+    "seq": 6,
+    "event_id": "e76c39d459c0a72f7d1ca775b61bc10efd218e6784dec9dac9cd9c254d05e53a",
+    "parent_id": null,
+    "timestamp": "2026-06-22T18:01:00Z",
+    "project": {
+      "cwd": "/home/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "7c0ffee1234500ab",
+        "branch": "chore/tidy"
+      }
+    },
+    "kind": {
+      "event": "session_end",
+      "reason": "user_closed"
+    },
+    "provenance": {
+      "file": "fixtures/vscode/v1/no_commitment_marker.jsonl",
+      "byte_offset": 1051,
+      "line_no": 5
+    }
+  }
+]

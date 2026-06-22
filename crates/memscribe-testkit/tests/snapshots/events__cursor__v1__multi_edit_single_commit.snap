@@ -1,0 +1,452 @@
+---
+source: crates/memscribe-testkit/tests/golden.rs
+expression: events
+---
+[
+  {
+    "schema_version": 1,
+    "source": "cursor",
+    "session_id": "cur-sess-006",
+    "seq": 0,
+    "event_id": "0128a4c8a8e32fff215aa8e871d6e17deeb1961291e09f08f67fabd421405f6f",
+    "parent_id": null,
+    "timestamp": "1970-01-01T00:00:00Z",
+    "project": {
+      "cwd": "/Users/dev/projects/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "f60718293a4b",
+        "branch": "feat/rename-client"
+      }
+    },
+    "kind": {
+      "event": "session_start",
+      "cwd": "/Users/dev/projects/acme-api",
+      "git": {
+        "sha": "f60718293a4b",
+        "branch": "feat/rename-client"
+      },
+      "model": "cursor-pro",
+      "tool_version": "0.43.2"
+    },
+    "provenance": {
+      "file": "fixtures/cursor/v1/multi_edit_single_commit.jsonl",
+      "byte_offset": 0,
+      "line_no": 1
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "cursor",
+    "session_id": "cur-sess-006",
+    "seq": 1,
+    "event_id": "msg-501",
+    "parent_id": null,
+    "timestamp": "2026-06-22T19:00:07Z",
+    "project": {
+      "cwd": "/Users/dev/projects/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "f60718293a4b",
+        "branch": "feat/rename-client"
+      }
+    },
+    "kind": {
+      "event": "user_turn",
+      "text": "Let's rename the HttpClient type to ApiClient everywhere. Use ApiClient as the canonical name across the codebase.",
+      "parts": [
+        {
+          "part": "text",
+          "text": "Let's rename the HttpClient type to ApiClient everywhere. Use ApiClient as the canonical name across the codebase."
+        }
+      ]
+    },
+    "provenance": {
+      "file": "fixtures/cursor/v1/multi_edit_single_commit.jsonl",
+      "byte_offset": 192,
+      "line_no": 2
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "cursor",
+    "session_id": "cur-sess-006",
+    "seq": 2,
+    "event_id": "msg-502",
+    "parent_id": "msg-501",
+    "timestamp": "2026-06-22T19:00:15Z",
+    "project": {
+      "cwd": "/Users/dev/projects/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "f60718293a4b",
+        "branch": "feat/rename-client"
+      }
+    },
+    "kind": {
+      "event": "assistant_turn",
+      "text": "Renaming HttpClient to ApiClient across client.rs, handlers.rs, and main.rs in one change.",
+      "thinking": null,
+      "model": "cursor-pro",
+      "usage": {
+        "input_tokens": 260,
+        "output_tokens": 74,
+        "cache_read_tokens": null,
+        "cache_creation_tokens": null
+      },
+      "parts": [
+        {
+          "part": "text",
+          "text": "Renaming HttpClient to ApiClient across client.rs, handlers.rs, and main.rs in one change."
+        }
+      ]
+    },
+    "provenance": {
+      "file": "fixtures/cursor/v1/multi_edit_single_commit.jsonl",
+      "byte_offset": 418,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "cursor",
+    "session_id": "cur-sess-006",
+    "seq": 3,
+    "event_id": "msg-502#toolcall:call-multi-client",
+    "parent_id": "msg-502",
+    "timestamp": "2026-06-22T19:00:15Z",
+    "project": {
+      "cwd": "/Users/dev/projects/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "f60718293a4b",
+        "branch": "feat/rename-client"
+      }
+    },
+    "kind": {
+      "event": "tool_call",
+      "call_id": "call-multi-client",
+      "name": "edit_file",
+      "args": {
+        "path": "src/client.rs"
+      }
+    },
+    "provenance": {
+      "file": "fixtures/cursor/v1/multi_edit_single_commit.jsonl",
+      "byte_offset": 418,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "cursor",
+    "session_id": "cur-sess-006",
+    "seq": 4,
+    "event_id": "msg-502#toolcall:call-multi-handlers",
+    "parent_id": "msg-502",
+    "timestamp": "2026-06-22T19:00:15Z",
+    "project": {
+      "cwd": "/Users/dev/projects/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "f60718293a4b",
+        "branch": "feat/rename-client"
+      }
+    },
+    "kind": {
+      "event": "tool_call",
+      "call_id": "call-multi-handlers",
+      "name": "edit_file",
+      "args": {
+        "path": "src/handlers.rs"
+      }
+    },
+    "provenance": {
+      "file": "fixtures/cursor/v1/multi_edit_single_commit.jsonl",
+      "byte_offset": 418,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "cursor",
+    "session_id": "cur-sess-006",
+    "seq": 5,
+    "event_id": "msg-502#toolcall:call-multi-main",
+    "parent_id": "msg-502",
+    "timestamp": "2026-06-22T19:00:15Z",
+    "project": {
+      "cwd": "/Users/dev/projects/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "f60718293a4b",
+        "branch": "feat/rename-client"
+      }
+    },
+    "kind": {
+      "event": "tool_call",
+      "call_id": "call-multi-main",
+      "name": "edit_file",
+      "args": {
+        "path": "src/main.rs"
+      }
+    },
+    "provenance": {
+      "file": "fixtures/cursor/v1/multi_edit_single_commit.jsonl",
+      "byte_offset": 418,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "cursor",
+    "session_id": "cur-sess-006",
+    "seq": 6,
+    "event_id": "msg-502#toolresult:call-multi-client",
+    "parent_id": "msg-502",
+    "timestamp": "2026-06-22T19:00:15Z",
+    "project": {
+      "cwd": "/Users/dev/projects/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "f60718293a4b",
+        "branch": "feat/rename-client"
+      }
+    },
+    "kind": {
+      "event": "tool_result",
+      "call_id": "call-multi-client",
+      "ok": true,
+      "output": "applied 1 edit"
+    },
+    "provenance": {
+      "file": "fixtures/cursor/v1/multi_edit_single_commit.jsonl",
+      "byte_offset": 418,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "cursor",
+    "session_id": "cur-sess-006",
+    "seq": 7,
+    "event_id": "msg-502#toolresult:call-multi-handlers",
+    "parent_id": "msg-502",
+    "timestamp": "2026-06-22T19:00:15Z",
+    "project": {
+      "cwd": "/Users/dev/projects/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "f60718293a4b",
+        "branch": "feat/rename-client"
+      }
+    },
+    "kind": {
+      "event": "tool_result",
+      "call_id": "call-multi-handlers",
+      "ok": true,
+      "output": "applied 2 edits"
+    },
+    "provenance": {
+      "file": "fixtures/cursor/v1/multi_edit_single_commit.jsonl",
+      "byte_offset": 418,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "cursor",
+    "session_id": "cur-sess-006",
+    "seq": 8,
+    "event_id": "msg-502#toolresult:call-multi-main",
+    "parent_id": "msg-502",
+    "timestamp": "2026-06-22T19:00:15Z",
+    "project": {
+      "cwd": "/Users/dev/projects/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "f60718293a4b",
+        "branch": "feat/rename-client"
+      }
+    },
+    "kind": {
+      "event": "tool_result",
+      "call_id": "call-multi-main",
+      "ok": true,
+      "output": "applied 1 edit"
+    },
+    "provenance": {
+      "file": "fixtures/cursor/v1/multi_edit_single_commit.jsonl",
+      "byte_offset": 418,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "cursor",
+    "session_id": "cur-sess-006",
+    "seq": 9,
+    "event_id": "msg-502#edit:0",
+    "parent_id": "msg-502",
+    "timestamp": "2026-06-22T19:00:15Z",
+    "project": {
+      "cwd": "/Users/dev/projects/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "f60718293a4b",
+        "branch": "feat/rename-client"
+      }
+    },
+    "kind": {
+      "event": "file_edit",
+      "call_id": "call-multi-client",
+      "diff": {
+        "path": "src/client.rs",
+        "old": "pub struct HttpClient {",
+        "new": "pub struct ApiClient {",
+        "unified": "@@ -1 +1 @@\n-pub struct HttpClient {\n+pub struct ApiClient {\n",
+        "added_lines": 1,
+        "removed_lines": 1
+      }
+    },
+    "provenance": {
+      "file": "fixtures/cursor/v1/multi_edit_single_commit.jsonl",
+      "byte_offset": 418,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "cursor",
+    "session_id": "cur-sess-006",
+    "seq": 10,
+    "event_id": "msg-502#edit:1",
+    "parent_id": "msg-502",
+    "timestamp": "2026-06-22T19:00:15Z",
+    "project": {
+      "cwd": "/Users/dev/projects/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "f60718293a4b",
+        "branch": "feat/rename-client"
+      }
+    },
+    "kind": {
+      "event": "file_edit",
+      "call_id": "call-multi-handlers",
+      "diff": {
+        "path": "src/handlers.rs",
+        "old": "use crate::client::HttpClient;\n    client: HttpClient,",
+        "new": "use crate::client::ApiClient;\n    client: ApiClient,",
+        "unified": "@@ -1,2 +1,2 @@\n-use crate::client::HttpClient;\n-    client: HttpClient,\n+use crate::client::ApiClient;\n+    client: ApiClient,\n",
+        "added_lines": 2,
+        "removed_lines": 2
+      }
+    },
+    "provenance": {
+      "file": "fixtures/cursor/v1/multi_edit_single_commit.jsonl",
+      "byte_offset": 418,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "cursor",
+    "session_id": "cur-sess-006",
+    "seq": 11,
+    "event_id": "msg-502#edit:2",
+    "parent_id": "msg-502",
+    "timestamp": "2026-06-22T19:00:15Z",
+    "project": {
+      "cwd": "/Users/dev/projects/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "f60718293a4b",
+        "branch": "feat/rename-client"
+      }
+    },
+    "kind": {
+      "event": "file_edit",
+      "call_id": "call-multi-main",
+      "diff": {
+        "path": "src/main.rs",
+        "old": "    let client = HttpClient::new();",
+        "new": "    let client = ApiClient::new();",
+        "unified": "@@ -1 +1 @@\n-    let client = HttpClient::new();\n+    let client = ApiClient::new();\n",
+        "added_lines": 1,
+        "removed_lines": 1
+      }
+    },
+    "provenance": {
+      "file": "fixtures/cursor/v1/multi_edit_single_commit.jsonl",
+      "byte_offset": 418,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "cursor",
+    "session_id": "cur-sess-006",
+    "seq": 12,
+    "event_id": "msg-503",
+    "parent_id": "msg-502",
+    "timestamp": "2026-06-22T19:00:30Z",
+    "project": {
+      "cwd": "/Users/dev/projects/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "f60718293a4b",
+        "branch": "feat/rename-client"
+      }
+    },
+    "kind": {
+      "event": "assistant_turn",
+      "text": "Done. HttpClient is now ApiClient across all three files in a single commit-sized change.",
+      "thinking": null,
+      "model": "cursor-pro",
+      "usage": {
+        "input_tokens": 320,
+        "output_tokens": 36,
+        "cache_read_tokens": null,
+        "cache_creation_tokens": null
+      },
+      "parts": [
+        {
+          "part": "text",
+          "text": "Done. HttpClient is now ApiClient across all three files in a single commit-sized change."
+        }
+      ]
+    },
+    "provenance": {
+      "file": "fixtures/cursor/v1/multi_edit_single_commit.jsonl",
+      "byte_offset": 1992,
+      "line_no": 4
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "cursor",
+    "session_id": "cur-sess-006",
+    "seq": 13,
+    "event_id": "04de6d20859b4abf40af4abe4a033a9c2f11f7a9925a5f0c7b14abbddb206bb4",
+    "parent_id": null,
+    "timestamp": "2026-06-22T19:01:00Z",
+    "project": {
+      "cwd": "/Users/dev/projects/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "f60718293a4b",
+        "branch": "feat/rename-client"
+      }
+    },
+    "kind": {
+      "event": "session_end",
+      "reason": "user_closed"
+    },
+    "provenance": {
+      "file": "fixtures/cursor/v1/multi_edit_single_commit.jsonl",
+      "byte_offset": 2258,
+      "line_no": 5
+    }
+  }
+]

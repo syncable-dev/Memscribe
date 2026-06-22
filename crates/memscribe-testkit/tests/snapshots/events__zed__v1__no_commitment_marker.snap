@@ -1,0 +1,160 @@
+---
+source: crates/memscribe-testkit/tests/golden.rs
+expression: events
+---
+[
+  {
+    "schema_version": 1,
+    "source": "zed",
+    "session_id": "zed-thread-009",
+    "seq": 0,
+    "event_id": "833fd41e4f9d971f5dbba0dd173395762f35e8b133a19e9d6d9115abfd9093f0",
+    "parent_id": null,
+    "timestamp": "2026-06-22T17:00:00Z",
+    "project": {
+      "cwd": "/Users/dev/projects/widgets",
+      "repo_root": null,
+      "git": {
+        "sha": "e5e5e5e5e5e5",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "session_start",
+      "cwd": "/Users/dev/projects/widgets",
+      "git": {
+        "sha": "e5e5e5e5e5e5",
+        "branch": "main"
+      },
+      "model": null,
+      "tool_version": "zed 0.182.0"
+    },
+    "provenance": {
+      "file": "fixtures/zed/v1/no_commitment_marker.jsonl",
+      "byte_offset": 0,
+      "line_no": 1
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "zed",
+    "session_id": "zed-thread-009",
+    "seq": 1,
+    "event_id": "msg-1",
+    "parent_id": null,
+    "timestamp": "2026-06-22T17:00:00Z",
+    "project": {
+      "cwd": "/Users/dev/projects/widgets",
+      "repo_root": null,
+      "git": {
+        "sha": "e5e5e5e5e5e5",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "user_turn",
+      "text": "Thanks, this looks good to me.",
+      "parts": []
+    },
+    "provenance": {
+      "file": "fixtures/zed/v1/no_commitment_marker.jsonl",
+      "byte_offset": 191,
+      "line_no": 2
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "zed",
+    "session_id": "zed-thread-009",
+    "seq": 2,
+    "event_id": "msg-2",
+    "parent_id": "msg-1",
+    "timestamp": "2026-06-22T17:00:02Z",
+    "project": {
+      "cwd": "/Users/dev/projects/widgets",
+      "repo_root": null,
+      "git": {
+        "sha": "e5e5e5e5e5e5",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "assistant_turn",
+      "text": "Glad it works. I'll tidy the trailing whitespace in the widget while I'm here.",
+      "thinking": null,
+      "model": "claude-opus-4-8",
+      "usage": {
+        "input_tokens": 70,
+        "output_tokens": 38,
+        "cache_read_tokens": null,
+        "cache_creation_tokens": null
+      },
+      "parts": []
+    },
+    "provenance": {
+      "file": "fixtures/zed/v1/no_commitment_marker.jsonl",
+      "byte_offset": 333,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "zed",
+    "session_id": "zed-thread-009",
+    "seq": 3,
+    "event_id": "msg-2:edit:0",
+    "parent_id": "msg-2",
+    "timestamp": "2026-06-22T17:00:02Z",
+    "project": {
+      "cwd": "/Users/dev/projects/widgets",
+      "repo_root": null,
+      "git": {
+        "sha": "e5e5e5e5e5e5",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "file_edit",
+      "call_id": null,
+      "diff": {
+        "path": "src/widget.rs",
+        "old": "fn render() { }  \n",
+        "new": "fn render() {}\n",
+        "unified": "@@ -1 +1 @@\n-fn render() { }  \n+fn render() {}\n",
+        "added_lines": 1,
+        "removed_lines": 1
+      }
+    },
+    "provenance": {
+      "file": "fixtures/zed/v1/no_commitment_marker.jsonl",
+      "byte_offset": 333,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "zed",
+    "session_id": "zed-thread-009",
+    "seq": 4,
+    "event_id": "b0c9410d509049ff9ebd41887185f4b75174fb38d60b0122187b42d71469bf2f",
+    "parent_id": null,
+    "timestamp": "2026-06-22T17:00:30Z",
+    "project": {
+      "cwd": "/Users/dev/projects/widgets",
+      "repo_root": null,
+      "git": {
+        "sha": "e5e5e5e5e5e5",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "session_end",
+      "reason": "user_closed"
+    },
+    "provenance": {
+      "file": "fixtures/zed/v1/no_commitment_marker.jsonl",
+      "byte_offset": 768,
+      "line_no": 4
+    }
+  }
+]

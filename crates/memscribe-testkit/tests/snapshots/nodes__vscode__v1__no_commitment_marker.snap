@@ -1,0 +1,23 @@
+---
+source: crates/memscribe-testkit/tests/golden.rs
+expression: nodes
+---
+[
+  {
+    "node": "episode",
+    "path": "src/handlers.ts",
+    "diff": {
+      "path": "src/handlers.ts",
+      "old": "import { HashMap } from './collections';",
+      "new": null,
+      "unified": "@@ -1 +0,0 @@\n-import { HashMap } from './collections';",
+      "added_lines": 0,
+      "removed_lines": 1
+    },
+    "git": {
+      "sha": "7c0ffee1234500ab",
+      "branch": "chore/tidy"
+    },
+    "episode_id": "cd516b0bf77db4db8a50e2d52b09b29f5920b2c4227cd27a6653b80177ce78ee"
+  }
+]

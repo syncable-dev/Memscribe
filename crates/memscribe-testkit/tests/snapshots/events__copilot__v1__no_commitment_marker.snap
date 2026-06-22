@@ -1,0 +1,218 @@
+---
+source: crates/memscribe-testkit/tests/golden.rs
+expression: events
+---
+[
+  {
+    "schema_version": 1,
+    "source": "copilot",
+    "session_id": "copilot-thread-105",
+    "seq": 0,
+    "event_id": "678bec861e6d84dbfbb0c29c62d3e12819b030038fc3bcb2226c26d9338ca73a",
+    "parent_id": null,
+    "timestamp": "2026-06-22T17:00:00Z",
+    "project": {
+      "cwd": "/Users/dev/projects/widgets",
+      "repo_root": null,
+      "git": {
+        "sha": "e5e5e5e5e5e5",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "session_start",
+      "cwd": "/Users/dev/projects/widgets",
+      "git": {
+        "sha": "e5e5e5e5e5e5",
+        "branch": "main"
+      },
+      "model": "gpt-4o",
+      "tool_version": "copilot-cli 1.4.0"
+    },
+    "provenance": {
+      "file": "fixtures/copilot/v1/no_commitment_marker.jsonl",
+      "byte_offset": 0,
+      "line_no": 1
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "copilot",
+    "session_id": "copilot-thread-105",
+    "seq": 1,
+    "event_id": "msg-1",
+    "parent_id": null,
+    "timestamp": "2026-06-22T17:00:00Z",
+    "project": {
+      "cwd": "/Users/dev/projects/widgets",
+      "repo_root": null,
+      "git": {
+        "sha": "e5e5e5e5e5e5",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "user_turn",
+      "text": "Thanks, this looks good to me.",
+      "parts": []
+    },
+    "provenance": {
+      "file": "fixtures/copilot/v1/no_commitment_marker.jsonl",
+      "byte_offset": 218,
+      "line_no": 2
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "copilot",
+    "session_id": "copilot-thread-105",
+    "seq": 2,
+    "event_id": "msg-2",
+    "parent_id": "msg-1",
+    "timestamp": "2026-06-22T17:00:02Z",
+    "project": {
+      "cwd": "/Users/dev/projects/widgets",
+      "repo_root": null,
+      "git": {
+        "sha": "e5e5e5e5e5e5",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "assistant_turn",
+      "text": "Glad it works. I'll tidy the trailing whitespace in the widget while I'm here.",
+      "thinking": null,
+      "model": "gpt-4o",
+      "usage": {
+        "input_tokens": 70,
+        "output_tokens": 38,
+        "cache_read_tokens": null,
+        "cache_creation_tokens": null
+      },
+      "parts": []
+    },
+    "provenance": {
+      "file": "fixtures/copilot/v1/no_commitment_marker.jsonl",
+      "byte_offset": 364,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "copilot",
+    "session_id": "copilot-thread-105",
+    "seq": 3,
+    "event_id": "msg-2:call:call-tidy",
+    "parent_id": "msg-2",
+    "timestamp": "2026-06-22T17:00:02Z",
+    "project": {
+      "cwd": "/Users/dev/projects/widgets",
+      "repo_root": null,
+      "git": {
+        "sha": "e5e5e5e5e5e5",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "tool_call",
+      "call_id": "call-tidy",
+      "name": "apply_patch",
+      "args": {
+        "path": "src/widget.rs"
+      }
+    },
+    "provenance": {
+      "file": "fixtures/copilot/v1/no_commitment_marker.jsonl",
+      "byte_offset": 364,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "copilot",
+    "session_id": "copilot-thread-105",
+    "seq": 4,
+    "event_id": "msg-2:result:call-tidy",
+    "parent_id": "msg-2",
+    "timestamp": "2026-06-22T17:00:02Z",
+    "project": {
+      "cwd": "/Users/dev/projects/widgets",
+      "repo_root": null,
+      "git": {
+        "sha": "e5e5e5e5e5e5",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "tool_result",
+      "call_id": "call-tidy",
+      "ok": true,
+      "output": "patch applied (1 file changed)"
+    },
+    "provenance": {
+      "file": "fixtures/copilot/v1/no_commitment_marker.jsonl",
+      "byte_offset": 364,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "copilot",
+    "session_id": "copilot-thread-105",
+    "seq": 5,
+    "event_id": "msg-2:edit:0:src/widget.rs",
+    "parent_id": "msg-2",
+    "timestamp": "2026-06-22T17:00:02Z",
+    "project": {
+      "cwd": "/Users/dev/projects/widgets",
+      "repo_root": null,
+      "git": {
+        "sha": "e5e5e5e5e5e5",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "file_edit",
+      "call_id": "call-tidy",
+      "diff": {
+        "path": "src/widget.rs",
+        "old": "fn render() { }  ",
+        "new": "fn render() {}",
+        "unified": "@@ -1 +1 @@\n-fn render() { }  \n+fn render() {}",
+        "added_lines": 1,
+        "removed_lines": 1
+      }
+    },
+    "provenance": {
+      "file": "fixtures/copilot/v1/no_commitment_marker.jsonl",
+      "byte_offset": 364,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "copilot",
+    "session_id": "copilot-thread-105",
+    "seq": 6,
+    "event_id": "aecf2b336a196f9f963391e9168cadd86c46974900d5357cb8eeffe9045a65ce",
+    "parent_id": null,
+    "timestamp": "2026-06-22T17:00:30Z",
+    "project": {
+      "cwd": "/Users/dev/projects/widgets",
+      "repo_root": null,
+      "git": {
+        "sha": "e5e5e5e5e5e5",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "session_end",
+      "reason": "user_closed"
+    },
+    "provenance": {
+      "file": "fixtures/copilot/v1/no_commitment_marker.jsonl",
+      "byte_offset": 982,
+      "line_no": 4
+    }
+  }
+]

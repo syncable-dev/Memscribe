@@ -1,0 +1,168 @@
+---
+source: crates/memscribe-testkit/tests/golden.rs
+expression: nodes
+---
+[
+  {
+    "node": "conversation",
+    "session_id": "cur-sess-008",
+    "turn_range": {
+      "start": 1,
+      "end": 2
+    },
+    "text": "Let's use a dedicated background worker for the email queue. Extract the send loop into a worker module.",
+    "markers": [
+      {
+        "rule_id": "decision_verb.use",
+        "category": "decision_verb",
+        "matched_text": "use",
+        "offset": 6
+      }
+    ],
+    "fact_status": "observed",
+    "provenance": [
+      {
+        "file": "fixtures/cursor/v1/subagent_thread.jsonl",
+        "byte_offset": 191,
+        "line_no": 2
+      }
+    ]
+  },
+  {
+    "node": "decision",
+    "epitome": "Let's use a dedicated background worker for the email queue.",
+    "considered_options": [
+      {
+        "text": "a",
+        "chosen": true
+      }
+    ],
+    "is_ban": false,
+    "superseded_by": null,
+    "confirmation": null,
+    "source_span": {
+      "start": 1,
+      "end": 2
+    },
+    "fact_status": "observed"
+  },
+  {
+    "node": "conversation",
+    "session_id": "cur-sess-008",
+    "turn_range": {
+      "start": 4,
+      "end": 5
+    },
+    "text": "Use a dedicated worker module: extract the email send loop into src/worker/email.rs and spawn it from main.",
+    "markers": [
+      {
+        "rule_id": "decision_verb.use",
+        "category": "decision_verb",
+        "matched_text": "Use",
+        "offset": 0
+      }
+    ],
+    "fact_status": "observed",
+    "provenance": [
+      {
+        "file": "fixtures/cursor/v1/subagent_thread.jsonl",
+        "byte_offset": 1297,
+        "line_no": 5
+      }
+    ]
+  },
+  {
+    "node": "decision",
+    "epitome": "Use a dedicated worker module: extract the email send loop into src/worker/email.",
+    "considered_options": [
+      {
+        "text": "a",
+        "chosen": true
+      }
+    ],
+    "is_ban": false,
+    "superseded_by": null,
+    "confirmation": null,
+    "source_span": {
+      "start": 4,
+      "end": 5
+    },
+    "fact_status": "observed"
+  },
+  {
+    "node": "episode",
+    "path": "src/worker/email.rs",
+    "diff": {
+      "path": "src/worker/email.rs",
+      "old": "",
+      "new": "pub async fn run_email_worker() {\n    loop { drain_email_queue().await; }\n}\n",
+      "unified": "@@ -0,0 +1,3 @@\n+pub async fn run_email_worker() {\n+    loop { drain_email_queue().await; }\n+}\n",
+      "added_lines": 3,
+      "removed_lines": 0
+    },
+    "git": {
+      "sha": "18293a4b5c6d",
+      "branch": "feat/worker-split"
+    },
+    "episode_id": "40e626b2941c9fb402b2ad708a83ee3dc4c9a8d880f15e23c6e94a1da9a0bd29"
+  },
+  {
+    "node": "episode",
+    "path": "src/main.rs",
+    "diff": {
+      "path": "src/main.rs",
+      "old": "    send_emails_inline();",
+      "new": "    tokio::spawn(worker::email::run_email_worker());",
+      "unified": "@@ -1 +1 @@\n-    send_emails_inline();\n+    tokio::spawn(worker::email::run_email_worker());\n",
+      "added_lines": 1,
+      "removed_lines": 1
+    },
+    "git": {
+      "sha": "18293a4b5c6d",
+      "branch": "feat/worker-split"
+    },
+    "episode_id": "d596bf6837d6e44bd34129ef6a8e3444ec83b7ff1933a620ff977c72e84d6ab5"
+  },
+  {
+    "node": "binding",
+    "from": "decision:cur-sess-008:4",
+    "to": "episode:40e626b2941c9fb402b2ad708a83ee3dc4c9a8d880f15e23c6e94a1da9a0bd29",
+    "relation": "produced",
+    "prov": {
+      "used_session": "cur-sess-008",
+      "used_decision": "decision:cur-sess-008:4",
+      "was_generated_by_session": "cur-sess-008",
+      "t_use": "2026-06-22T21:00:15Z",
+      "t_gen": "2026-06-22T21:00:22Z"
+    },
+    "fact_status": "deterministically_derived",
+    "correlation": {
+      "support": 0.5,
+      "confidence": 0.5,
+      "lift": 1.0,
+      "phi": 0.0,
+      "p": 1.0
+    }
+  },
+  {
+    "node": "binding",
+    "from": "decision:cur-sess-008:4",
+    "to": "episode:d596bf6837d6e44bd34129ef6a8e3444ec83b7ff1933a620ff977c72e84d6ab5",
+    "relation": "produced",
+    "prov": {
+      "used_session": "cur-sess-008",
+      "used_decision": "decision:cur-sess-008:4",
+      "was_generated_by_session": "cur-sess-008",
+      "t_use": "2026-06-22T21:00:15Z",
+      "t_gen": "2026-06-22T21:00:22Z"
+    },
+    "fact_status": "deterministically_derived",
+    "correlation": {
+      "support": 0.5,
+      "confidence": 0.5,
+      "lift": 1.0,
+      "phi": 0.0,
+      "p": 1.0
+    }
+  }
+]

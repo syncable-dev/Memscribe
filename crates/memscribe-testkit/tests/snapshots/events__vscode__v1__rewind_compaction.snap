@@ -1,0 +1,319 @@
+---
+source: crates/memscribe-testkit/tests/golden.rs
+expression: events
+---
+[
+  {
+    "schema_version": 1,
+    "source": "vs_code",
+    "session_id": "vsc-sess-rwd",
+    "seq": 0,
+    "event_id": "521a17c91b95430de968f71193eb2273e38d5168cea256b089ad9a4bdccbe3d9",
+    "parent_id": null,
+    "timestamp": "1970-01-01T00:00:00Z",
+    "project": {
+      "cwd": "/home/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "deadbeefcafe0001",
+        "branch": "feat/persistence-pivot"
+      }
+    },
+    "kind": {
+      "event": "session_start",
+      "cwd": "/home/dev/acme-api",
+      "git": {
+        "sha": "deadbeefcafe0001",
+        "branch": "feat/persistence-pivot"
+      },
+      "model": "gpt-4o",
+      "tool_version": "1.92.0"
+    },
+    "provenance": {
+      "file": "fixtures/vscode/v1/rewind_compaction.jsonl",
+      "byte_offset": 0,
+      "line_no": 1
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "vs_code",
+    "session_id": "vsc-sess-rwd",
+    "seq": 1,
+    "event_id": "rw-u1",
+    "parent_id": null,
+    "timestamp": "2026-06-22T16:00:00Z",
+    "project": {
+      "cwd": "/home/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "deadbeefcafe0001",
+        "branch": "feat/persistence-pivot"
+      }
+    },
+    "kind": {
+      "event": "user_turn",
+      "text": "Let's use MongoDB for the document store. Set up the driver and the connection config.",
+      "parts": []
+    },
+    "provenance": {
+      "file": "fixtures/vscode/v1/rewind_compaction.jsonl",
+      "byte_offset": 186,
+      "line_no": 2
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "vs_code",
+    "session_id": "vsc-sess-rwd",
+    "seq": 2,
+    "event_id": "rw-a1",
+    "parent_id": "rw-u1",
+    "timestamp": "2026-06-22T16:00:06Z",
+    "project": {
+      "cwd": "/home/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "deadbeefcafe0001",
+        "branch": "feat/persistence-pivot"
+      }
+    },
+    "kind": {
+      "event": "assistant_turn",
+      "text": "Understood, wiring up MongoDB for the document store.",
+      "thinking": null,
+      "model": "gpt-4o",
+      "usage": {
+        "input_tokens": 690,
+        "output_tokens": 140,
+        "cache_read_tokens": null,
+        "cache_creation_tokens": null
+      },
+      "parts": []
+    },
+    "provenance": {
+      "file": "fixtures/vscode/v1/rewind_compaction.jsonl",
+      "byte_offset": 382,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "vs_code",
+    "session_id": "vsc-sess-rwd",
+    "seq": 3,
+    "event_id": "97027863b7e8f205455e7d2a011fb2636ed7203c7fb5de95861976a8aab2ade9",
+    "parent_id": null,
+    "timestamp": "2026-06-22T16:00:30Z",
+    "project": {
+      "cwd": "/home/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "deadbeefcafe0001",
+        "branch": "feat/persistence-pivot"
+      }
+    },
+    "kind": {
+      "event": "unknown",
+      "raw_type": "unknown",
+      "raw": {
+        "kind": "compaction",
+        "sessionId": "vsc-sess-rwd",
+        "ts": "2026-06-22T16:00:30Z",
+        "reason": "context_window",
+        "summary": "The MongoDB exploration above was summarized and the verbatim early turns were dropped from the active chat context.",
+        "replacedIds": [
+          "rw-u1",
+          "rw-a1"
+        ]
+      }
+    },
+    "provenance": {
+      "file": "fixtures/vscode/v1/rewind_compaction.jsonl",
+      "byte_offset": 605,
+      "line_no": 4
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "vs_code",
+    "session_id": "vsc-sess-rwd",
+    "seq": 4,
+    "event_id": "rw-u2",
+    "parent_id": "rw-a1",
+    "timestamp": "2026-06-22T16:00:45Z",
+    "project": {
+      "cwd": "/home/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "deadbeefcafe0001",
+        "branch": "feat/persistence-pivot"
+      }
+    },
+    "kind": {
+      "event": "user_turn",
+      "text": "Actually let's use Postgres with JSONB for the document store. Switch to Postgres and drop the MongoDB plan.",
+      "parts": []
+    },
+    "provenance": {
+      "file": "fixtures/vscode/v1/rewind_compaction.jsonl",
+      "byte_offset": 869,
+      "line_no": 5
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "vs_code",
+    "session_id": "vsc-sess-rwd",
+    "seq": 5,
+    "event_id": "rw-a2",
+    "parent_id": "rw-u2",
+    "timestamp": "2026-06-22T16:00:52Z",
+    "project": {
+      "cwd": "/home/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "deadbeefcafe0001",
+        "branch": "feat/persistence-pivot"
+      }
+    },
+    "kind": {
+      "event": "assistant_turn",
+      "text": "Switching the document store to Postgres with JSONB columns.",
+      "thinking": null,
+      "model": "gpt-4o",
+      "usage": {
+        "input_tokens": 720,
+        "output_tokens": 180,
+        "cache_read_tokens": null,
+        "cache_creation_tokens": null
+      },
+      "parts": []
+    },
+    "provenance": {
+      "file": "fixtures/vscode/v1/rewind_compaction.jsonl",
+      "byte_offset": 1090,
+      "line_no": 6
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "vs_code",
+    "session_id": "vsc-sess-rwd",
+    "seq": 6,
+    "event_id": "rw-a2:toolcall:0:call-rw-1",
+    "parent_id": "rw-a2",
+    "timestamp": "2026-06-22T16:00:52Z",
+    "project": {
+      "cwd": "/home/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "deadbeefcafe0001",
+        "branch": "feat/persistence-pivot"
+      }
+    },
+    "kind": {
+      "event": "tool_call",
+      "call_id": "call-rw-1",
+      "name": "applyEdit",
+      "args": {
+        "path": "src/store.ts"
+      }
+    },
+    "provenance": {
+      "file": "fixtures/vscode/v1/rewind_compaction.jsonl",
+      "byte_offset": 1090,
+      "line_no": 6
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "vs_code",
+    "session_id": "vsc-sess-rwd",
+    "seq": 7,
+    "event_id": "rw-a2:edit:0:src/store.ts",
+    "parent_id": "rw-a2",
+    "timestamp": "2026-06-22T16:00:52Z",
+    "project": {
+      "cwd": "/home/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "deadbeefcafe0001",
+        "branch": "feat/persistence-pivot"
+      }
+    },
+    "kind": {
+      "event": "file_edit",
+      "call_id": "call-rw-1",
+      "diff": {
+        "path": "src/store.ts",
+        "old": "import { MongoClient } from 'mongodb';",
+        "new": "import { Pool } from 'pg';",
+        "unified": "@@ -1 +1,2 @@\n-import { MongoClient } from 'mongodb';\n+import { Pool } from 'pg';\n+// JSONB document columns",
+        "added_lines": 2,
+        "removed_lines": 1
+      }
+    },
+    "provenance": {
+      "file": "fixtures/vscode/v1/rewind_compaction.jsonl",
+      "byte_offset": 1090,
+      "line_no": 6
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "vs_code",
+    "session_id": "vsc-sess-rwd",
+    "seq": 8,
+    "event_id": "rw-a3",
+    "parent_id": "rw-a2",
+    "timestamp": "2026-06-22T16:00:58Z",
+    "project": {
+      "cwd": "/home/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "deadbeefcafe0001",
+        "branch": "feat/persistence-pivot"
+      }
+    },
+    "kind": {
+      "event": "assistant_turn",
+      "text": "Done. The document store now uses Postgres with JSONB.",
+      "thinking": null,
+      "model": "gpt-4o",
+      "usage": null,
+      "parts": []
+    },
+    "provenance": {
+      "file": "fixtures/vscode/v1/rewind_compaction.jsonl",
+      "byte_offset": 1691,
+      "line_no": 7
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "vs_code",
+    "session_id": "vsc-sess-rwd",
+    "seq": 9,
+    "event_id": "c981987460485b027256048fe538ae35044c3e2fbe2f34e78e7ab2c09ce6956d",
+    "parent_id": null,
+    "timestamp": "2026-06-22T16:01:30Z",
+    "project": {
+      "cwd": "/home/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "deadbeefcafe0001",
+        "branch": "feat/persistence-pivot"
+      }
+    },
+    "kind": {
+      "event": "session_end",
+      "reason": "user_closed"
+    },
+    "provenance": {
+      "file": "fixtures/vscode/v1/rewind_compaction.jsonl",
+      "byte_offset": 1880,
+      "line_no": 8
+    }
+  }
+]

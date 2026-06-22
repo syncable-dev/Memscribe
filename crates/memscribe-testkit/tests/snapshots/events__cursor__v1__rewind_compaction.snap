@@ -1,0 +1,378 @@
+---
+source: crates/memscribe-testkit/tests/golden.rs
+expression: events
+---
+[
+  {
+    "schema_version": 1,
+    "source": "cursor",
+    "session_id": "cur-sess-007",
+    "seq": 0,
+    "event_id": "043437aa6da77b98f969865d1291a1136a816d15c71bb021b6dc35f596fde5d6",
+    "parent_id": null,
+    "timestamp": "1970-01-01T00:00:00Z",
+    "project": {
+      "cwd": "/Users/dev/projects/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "0718293a4b5c",
+        "branch": "feat/persistence-pivot"
+      }
+    },
+    "kind": {
+      "event": "session_start",
+      "cwd": "/Users/dev/projects/acme-api",
+      "git": {
+        "sha": "0718293a4b5c",
+        "branch": "feat/persistence-pivot"
+      },
+      "model": "cursor-pro",
+      "tool_version": "0.43.2"
+    },
+    "provenance": {
+      "file": "fixtures/cursor/v1/rewind_compaction.jsonl",
+      "byte_offset": 0,
+      "line_no": 1
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "cursor",
+    "session_id": "cur-sess-007",
+    "seq": 1,
+    "event_id": "msg-601",
+    "parent_id": null,
+    "timestamp": "2026-06-22T20:00:06Z",
+    "project": {
+      "cwd": "/Users/dev/projects/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "0718293a4b5c",
+        "branch": "feat/persistence-pivot"
+      }
+    },
+    "kind": {
+      "event": "user_turn",
+      "text": "Let's use MongoDB for the document store. Set up the driver and the connection config.",
+      "parts": [
+        {
+          "part": "text",
+          "text": "Let's use MongoDB for the document store. Set up the driver and the connection config."
+        }
+      ]
+    },
+    "provenance": {
+      "file": "fixtures/cursor/v1/rewind_compaction.jsonl",
+      "byte_offset": 196,
+      "line_no": 2
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "cursor",
+    "session_id": "cur-sess-007",
+    "seq": 2,
+    "event_id": "msg-602",
+    "parent_id": "msg-601",
+    "timestamp": "2026-06-22T20:00:11Z",
+    "project": {
+      "cwd": "/Users/dev/projects/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "0718293a4b5c",
+        "branch": "feat/persistence-pivot"
+      }
+    },
+    "kind": {
+      "event": "assistant_turn",
+      "text": "Understood, I'll wire up MongoDB for the document store.",
+      "thinking": null,
+      "model": "cursor-pro",
+      "usage": {
+        "input_tokens": 210,
+        "output_tokens": 48,
+        "cache_read_tokens": null,
+        "cache_creation_tokens": null
+      },
+      "parts": [
+        {
+          "part": "text",
+          "text": "Understood, I'll wire up MongoDB for the document store."
+        }
+      ]
+    },
+    "provenance": {
+      "file": "fixtures/cursor/v1/rewind_compaction.jsonl",
+      "byte_offset": 394,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "cursor",
+    "session_id": "cur-sess-007",
+    "seq": 3,
+    "event_id": "7df896931f280d6bf86a4f2b796864808daaa37ddff0da02e759ddf208e1e672",
+    "parent_id": null,
+    "timestamp": "2026-06-22T20:00:30Z",
+    "project": {
+      "cwd": "/Users/dev/projects/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "0718293a4b5c",
+        "branch": "feat/persistence-pivot"
+      }
+    },
+    "kind": {
+      "event": "unknown",
+      "raw_type": "unknown",
+      "raw": {
+        "kind": "compaction",
+        "sessionId": "cur-sess-007",
+        "ts": "2026-06-22T20:00:30Z",
+        "reason": "context_window",
+        "replacedIds": [
+          "msg-601",
+          "msg-602"
+        ],
+        "summary": "The MongoDB exploration above was summarized and the verbatim early turns were dropped from the active context.",
+        "note": "Cursor's exported chat JSON-lines has NO native rewind/compaction record; the live state.vscdb store just truncates history. This 'compaction' record is the closest faithful analog of that event. The cursor adapter does not recognize this kind and routes it losslessly to EventKind::Unknown (it does NOT emit the first-class EventKind::Compaction), so no decision is mechanically superseded by it. The invariant that genuinely holds: both decision turns are preserved verbatim and the marker survives in the stream."
+      }
+    },
+    "provenance": {
+      "file": "fixtures/cursor/v1/rewind_compaction.jsonl",
+      "byte_offset": 627,
+      "line_no": 4
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "cursor",
+    "session_id": "cur-sess-007",
+    "seq": 4,
+    "event_id": "msg-603",
+    "parent_id": "msg-602",
+    "timestamp": "2026-06-22T20:00:40Z",
+    "project": {
+      "cwd": "/Users/dev/projects/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "0718293a4b5c",
+        "branch": "feat/persistence-pivot"
+      }
+    },
+    "kind": {
+      "event": "user_turn",
+      "text": "Actually let's use Postgres with JSONB for the document store instead. Switch to Postgres and drop the MongoDB plan.",
+      "parts": [
+        {
+          "part": "text",
+          "text": "Actually let's use Postgres with JSONB for the document store instead. Switch to Postgres and drop the MongoDB plan."
+        }
+      ]
+    },
+    "provenance": {
+      "file": "fixtures/cursor/v1/rewind_compaction.jsonl",
+      "byte_offset": 1415,
+      "line_no": 5
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "cursor",
+    "session_id": "cur-sess-007",
+    "seq": 5,
+    "event_id": "msg-604",
+    "parent_id": "msg-603",
+    "timestamp": "2026-06-22T20:00:45Z",
+    "project": {
+      "cwd": "/Users/dev/projects/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "0718293a4b5c",
+        "branch": "feat/persistence-pivot"
+      }
+    },
+    "kind": {
+      "event": "assistant_turn",
+      "text": "Switching the document store to Postgres with JSONB columns.",
+      "thinking": null,
+      "model": "cursor-pro",
+      "usage": {
+        "input_tokens": 260,
+        "output_tokens": 66,
+        "cache_read_tokens": null,
+        "cache_creation_tokens": null
+      },
+      "parts": [
+        {
+          "part": "text",
+          "text": "Switching the document store to Postgres with JSONB columns."
+        }
+      ]
+    },
+    "provenance": {
+      "file": "fixtures/cursor/v1/rewind_compaction.jsonl",
+      "byte_offset": 1648,
+      "line_no": 6
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "cursor",
+    "session_id": "cur-sess-007",
+    "seq": 6,
+    "event_id": "msg-604#toolcall:call-rewind-store",
+    "parent_id": "msg-604",
+    "timestamp": "2026-06-22T20:00:45Z",
+    "project": {
+      "cwd": "/Users/dev/projects/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "0718293a4b5c",
+        "branch": "feat/persistence-pivot"
+      }
+    },
+    "kind": {
+      "event": "tool_call",
+      "call_id": "call-rewind-store",
+      "name": "edit_file",
+      "args": {
+        "path": "src/store.rs"
+      }
+    },
+    "provenance": {
+      "file": "fixtures/cursor/v1/rewind_compaction.jsonl",
+      "byte_offset": 1648,
+      "line_no": 6
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "cursor",
+    "session_id": "cur-sess-007",
+    "seq": 7,
+    "event_id": "msg-604#toolresult:call-rewind-store",
+    "parent_id": "msg-604",
+    "timestamp": "2026-06-22T20:00:45Z",
+    "project": {
+      "cwd": "/Users/dev/projects/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "0718293a4b5c",
+        "branch": "feat/persistence-pivot"
+      }
+    },
+    "kind": {
+      "event": "tool_result",
+      "call_id": "call-rewind-store",
+      "ok": true,
+      "output": "applied 2 edits"
+    },
+    "provenance": {
+      "file": "fixtures/cursor/v1/rewind_compaction.jsonl",
+      "byte_offset": 1648,
+      "line_no": 6
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "cursor",
+    "session_id": "cur-sess-007",
+    "seq": 8,
+    "event_id": "msg-604#edit:0",
+    "parent_id": "msg-604",
+    "timestamp": "2026-06-22T20:00:45Z",
+    "project": {
+      "cwd": "/Users/dev/projects/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "0718293a4b5c",
+        "branch": "feat/persistence-pivot"
+      }
+    },
+    "kind": {
+      "event": "file_edit",
+      "call_id": "call-rewind-store",
+      "diff": {
+        "path": "src/store.rs",
+        "old": "use mongodb::Client;\n    let client = Client::with_uri_str(\"mongodb://localhost:27017\").await?;",
+        "new": "use sqlx::PgPool;\n    let pool = PgPool::connect(\"postgres://localhost:5432/acme\").await?;",
+        "unified": "@@ -1,2 +1,2 @@\n-use mongodb::Client;\n-    let client = Client::with_uri_str(\"mongodb://localhost:27017\").await?;\n+use sqlx::PgPool;\n+    let pool = PgPool::connect(\"postgres://localhost:5432/acme\").await?;\n",
+        "added_lines": 2,
+        "removed_lines": 2
+      }
+    },
+    "provenance": {
+      "file": "fixtures/cursor/v1/rewind_compaction.jsonl",
+      "byte_offset": 1648,
+      "line_no": 6
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "cursor",
+    "session_id": "cur-sess-007",
+    "seq": 9,
+    "event_id": "msg-605",
+    "parent_id": "msg-604",
+    "timestamp": "2026-06-22T20:00:58Z",
+    "project": {
+      "cwd": "/Users/dev/projects/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "0718293a4b5c",
+        "branch": "feat/persistence-pivot"
+      }
+    },
+    "kind": {
+      "event": "assistant_turn",
+      "text": "Done. The document store now uses Postgres with JSONB.",
+      "thinking": null,
+      "model": "cursor-pro",
+      "usage": {
+        "input_tokens": 320,
+        "output_tokens": 34,
+        "cache_read_tokens": null,
+        "cache_creation_tokens": null
+      },
+      "parts": [
+        {
+          "part": "text",
+          "text": "Done. The document store now uses Postgres with JSONB."
+        }
+      ]
+    },
+    "provenance": {
+      "file": "fixtures/cursor/v1/rewind_compaction.jsonl",
+      "byte_offset": 2584,
+      "line_no": 7
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "cursor",
+    "session_id": "cur-sess-007",
+    "seq": 10,
+    "event_id": "420069d0646d95703f3a03e255c52bd33e8174d3b89e5bca4730c8f6e91e589b",
+    "parent_id": null,
+    "timestamp": "2026-06-22T20:01:30Z",
+    "project": {
+      "cwd": "/Users/dev/projects/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "0718293a4b5c",
+        "branch": "feat/persistence-pivot"
+      }
+    },
+    "kind": {
+      "event": "session_end",
+      "reason": "user_closed"
+    },
+    "provenance": {
+      "file": "fixtures/cursor/v1/rewind_compaction.jsonl",
+      "byte_offset": 2815,
+      "line_no": 8
+    }
+  }
+]

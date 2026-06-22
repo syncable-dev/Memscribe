@@ -7,15 +7,24 @@
 //! adapter through the real pipeline (`testkit::prepare_nodes`) and comparing the
 //! resulting node shapes.
 //!
-//! Where a scenario's fixtures were authored *identically* across tools
+//! All nine §8.2 scenarios are now asserted across all nine tools. Where a
+//! scenario's fixtures were authored *identically* across tools
 //! (`happy_path_decision_then_edits`), we assert the full shape is byte-identical
 //! across all nine. Where fixture content legitimately differs per tool (the
 //! `rejected_alternative` corpus uses different examples), we assert the weaker
 //! cross-tool invariant the scenario actually guarantees. For `tool_failure`, all
-//! nine tools now uphold the same zero-episode invariant: a failed edit
+//! nine tools uphold the same zero-episode invariant: a failed edit
 //! (`ToolResult.ok = false`, linked to its `FileEdit` by `call_id`) produces no
 //! spurious `CodeEpisode` and therefore no binding. See
 //! `tool_failure_yields_no_spurious_episode`.
+//!
+//! The five extended scenarios (`interleaved_arcs`, `multi_edit_single_commit`,
+//! `rewind_compaction`, `subagent_thread`, `no_commitment_marker`) are asserted
+//! over every tool too. Two of them carry a genuine, *pinned* per-tool divergence
+//! — only Gemini supersedes a pre-rewind decision (the rest route the notice to
+//! `Unknown`), and no tool mints a distinct subagent session — so we assert the
+//! weaker invariant that DOES hold and pin the divergence with an explicit
+//! assertion + comment, never silently weakening to nothing.
 
 use memscribe_core::node::{BindingEdge, DecisionRecord, PreparedNode};
 use memscribe_core::SourceKind;
@@ -38,14 +47,22 @@ const TOOLS: &[(SourceKind, &str)] = &[
     (SourceKind::Copilot, "v1"),
 ];
 
-/// The three first-class CLIs that carry the five additional §8.2 scenarios
-/// (`interleaved_arcs`, `multi_edit_single_commit`, `rewind_compaction`,
-/// `subagent_thread`, `no_commitment_marker`). The OTel/IDE adapters do not
-/// author these fixtures, so the extended-scenario tests are scoped to this set.
-const THREE_CLIS: &[(SourceKind, &str)] = &[
+/// Every tool *except* Gemini. Gemini is the one adapter whose transcript format
+/// carries a machine-resolvable rewind target (`$rewindTo`), so it is the sole
+/// tool that exercises the *full* supersede-and-skip invariant in
+/// `rewind_compaction`. Every other tool routes its compaction/rewind notice to
+/// `Unknown` (no resolvable replaced-range) and is asserted against the weaker —
+/// but still genuinely held — "history preserved + pivot honored" invariant. See
+/// the two `rewind_compaction_*` tests below.
+const NON_GEMINI_TOOLS: &[(SourceKind, &str)] = &[
     (SourceKind::ClaudeCode, "2.0"),
     (SourceKind::Codex, "v2"),
-    (SourceKind::Gemini, "v1"),
+    (SourceKind::Otel, "genai"),
+    (SourceKind::Cursor, "v1"),
+    (SourceKind::Windsurf, "v1"),
+    (SourceKind::Zed, "v1"),
+    (SourceKind::VsCode, "v1"),
+    (SourceKind::Copilot, "v1"),
 ];
 
 /// A structural fingerprint of a prepared-node stream: counts per variant plus
@@ -369,13 +386,31 @@ fn version_of(tool: SourceKind) -> &'static str {
 }
 
 // ===========================================================================
-// The five additional §8.2 scenarios, asserted for the three first-class CLIs
-// (claude_code, codex, gemini). Where a tool's transcript format only carries an
-// *analog* of the scenario (e.g. a context-compaction notice with no
-// machine-resolvable replaced-range, or a subagent modeled as a nested thread on
-// one session id), we assert the invariant that *genuinely* holds for that tool
-// and PIN the divergence in an explicit assertion + comment — never silently
-// weakened to "anything goes".
+// The five additional §8.2 scenarios, now asserted across **all nine tools**
+// (the three first-class CLIs plus OTel and the five IDE adapters — all of which
+// now author these fixtures). Two scenarios (`interleaved_arcs`,
+// `multi_edit_single_commit`, `no_commitment_marker`) hold their full structural
+// invariant uniformly for every tool, so those tests iterate `TOOLS`.
+//
+// Two scenarios carry a real, *pinned* divergence and are split accordingly:
+//
+//   * `rewind_compaction`: only Gemini's `$rewindTo` resolves to a typed Rewind,
+//     so only Gemini supersedes the pre-rewind decision (full invariant). The
+//     other eight tools route their compaction/rewind *notice* to `Unknown`
+//     (no machine-resolvable replaced-range) and therefore supersede NOTHING; we
+//     assert the weaker-but-genuine invariant they DO uphold (verbatim history
+//     preserved + the final edit binds to the latest post-pivot decision) and
+//     PIN the absence of the supersede marker.
+//
+//   * `subagent_thread`: none of the nine adapters surface a *distinct* session
+//     id for delegated work — every one co-attributes the subagent's edit to a
+//     single normalized session. We assert the invariant that genuinely holds
+//     (the subagent edit is captured and binds to its own in-session decision,
+//     never dropped or cross-attributed) and PIN the single-session merge.
+//
+// Where a tool genuinely cannot express a scenario natively we assert the weaker
+// invariant that DOES hold and pin the divergence in an explicit assertion +
+// comment — never silently weakened to "anything goes".
 // ===========================================================================
 
 // ---------------------------------------------------------------------------
@@ -392,7 +427,7 @@ fn version_of(tool: SourceKind) -> &'static str {
 fn interleaved_arcs_each_edit_binds_to_its_own_decision() {
     let case = "interleaved_arcs";
     let mut seen = 0;
-    for &(tool, version) in THREE_CLIS {
+    for &(tool, version) in TOOLS {
         let Some(nodes) = nodes_for(tool, version, case) else {
             panic!("missing {case} fixture for {tool}");
         };
@@ -455,7 +490,11 @@ fn interleaved_arcs_each_edit_binds_to_its_own_decision() {
         }
         seen += 1;
     }
-    assert_eq!(seen, THREE_CLIS.len());
+    assert_eq!(
+        seen,
+        TOOLS.len(),
+        "every tool must carry the {case} fixture"
+    );
 }
 
 // ---------------------------------------------------------------------------
@@ -468,7 +507,7 @@ fn interleaved_arcs_each_edit_binds_to_its_own_decision() {
 fn multi_edit_single_commit_one_decision_n_episodes_n_bindings() {
     let case = "multi_edit_single_commit";
     let mut seen = 0;
-    for &(tool, version) in THREE_CLIS {
+    for &(tool, version) in TOOLS {
         let Some(nodes) = nodes_for(tool, version, case) else {
             panic!("missing {case} fixture for {tool}");
         };
@@ -504,7 +543,11 @@ fn multi_edit_single_commit_one_decision_n_episodes_n_bindings() {
         );
         seen += 1;
     }
-    assert_eq!(seen, THREE_CLIS.len());
+    assert_eq!(
+        seen,
+        TOOLS.len(),
+        "every tool must carry the {case} fixture"
+    );
 }
 
 // ---------------------------------------------------------------------------
@@ -520,15 +563,16 @@ fn multi_edit_single_commit_one_decision_n_episodes_n_bindings() {
 //   * gemini's `$rewindTo` carries a resolvable target event id → the segmenter
 //     supersedes the rewound decision. We assert the FULL invariant here.
 //
-//   * claude_code's `summary` line and codex's `compacted`
-//     (`replaced_response_ids` = opaque string ids) are context-compaction
-//     *notices* with no machine-resolvable replaced-range, so both adapters route
-//     them to `Unknown` and NOTHING is superseded. This is a real, pinned
-//     divergence. The invariant that still genuinely holds for these two: the
-//     verbatim conversation of every pivot turn is preserved, and the FINAL edit
-//     binds to the LATEST (post-pivot) decision, never to the stale earlier one —
-//     so the current view honors the pivot even without a structural supersede
-//     marker. We assert exactly that and PIN the absence of the marker.
+//   * the other EIGHT tools (claude_code's `summary` line, codex's `compacted`
+//     `replaced_response_ids`, OTel's compaction span notice, and the five IDE
+//     adapters' rewind/checkpoint notices) are context-compaction *notices* with
+//     no machine-resolvable replaced-range, so every one routes the notice to
+//     `Unknown` and NOTHING is superseded. This is a real, pinned divergence. The
+//     invariant that still genuinely holds for all eight: the verbatim
+//     conversation of every pivot turn is preserved, and the FINAL edit binds to
+//     the LATEST (post-pivot) decision, never to the stale earlier one — so the
+//     current view honors the pivot even without a structural supersede marker.
+//     We assert exactly that and PIN the absence of the marker.
 // ---------------------------------------------------------------------------
 
 #[test]
@@ -595,13 +639,15 @@ fn rewind_compaction_gemini_supersedes_pre_rewind_decision() {
 }
 
 #[test]
-fn rewind_compaction_claude_and_codex_preserve_history_and_honor_the_pivot() {
-    // PINNED DIVERGENCE: neither claude_code's `summary` nor codex's `compacted`
-    // notice resolves to a typed Rewind/Compaction, so NO decision is superseded.
-    // We assert the invariants that genuinely hold and explicitly pin the absence
-    // of the structural supersede marker.
-    for tool in [SourceKind::ClaudeCode, SourceKind::Codex] {
-        let version = version_of(tool);
+fn rewind_compaction_non_gemini_tools_preserve_history_and_honor_the_pivot() {
+    // PINNED DIVERGENCE: none of the eight non-Gemini adapters resolve their
+    // compaction/rewind notice to a typed Rewind/Compaction (claude_code's
+    // `summary`, codex's `compacted`, OTel's compaction span, and the five IDE
+    // adapters' rewind/checkpoint notices all route to `Unknown`), so NO decision
+    // is superseded. We assert the invariants that genuinely hold and explicitly
+    // pin the absence of the structural supersede marker.
+    let mut seen = 0;
+    for &(tool, version) in NON_GEMINI_TOOLS {
         let nodes = nodes_for(tool, version, "rewind_compaction")
             .unwrap_or_else(|| panic!("{tool} rewind_compaction fixture present"));
 
@@ -653,21 +699,48 @@ fn rewind_compaction_claude_and_codex_preserve_history_and_honor_the_pivot() {
              (post-pivot) decision :{latest_decision_seq}, got {}",
             final_binding.from
         );
+
+        // And no binding may source a superseded decision (vacuously true here
+        // since none are superseded, but it keeps the invariant explicit for the
+        // day an adapter starts emitting typed Rewind events).
+        for b in &bindings {
+            let from = decisions.iter().find(|d| {
+                b.from
+                    .as_str()
+                    .ends_with(&format!(":{}", d.source_span.start))
+            });
+            if let Some(d) = from {
+                assert!(
+                    d.superseded_by.is_none(),
+                    "{tool} rewind_compaction: a binding sourced a superseded decision"
+                );
+            }
+        }
+        seen += 1;
     }
+    assert_eq!(
+        seen,
+        NON_GEMINI_TOOLS.len(),
+        "every non-Gemini tool must carry the rewind_compaction fixture"
+    );
 }
 
 // ---------------------------------------------------------------------------
 // subagent_thread — work is delegated to a subagent / nested thread.
 //
 // PINNED DIVERGENCE: the documented goal is "subagent nodes carry the *distinct*
-// session id, not merged". In practice none of the three CLIs surface a separate
-// `CaptureEvent.session_id` for the delegated work:
+// session id, not merged". In practice none of the nine adapters surface a
+// separate `CaptureEvent.session_id` for the delegated work:
 //   * claude_code MERGES the `isSidechain:true` session (`sess-subagent-008b`)
 //     into the parent `sess-main-008`;
 //   * codex carries the `thread_id` only inside an Unknown `turn_context` record,
 //     not as a session;
-//   * gemini drops the nested `threadId` entirely.
-// So at the node layer the subagent work is co-attributed to ONE session id.
+//   * gemini drops the nested `threadId` entirely;
+//   * OTel and the five IDE adapters (cursor/windsurf/zed/vscode/copilot) model
+//     the delegated work as further turns on the SAME conversation/thread id,
+//     never minting a child session.
+// So at the node layer the subagent work is co-attributed to ONE session id
+// across every tool.
 //
 // The invariant that genuinely holds (and that we assert): the subagent's edit
 // is attributed to the same single session as its *own* governing decision and
@@ -680,7 +753,7 @@ fn rewind_compaction_claude_and_codex_preserve_history_and_honor_the_pivot() {
 fn subagent_thread_is_captured_and_bound_within_one_session() {
     let case = "subagent_thread";
     let mut seen = 0;
-    for &(tool, version) in THREE_CLIS {
+    for &(tool, version) in TOOLS {
         let Some(nodes) = nodes_for(tool, version, case) else {
             panic!("missing {case} fixture for {tool}");
         };
@@ -737,7 +810,11 @@ fn subagent_thread_is_captured_and_bound_within_one_session() {
         }
         seen += 1;
     }
-    assert_eq!(seen, THREE_CLIS.len());
+    assert_eq!(
+        seen,
+        TOOLS.len(),
+        "every tool must carry the {case} fixture"
+    );
 }
 
 // ---------------------------------------------------------------------------
@@ -751,7 +828,7 @@ fn subagent_thread_is_captured_and_bound_within_one_session() {
 fn no_commitment_marker_elevates_nothing_but_keeps_the_edit() {
     let case = "no_commitment_marker";
     let mut seen = 0;
-    for &(tool, version) in THREE_CLIS {
+    for &(tool, version) in TOOLS {
         let Some(nodes) = nodes_for(tool, version, case) else {
             panic!("missing {case} fixture for {tool}");
         };
@@ -789,7 +866,11 @@ fn no_commitment_marker_elevates_nothing_but_keeps_the_edit() {
         );
         seen += 1;
     }
-    assert_eq!(seen, THREE_CLIS.len());
+    assert_eq!(
+        seen,
+        TOOLS.len(),
+        "every tool must carry the {case} fixture"
+    );
 }
 
 // ---------------------------------------------------------------------------
@@ -806,8 +887,10 @@ fn prepared_nodes_are_deterministic_across_runs() {
             "rejected_alternative",
             "ban",
             "tool_failure",
-            // The five additional §8.2 scenarios (present only for the three CLIs;
-            // absent fixtures are skipped via the `continue` below).
+            // The five additional §8.2 scenarios, now authored for every tool.
+            // The `continue` below is retained as a defensive skip for any tool
+            // that has not yet authored a given fixture, so this guard never
+            // becomes the thing that fails a partial corpus.
             "interleaved_arcs",
             "multi_edit_single_commit",
             "rewind_compaction",

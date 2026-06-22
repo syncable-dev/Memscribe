@@ -1,0 +1,23 @@
+---
+source: crates/memscribe-testkit/tests/golden.rs
+expression: nodes
+---
+[
+  {
+    "node": "episode",
+    "path": "src/handler.rs",
+    "diff": {
+      "path": "src/handler.rs",
+      "old": null,
+      "new": null,
+      "unified": null,
+      "added_lines": 1,
+      "removed_lines": 1
+    },
+    "git": {
+      "sha": "0a0b0c0d0e0f10111213",
+      "branch": "main"
+    },
+    "episode_id": "492e3859f1654598e6f486bb875f16f3552ef0b6d4c6d344e0d625ccf971925a"
+  }
+]

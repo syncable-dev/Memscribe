@@ -1,0 +1,124 @@
+---
+source: crates/memscribe-testkit/tests/golden.rs
+expression: nodes
+---
+[
+  {
+    "node": "conversation",
+    "session_id": "vsc-sess-rwd",
+    "turn_range": {
+      "start": 1,
+      "end": 2
+    },
+    "text": "Let's use MongoDB for the document store. Set up the driver and the connection config.",
+    "markers": [
+      {
+        "rule_id": "decision_verb.use",
+        "category": "decision_verb",
+        "matched_text": "use",
+        "offset": 6
+      }
+    ],
+    "fact_status": "observed",
+    "provenance": [
+      {
+        "file": "fixtures/vscode/v1/rewind_compaction.jsonl",
+        "byte_offset": 186,
+        "line_no": 2
+      }
+    ]
+  },
+  {
+    "node": "decision",
+    "epitome": "Let's use MongoDB for the document store.",
+    "considered_options": [
+      {
+        "text": "MongoDB",
+        "chosen": true
+      }
+    ],
+    "is_ban": false,
+    "superseded_by": null,
+    "confirmation": null,
+    "source_span": {
+      "start": 1,
+      "end": 2
+    },
+    "fact_status": "observed"
+  },
+  {
+    "node": "conversation",
+    "session_id": "vsc-sess-rwd",
+    "turn_range": {
+      "start": 4,
+      "end": 5
+    },
+    "text": "Actually let's use Postgres with JSONB for the document store. Switch to Postgres and drop the MongoDB plan.",
+    "markers": [
+      {
+        "rule_id": "decision_verb.use",
+        "category": "decision_verb",
+        "matched_text": "use",
+        "offset": 15
+      }
+    ],
+    "fact_status": "observed",
+    "provenance": [
+      {
+        "file": "fixtures/vscode/v1/rewind_compaction.jsonl",
+        "byte_offset": 869,
+        "line_no": 5
+      }
+    ]
+  },
+  {
+    "node": "decision",
+    "epitome": "Actually let's use Postgres with JSONB for the document store.",
+    "considered_options": [
+      {
+        "text": "Postgres",
+        "chosen": true
+      }
+    ],
+    "is_ban": false,
+    "superseded_by": null,
+    "confirmation": null,
+    "source_span": {
+      "start": 4,
+      "end": 5
+    },
+    "fact_status": "observed"
+  },
+  {
+    "node": "episode",
+    "path": "src/store.ts",
+    "diff": {
+      "path": "src/store.ts",
+      "old": "import { MongoClient } from 'mongodb';",
+      "new": "import { Pool } from 'pg';",
+      "unified": "@@ -1 +1,2 @@\n-import { MongoClient } from 'mongodb';\n+import { Pool } from 'pg';\n+// JSONB document columns",
+      "added_lines": 2,
+      "removed_lines": 1
+    },
+    "git": {
+      "sha": "deadbeefcafe0001",
+      "branch": "feat/persistence-pivot"
+    },
+    "episode_id": "457444b7e17ffd82482111c17e99439290ee7ba01ff74dcc2c55b41dca5633e8"
+  },
+  {
+    "node": "binding",
+    "from": "decision:vsc-sess-rwd:4",
+    "to": "episode:457444b7e17ffd82482111c17e99439290ee7ba01ff74dcc2c55b41dca5633e8",
+    "relation": "produced",
+    "prov": {
+      "used_session": "vsc-sess-rwd",
+      "used_decision": "decision:vsc-sess-rwd:4",
+      "was_generated_by_session": "vsc-sess-rwd",
+      "t_use": "2026-06-22T16:00:45Z",
+      "t_gen": "2026-06-22T16:00:52Z"
+    },
+    "fact_status": "deterministically_derived",
+    "correlation": null
+  }
+]

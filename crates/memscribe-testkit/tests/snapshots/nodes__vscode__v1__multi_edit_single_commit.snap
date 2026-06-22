@@ -1,0 +1,163 @@
+---
+source: crates/memscribe-testkit/tests/golden.rs
+expression: nodes
+---
+[
+  {
+    "node": "conversation",
+    "session_id": "vsc-sess-multi",
+    "turn_range": {
+      "start": 1,
+      "end": 2
+    },
+    "text": "Let's use structured JSON logging across the service. Switch every module to the new logger.",
+    "markers": [
+      {
+        "rule_id": "decision_verb.use",
+        "category": "decision_verb",
+        "matched_text": "use",
+        "offset": 6
+      }
+    ],
+    "fact_status": "observed",
+    "provenance": [
+      {
+        "file": "fixtures/vscode/v1/multi_edit_single_commit.jsonl",
+        "byte_offset": 188,
+        "line_no": 2
+      }
+    ]
+  },
+  {
+    "node": "decision",
+    "epitome": "Let's use structured JSON logging across the service.",
+    "considered_options": [
+      {
+        "text": "structured",
+        "chosen": true
+      }
+    ],
+    "is_ban": false,
+    "superseded_by": null,
+    "confirmation": null,
+    "source_span": {
+      "start": 1,
+      "end": 2
+    },
+    "fact_status": "observed"
+  },
+  {
+    "node": "episode",
+    "path": "src/server.ts",
+    "diff": {
+      "path": "src/server.ts",
+      "old": "console.log(msg)",
+      "new": "logger.info({ msg })",
+      "unified": "@@ -1 +1 @@\n-console.log(msg)\n+logger.info({ msg })",
+      "added_lines": 1,
+      "removed_lines": 1
+    },
+    "git": {
+      "sha": "112233445566778899aa",
+      "branch": "feat/logging-pivot"
+    },
+    "episode_id": "eee0cedc64533f3385d0f147f5099f1b087bf934a02c5ba13f223dad28f89c1d"
+  },
+  {
+    "node": "episode",
+    "path": "src/db/connect.ts",
+    "diff": {
+      "path": "src/db/connect.ts",
+      "old": "console.log('connected')",
+      "new": "logger.info({ event: 'db_connected' })",
+      "unified": null,
+      "added_lines": 1,
+      "removed_lines": 1
+    },
+    "git": {
+      "sha": "112233445566778899aa",
+      "branch": "feat/logging-pivot"
+    },
+    "episode_id": "7453ed27fc448d1358eed1e73ae081e6a78116ab31783d37e4d35f386c739751"
+  },
+  {
+    "node": "episode",
+    "path": "src/jobs/worker.ts",
+    "diff": {
+      "path": "src/jobs/worker.ts",
+      "old": "console.log('job done')",
+      "new": "logger.info({ event: 'job_done' })",
+      "unified": null,
+      "added_lines": 1,
+      "removed_lines": 1
+    },
+    "git": {
+      "sha": "112233445566778899aa",
+      "branch": "feat/logging-pivot"
+    },
+    "episode_id": "83bc6b46921902377a42e35d5585fc88a9d3b03314b16493fcf9c5db1ade0d81"
+  },
+  {
+    "node": "binding",
+    "from": "decision:vsc-sess-multi:1",
+    "to": "episode:7453ed27fc448d1358eed1e73ae081e6a78116ab31783d37e4d35f386c739751",
+    "relation": "produced",
+    "prov": {
+      "used_session": "vsc-sess-multi",
+      "used_decision": "decision:vsc-sess-multi:1",
+      "was_generated_by_session": "vsc-sess-multi",
+      "t_use": "2026-06-22T15:00:00Z",
+      "t_gen": "2026-06-22T15:00:08Z"
+    },
+    "fact_status": "deterministically_derived",
+    "correlation": {
+      "support": 0.333333,
+      "confidence": 0.333333,
+      "lift": 1.0,
+      "phi": 0.0,
+      "p": 1.0
+    }
+  },
+  {
+    "node": "binding",
+    "from": "decision:vsc-sess-multi:1",
+    "to": "episode:83bc6b46921902377a42e35d5585fc88a9d3b03314b16493fcf9c5db1ade0d81",
+    "relation": "produced",
+    "prov": {
+      "used_session": "vsc-sess-multi",
+      "used_decision": "decision:vsc-sess-multi:1",
+      "was_generated_by_session": "vsc-sess-multi",
+      "t_use": "2026-06-22T15:00:00Z",
+      "t_gen": "2026-06-22T15:00:08Z"
+    },
+    "fact_status": "deterministically_derived",
+    "correlation": {
+      "support": 0.333333,
+      "confidence": 0.333333,
+      "lift": 1.0,
+      "phi": 0.0,
+      "p": 1.0
+    }
+  },
+  {
+    "node": "binding",
+    "from": "decision:vsc-sess-multi:1",
+    "to": "episode:eee0cedc64533f3385d0f147f5099f1b087bf934a02c5ba13f223dad28f89c1d",
+    "relation": "produced",
+    "prov": {
+      "used_session": "vsc-sess-multi",
+      "used_decision": "decision:vsc-sess-multi:1",
+      "was_generated_by_session": "vsc-sess-multi",
+      "t_use": "2026-06-22T15:00:00Z",
+      "t_gen": "2026-06-22T15:00:08Z"
+    },
+    "fact_status": "deterministically_derived",
+    "correlation": {
+      "support": 0.333333,
+      "confidence": 0.333333,
+      "lift": 1.0,
+      "phi": 0.0,
+      "p": 1.0
+    }
+  }
+]

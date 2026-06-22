@@ -1,0 +1,281 @@
+---
+source: crates/memscribe-testkit/tests/golden.rs
+expression: events
+---
+[
+  {
+    "schema_version": 1,
+    "source": "windsurf",
+    "session_id": "ws-subagent-008",
+    "seq": 0,
+    "event_id": "4f3427bbf0cffc48c5692dcb58a5f4a31df40fbc9dd8dd40bd2f9e49fa3d87ba",
+    "parent_id": null,
+    "timestamp": "1970-01-01T00:00:00Z",
+    "project": {
+      "cwd": "/Users/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "d4d4d4d4",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "session_start",
+      "cwd": "/Users/dev/acme-api",
+      "git": {
+        "sha": "d4d4d4d4",
+        "branch": "main"
+      },
+      "model": "cascade-pro",
+      "tool_version": "1.8.2"
+    },
+    "provenance": {
+      "file": "fixtures/windsurf/v1/subagent_thread.jsonl",
+      "byte_offset": 0,
+      "line_no": 1
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "windsurf",
+    "session_id": "ws-subagent-008",
+    "seq": 1,
+    "event_id": "u1",
+    "parent_id": null,
+    "timestamp": "2026-06-22T16:00:00Z",
+    "project": {
+      "cwd": "/Users/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "d4d4d4d4",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "user_turn",
+      "text": "Kick off the ingest refactor; delegate the parser rewrite to a focused sub-thread.",
+      "parts": []
+    },
+    "provenance": {
+      "file": "fixtures/windsurf/v1/subagent_thread.jsonl",
+      "byte_offset": 168,
+      "line_no": 2
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "windsurf",
+    "session_id": "ws-subagent-008",
+    "seq": 2,
+    "event_id": "a1",
+    "parent_id": "u1",
+    "timestamp": "2026-06-22T16:00:06Z",
+    "project": {
+      "cwd": "/Users/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "d4d4d4d4",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "assistant_turn",
+      "text": "Spawning a secondary Cascade thread to handle the parser rewrite.",
+      "thinking": null,
+      "model": "cascade-pro",
+      "usage": {
+        "input_tokens": 90,
+        "output_tokens": 40,
+        "cache_read_tokens": null,
+        "cache_creation_tokens": null
+      },
+      "parts": []
+    },
+    "provenance": {
+      "file": "fixtures/windsurf/v1/subagent_thread.jsonl",
+      "byte_offset": 378,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "windsurf",
+    "session_id": "ws-subagent-008",
+    "seq": 3,
+    "event_id": "u2",
+    "parent_id": "a1",
+    "timestamp": "2026-06-22T16:01:00Z",
+    "project": {
+      "cwd": "/Users/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "d4d4d4d4",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "user_turn",
+      "text": "In this sub-thread, use a streaming pull-parser for the ingest format instead of the buffered one.",
+      "parts": []
+    },
+    "provenance": {
+      "file": "fixtures/windsurf/v1/subagent_thread.jsonl",
+      "byte_offset": 631,
+      "line_no": 4
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "windsurf",
+    "session_id": "ws-subagent-008",
+    "seq": 4,
+    "event_id": "a2",
+    "parent_id": "u2",
+    "timestamp": "2026-06-22T16:01:06Z",
+    "project": {
+      "cwd": "/Users/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "d4d4d4d4",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "assistant_turn",
+      "text": "Rewriting the parser to a streaming pull-parser.",
+      "thinking": null,
+      "model": "cascade-pro",
+      "usage": {
+        "input_tokens": 102,
+        "output_tokens": 57,
+        "cache_read_tokens": null,
+        "cache_creation_tokens": null
+      },
+      "parts": []
+    },
+    "provenance": {
+      "file": "fixtures/windsurf/v1/subagent_thread.jsonl",
+      "byte_offset": 887,
+      "line_no": 5
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "windsurf",
+    "session_id": "ws-subagent-008",
+    "seq": 5,
+    "event_id": "a2#toolcall:call_sa_parser",
+    "parent_id": "a2",
+    "timestamp": "2026-06-22T16:01:06Z",
+    "project": {
+      "cwd": "/Users/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "d4d4d4d4",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "tool_call",
+      "call_id": "call_sa_parser",
+      "name": "edit_file",
+      "args": {
+        "path": "src/ingest/parser.rs"
+      }
+    },
+    "provenance": {
+      "file": "fixtures/windsurf/v1/subagent_thread.jsonl",
+      "byte_offset": 887,
+      "line_no": 5
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "windsurf",
+    "session_id": "ws-subagent-008",
+    "seq": 6,
+    "event_id": "a2#toolresult:call_sa_parser",
+    "parent_id": "a2",
+    "timestamp": "2026-06-22T16:01:06Z",
+    "project": {
+      "cwd": "/Users/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "d4d4d4d4",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "tool_result",
+      "call_id": "call_sa_parser",
+      "ok": true,
+      "output": "applied"
+    },
+    "provenance": {
+      "file": "fixtures/windsurf/v1/subagent_thread.jsonl",
+      "byte_offset": 887,
+      "line_no": 5
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "windsurf",
+    "session_id": "ws-subagent-008",
+    "seq": 7,
+    "event_id": "a2#edit:0",
+    "parent_id": "a2",
+    "timestamp": "2026-06-22T16:01:06Z",
+    "project": {
+      "cwd": "/Users/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "d4d4d4d4",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "file_edit",
+      "call_id": "call_sa_parser",
+      "diff": {
+        "path": "src/ingest/parser.rs",
+        "old": "let buf = read_all(input);",
+        "new": "let mut reader = PullParser::new(input);",
+        "unified": "@@ -1,1 +1,1 @@\n-let buf = read_all(input);\n+let mut reader = PullParser::new(input);",
+        "added_lines": 1,
+        "removed_lines": 1
+      }
+    },
+    "provenance": {
+      "file": "fixtures/windsurf/v1/subagent_thread.jsonl",
+      "byte_offset": 887,
+      "line_no": 5
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "windsurf",
+    "session_id": "ws-subagent-008",
+    "seq": 8,
+    "event_id": "u3",
+    "parent_id": "a2",
+    "timestamp": "2026-06-22T16:02:00Z",
+    "project": {
+      "cwd": "/Users/dev/acme-api",
+      "repo_root": null,
+      "git": {
+        "sha": "d4d4d4d4",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "user_turn",
+      "text": "Sub-thread done, looks good.",
+      "parts": []
+    },
+    "provenance": {
+      "file": "fixtures/windsurf/v1/subagent_thread.jsonl",
+      "byte_offset": 1594,
+      "line_no": 6
+    }
+  }
+]

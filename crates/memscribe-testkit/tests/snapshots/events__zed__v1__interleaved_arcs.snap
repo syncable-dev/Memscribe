@@ -1,0 +1,351 @@
+---
+source: crates/memscribe-testkit/tests/golden.rs
+expression: events
+---
+[
+  {
+    "schema_version": 1,
+    "source": "zed",
+    "session_id": "zed-thread-005",
+    "seq": 0,
+    "event_id": "f58ab023940dfc9c4aee1ab20d8a72c1b58e6d18fba03eb6922bbc290c5f0996",
+    "parent_id": null,
+    "timestamp": "2026-06-22T09:00:00Z",
+    "project": {
+      "cwd": "/Users/dev/projects/orders-api",
+      "repo_root": null,
+      "git": {
+        "sha": "a1a1a1a1a1a1",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "session_start",
+      "cwd": "/Users/dev/projects/orders-api",
+      "git": {
+        "sha": "a1a1a1a1a1a1",
+        "branch": "main"
+      },
+      "model": null,
+      "tool_version": "zed 0.182.0"
+    },
+    "provenance": {
+      "file": "fixtures/zed/v1/interleaved_arcs.jsonl",
+      "byte_offset": 0,
+      "line_no": 1
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "zed",
+    "session_id": "zed-thread-005",
+    "seq": 1,
+    "event_id": "msg-1",
+    "parent_id": null,
+    "timestamp": "2026-06-22T09:00:00Z",
+    "project": {
+      "cwd": "/Users/dev/projects/orders-api",
+      "repo_root": null,
+      "git": {
+        "sha": "a1a1a1a1a1a1",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "user_turn",
+      "text": "Let's use Postgres for the orders store. Update the connection module and the schema.",
+      "parts": []
+    },
+    "provenance": {
+      "file": "fixtures/zed/v1/interleaved_arcs.jsonl",
+      "byte_offset": 194,
+      "line_no": 2
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "zed",
+    "session_id": "zed-thread-005",
+    "seq": 2,
+    "event_id": "msg-2",
+    "parent_id": "msg-1",
+    "timestamp": "2026-06-22T09:00:02Z",
+    "project": {
+      "cwd": "/Users/dev/projects/orders-api",
+      "repo_root": null,
+      "git": {
+        "sha": "a1a1a1a1a1a1",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "assistant_turn",
+      "text": "Switching the orders store to Postgres now.",
+      "thinking": null,
+      "model": "claude-opus-4-8",
+      "usage": {
+        "input_tokens": 120,
+        "output_tokens": 61,
+        "cache_read_tokens": null,
+        "cache_creation_tokens": null
+      },
+      "parts": []
+    },
+    "provenance": {
+      "file": "fixtures/zed/v1/interleaved_arcs.jsonl",
+      "byte_offset": 391,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "zed",
+    "session_id": "zed-thread-005",
+    "seq": 3,
+    "event_id": "msg-2:edit:0",
+    "parent_id": "msg-2",
+    "timestamp": "2026-06-22T09:00:02Z",
+    "project": {
+      "cwd": "/Users/dev/projects/orders-api",
+      "repo_root": null,
+      "git": {
+        "sha": "a1a1a1a1a1a1",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "file_edit",
+      "call_id": null,
+      "diff": {
+        "path": "src/db.rs",
+        "old": "use mysql::Pool;\n",
+        "new": "use postgres::Client;\n",
+        "unified": "@@ -1 +1 @@\n-use mysql::Pool;\n+use postgres::Client;\n",
+        "added_lines": 1,
+        "removed_lines": 1
+      }
+    },
+    "provenance": {
+      "file": "fixtures/zed/v1/interleaved_arcs.jsonl",
+      "byte_offset": 391,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "zed",
+    "session_id": "zed-thread-005",
+    "seq": 4,
+    "event_id": "msg-2:edit:1",
+    "parent_id": "msg-2",
+    "timestamp": "2026-06-22T09:00:02Z",
+    "project": {
+      "cwd": "/Users/dev/projects/orders-api",
+      "repo_root": null,
+      "git": {
+        "sha": "a1a1a1a1a1a1",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "file_edit",
+      "call_id": null,
+      "diff": {
+        "path": "src/schema.rs",
+        "old": "-- mysql schema\n",
+        "new": "-- postgres schema\n",
+        "unified": "@@ -1 +1 @@\n--- mysql schema\n+-- postgres schema\n",
+        "added_lines": 1,
+        "removed_lines": 1
+      }
+    },
+    "provenance": {
+      "file": "fixtures/zed/v1/interleaved_arcs.jsonl",
+      "byte_offset": 391,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "zed",
+    "session_id": "zed-thread-005",
+    "seq": 5,
+    "event_id": "msg-3",
+    "parent_id": "msg-2",
+    "timestamp": "2026-06-22T09:05:00Z",
+    "project": {
+      "cwd": "/Users/dev/projects/orders-api",
+      "repo_root": null,
+      "git": {
+        "sha": "a1a1a1a1a1a1",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "user_turn",
+      "text": "Now switch to a bounded connection pool in the same db module instead of a single client.",
+      "parts": []
+    },
+    "provenance": {
+      "file": "fixtures/zed/v1/interleaved_arcs.jsonl",
+      "byte_offset": 972,
+      "line_no": 4
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "zed",
+    "session_id": "zed-thread-005",
+    "seq": 6,
+    "event_id": "msg-4",
+    "parent_id": "msg-3",
+    "timestamp": "2026-06-22T09:05:02Z",
+    "project": {
+      "cwd": "/Users/dev/projects/orders-api",
+      "repo_root": null,
+      "git": {
+        "sha": "a1a1a1a1a1a1",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "assistant_turn",
+      "text": "Adding a bounded pool to db.rs and a new pool config.",
+      "thinking": null,
+      "model": "claude-opus-4-8",
+      "usage": {
+        "input_tokens": 98,
+        "output_tokens": 52,
+        "cache_read_tokens": null,
+        "cache_creation_tokens": null
+      },
+      "parts": []
+    },
+    "provenance": {
+      "file": "fixtures/zed/v1/interleaved_arcs.jsonl",
+      "byte_offset": 1176,
+      "line_no": 5
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "zed",
+    "session_id": "zed-thread-005",
+    "seq": 7,
+    "event_id": "msg-4:edit:0",
+    "parent_id": "msg-4",
+    "timestamp": "2026-06-22T09:05:02Z",
+    "project": {
+      "cwd": "/Users/dev/projects/orders-api",
+      "repo_root": null,
+      "git": {
+        "sha": "a1a1a1a1a1a1",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "file_edit",
+      "call_id": null,
+      "diff": {
+        "path": "src/db.rs",
+        "old": "use postgres::Client;\n",
+        "new": "use deadpool_postgres::Pool;\n",
+        "unified": "@@ -1 +1 @@\n-use postgres::Client;\n+use deadpool_postgres::Pool;\n",
+        "added_lines": 1,
+        "removed_lines": 1
+      }
+    },
+    "provenance": {
+      "file": "fixtures/zed/v1/interleaved_arcs.jsonl",
+      "byte_offset": 1176,
+      "line_no": 5
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "zed",
+    "session_id": "zed-thread-005",
+    "seq": 8,
+    "event_id": "msg-4:edit:1",
+    "parent_id": "msg-4",
+    "timestamp": "2026-06-22T09:05:02Z",
+    "project": {
+      "cwd": "/Users/dev/projects/orders-api",
+      "repo_root": null,
+      "git": {
+        "sha": "a1a1a1a1a1a1",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "file_edit",
+      "call_id": null,
+      "diff": {
+        "path": "src/pool.rs",
+        "old": "",
+        "new": "pub struct PoolCfg { pub max: usize }\n",
+        "unified": "@@ -0,0 +1 @@\n+pub struct PoolCfg { pub max: usize }\n",
+        "added_lines": 1,
+        "removed_lines": 0
+      }
+    },
+    "provenance": {
+      "file": "fixtures/zed/v1/interleaved_arcs.jsonl",
+      "byte_offset": 1176,
+      "line_no": 5
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "zed",
+    "session_id": "zed-thread-005",
+    "seq": 9,
+    "event_id": "msg-5",
+    "parent_id": "msg-4",
+    "timestamp": "2026-06-22T09:05:30Z",
+    "project": {
+      "cwd": "/Users/dev/projects/orders-api",
+      "repo_root": null,
+      "git": {
+        "sha": "a1a1a1a1a1a1",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "user_turn",
+      "text": "Great, that covers it.",
+      "parts": []
+    },
+    "provenance": {
+      "file": "fixtures/zed/v1/interleaved_arcs.jsonl",
+      "byte_offset": 1793,
+      "line_no": 6
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "zed",
+    "session_id": "zed-thread-005",
+    "seq": 10,
+    "event_id": "9380070916e38726e624b8e8c5b41c124a980f2bc73af2bf11061ac5efdcc6a7",
+    "parent_id": null,
+    "timestamp": "2026-06-22T09:06:00Z",
+    "project": {
+      "cwd": "/Users/dev/projects/orders-api",
+      "repo_root": null,
+      "git": {
+        "sha": "a1a1a1a1a1a1",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "session_end",
+      "reason": "user_closed"
+    },
+    "provenance": {
+      "file": "fixtures/zed/v1/interleaved_arcs.jsonl",
+      "byte_offset": 1930,
+      "line_no": 7
+    }
+  }
+]

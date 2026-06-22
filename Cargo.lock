@@ -643,6 +643,7 @@ dependencies = [
  "memscribe-sink",
  "memscribe-testkit",
  "predicates",
+ "rusqlite",
  "serde",
  "serde_json",
  "tempfile",
