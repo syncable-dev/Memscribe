@@ -24,7 +24,7 @@ version = "0.1.0"
 edition = "2021"
 rust-version = "1.96"
 license = "MIT OR Apache-2.0"
-repository = "https://github.com/Alex793x/Memscribe"
+repository = "https://github.com/syncable-dev/Memscribe"
 authors = ["Memrack / Syncable"]
 description = "Deterministic, zero-LLM transcript capture and node preparation for AI coding agents."
 

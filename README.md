@@ -8,7 +8,7 @@
 
 Memscribe tails the transcript logs your AI coding agents already write — Claude Code, Codex, Gemini, Cursor, Windsurf, Zed, VS Code / Copilot, and any OpenTelemetry-instrumented agent — and prepares them into typed, queryable nodes. No model calls. Same bytes in, same nodes out, every time.
 
-[![CI](https://github.com/Alex793x/Memscribe/actions/workflows/ci.yml/badge.svg)](https://github.com/Alex793x/Memscribe/actions/workflows/ci.yml)
+[![CI](https://github.com/syncable-dev/Memscribe/actions/workflows/ci.yml/badge.svg)](https://github.com/syncable-dev/Memscribe/actions/workflows/ci.yml)
 [![License: MIT OR Apache-2.0](https://img.shields.io/badge/license-MIT%20OR%20Apache--2.0-blue.svg)](#license)
 [![Rust 1.96+](https://img.shields.io/badge/rust-1.96%2B-orange.svg)](rust-toolchain.toml)
 [![Tests](https://img.shields.io/badge/tests-260%20passing-success.svg)](#testing)

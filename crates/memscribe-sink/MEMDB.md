@@ -293,7 +293,7 @@ leaves a complete, testable system on NDJSON.
 From the Memtrace repo root:
 
 ```bash
-git submodule add https://github.com/Alex793x/Memscribe vendor/memscribe
+git submodule add https://github.com/syncable-dev/Memscribe vendor/memscribe
 git -C vendor/memscribe checkout main      # pin to Memscribe main
 git add .gitmodules vendor/memscribe
 git commit -m "vendor: add Memscribe submodule (transcript capture seam)"
