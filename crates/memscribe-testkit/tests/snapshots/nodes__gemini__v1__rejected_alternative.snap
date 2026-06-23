@@ -23,6 +23,12 @@ expression: nodes
         "category": "rejection",
         "matched_text": "instead of",
         "offset": 34
+      },
+      {
+        "rule_id": "action.create_strong",
+        "category": "action_request",
+        "matched_text": "Wire up",
+        "offset": 53
       }
     ],
     "fact_status": "observed",

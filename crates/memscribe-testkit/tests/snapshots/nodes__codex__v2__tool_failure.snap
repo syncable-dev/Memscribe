@@ -30,7 +30,7 @@ expression: nodes
   },
   {
     "node": "decision",
-    "epitome": "toml instead of config.",
+    "epitome": "Switch the config loader to read from config.toml instead of config.yaml.",
     "considered_options": [
       {
         "text": "config",

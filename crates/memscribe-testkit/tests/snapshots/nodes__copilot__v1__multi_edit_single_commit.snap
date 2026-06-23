@@ -17,6 +17,12 @@ expression: nodes
         "category": "decision_verb",
         "matched_text": "use",
         "offset": 8
+      },
+      {
+        "rule_id": "decision_verb.polite_select",
+        "category": "decision_verb",
+        "matched_text": "We will use",
+        "offset": 0
       }
     ],
     "fact_status": "observed",
@@ -96,6 +102,31 @@ expression: nodes
       "branch": "feat/argon2"
     },
     "episode_id": "fedffc817450e4105ba234cbea25421dd7ce8ab5fe200a0a797ded5029d5bb3a"
+  },
+  {
+    "node": "conversation",
+    "session_id": "copilot-thread-102",
+    "turn_range": {
+      "start": 12,
+      "end": 13
+    },
+    "text": "Perfect, ship it.",
+    "markers": [
+      {
+        "rule_id": "confirmation.idiom",
+        "category": "confirmation",
+        "matched_text": "ship it",
+        "offset": 9
+      }
+    ],
+    "fact_status": "observed",
+    "provenance": [
+      {
+        "file": "fixtures/copilot/v1/multi_edit_single_commit.jsonl",
+        "byte_offset": 1827,
+        "line_no": 4
+      }
+    ]
   },
   {
     "node": "binding",

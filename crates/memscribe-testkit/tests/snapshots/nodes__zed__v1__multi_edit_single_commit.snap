@@ -17,6 +17,12 @@ expression: nodes
         "category": "decision_verb",
         "matched_text": "use",
         "offset": 8
+      },
+      {
+        "rule_id": "decision_verb.polite_select",
+        "category": "decision_verb",
+        "matched_text": "We will use",
+        "offset": 0
       }
     ],
     "fact_status": "observed",
@@ -96,6 +102,31 @@ expression: nodes
       "branch": "feat/argon2"
     },
     "episode_id": "5333c195d9d5de8383f4cc89a0505fcbfbc49674bed60b0e54d9506c2df6bb31"
+  },
+  {
+    "node": "conversation",
+    "session_id": "zed-thread-006",
+    "turn_range": {
+      "start": 6,
+      "end": 7
+    },
+    "text": "Perfect, ship it.",
+    "markers": [
+      {
+        "rule_id": "confirmation.idiom",
+        "category": "confirmation",
+        "matched_text": "ship it",
+        "offset": 9
+      }
+    ],
+    "fact_status": "observed",
+    "provenance": [
+      {
+        "file": "fixtures/zed/v1/multi_edit_single_commit.jsonl",
+        "byte_offset": 1270,
+        "line_no": 4
+      }
+    ]
   },
   {
     "node": "binding",
