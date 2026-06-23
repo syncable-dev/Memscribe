@@ -19,6 +19,12 @@ expression: nodes
         "offset": 6
       },
       {
+        "rule_id": "decision_verb.polite_select",
+        "category": "decision_verb",
+        "matched_text": "Let's use",
+        "offset": 0
+      },
+      {
         "rule_id": "rejection.instead_of",
         "category": "rejection",
         "matched_text": "instead of",

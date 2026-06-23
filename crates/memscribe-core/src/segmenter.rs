@@ -8,8 +8,11 @@
 
 use crate::gate::CommitmentGate;
 use crate::model::{content_id, CaptureEvent, EventKind};
-use crate::node::{CodeEpisode, ConversationSpan, DecisionRecord, FactStatus, NodeId, Opt};
-use std::collections::HashMap;
+use crate::node::{
+    CodeEpisode, CommitmentMarker, ConversationSpan, DecisionRecord, FactStatus, MarkerCategory,
+    NodeId, Opt,
+};
+use std::collections::{HashMap, HashSet};
 use time::OffsetDateTime;
 
 /// A candidate decision seeded from a gated turn, with the metadata the binder
@@ -77,6 +80,23 @@ impl Segmenter for DefaultSegmenter {
             }
         }
 
+        // Which sessions produced at least one *successful* edit. A Soft marker
+        // (action request, demoted bare modal, soft rejection) seeds a candidate
+        // Decision only when an edit in the same session confirms the intent —
+        // this is the precision lever that lets high-recall action verbs in
+        // without manufacturing phantom decisions from chatter (§ gate Tier).
+        let mut sessions_with_edits: HashSet<String> = HashSet::new();
+        for ev in events {
+            if let EventKind::FileEdit { call_id, .. } = &ev.kind {
+                if let Some(cid) = call_id {
+                    if call_ok.get(cid) == Some(&false) {
+                        continue; // a failed edit is no edit
+                    }
+                }
+                sessions_with_edits.insert(ev.session_id.clone());
+            }
+        }
+
         // Rewind / Compaction supersede markers (§8.2): the verbatim history of
         // the affected turns is still emitted, but in the *current view* any
         // decision whose source turn falls in a rewound-away region or inside a
@@ -88,7 +108,17 @@ impl Segmenter for DefaultSegmenter {
         for ev in events {
             match &ev.kind {
                 EventKind::UserTurn { text, .. } => {
-                    let markers = gate.evaluate(text);
+                    // Turn-source hygiene: gate only the human-prose PROJECTION of
+                    // the turn, so pasted tool plumbing, injected system/skill
+                    // text, log lines, and code dumps never elevate to a node. The
+                    // verbatim turn is untouched at the event layer (lossless) —
+                    // only what we elevate is cleaned, which is also what fixes the
+                    // junk-epitome problem (the marker can no longer land on a
+                    // plumbing line).
+                    let Some(prose) = gate.human_prose(text) else {
+                        continue; // no human prose worth gating
+                    };
+                    let markers = gate.evaluate(&prose);
                     if markers.is_empty() {
                         continue; // retained verbatim at the event layer; no node
                     }
@@ -96,19 +126,42 @@ impl Segmenter for DefaultSegmenter {
                     seg.conversations.push(ConversationSpan {
                         session_id: ev.session_id.clone(),
                         turn_range: turn_range.clone(),
-                        text: text.clone(),
+                        text: prose.clone(),
                         markers: markers.clone(),
                         fact_status: FactStatus::Observed,
                         provenance: vec![ev.provenance.clone()],
                     });
+
+                    // Seed a candidate Decision only when the gate's tier policy
+                    // admits it: Strong markers always; Soft markers only when an
+                    // edit in the same session confirms the intent; Confirmation
+                    // markers never. The verbatim Conversation above is kept
+                    // regardless, so the dialogue signal is never lost — only the
+                    // (heavier) Decision elevation is withheld for unconfirmed,
+                    // ambiguous turns.
+                    let session_has_edit = sessions_with_edits.contains(&ev.session_id);
+                    if !gate.seeds_decision(&markers, session_has_edit) {
+                        continue;
+                    }
+                    // Semantic intent gate at the SENTENCE level: seed a Decision
+                    // only if some fired marker sits in a committal clause — not a
+                    // bare question, a fragment, or third-person analysis prose (the
+                    // residual junk class after turn-source hygiene) — and anchor
+                    // the epitome on that clause. This also fixes multi-sentence
+                    // turns where a marker fired inside a pasted analysis sentence:
+                    // the epitome follows the human commitment, not the analysis.
+                    // The Conversation above is kept regardless.
+                    let Some(epi_offset) = best_committal_offset(&prose, &markers, gate) else {
+                        continue;
+                    };
 
                     let is_ban = gate.is_ban(&markers);
                     // A decision whose source turn was rewound away or compacted
                     // out is superseded in the current view.
                     let superseded_by = supersedes.get(&(ev.session_id.clone(), ev.seq)).cloned();
                     let record = DecisionRecord {
-                        epitome: epitome_of(text, markers.first().map(|m| m.offset).unwrap_or(0)),
-                        considered_options: parse_options(text),
+                        epitome: epitome_of(&prose, epi_offset),
+                        considered_options: parse_options(&prose),
                         is_ban,
                         superseded_by,
                         confirmation: None,
@@ -226,6 +279,53 @@ fn resolve_supersede_markers(events: &[CaptureEvent]) -> HashMap<(String, u64), 
     out
 }
 
+/// The byte offset of the marker that should anchor the decision epitome:
+/// among markers whose containing **sentence** is committal (not a bare
+/// question / fragment / third-person analysis clause), the one with the
+/// strongest category. Returns `None` when no fired marker sits in a committal
+/// sentence — the turn elevates a Conversation but seeds no Decision.
+/// Deterministic: among equal-priority committal markers the first in rule
+/// order wins.
+fn best_committal_offset(
+    prose: &str,
+    markers: &[CommitmentMarker],
+    gate: &CommitmentGate,
+) -> Option<usize> {
+    markers
+        .iter()
+        .filter(|m| gate.is_committal(&epitome_of(prose, m.offset)))
+        .min_by_key(|m| epitome_priority(m.category))
+        .map(|m| m.offset)
+}
+
+/// Lower = better anchor for the epitome.
+fn epitome_priority(category: MarkerCategory) -> u8 {
+    use MarkerCategory::*;
+    match category {
+        DecisionVerb | ActionRequest => 0,
+        Rejection | Ban => 1,
+        Memory => 2,
+        Imperative => 3,
+        Confirmation => 4,
+    }
+}
+
+/// Whether byte `i` is a sentence break: a newline, or a `.`/`!`/`?` that
+/// terminates a sentence (end of text, or followed by whitespace / a closing
+/// quote or paren). A period inside an identifier or number — `module.exports`,
+/// `v0.11`, `fts.rs` — is **not** a break, so the epitome is never truncated
+/// mid-token.
+fn is_sentence_break(bytes: &[u8], i: usize) -> bool {
+    match bytes[i] {
+        b'\n' => true,
+        b'.' | b'!' | b'?' => match bytes.get(i + 1) {
+            None => true,
+            Some(c) => c.is_ascii_whitespace() || matches!(c, b'"' | b'\'' | b')'),
+        },
+        _ => false,
+    }
+}
+
 /// Extract the decision sentence containing `offset` — a verbatim span, bounded
 /// by sentence terminators. Deterministic.
 fn epitome_of(text: &str, offset: usize) -> String {
@@ -234,15 +334,15 @@ fn epitome_of(text: &str, offset: usize) -> String {
     // Walk back to the start of the sentence.
     let mut start = 0usize;
     for i in (0..offset).rev() {
-        if matches!(bytes[i], b'.' | b'!' | b'?' | b'\n') {
+        if is_sentence_break(bytes, i) {
             start = i + 1;
             break;
         }
     }
     // Walk forward to the end of the sentence.
     let mut end = text.len();
-    for (i, b) in bytes.iter().enumerate().skip(offset) {
-        if matches!(b, b'.' | b'!' | b'?' | b'\n') {
+    for i in offset..bytes.len() {
+        if is_sentence_break(bytes, i) {
             end = i + 1;
             break;
         }
@@ -507,5 +607,48 @@ mod tests {
         let a = DefaultSegmenter.segment(&events, &gate);
         let b = DefaultSegmenter.segment(&events, &gate);
         assert_eq!(a, b);
+    }
+
+    #[test]
+    fn epitome_does_not_split_mid_identifier() {
+        // A `.` inside an identifier must not truncate the epitome.
+        let t = "please use module.exports here for the config";
+        let off = t.find("use").unwrap();
+        let e = epitome_of(t, off);
+        assert!(
+            e.contains("module.exports"),
+            "epitome truncated mid-identifier: {e}"
+        );
+    }
+
+    #[test]
+    fn best_committal_anchors_on_the_request_not_the_analysis() {
+        let gate = CommitmentGate::default_table();
+        // Sentence 1 is pasted analysis (marker "using"); sentence 2 is the real
+        // request (marker "please add"). The epitome must follow the request.
+        let prose =
+            "this enumerates rows using a kind_label filter. please add a healthcheck endpoint";
+        let markers = gate.evaluate(prose);
+        let off =
+            best_committal_offset(prose, &markers, &gate).expect("a committal sentence exists");
+        let e = epitome_of(prose, off).to_lowercase();
+        assert!(e.contains("healthcheck"), "epitome should follow the request: {e}");
+        assert!(
+            !e.contains("enumerates"),
+            "epitome must not be the analysis clause: {e}"
+        );
+    }
+
+    #[test]
+    fn bare_question_seeds_no_decision_even_with_a_strong_marker() {
+        let gate = CommitmentGate::default_table();
+        // "migrate to" is a Strong DecisionVerb, but the whole turn is a question.
+        let prose = "do we really need to migrate to postgres ?";
+        let markers = gate.evaluate(prose);
+        assert!(!markers.is_empty());
+        assert!(
+            best_committal_offset(prose, &markers, &gate).is_none(),
+            "a bare question must not seed a decision"
+        );
     }
 }

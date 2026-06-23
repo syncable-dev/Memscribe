@@ -21,10 +21,12 @@ pub mod adapter;
 pub mod binder;
 pub mod error;
 pub mod gate;
+pub mod intent;
 pub mod model;
 pub mod node;
 pub mod nodeprep;
 pub mod pipeline;
+pub mod prose;
 pub mod redact;
 pub mod segmenter;
 pub mod sink;
@@ -35,7 +37,8 @@ pub use adapter::{
 };
 pub use binder::{Binder, DefaultBinder};
 pub use error::{ParseError, PipelineError, SinkError};
-pub use gate::{CommitmentGate, GateRule};
+pub use gate::{CommitmentGate, GateRule, Tier};
+pub use intent::IntentFilter;
 pub use model::{
     content_id, CaptureEvent, Diff, EventKind, GitRef, Part, ProjectRef, SourceKind,
     SourceLocation, Timestamp, Usage, SCHEMA_VERSION,
@@ -46,6 +49,7 @@ pub use node::{
 };
 pub use nodeprep::{DefaultNodePrep, NodePrep};
 pub use pipeline::DefaultPipeline;
+pub use prose::ProseFilter;
 pub use redact::Redactor;
 pub use segmenter::{DecisionCandidate, DefaultSegmenter, EpisodeRecord, Segmentation, Segmenter};
 pub use sink::{Sink, VecSink};

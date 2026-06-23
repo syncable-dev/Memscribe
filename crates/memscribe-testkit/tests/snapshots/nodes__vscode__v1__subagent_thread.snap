@@ -17,6 +17,18 @@ expression: nodes
         "category": "decision_verb",
         "matched_text": "use",
         "offset": 6
+      },
+      {
+        "rule_id": "decision_verb.polite_select",
+        "category": "decision_verb",
+        "matched_text": "Let's use",
+        "offset": 0
+      },
+      {
+        "rule_id": "action.restructure_into",
+        "category": "action_request",
+        "matched_text": "Extract the send loop into",
+        "offset": 61
       }
     ],
     "fact_status": "observed",
@@ -77,6 +89,12 @@ expression: nodes
         "category": "decision_verb",
         "matched_text": "use",
         "offset": 33
+      },
+      {
+        "rule_id": "decision_verb.polite_select",
+        "category": "decision_verb",
+        "matched_text": "let's use",
+        "offset": 27
       }
     ],
     "fact_status": "observed",

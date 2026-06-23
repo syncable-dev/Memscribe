@@ -29,24 +29,6 @@ expression: nodes
     ]
   },
   {
-    "node": "decision",
-    "epitome": "Should we use Redis or Memcached for the session cache?",
-    "considered_options": [
-      {
-        "text": "Redis",
-        "chosen": true
-      }
-    ],
-    "is_ban": false,
-    "superseded_by": null,
-    "confirmation": null,
-    "source_span": {
-      "start": 1,
-      "end": 2
-    },
-    "fact_status": "observed"
-  },
-  {
     "node": "conversation",
     "session_id": "ws-reject-002",
     "turn_range": {
@@ -60,6 +42,12 @@ expression: nodes
         "category": "ban",
         "matched_text": "do not add",
         "offset": 8
+      },
+      {
+        "rule_id": "action.create_strong",
+        "category": "action_request",
+        "matched_text": "Wire up",
+        "offset": 30
       }
     ],
     "fact_status": "observed",
@@ -73,7 +61,7 @@ expression: nodes
   },
   {
     "node": "decision",
-    "epitome": "Agreed, do not add Memcached.",
+    "epitome": "Wire up Redis.",
     "considered_options": [],
     "is_ban": true,
     "superseded_by": null,

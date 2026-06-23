@@ -53,7 +53,7 @@ expression: events
     },
     "kind": {
       "event": "user_turn",
-      "text": "Thanks, this looks good. Go ahead and clean up that stray import while you're in there.",
+      "text": "Thanks, this looks good. The handler reads much cleaner now.",
       "parts": []
     },
     "provenance": {
@@ -93,7 +93,7 @@ expression: events
     },
     "provenance": {
       "file": "fixtures/vscode/v1/no_commitment_marker.jsonl",
-      "byte_offset": 377,
+      "byte_offset": 350,
       "line_no": 3
     }
   },
@@ -123,7 +123,7 @@ expression: events
     },
     "provenance": {
       "file": "fixtures/vscode/v1/no_commitment_marker.jsonl",
-      "byte_offset": 377,
+      "byte_offset": 350,
       "line_no": 3
     }
   },
@@ -157,7 +157,7 @@ expression: events
     },
     "provenance": {
       "file": "fixtures/vscode/v1/no_commitment_marker.jsonl",
-      "byte_offset": 377,
+      "byte_offset": 350,
       "line_no": 3
     }
   },
@@ -187,7 +187,7 @@ expression: events
     },
     "provenance": {
       "file": "fixtures/vscode/v1/no_commitment_marker.jsonl",
-      "byte_offset": 880,
+      "byte_offset": 853,
       "line_no": 4
     }
   },
@@ -213,7 +213,7 @@ expression: events
     },
     "provenance": {
       "file": "fixtures/vscode/v1/no_commitment_marker.jsonl",
-      "byte_offset": 1051,
+      "byte_offset": 1024,
       "line_no": 5
     }
   }

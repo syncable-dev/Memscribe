@@ -17,6 +17,18 @@ expression: nodes
         "category": "decision_verb",
         "matched_text": "use",
         "offset": 6
+      },
+      {
+        "rule_id": "decision_verb.polite_select",
+        "category": "decision_verb",
+        "matched_text": "Let's use",
+        "offset": 0
+      },
+      {
+        "rule_id": "action.restructure_into",
+        "category": "action_request",
+        "matched_text": "Extract the send loop into",
+        "offset": 61
       }
     ],
     "fact_status": "observed",
@@ -73,7 +85,7 @@ expression: nodes
   },
   {
     "node": "decision",
-    "epitome": "Use a dedicated worker module: extract the email send loop into src/worker/email.",
+    "epitome": "Use a dedicated worker module: extract the email send loop into src/worker/email.rs and spawn it from main.",
     "considered_options": [
       {
         "text": "a",

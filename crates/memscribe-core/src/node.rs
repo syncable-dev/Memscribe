@@ -67,6 +67,12 @@ pub enum MarkerCategory {
     Memory,
     /// Assistant-proposal-then-user-confirmation.
     Confirmation,
+    /// An imperative request to change code ("fix", "add", "refactor",
+    /// "remove", "optimize"). Distinct from [`Self::Imperative`] (modal
+    /// obligation: must/always/never) — an action request should bind to an
+    /// edit, not state a standing rule. Additive variant (serde snake_case →
+    /// `action_request`); existing serialization is unchanged.
+    ActionRequest,
 }
 
 /// Which deterministic commitment marker fired on a turn, and where.

@@ -19,6 +19,12 @@ expression: nodes
         "offset": 6
       },
       {
+        "rule_id": "decision_verb.polite_select",
+        "category": "decision_verb",
+        "matched_text": "Let's use",
+        "offset": 0
+      },
+      {
         "rule_id": "rejection.instead_of",
         "category": "rejection",
         "matched_text": "instead of",
@@ -55,5 +61,30 @@ expression: nodes
       "end": 2
     },
     "fact_status": "observed"
+  },
+  {
+    "node": "conversation",
+    "session_id": "sess-v21-001",
+    "turn_range": {
+      "start": 4,
+      "end": 5
+    },
+    "text": "Looks good, ship it.",
+    "markers": [
+      {
+        "rule_id": "confirmation.idiom",
+        "category": "confirmation",
+        "matched_text": "ship it",
+        "offset": 12
+      }
+    ],
+    "fact_status": "observed",
+    "provenance": [
+      {
+        "file": "fixtures/claude_code/2.1/version_tolerance.jsonl",
+        "byte_offset": 1230,
+        "line_no": 4
+      }
+    ]
   }
 ]

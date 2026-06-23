@@ -23,6 +23,12 @@ expression: nodes
         "category": "imperative",
         "matched_text": "never",
         "offset": 8
+      },
+      {
+        "rule_id": "action.create_strong",
+        "category": "action_request",
+        "matched_text": "Implement",
+        "offset": 44
       }
     ],
     "fact_status": "observed",
@@ -36,7 +42,7 @@ expression: nodes
   },
   {
     "node": "decision",
-    "epitome": "We will never add a dependency on left-pad.",
+    "epitome": "Implement padding inline instead.",
     "considered_options": [],
     "is_ban": true,
     "superseded_by": null,

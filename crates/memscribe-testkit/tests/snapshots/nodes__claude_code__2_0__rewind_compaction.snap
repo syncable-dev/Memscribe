@@ -17,6 +17,12 @@ expression: nodes
         "category": "decision_verb",
         "matched_text": "use",
         "offset": 6
+      },
+      {
+        "rule_id": "decision_verb.polite_select",
+        "category": "decision_verb",
+        "matched_text": "Let's use",
+        "offset": 0
       }
     ],
     "fact_status": "observed",
@@ -77,6 +83,12 @@ expression: nodes
         "category": "decision_verb",
         "matched_text": "switch to",
         "offset": 21
+      },
+      {
+        "rule_id": "decision_verb.polite_select",
+        "category": "decision_verb",
+        "matched_text": "let's switch to",
+        "offset": 15
       }
     ],
     "fact_status": "observed",

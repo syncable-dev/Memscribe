@@ -7,6 +7,49 @@ expression: nodes
     "node": "conversation",
     "session_id": "g-subagent-0001",
     "turn_range": {
+      "start": 1,
+      "end": 2
+    },
+    "text": "Kick off the ingest refactor; delegate the parser rewrite to a focused sub-thread.",
+    "markers": [
+      {
+        "rule_id": "action.restructure_strong",
+        "category": "action_request",
+        "matched_text": "refactor",
+        "offset": 20
+      }
+    ],
+    "fact_status": "observed",
+    "provenance": [
+      {
+        "file": "fixtures/gemini/v1/subagent_thread.jsonl",
+        "byte_offset": 187,
+        "line_no": 2
+      }
+    ]
+  },
+  {
+    "node": "decision",
+    "epitome": "Kick off the ingest refactor; delegate the parser rewrite to a focused sub-thread.",
+    "considered_options": [
+      {
+        "text": "d",
+        "chosen": true
+      }
+    ],
+    "is_ban": false,
+    "superseded_by": null,
+    "confirmation": null,
+    "source_span": {
+      "start": 1,
+      "end": 2
+    },
+    "fact_status": "observed"
+  },
+  {
+    "node": "conversation",
+    "session_id": "g-subagent-0001",
+    "turn_range": {
       "start": 3,
       "end": 4
     },

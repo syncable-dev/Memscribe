@@ -17,6 +17,12 @@ expression: nodes
         "category": "decision_verb",
         "matched_text": "use",
         "offset": 8
+      },
+      {
+        "rule_id": "decision_verb.polite_select",
+        "category": "decision_verb",
+        "matched_text": "We will use",
+        "offset": 0
       }
     ],
     "fact_status": "observed",
@@ -96,6 +102,31 @@ expression: nodes
       "branch": "feat/argon2"
     },
     "episode_id": "ee20cc7d21701fee22940ba1c0eaa80bf052d886ffec5cc3bac781577c6c0a10"
+  },
+  {
+    "node": "conversation",
+    "session_id": "ws-multiedit-006",
+    "turn_range": {
+      "start": 12,
+      "end": 13
+    },
+    "text": "Perfect, ship it.",
+    "markers": [
+      {
+        "rule_id": "confirmation.idiom",
+        "category": "confirmation",
+        "matched_text": "ship it",
+        "offset": 9
+      }
+    ],
+    "fact_status": "observed",
+    "provenance": [
+      {
+        "file": "fixtures/windsurf/v1/multi_edit_single_commit.jsonl",
+        "byte_offset": 1743,
+        "line_no": 4
+      }
+    ]
   },
   {
     "node": "binding",

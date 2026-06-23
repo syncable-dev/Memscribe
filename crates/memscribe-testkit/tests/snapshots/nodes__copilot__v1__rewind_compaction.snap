@@ -17,6 +17,12 @@ expression: nodes
         "category": "decision_verb",
         "matched_text": "Use",
         "offset": 0
+      },
+      {
+        "rule_id": "action.create_strong",
+        "category": "action_request",
+        "matched_text": "Wire up",
+        "offset": 35
       }
     ],
     "fact_status": "observed",

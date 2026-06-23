@@ -29,24 +29,6 @@ expression: nodes
     ]
   },
   {
-    "node": "decision",
-    "epitome": "Should we use Redux or Zustand for the new dashboard state?",
-    "considered_options": [
-      {
-        "text": "Redux",
-        "chosen": true
-      }
-    ],
-    "is_ban": false,
-    "superseded_by": null,
-    "confirmation": null,
-    "source_span": {
-      "start": 1,
-      "end": 2
-    },
-    "fact_status": "observed"
-  },
-  {
     "node": "conversation",
     "session_id": "cur-sess-002",
     "turn_range": {
@@ -60,6 +42,18 @@ expression: nodes
         "category": "decision_verb",
         "matched_text": "Let's go with",
         "offset": 22
+      },
+      {
+        "rule_id": "decision_verb.polite_select",
+        "category": "decision_verb",
+        "matched_text": "Let's go with",
+        "offset": 22
+      },
+      {
+        "rule_id": "action.create_strong",
+        "category": "action_request",
+        "matched_text": "wire up",
+        "offset": 48
       }
     ],
     "fact_status": "observed",
