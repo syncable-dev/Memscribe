@@ -1,32 +1,69 @@
 //! VS Code adapter (Copilot Chat / chat sessions).
 //!
-//! VS Code stores chat sessions under
-//! `<user>/workspaceStorage/<hash>/chatSessions/*.json` (and
-//! `chatEditingSessions` for edits). That on-disk store is an undocumented,
-//! version-churning JSON blob, so this adapter parses two shapes:
+//! VS Code is **database-backed**: its chat does not live in `chatSessions/*.json`
+//! files (current builds ship none) but in a SQLite store, `state.vscdb`, under
+//! the user's `Code/User` directory. The chat sits in `ItemTable(key, value)`
+//! under the key `interactive.sessions` — a JSON **array of sessions**. This
+//! adapter therefore declares [`StoreReader::Native`] and reads that store itself
+//! ([`read_native`](VsCodeAdapter::read_native)) **read-only**, normalizing every
+//! request into the same stable `{role, text, …, edits, toolCalls}` JSON record
+//! shape the pure [`parse`](VsCodeAdapter::parse) already understands.
 //!
-//! 1. A stable, **exported** chat JSON-lines shape (one record per line) that a
-//!    companion exporter writes — a leading `{kind:session_start, cwd, git,
-//!    toolVersion}` followed by message records `{id, parentId, role, ts,
-//!    sessionId, text, model, usage, toolCalls, toolResults, edits}`.
-//! 2. The **native** `chatSessions` JSON shape, where a single object carries
+//! ## On-disk store (reverse-engineered, verified June 2026, read-only)
+//!
+//! `…/Code/User/workspaceStorage/<hash>/state.vscdb` (per-workspace) and
+//! `…/Code/User/globalStorage/state.vscdb` (global). Each has one table,
+//! `ItemTable(key TEXT, value BLOB)`. The chat lives under
+//! `key = 'interactive.sessions'`, whose value is a JSON array of sessions:
+//!
+//! - session: `{version, requesterUsername, responderUsername, sessionId,
+//!   creationDate, lastMessageDate, customTitle, requests:[…]}`.
+//! - request: `{requestId, message:{text, parts}, response:[…], responseId,
+//!   result:{metadata}, timestamp, …}`.
+//!   - `message.text` (and `message.parts[].text`) is the **user** prompt.
+//!   - `response` is an ordered list of **parts**, each a dict. The shapes we map:
+//!     - a `markdownContent` part — **or a part with no `kind` but a `value`**
+//!       (the live shape) — carries assistant text in `value` (or `content.value`).
+//!     - `textEditGroup` carries file **edits**: a `uri` plus `edits`/`textEdits`.
+//!     - `codeblockUri`/`inlineReference` is a file reference (`uri`).
+//!     - `toolInvocationSerialized`/`prepareToolInvocation` is a **tool call**
+//!       (`toolId`/`invocationMessage.value`).
+//!
+//! `read_native` emits, per session, the messages in request order: a `user`
+//! record (from `message`), then an assistant record assembled by concatenating
+//! the markdown parts (carrying any `edits[]`/`toolCalls[]` lifted from the
+//! response parts).
+//!
+//! This adapter still parses two **legacy** shapes so existing fixtures keep
+//! working, routed by [`parse`](VsCodeAdapter::parse) shape-detection:
+//!
+//! 1. A stable, **exported** chat JSON-lines shape (one record per line) — a
+//!    leading `{kind:session_start, cwd, git, toolVersion}` followed by message
+//!    records `{id, parentId, role, ts, sessionId, text, model, usage, toolCalls,
+//!    toolResults, edits}`. (`read_native` produces this shape from the store.)
+//! 2. The legacy **`chatSessions`** JSON shape, where a single object carries
 //!    `{version, requesterUsername, responderUsername, requests:[{message,
 //!    response}]}`; each request maps to a `UserTurn` and its response to an
 //!    `AssistantTurn`.
 //!
 //! Anything unrecognized-but-valid routes to [`memscribe_core::EventKind::Unknown`]
 //! via [`util::unknown_event`], so the stream stays lossless across VS Code
-//! version churn. The parser is fully deterministic and never panics.
+//! version churn. The parser is fully deterministic and never panics; `read_native`
+//! opens SQLite read-only (`mode=ro&immutable=1`) and never writes.
 
 use crate::util;
 use memscribe_core::{
     content_id, CaptureEvent, Diff, DiscoverCfg, EventKind, GitRef, ParseCtx, ParseError,
-    ProjectRef, RawRecord, SchemaVariant, SourceKind, TranscriptAdapter, TranscriptHandle, Usage,
+    ProjectRef, RawRecord, SchemaVariant, SourceKind, SourceLocation, StoreReader,
+    TranscriptAdapter, TranscriptHandle, Usage,
 };
-use serde_json::Value;
-use std::path::PathBuf;
+use serde_json::{json, Value};
+use std::path::{Path, PathBuf};
 
 const SOURCE: SourceKind = SourceKind::VsCode;
+
+/// The `ItemTable` key under which VS Code stores the chat session array.
+const SESSIONS_KEY: &str = "interactive.sessions";
 
 /// Adapter for VS Code chat-session transcripts.
 #[derive(Debug, Default, Clone, Copy)]
@@ -37,51 +74,90 @@ impl TranscriptAdapter for VsCodeAdapter {
         SOURCE
     }
 
+    /// VS Code keeps its chat in a SQLite store, so the adapter reads the store
+    /// itself via [`read_native`](VsCodeAdapter::read_native) rather than the
+    /// line-delimited file reader.
+    fn store_reader(&self) -> StoreReader {
+        StoreReader::Native
+    }
+
     fn discover(&self, cfg: &DiscoverCfg) -> Vec<TranscriptHandle> {
-        // Point at the real product path; we don't parse the binary store here.
-        // `Application Support/Code/User/workspaceStorage/<hash>/chatSessions/*.json`
+        // Glob the real product locations for `state.vscdb`:
+        //   …/Code/User/workspaceStorage/<hash>/state.vscdb  (per-workspace)
+        //   …/Code/User/globalStorage/state.vscdb            (global)
+        // plus a tolerant `~/.vscode` fallback for non-standard installs.
         let home = cfg.home_dir();
-        let base = home
-            .join("Library")
-            .join("Application Support")
-            .join("Code")
-            .join("User")
-            .join("workspaceStorage");
-        let mut handles = Vec::new();
-        // Walk workspaceStorage/<hash>/chatSessions/*.json deterministically.
-        let mut hashes: Vec<PathBuf> = Vec::new();
-        if let Ok(entries) = std::fs::read_dir(&base) {
-            for entry in entries.flatten() {
-                let p = entry.path();
-                if p.is_dir() {
-                    hashes.push(p);
-                }
-            }
-        }
-        hashes.sort();
-        for ws in hashes {
-            let sessions_dir = ws.join("chatSessions");
-            let mut files: Vec<PathBuf> = Vec::new();
-            if let Ok(entries) = std::fs::read_dir(&sessions_dir) {
-                for entry in entries.flatten() {
-                    let p = entry.path();
-                    if p.extension().and_then(|e| e.to_str()) == Some("json") {
-                        files.push(p);
+        let user_dirs = [
+            home.join("Library/Application Support/Code/User"),
+            home.join(".config/Code/User"),
+            home.join(".vscode"),
+        ];
+
+        let mut handles: Vec<TranscriptHandle> = Vec::new();
+        for user in user_dirs {
+            // Per-workspace stores under workspaceStorage/<hash>/state.vscdb.
+            let ws_root = user.join("workspaceStorage");
+            if let Ok(entries) = std::fs::read_dir(&ws_root) {
+                let mut hashes: Vec<PathBuf> = entries
+                    .flatten()
+                    .map(|e| e.path())
+                    .filter(|p| p.is_dir())
+                    .collect();
+                hashes.sort();
+                for ws in hashes {
+                    let db = ws.join("state.vscdb");
+                    if db.is_file() {
+                        let session_hint =
+                            ws.file_name().and_then(|n| n.to_str()).map(str::to_string);
+                        handles.push(TranscriptHandle {
+                            path: db,
+                            source: SOURCE,
+                            session_hint,
+                            compressed: false,
+                        });
                     }
                 }
             }
-            files.sort();
-            for f in files {
-                let session_hint = f.file_stem().and_then(|s| s.to_str()).map(str::to_string);
+            // The global store.
+            let global = user.join("globalStorage/state.vscdb");
+            if global.is_file() {
                 handles.push(TranscriptHandle {
-                    path: f,
+                    path: global,
                     source: SOURCE,
-                    session_hint,
+                    session_hint: None,
                     compressed: false,
                 });
             }
         }
+
+        // Deterministic order; dedup identical paths (overlapping roots).
+        handles.sort_by(|a, b| a.path.cmp(&b.path));
+        handles.dedup_by(|a, b| a.path == b.path);
         handles
+    }
+
+    /// Open the VS Code `state.vscdb` at `handle.path` **read-only** and yield one
+    /// [`RawRecord`] per logical message, in deterministic order: per session, a
+    /// `user` record then an assembled `assistant` record per request. A
+    /// non-`.vscdb` path (e.g. a legacy exported `.json`/`.jsonl`) falls back to
+    /// reading the file's lines so the legacy shapes keep working.
+    ///
+    /// # Errors
+    /// Returns [`ParseError::Io`] only if a `.vscdb` path cannot be opened, or a
+    /// non-database path cannot be read. A readable store with no
+    /// `interactive.sessions` key degrades to an empty record set, never an error.
+    fn read_native(&self, handle: &TranscriptHandle) -> Result<Vec<RawRecord>, ParseError> {
+        let path = &handle.path;
+        let is_vscdb = path
+            .extension()
+            .and_then(|e| e.to_str())
+            .map(|e| e.eq_ignore_ascii_case("vscdb"))
+            .unwrap_or(false);
+        if is_vscdb {
+            read_vscdb(path)
+        } else {
+            read_lines(path)
+        }
     }
 
     fn parse(&self, raw: &RawRecord, ctx: &mut ParseCtx) -> Result<Vec<CaptureEvent>, ParseError> {
@@ -381,6 +457,365 @@ fn parse_native_session(raw: &RawRecord, ctx: &mut ParseCtx, value: &Value) -> V
 }
 
 // ---------------------------------------------------------------------------
+// Native SQLite store reader: state.vscdb → normalized RawRecords
+// ---------------------------------------------------------------------------
+
+/// Open a VS Code `state.vscdb` **read-only** and normalize the chat it holds
+/// (under `ItemTable['interactive.sessions']`) into [`RawRecord`]s. Deterministic:
+/// sessions are emitted in their stored array order and requests in request
+/// order. Errors only if the file cannot be opened at all; a missing key/table or
+/// a non-array value degrades to an empty stream (the lossless outcome for an
+/// empty store).
+fn read_vscdb(path: &Path) -> Result<Vec<RawRecord>, ParseError> {
+    // `mode=ro&immutable=1` opens read-only and promises we won't observe
+    // concurrent writes — VS Code may have the live DB open, but we never write,
+    // lock, or create side files (`-wal`/`-shm`).
+    let uri = format!("file:{}?mode=ro&immutable=1", path.to_string_lossy());
+    let conn = rusqlite::Connection::open_with_flags(
+        uri,
+        rusqlite::OpenFlags::SQLITE_OPEN_READ_ONLY | rusqlite::OpenFlags::SQLITE_OPEN_URI,
+    )
+    .map_err(|e| ParseError::Io(format!("opening vscode store {}: {e}", path.display())))?;
+
+    // The value is stored as TEXT in current builds (older/global stores may use
+    // BLOB), and rusqlite will not coerce a TEXT column into `Vec<u8>`. Read it as
+    // a `ValueRef` so we accept either storage class. A missing key/table is not
+    // an error — it just means there is no chat to read.
+    let bytes: Option<Vec<u8>> = conn
+        .query_row(
+            "SELECT value FROM ItemTable WHERE key = ?1",
+            [SESSIONS_KEY],
+            |row| {
+                Ok(match row.get_ref(0)? {
+                    rusqlite::types::ValueRef::Text(t) => t.to_vec(),
+                    rusqlite::types::ValueRef::Blob(b) => b.to_vec(),
+                    _ => Vec::new(),
+                })
+            },
+        )
+        .ok();
+    let Some(bytes) = bytes else {
+        return Ok(Vec::new());
+    };
+    let Ok(value) = serde_json::from_slice::<Value>(&bytes) else {
+        return Ok(Vec::new());
+    };
+    let Some(sessions) = value.as_array() else {
+        return Ok(Vec::new());
+    };
+
+    let mut records = Vec::new();
+    let mut line_no: u64 = 0;
+    for session in sessions {
+        expand_session(session, path, &mut line_no, &mut records);
+    }
+    Ok(records)
+}
+
+/// Expand one VS Code session object into normalized `{role, text, …}` records:
+/// for each request, a `user` record then an assembled `assistant` record.
+fn expand_session(session: &Value, file: &Path, line_no: &mut u64, out: &mut Vec<RawRecord>) {
+    let Some(obj) = session.as_object() else {
+        // A non-object session entry is preserved losslessly as one record.
+        push_record(out, file, line_no, session);
+        return;
+    };
+
+    let session_id = obj
+        .get("sessionId")
+        .and_then(Value::as_str)
+        .filter(|s| !s.is_empty())
+        .map(str::to_string)
+        // Fall back to a stable content-derived id when the store omits one.
+        .unwrap_or_else(|| {
+            let bytes = serde_json::to_vec(session).unwrap_or_default();
+            let cid = content_id(&bytes);
+            format!("vscode-{}", &cid[..cid.len().min(16)])
+        });
+    // Session-level timestamp fallback for requests that carry none.
+    let session_ts = obj
+        .get("creationDate")
+        .or_else(|| obj.get("lastMessageDate"))
+        .and_then(value_as_i64);
+    let responder = obj
+        .get("responderUsername")
+        .and_then(Value::as_str)
+        .filter(|s| !s.is_empty())
+        .map(str::to_string);
+
+    let Some(requests) = obj.get("requests").and_then(Value::as_array) else {
+        // A session with no requests array is still preserved losslessly.
+        push_record(out, file, line_no, session);
+        return;
+    };
+
+    for (ri, req) in requests.iter().enumerate() {
+        let Some(rq) = req.as_object() else { continue };
+
+        // Per-request timestamp (epoch-millis), else the session's.
+        let ts_ms = rq.get("timestamp").and_then(value_as_i64).or(session_ts);
+        let request_id = rq
+            .get("requestId")
+            .and_then(Value::as_str)
+            .filter(|s| !s.is_empty())
+            .map(str::to_string)
+            .unwrap_or_else(|| format!("{session_id}:req:{ri}"));
+        let response_id = rq
+            .get("responseId")
+            .and_then(Value::as_str)
+            .filter(|s| !s.is_empty())
+            .map(str::to_string)
+            .unwrap_or_else(|| format!("{request_id}:resp"));
+
+        // 1) The user message → a `user` record.
+        let user_text = rq
+            .get("message")
+            .map(flatten_native_text)
+            .unwrap_or_default();
+        let mut user_rec = serde_json::Map::new();
+        user_rec.insert("id".into(), Value::String(format!("{request_id}:user")));
+        user_rec.insert("role".into(), Value::String("user".into()));
+        user_rec.insert("sessionId".into(), Value::String(session_id.clone()));
+        if let Some(ms) = ts_ms {
+            user_rec.insert("ts".into(), Value::Number(ms.into()));
+        }
+        user_rec.insert("text".into(), Value::String(user_text));
+        push_record(out, file, line_no, &Value::Object(user_rec));
+
+        // 2) The assembled assistant response → an `assistant` record carrying
+        //    text (concatenated markdown), tool calls, and file edits.
+        let (text, tool_calls, edits) = assemble_response(rq.get("response"));
+        let mut asst = serde_json::Map::new();
+        asst.insert("id".into(), Value::String(format!("{response_id}:asst")));
+        asst.insert(
+            "parentId".into(),
+            Value::String(format!("{request_id}:user")),
+        );
+        asst.insert("role".into(), Value::String("assistant".into()));
+        asst.insert("sessionId".into(), Value::String(session_id.clone()));
+        if let Some(ms) = ts_ms {
+            asst.insert("ts".into(), Value::Number(ms.into()));
+        }
+        asst.insert("text".into(), Value::String(text));
+        if let Some(model) = &responder {
+            asst.insert("model".into(), Value::String(model.clone()));
+        }
+        if !tool_calls.is_empty() {
+            asst.insert("toolCalls".into(), Value::Array(tool_calls));
+        }
+        if !edits.is_empty() {
+            asst.insert("edits".into(), Value::Array(edits));
+        }
+        push_record(out, file, line_no, &Value::Object(asst));
+    }
+}
+
+/// Walk a request's `response` part list and return the concatenated assistant
+/// text, the normalized tool calls, and the normalized file edits. Tolerant of
+/// the many VS Code part shapes; unknown parts contribute nothing (the raw
+/// session text the user sees lives in the markdown parts).
+fn assemble_response(response: Option<&Value>) -> (String, Vec<Value>, Vec<Value>) {
+    let mut text = String::new();
+    let mut tool_calls = Vec::new();
+    let mut edits = Vec::new();
+
+    let Some(parts) = response.and_then(Value::as_array) else {
+        // Some builds store the response as a bare string or object.
+        let text = match response {
+            Some(Value::String(s)) => s.clone(),
+            Some(obj @ Value::Object(_)) => part_markdown(obj).unwrap_or_default(),
+            _ => String::new(),
+        };
+        return (text, tool_calls, edits);
+    };
+
+    for part in parts {
+        let Some(p) = part.as_object() else { continue };
+        let kind = p.get("kind").and_then(Value::as_str);
+        match kind {
+            // A part with no `kind` but a `value` is the live markdown shape.
+            Some("markdownContent") | None => {
+                if let Some(md) = part_markdown(part) {
+                    if !md.is_empty() {
+                        if !text.is_empty() {
+                            text.push_str("\n\n");
+                        }
+                        text.push_str(&md);
+                    }
+                }
+            }
+            Some("toolInvocationSerialized") | Some("prepareToolInvocation") => {
+                if let Some(call) = tool_call_from_part(p, tool_calls.len()) {
+                    tool_calls.push(call);
+                }
+            }
+            Some("textEditGroup") | Some("codeblockUri") | Some("inlineReference") => {
+                edits.extend(edits_from_part(p));
+            }
+            // Other parts (progressTask, confirmation, warning, …) carry no
+            // dialogue/edit content we map; they're intentionally skipped.
+            _ => {}
+        }
+    }
+
+    (text, tool_calls, edits)
+}
+
+/// Extract assistant markdown text from a part. The text lives in `value` (the
+/// live shape), or `content.value`, or a plain `content` string.
+fn part_markdown(part: &Value) -> Option<String> {
+    let obj = part.as_object()?;
+    if let Some(s) = obj.get("value").and_then(Value::as_str) {
+        return Some(s.to_string());
+    }
+    match obj.get("content") {
+        Some(Value::String(s)) => Some(s.clone()),
+        Some(Value::Object(c)) => c.get("value").and_then(Value::as_str).map(str::to_string),
+        _ => None,
+    }
+}
+
+/// Normalize a `toolInvocationSerialized`/`prepareToolInvocation` part into a
+/// `{id, name, args}` tool-call record. The human-readable invocation message
+/// (`invocationMessage.value`) rides along under `args` so it isn't lost.
+fn tool_call_from_part(part: &serde_json::Map<String, Value>, index: usize) -> Option<Value> {
+    let call_id = part
+        .get("toolCallId")
+        .or_else(|| part.get("toolId"))
+        .and_then(Value::as_str)
+        .filter(|s| !s.is_empty())
+        .map(str::to_string)
+        .unwrap_or_else(|| format!("tool:{index}"));
+    let name = part
+        .get("toolId")
+        .or_else(|| part.get("toolName"))
+        .and_then(Value::as_str)
+        .filter(|s| !s.is_empty())
+        .map(str::to_string)
+        .or_else(|| nested_value_string(part.get("invocationMessage")))
+        .or_else(|| nested_value_string(part.get("pastTenseMessage")))
+        .unwrap_or_default();
+    let args = json!({
+        "invocationMessage": nested_value_string(part.get("invocationMessage")),
+        "pastTenseMessage": nested_value_string(part.get("pastTenseMessage")),
+        "isComplete": part.get("isComplete").and_then(Value::as_bool),
+    });
+    Some(json!({ "id": call_id, "name": name, "args": args }))
+}
+
+/// Extract file edits from a `textEditGroup`/`codeblockUri`/`inlineReference`
+/// part. The edited path comes from `uri` (a VS Code URI object with a `path`,
+/// or a bare string); `textEditGroup` also carries `edits`/`textEdits`.
+fn edits_from_part(part: &serde_json::Map<String, Value>) -> Vec<Value> {
+    let Some(path) = uri_path(part.get("uri")).or_else(|| uri_path(part.get("resource"))) else {
+        return Vec::new();
+    };
+    let mut edit = serde_json::Map::new();
+    edit.insert("path".into(), Value::String(path));
+    // Surface the raw edit operations under `diff` when present, so nothing is
+    // silently dropped (VS Code stores no unified-diff text inline).
+    if let Some(ops) = part
+        .get("edits")
+        .or_else(|| part.get("textEdits"))
+        .filter(|v| !v.is_null())
+    {
+        if let Ok(s) = serde_json::to_string(ops) {
+            edit.insert("diff".into(), Value::String(s));
+        }
+    }
+    vec![Value::Object(edit)]
+}
+
+/// Resolve a path from a VS Code URI value: a `{path, scheme, …}` object, a
+/// `{uri:{path}}` wrapper, or a bare string.
+fn uri_path(value: Option<&Value>) -> Option<String> {
+    let v = value?;
+    if let Some(s) = v.as_str() {
+        return (!s.is_empty()).then(|| s.to_string());
+    }
+    let obj = v.as_object()?;
+    obj.get("path")
+        .or_else(|| obj.get("fsPath"))
+        .and_then(Value::as_str)
+        .filter(|s| !s.is_empty())
+        .map(str::to_string)
+        .or_else(|| uri_path(obj.get("uri")))
+}
+
+/// Read a `{value: "…"}` wrapper's string (VS Code's `MarkdownString` shape),
+/// returning `None` for an absent/blank value.
+fn nested_value_string(value: Option<&Value>) -> Option<String> {
+    let v = value?;
+    if let Some(s) = v.as_str() {
+        return (!s.is_empty()).then(|| s.to_string());
+    }
+    v.as_object()?
+        .get("value")
+        .and_then(Value::as_str)
+        .filter(|s| !s.is_empty())
+        .map(str::to_string)
+}
+
+/// Read a JSON number whether it was stored as a number or a numeric string
+/// (VS Code stores epoch-millis timestamps as numbers).
+fn value_as_i64(v: &Value) -> Option<i64> {
+    v.as_i64()
+        .or_else(|| v.as_f64().map(|f| f as i64))
+        .or_else(|| v.as_str().and_then(|s| s.trim().parse::<i64>().ok()))
+}
+
+/// Append a JSON value as a `RawRecord` with a fresh, stable provenance line
+/// pointing back into the store (`db path : line_no`).
+fn push_record(out: &mut Vec<RawRecord>, file: &Path, line_no: &mut u64, value: &Value) {
+    *line_no += 1;
+    let bytes = serde_json::to_vec(value).unwrap_or_else(|_| b"null".to_vec());
+    let location = SourceLocation::new(file.to_path_buf(), 0, *line_no);
+    out.push(RawRecord::new(bytes, location));
+}
+
+/// Fall back to reading a non-database path as either a whole JSON document or
+/// line-delimited records.
+///
+/// VS Code exports sometimes arrive as a pretty-printed `.json` document rather
+/// than JSONL: either a single native `chatSessions` object or an array of
+/// session objects. In those cases we preserve one logical session per
+/// [`RawRecord`] so the parser sees the same shape it expects from the SQLite
+/// reader. When the file is not a whole JSON document, we fall back to
+/// line-delimited reading for the exported-JSONL fixtures.
+fn read_lines(path: &Path) -> Result<Vec<RawRecord>, ParseError> {
+    let bytes = std::fs::read(path)
+        .map_err(|e| ParseError::Io(format!("reading {}: {e}", path.display())))?;
+
+    if let Ok(value) = serde_json::from_slice::<Value>(&bytes) {
+        let mut out = Vec::new();
+        let mut line_no = 0;
+        match value {
+            Value::Array(items) => {
+                for item in items {
+                    push_record(&mut out, path, &mut line_no, &item);
+                }
+                return Ok(out);
+            }
+            Value::Object(_) => {
+                push_record(&mut out, path, &mut line_no, &value);
+                return Ok(out);
+            }
+            _ => {}
+        }
+    }
+
+    let content = String::from_utf8_lossy(&bytes);
+    let mut out = Vec::new();
+    for (i, line) in content.lines().enumerate() {
+        out.push(RawRecord::from_line(
+            line,
+            SourceLocation::new(path, 0, i as u64 + 1),
+        ));
+    }
+    Ok(out)
+}
+
+// ---------------------------------------------------------------------------
 // helpers
 // ---------------------------------------------------------------------------
 
@@ -527,6 +962,209 @@ mod tests {
 
     fn tags(events: &[CaptureEvent]) -> Vec<&'static str> {
         events.iter().map(|e| e.kind.tag()).collect()
+    }
+
+    // ---- native SQLite reader against the REAL state.vscdb schema ----
+    //
+    // These tests build a throwaway `.vscdb` on disk with the same
+    // `ItemTable(key, value)` row the live VS Code store uses
+    // (`key = 'interactive.sessions'`, a JSON array of sessions), then drive
+    // `read_native` → `parse` and assert the events. No live-store dependency and
+    // no private data ship with the crate.
+
+    /// Build a throwaway `.vscdb` whose `ItemTable` holds the given
+    /// `interactive.sessions` JSON array, mirroring the real schema. Returns the
+    /// temp path (the caller removes it).
+    fn build_vscdb(sessions: &Value) -> std::path::PathBuf {
+        let mut path = std::env::temp_dir();
+        let blob = serde_json::to_string(sessions).unwrap();
+        let uniq = format!(
+            "memscribe-vscode-test-{}-{}.vscdb",
+            std::process::id(),
+            content_id(blob.as_bytes())
+        );
+        path.push(uniq);
+        let _ = std::fs::remove_file(&path);
+
+        let conn = rusqlite::Connection::open(&path).expect("create temp vscdb");
+        conn.execute(
+            "CREATE TABLE ItemTable (key TEXT PRIMARY KEY, value TEXT)",
+            [],
+        )
+        .expect("create ItemTable");
+        conn.execute(
+            "INSERT INTO ItemTable (key, value) VALUES (?1, ?2)",
+            rusqlite::params![SESSIONS_KEY, blob],
+        )
+        .expect("insert interactive.sessions");
+        drop(conn);
+        path
+    }
+
+    /// Read a built store through the adapter and parse every record.
+    fn read_and_parse(path: &std::path::Path) -> (Vec<CaptureEvent>, ParseCtx) {
+        let adapter = VsCodeAdapter;
+        let handle = TranscriptHandle {
+            path: path.to_path_buf(),
+            source: SOURCE,
+            session_hint: None,
+            compressed: false,
+        };
+        let records = adapter.read_native(&handle).expect("read_native ok");
+        let mut ctx = ParseCtx::new();
+        let mut events = Vec::new();
+        for r in &records {
+            events.extend(adapter.parse(r, &mut ctx).expect("parse never errors"));
+        }
+        (events, ctx)
+    }
+
+    #[test]
+    fn store_reader_is_native() {
+        assert_eq!(
+            VsCodeAdapter.store_reader(),
+            memscribe_core::StoreReader::Native
+        );
+    }
+
+    #[test]
+    fn native_reader_extracts_turns_tool_and_edit_from_real_schema() {
+        // One session with one request: a user message, then a response list with
+        // a tool invocation, a markdownContent part (the assistant text), and a
+        // textEditGroup part (a file edit) — the documented real VS Code shapes.
+        let sessions = serde_json::json!([{
+            "version": 3,
+            "sessionId": "11111111-2222-3333-4444-555555555555",
+            "requesterUsername": "dev",
+            "responderUsername": "GitHub Copilot",
+            "creationDate": 1_782_000_000_000_i64,
+            "lastMessageDate": 1_782_000_005_000_i64,
+            "customTitle": "Switch DB engine",
+            "requests": [{
+                "requestId": "request_abc",
+                "responseId": "response_xyz",
+                "timestamp": 1_782_000_005_000_i64,
+                "message": {
+                    "text": "Use Postgres instead of MySQL",
+                    "parts": [{"kind": "text", "text": "Use Postgres instead of MySQL"}]
+                },
+                "response": [
+                    {
+                        "kind": "toolInvocationSerialized",
+                        "toolId": "copilot_editFile",
+                        "invocationMessage": {"value": "Editing db/config.toml"},
+                        "pastTenseMessage": {"value": "Edited db/config.toml"},
+                        "isComplete": true
+                    },
+                    {
+                        "kind": "markdownContent",
+                        "content": {"value": "Switching the engine to Postgres now."}
+                    },
+                    {
+                        "value": " It is done.",
+                        "supportThemeIcons": false
+                    },
+                    {
+                        "kind": "textEditGroup",
+                        "uri": {"$mid": 1, "path": "/work/db/config.toml", "scheme": "file"},
+                        "edits": [[{"range": {}, "text": "engine=postgres"}]]
+                    }
+                ]
+            }]
+        }]);
+
+        let path = build_vscdb(&sessions);
+        let (events, ctx) = read_and_parse(&path);
+        let _ = std::fs::remove_file(&path);
+
+        // user_turn, assistant_turn (with concatenated markdown), tool_call, file_edit.
+        assert_eq!(
+            tags(&events),
+            vec!["user_turn", "assistant_turn", "tool_call", "file_edit"]
+        );
+
+        // Session bound from the store's sessionId.
+        assert_eq!(
+            ctx.session_id.as_deref(),
+            Some("11111111-2222-3333-4444-555555555555")
+        );
+
+        // User prompt recovered verbatim from message.text.
+        match &events[0].kind {
+            EventKind::UserTurn { text, .. } => {
+                assert_eq!(text, "Use Postgres instead of MySQL");
+            }
+            other => panic!("expected user_turn, got {other:?}"),
+        }
+
+        // Assistant text = the markdownContent part + the kind-less markdown part,
+        // joined; the responder name rides through as the model.
+        match &events[1].kind {
+            EventKind::AssistantTurn { text, model, .. } => {
+                assert!(text.contains("Switching the engine to Postgres now."));
+                assert!(text.contains("It is done."));
+                assert_eq!(model.as_deref(), Some("GitHub Copilot"));
+            }
+            other => panic!("expected assistant_turn, got {other:?}"),
+        }
+
+        // Tool call from the toolInvocationSerialized part.
+        match &events[2].kind {
+            EventKind::ToolCall { name, .. } => assert_eq!(name, "copilot_editFile"),
+            other => panic!("expected tool_call, got {other:?}"),
+        }
+
+        // File edit lifted from the textEditGroup uri.
+        match &events[3].kind {
+            EventKind::FileEdit { diff, .. } => {
+                assert_eq!(diff.path, PathBuf::from("/work/db/config.toml"));
+                // The raw edit operations are surfaced (no inline unified diff).
+                assert!(diff
+                    .unified
+                    .as_deref()
+                    .unwrap_or("")
+                    .contains("engine=postgres"));
+            }
+            other => panic!("expected file_edit, got {other:?}"),
+        }
+
+        // The timestamp came from the request's epoch-millis `timestamp`.
+        assert!(events[0].timestamp.unix_timestamp() > 1_700_000_000);
+    }
+
+    #[test]
+    fn native_reader_missing_key_is_empty_not_error() {
+        // A `.vscdb` with no `interactive.sessions` row degrades to an empty
+        // record set (lossless), never an error.
+        let mut path = std::env::temp_dir();
+        path.push(format!(
+            "memscribe-vscode-empty-{}.vscdb",
+            std::process::id()
+        ));
+        let _ = std::fs::remove_file(&path);
+        let conn = rusqlite::Connection::open(&path).unwrap();
+        conn.execute(
+            "CREATE TABLE ItemTable (key TEXT PRIMARY KEY, value TEXT)",
+            [],
+        )
+        .unwrap();
+        conn.execute(
+            "INSERT INTO ItemTable (key, value) VALUES ('unrelated', 'x')",
+            [],
+        )
+        .unwrap();
+        drop(conn);
+
+        let adapter = VsCodeAdapter;
+        let handle = TranscriptHandle {
+            path: path.clone(),
+            source: SOURCE,
+            session_hint: None,
+            compressed: false,
+        };
+        let records = adapter.read_native(&handle).expect("no key is ok");
+        let _ = std::fs::remove_file(&path);
+        assert!(records.is_empty());
     }
 
     const SESSION_START: &str = r#"{"kind":"session_start","sessionId":"s1","cwd":"/work","git":{"sha":"abc","branch":"main"},"toolVersion":"1.92.0","model":"gpt-4o"}"#;

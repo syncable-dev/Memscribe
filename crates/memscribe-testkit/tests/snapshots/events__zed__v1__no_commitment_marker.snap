@@ -102,7 +102,7 @@ expression: events
     "source": "zed",
     "session_id": "zed-thread-009",
     "seq": 3,
-    "event_id": "msg-2:edit:0",
+    "event_id": "msg-2#edit:0",
     "parent_id": "msg-2",
     "timestamp": "2026-06-22T17:00:02Z",
     "project": {

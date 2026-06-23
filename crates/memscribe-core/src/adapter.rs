@@ -160,6 +160,18 @@ impl SchemaVariant {
     }
 }
 
+/// How an adapter's discovered store is read into [`RawRecord`]s. Most tools
+/// write newline-delimited transcripts ([`StoreReader::LineDelimited`], read by
+/// `memscribe-io`); some keep their conversation in a database
+/// ([`StoreReader::Native`], read by the adapter's own [`TranscriptAdapter::read_native`]).
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum StoreReader {
+    /// Newline-delimited records — the common case (the io file reader applies).
+    LineDelimited,
+    /// A non-line store (e.g. a SQLite database) the adapter reads itself.
+    Native,
+}
+
 /// Each tool implements this trait. See the module docs for the contract.
 pub trait TranscriptAdapter: Send + Sync {
     /// The tool this adapter handles.
@@ -176,4 +188,27 @@ pub trait TranscriptAdapter: Send + Sync {
     /// Fingerprint a sample record so the corpus and runtime can version-gate
     /// the parser.
     fn schema_fingerprint(&self, sample: &RawRecord) -> SchemaVariant;
+
+    /// How this adapter's store is read. Defaults to line-delimited files; a
+    /// database-backed adapter (Cursor, Zed) overrides this to
+    /// [`StoreReader::Native`].
+    fn store_reader(&self) -> StoreReader {
+        StoreReader::LineDelimited
+    }
+
+    /// Extract raw records from a non-line store (only called when
+    /// [`store_reader`](TranscriptAdapter::store_reader) is [`StoreReader::Native`]).
+    /// This is the adapter's I/O boundary — it opens the database in `handle`
+    /// and yields one [`RawRecord`] per logical message/event, which [`parse`]
+    /// then consumes purely. The default errors, since line-delimited adapters
+    /// never reach it.
+    ///
+    /// # Errors
+    /// Returns a [`ParseError`] if the store cannot be opened or read.
+    fn read_native(&self, handle: &TranscriptHandle) -> Result<Vec<RawRecord>, ParseError> {
+        let _ = handle;
+        Err(ParseError::Io(
+            "this adapter reads line-delimited files; read_native is not implemented".to_string(),
+        ))
+    }
 }

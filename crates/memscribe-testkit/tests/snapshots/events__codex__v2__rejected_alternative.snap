@@ -84,18 +84,12 @@ expression: events
       }
     },
     "kind": {
-      "event": "unknown",
-      "raw_type": "response_item",
-      "raw": {
-        "timestamp": "2026-06-22T15:10:14.500Z",
-        "type": "response_item",
-        "payload": {
-          "type": "reasoning",
-          "summary": [
-            "User rejected GraphQL in favor of REST. No code change requested beyond confirming the decision."
-          ]
-        }
-      }
+      "event": "assistant_turn",
+      "text": "",
+      "thinking": "User rejected GraphQL in favor of REST. No code change requested beyond confirming the decision.",
+      "model": null,
+      "usage": null,
+      "parts": []
     },
     "provenance": {
       "file": "fixtures/codex/v2/rejected_alternative.jsonl",

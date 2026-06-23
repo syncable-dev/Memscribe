@@ -110,7 +110,7 @@ expression: events
   {
     "schema_version": 1,
     "source": "cursor",
-    "session_id": "cur-sess-008",
+    "session_id": "cur-sess-008b",
     "seq": 3,
     "event_id": "eb1a16eaae99f6387b670559ea84d9a3fd8c6b5a67cfe51be20588062e3de438",
     "parent_id": null,
@@ -144,7 +144,7 @@ expression: events
   {
     "schema_version": 1,
     "source": "cursor",
-    "session_id": "cur-sess-008",
+    "session_id": "cur-sess-008b",
     "seq": 4,
     "event_id": "msg-711",
     "parent_id": null,
@@ -176,7 +176,7 @@ expression: events
   {
     "schema_version": 1,
     "source": "cursor",
-    "session_id": "cur-sess-008",
+    "session_id": "cur-sess-008b",
     "seq": 5,
     "event_id": "msg-712",
     "parent_id": "msg-711",
@@ -216,7 +216,7 @@ expression: events
   {
     "schema_version": 1,
     "source": "cursor",
-    "session_id": "cur-sess-008",
+    "session_id": "cur-sess-008b",
     "seq": 6,
     "event_id": "msg-712#toolcall:call-sub-worker",
     "parent_id": "msg-712",
@@ -246,7 +246,7 @@ expression: events
   {
     "schema_version": 1,
     "source": "cursor",
-    "session_id": "cur-sess-008",
+    "session_id": "cur-sess-008b",
     "seq": 7,
     "event_id": "msg-712#toolcall:call-sub-main",
     "parent_id": "msg-712",
@@ -276,7 +276,7 @@ expression: events
   {
     "schema_version": 1,
     "source": "cursor",
-    "session_id": "cur-sess-008",
+    "session_id": "cur-sess-008b",
     "seq": 8,
     "event_id": "msg-712#toolresult:call-sub-worker",
     "parent_id": "msg-712",
@@ -304,7 +304,7 @@ expression: events
   {
     "schema_version": 1,
     "source": "cursor",
-    "session_id": "cur-sess-008",
+    "session_id": "cur-sess-008b",
     "seq": 9,
     "event_id": "msg-712#toolresult:call-sub-main",
     "parent_id": "msg-712",
@@ -332,7 +332,7 @@ expression: events
   {
     "schema_version": 1,
     "source": "cursor",
-    "session_id": "cur-sess-008",
+    "session_id": "cur-sess-008b",
     "seq": 10,
     "event_id": "msg-712#edit:0",
     "parent_id": "msg-712",
@@ -366,7 +366,7 @@ expression: events
   {
     "schema_version": 1,
     "source": "cursor",
-    "session_id": "cur-sess-008",
+    "session_id": "cur-sess-008b",
     "seq": 11,
     "event_id": "msg-712#edit:1",
     "parent_id": "msg-712",
@@ -400,7 +400,7 @@ expression: events
   {
     "schema_version": 1,
     "source": "cursor",
-    "session_id": "cur-sess-008",
+    "session_id": "cur-sess-008b",
     "seq": 12,
     "event_id": "e69081853c4741f2f1ccba21cdcfe9c866a169f4203631bf97c222870905fdfc",
     "parent_id": null,

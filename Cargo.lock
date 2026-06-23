@@ -622,6 +622,7 @@ dependencies = [
  "memscribe-core",
  "proptest",
  "regex",
+ "rusqlite",
  "serde",
  "serde_json",
  "time",

@@ -48,7 +48,7 @@ expression: nodes
   },
   {
     "node": "conversation",
-    "session_id": "cur-sess-008",
+    "session_id": "cur-sess-008b",
     "turn_range": {
       "start": 4,
       "end": 5
@@ -104,7 +104,7 @@ expression: nodes
       "sha": "18293a4b5c6d",
       "branch": "feat/worker-split"
     },
-    "episode_id": "40e626b2941c9fb402b2ad708a83ee3dc4c9a8d880f15e23c6e94a1da9a0bd29"
+    "episode_id": "e6835b14c7ae0755fa66f2753782cf6d7f7b973a6f9c2f7df9124e3c4e8e6d04"
   },
   {
     "node": "episode",
@@ -121,17 +121,17 @@ expression: nodes
       "sha": "18293a4b5c6d",
       "branch": "feat/worker-split"
     },
-    "episode_id": "d596bf6837d6e44bd34129ef6a8e3444ec83b7ff1933a620ff977c72e84d6ab5"
+    "episode_id": "1529b870d85b811d0ef6f634949a51de72b1052ae056c65f97c860143e9836a7"
   },
   {
     "node": "binding",
-    "from": "decision:cur-sess-008:4",
-    "to": "episode:40e626b2941c9fb402b2ad708a83ee3dc4c9a8d880f15e23c6e94a1da9a0bd29",
+    "from": "decision:cur-sess-008b:4",
+    "to": "episode:1529b870d85b811d0ef6f634949a51de72b1052ae056c65f97c860143e9836a7",
     "relation": "produced",
     "prov": {
-      "used_session": "cur-sess-008",
-      "used_decision": "decision:cur-sess-008:4",
-      "was_generated_by_session": "cur-sess-008",
+      "used_session": "cur-sess-008b",
+      "used_decision": "decision:cur-sess-008b:4",
+      "was_generated_by_session": "cur-sess-008b",
       "t_use": "2026-06-22T21:00:15Z",
       "t_gen": "2026-06-22T21:00:22Z"
     },
@@ -146,13 +146,13 @@ expression: nodes
   },
   {
     "node": "binding",
-    "from": "decision:cur-sess-008:4",
-    "to": "episode:d596bf6837d6e44bd34129ef6a8e3444ec83b7ff1933a620ff977c72e84d6ab5",
+    "from": "decision:cur-sess-008b:4",
+    "to": "episode:e6835b14c7ae0755fa66f2753782cf6d7f7b973a6f9c2f7df9124e3c4e8e6d04",
     "relation": "produced",
     "prov": {
-      "used_session": "cur-sess-008",
-      "used_decision": "decision:cur-sess-008:4",
-      "was_generated_by_session": "cur-sess-008",
+      "used_session": "cur-sess-008b",
+      "used_decision": "decision:cur-sess-008b:4",
+      "was_generated_by_session": "cur-sess-008b",
       "t_use": "2026-06-22T21:00:15Z",
       "t_gen": "2026-06-22T21:00:22Z"
     },

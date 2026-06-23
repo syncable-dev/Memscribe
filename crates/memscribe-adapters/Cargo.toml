@@ -26,10 +26,12 @@ claude_code = []
 codex = ["dep:zstd"]
 gemini = []
 otel = []
-cursor = []
+# Cursor, Zed, and VS Code read their conversation from a SQLite store.
+cursor = ["dep:rusqlite"]
 windsurf = []
-zed = []
-vscode = []
+# Zed stores native-agent threads as zstd-compressed JSON in a SQLite blob.
+zed = ["dep:rusqlite", "dep:zstd"]
+vscode = ["dep:rusqlite"]
 copilot = []
 
 [dependencies]
@@ -41,6 +43,7 @@ regex = { workspace = true }
 blake3 = { workspace = true }
 walkdir = { workspace = true }
 zstd = { workspace = true, optional = true }
+rusqlite = { workspace = true, optional = true }
 
 [dev-dependencies]
 proptest = { workspace = true }

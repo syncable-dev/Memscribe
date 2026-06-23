@@ -159,7 +159,7 @@ expression: events
     "source": "zed",
     "session_id": "zed-thread-002",
     "seq": 5,
-    "event_id": "msg-4:edit:0",
+    "event_id": "msg-4#edit:0",
     "parent_id": "msg-4",
     "timestamp": "2026-06-22T11:00:46Z",
     "project": {

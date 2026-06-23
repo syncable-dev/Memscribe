@@ -36,7 +36,7 @@ use memscribe_testkit::golden::{discover_cases, GoldenCase};
 use memscribe_testkit::invariants::{
     check_determinism, check_lossless, check_monotonic_seq, check_unique_event_ids,
 };
-use memscribe_testkit::{count_nonblank_lines, parse_events};
+use memscribe_testkit::{count_input_records, count_nonblank_lines, parse_events};
 use proptest::prelude::*;
 use std::path::Path;
 
@@ -349,7 +349,7 @@ fn fixtures_satisfy_section_8_3_invariants() {
         check_monotonic_seq(&a).unwrap_or_else(|e| panic!("{label}: {e}"));
 
         // Losslessness.
-        let nonblank = count_nonblank_lines(&bytes);
+        let nonblank = count_input_records(tool, &bytes, &path);
         check_lossless(nonblank, &a).unwrap_or_else(|e| panic!("{label}: {e}"));
 
         // A single normal parse pass introduces no duplicate dedup keys: every

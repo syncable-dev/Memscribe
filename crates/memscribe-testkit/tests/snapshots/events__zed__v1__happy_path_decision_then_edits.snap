@@ -102,7 +102,7 @@ expression: events
     "source": "zed",
     "session_id": "zed-thread-001",
     "seq": 3,
-    "event_id": "msg-2:edit:0",
+    "event_id": "msg-2#edit:0",
     "parent_id": "msg-2",
     "timestamp": "2026-06-22T10:00:09Z",
     "project": {
@@ -136,7 +136,7 @@ expression: events
     "source": "zed",
     "session_id": "zed-thread-001",
     "seq": 4,
-    "event_id": "msg-2:edit:1",
+    "event_id": "msg-2#edit:1",
     "parent_id": "msg-2",
     "timestamp": "2026-06-22T10:00:09Z",
     "project": {

@@ -23,7 +23,7 @@ use memscribe_core::{
     CaptureEvent, DefaultPipeline, EventKind, PreparedNode, Redactor, SourceKind,
 };
 use memscribe_testkit::golden::fixtures_dir;
-use memscribe_testkit::{count_nonblank_lines, parse_events};
+use memscribe_testkit::{count_input_records, parse_events};
 use std::path::{Path, PathBuf};
 
 // ---------------------------------------------------------------------------
@@ -241,7 +241,7 @@ fn assert_version_tolerant(
         .unwrap_or_else(|e| panic!("read fixture {}: {e}", fixture.display()));
     let events = parse_events(tool, &bytes, fixture);
 
-    let nonblank = count_nonblank_lines(&bytes);
+    let nonblank = count_input_records(tool, &bytes, fixture);
     assert!(
         events.len() >= nonblank,
         "{}: lossy — {} non-blank records produced only {} events",

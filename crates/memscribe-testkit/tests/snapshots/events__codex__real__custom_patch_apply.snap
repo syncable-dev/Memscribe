@@ -1,0 +1,361 @@
+---
+source: crates/memscribe-testkit/tests/golden.rs
+expression: events
+---
+[
+  {
+    "schema_version": 1,
+    "source": "codex",
+    "session_id": "019ed6f6-ce76-7740-9042-431bc77bd0c7",
+    "seq": 0,
+    "event_id": "session_meta:019ed6f6-ce76-7740-9042-431bc77bd0c7",
+    "parent_id": null,
+    "timestamp": "2026-06-17T19:02:39.478Z",
+    "project": {
+      "cwd": "/repo",
+      "repo_root": null,
+      "git": {
+        "sha": "<sha>",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "session_start",
+      "cwd": "/repo",
+      "git": {
+        "sha": "<sha>",
+        "branch": "main"
+      },
+      "model": null,
+      "tool_version": "0.140.0-alpha.19"
+    },
+    "provenance": {
+      "file": "fixtures/codex/real/custom_patch_apply.jsonl",
+      "byte_offset": 0,
+      "line_no": 1
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "codex",
+    "session_id": "019ed6f6-ce76-7740-9042-431bc77bd0c7",
+    "seq": 1,
+    "event_id": "76532223dce3044eb43344b86c9b8cd678370a59c35aa6fa88df647b157891c7",
+    "parent_id": null,
+    "timestamp": "2026-06-17T19:03:05.139Z",
+    "project": {
+      "cwd": "/repo",
+      "repo_root": null,
+      "git": {
+        "sha": "<sha>",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "user_turn",
+      "text": "Let's use the patch_apply_end diff as the canonical edit signal.",
+      "parts": [
+        {
+          "part": "text",
+          "text": "Let's use the patch_apply_end diff as the canonical edit signal."
+        }
+      ]
+    },
+    "provenance": {
+      "file": "fixtures/codex/real/custom_patch_apply.jsonl",
+      "byte_offset": 291,
+      "line_no": 2
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "codex",
+    "session_id": "019ed6f6-ce76-7740-9042-431bc77bd0c7",
+    "seq": 2,
+    "event_id": "1e1724dddb8ca257d7ba504a5710ae236e9c0f624a3e013f92d6f7a13e7557ec",
+    "parent_id": null,
+    "timestamp": "2026-06-17T19:03:05.143Z",
+    "project": {
+      "cwd": "/repo",
+      "repo_root": null,
+      "git": {
+        "sha": "<sha>",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "unknown",
+      "raw_type": "event_msg",
+      "raw": {
+        "timestamp": "2026-06-17T19:03:05.143Z",
+        "type": "event_msg",
+        "payload": {
+          "type": "user_message",
+          "client_id": "1aa78815-9010-42f6-9273-247d5d4b5426",
+          "message": "Let's use the patch_apply_end diff as the canonical edit signal.",
+          "images": [],
+          "local_images": [],
+          "text_elements": []
+        }
+      }
+    },
+    "provenance": {
+      "file": "fixtures/codex/real/custom_patch_apply.jsonl",
+      "byte_offset": 519,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "codex",
+    "session_id": "019ed6f6-ce76-7740-9042-431bc77bd0c7",
+    "seq": 3,
+    "event_id": "91fd209d532dc713c98388518849bb4250595642e6753223efac92cdab7cec66",
+    "parent_id": null,
+    "timestamp": "1970-01-01T00:00:00Z",
+    "project": {
+      "cwd": "/repo",
+      "repo_root": null,
+      "git": {
+        "sha": "<sha>",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "unknown",
+      "raw_type": "reasoning",
+      "raw": {
+        "type": "reasoning",
+        "summary": [],
+        "encrypted_content": "<redacted>"
+      }
+    },
+    "provenance": {
+      "file": "fixtures/codex/real/custom_patch_apply.jsonl",
+      "byte_offset": 806,
+      "line_no": 4
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "codex",
+    "session_id": "019ed6f6-ce76-7740-9042-431bc77bd0c7",
+    "seq": 4,
+    "event_id": "call_b7xEyEd1Ynjd3HubqhTKCxNR",
+    "parent_id": null,
+    "timestamp": "2026-06-17T19:09:00.249Z",
+    "project": {
+      "cwd": "/repo",
+      "repo_root": null,
+      "git": {
+        "sha": "<sha>",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "tool_call",
+      "call_id": "call_b7xEyEd1Ynjd3HubqhTKCxNR",
+      "name": "apply_patch",
+      "args": "*** Begin Patch\n*** Update File: src/routes/teams.tsx\n@@\n-const tier = \"free\";\n+const tier = \"pro\";\n+const seats = 5;\n*** End Patch"
+    },
+    "provenance": {
+      "file": "fixtures/codex/real/custom_patch_apply.jsonl",
+      "byte_offset": 957,
+      "line_no": 5
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "codex",
+    "session_id": "019ed6f6-ce76-7740-9042-431bc77bd0c7",
+    "seq": 5,
+    "event_id": "call_b7xEyEd1Ynjd3HubqhTKCxNR:patch_apply_end",
+    "parent_id": "call_b7xEyEd1Ynjd3HubqhTKCxNR",
+    "timestamp": "2026-06-17T19:09:00.255Z",
+    "project": {
+      "cwd": "/repo",
+      "repo_root": null,
+      "git": {
+        "sha": "<sha>",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "tool_result",
+      "call_id": "call_b7xEyEd1Ynjd3HubqhTKCxNR",
+      "ok": true,
+      "output": "Success. Updated the following files:\nM /repo/src/routes/teams.tsx"
+    },
+    "provenance": {
+      "file": "fixtures/codex/real/custom_patch_apply.jsonl",
+      "byte_offset": 1309,
+      "line_no": 6
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "codex",
+    "session_id": "019ed6f6-ce76-7740-9042-431bc77bd0c7",
+    "seq": 6,
+    "event_id": "2d12d39e03ad0035594ae96fff099f24643dfb773b95fecda679ccc06dd2f7ce",
+    "parent_id": "call_b7xEyEd1Ynjd3HubqhTKCxNR",
+    "timestamp": "2026-06-17T19:09:00.255Z",
+    "project": {
+      "cwd": "/repo",
+      "repo_root": null,
+      "git": {
+        "sha": "<sha>",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "file_edit",
+      "call_id": "call_b7xEyEd1Ynjd3HubqhTKCxNR",
+      "diff": {
+        "path": "/repo/src/routes/teams.tsx",
+        "old": null,
+        "new": null,
+        "unified": "@@ -1,1 +1,2 @@\n-const tier = \"free\";\n+const tier = \"pro\";\n+const seats = 5;\n",
+        "added_lines": 2,
+        "removed_lines": 1
+      }
+    },
+    "provenance": {
+      "file": "fixtures/codex/real/custom_patch_apply.jsonl",
+      "byte_offset": 1309,
+      "line_no": 6
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "codex",
+    "session_id": "019ed6f6-ce76-7740-9042-431bc77bd0c7",
+    "seq": 7,
+    "event_id": "call_b7xEyEd1Ynjd3HubqhTKCxNR:output",
+    "parent_id": "call_b7xEyEd1Ynjd3HubqhTKCxNR",
+    "timestamp": "2026-06-17T19:09:00.28Z",
+    "project": {
+      "cwd": "/repo",
+      "repo_root": null,
+      "git": {
+        "sha": "<sha>",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "tool_result",
+      "call_id": "call_b7xEyEd1Ynjd3HubqhTKCxNR",
+      "ok": true,
+      "output": "Exit code: 0\nWall time: 0 seconds\nOutput:\nSuccess. Updated the following files:\nM /repo/src/routes/teams.tsx"
+    },
+    "provenance": {
+      "file": "fixtures/codex/real/custom_patch_apply.jsonl",
+      "byte_offset": 15761,
+      "line_no": 7
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "codex",
+    "session_id": "019ed6f6-ce76-7740-9042-431bc77bd0c7",
+    "seq": 8,
+    "event_id": "0389c68d989ccdf8ed7be1361a1b4da7e2b69c434bc7b6331249c35c4203ea8a",
+    "parent_id": null,
+    "timestamp": "2026-06-17T19:03:24.782Z",
+    "project": {
+      "cwd": "/repo",
+      "repo_root": null,
+      "git": {
+        "sha": "<sha>",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "unknown",
+      "raw_type": "event_msg",
+      "raw": {
+        "timestamp": "2026-06-17T19:03:24.782Z",
+        "type": "event_msg",
+        "payload": {
+          "type": "agent_message",
+          "message": "Applied the patch.",
+          "phase": "commentary",
+          "memory_citation": null
+        }
+      }
+    },
+    "provenance": {
+      "file": "fixtures/codex/real/custom_patch_apply.jsonl",
+      "byte_offset": 16046,
+      "line_no": 8
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "codex",
+    "session_id": "019ed6f6-ce76-7740-9042-431bc77bd0c7",
+    "seq": 9,
+    "event_id": "980d424cb39ff26e26b21a740eaf15498dde13997217b9da467cc5dcb2b9156b",
+    "parent_id": null,
+    "timestamp": "2026-06-17T19:03:26.121Z",
+    "project": {
+      "cwd": "/repo",
+      "repo_root": null,
+      "git": {
+        "sha": "<sha>",
+        "branch": "main"
+      }
+    },
+    "kind": {
+      "event": "unknown",
+      "raw_type": "event_msg",
+      "raw": {
+        "timestamp": "2026-06-17T19:03:26.121Z",
+        "type": "event_msg",
+        "payload": {
+          "type": "token_count",
+          "info": {
+            "total_token_usage": {
+              "input_tokens": 21312,
+              "cached_input_tokens": 4992,
+              "output_tokens": 1008,
+              "reasoning_output_tokens": 516,
+              "total_tokens": 22320
+            },
+            "last_token_usage": {
+              "input_tokens": 21312,
+              "cached_input_tokens": 4992,
+              "output_tokens": 1008,
+              "reasoning_output_tokens": 516,
+              "total_tokens": 22320
+            },
+            "model_context_window": 258400
+          },
+          "rate_limits": {
+            "limit_id": "codex",
+            "limit_name": null,
+            "primary": {
+              "used_percent": 42.0,
+              "window_minutes": 300,
+              "resets_at": 1781723066
+            },
+            "secondary": {
+              "used_percent": 70.0,
+              "window_minutes": 10080,
+              "resets_at": 1781860334
+            },
+            "credits": null,
+            "individual_limit": null,
+            "plan_type": "prolite",
+            "rate_limit_reached_type": null
+          }
+        }
+      }
+    },
+    "provenance": {
+      "file": "fixtures/codex/real/custom_patch_apply.jsonl",
+      "byte_offset": 16228,
+      "line_no": 9
+    }
+  }
+]

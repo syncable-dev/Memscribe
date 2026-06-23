@@ -184,8 +184,7 @@ fn cmd_parse(file: &Path, source: Option<&str>, no_redact: bool) -> Result<()> {
     let kind = resolve_source(source, file)?;
     let adapter = memscribe_adapters::adapter_for(kind)
         .ok_or_else(|| anyhow!("the `{kind}` adapter is not compiled into this build"))?;
-    let records =
-        memscribe_io::read_records(file).with_context(|| format!("reading {}", file.display()))?;
+    let records = read_store(adapter.as_ref(), kind, file)?;
 
     let pipeline = if no_redact {
         DefaultPipeline::without_redaction()
@@ -200,6 +199,32 @@ fn cmd_parse(file: &Path, source: Option<&str>, no_redact: bool) -> Result<()> {
     }
     sink.flush()?;
     Ok(())
+}
+
+/// Read raw records for `adapter` from `file`: via the adapter's native store
+/// reader (e.g. SQLite for Cursor/Zed) when it declares one, otherwise via the
+/// io line reader (which also handles `.zst`).
+fn read_store(
+    adapter: &dyn memscribe_core::TranscriptAdapter,
+    kind: SourceKind,
+    file: &Path,
+) -> Result<Vec<memscribe_core::RawRecord>> {
+    match adapter.store_reader() {
+        memscribe_core::StoreReader::Native => {
+            let handle = memscribe_core::TranscriptHandle {
+                path: file.to_path_buf(),
+                source: kind,
+                session_hint: None,
+                compressed: false,
+            };
+            adapter
+                .read_native(&handle)
+                .with_context(|| format!("reading native store {}", file.display()))
+        }
+        memscribe_core::StoreReader::LineDelimited => {
+            memscribe_io::read_records(file).with_context(|| format!("reading {}", file.display()))
+        }
+    }
 }
 
 fn cmd_redact(file: &Path, no_content: bool) -> Result<()> {
@@ -424,7 +449,7 @@ fn verify_one(kind: Option<SourceKind>, path: &Path) -> Result<usize> {
     use memscribe_testkit::invariants::{
         check_determinism, check_lossless, check_monotonic_seq, check_unique_event_ids,
     };
-    use memscribe_testkit::{count_nonblank_lines, parse_events, prepare_nodes};
+    use memscribe_testkit::{count_input_records, parse_events, prepare_nodes};
 
     // Resolve the adapter: explicit tool slug from the directory, else infer.
     let kind = match kind {
@@ -442,7 +467,7 @@ fn verify_one(kind: Option<SourceKind>, path: &Path) -> Result<usize> {
 
     // Events: the lossless, deterministic, monotonic, deduped stream.
     let events = parse_events(kind, &bytes, path);
-    check_lossless(count_nonblank_lines(&bytes), &events).map_err(|e| anyhow!(e))?;
+    check_lossless(count_input_records(kind, &bytes, path), &events).map_err(|e| anyhow!(e))?;
     check_monotonic_seq(&events).map_err(|e| anyhow!(e))?;
     check_unique_event_ids(&events).map_err(|e| anyhow!(e))?;
     // Determinism: a second parse must be byte-identical.

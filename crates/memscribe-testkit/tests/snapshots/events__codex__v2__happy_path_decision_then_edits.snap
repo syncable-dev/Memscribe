@@ -84,18 +84,12 @@ expression: events
       }
     },
     "kind": {
-      "event": "unknown",
-      "raw_type": "response_item",
-      "raw": {
-        "timestamp": "2026-06-22T14:00:09.880Z",
-        "type": "response_item",
-        "payload": {
-          "type": "reasoning",
-          "summary": [
-            "The user decided on Postgres. I'll update the Cargo deps and the connection string."
-          ]
-        }
-      }
+      "event": "assistant_turn",
+      "text": "",
+      "thinking": "The user decided on Postgres. I'll update the Cargo deps and the connection string.",
+      "model": null,
+      "usage": null,
+      "parts": []
     },
     "provenance": {
       "file": "fixtures/codex/v2/happy_path_decision_then_edits.jsonl",

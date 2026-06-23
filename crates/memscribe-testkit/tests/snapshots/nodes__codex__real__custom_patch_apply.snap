@@ -1,0 +1,81 @@
+---
+source: crates/memscribe-testkit/tests/golden.rs
+expression: nodes
+---
+[
+  {
+    "node": "conversation",
+    "session_id": "019ed6f6-ce76-7740-9042-431bc77bd0c7",
+    "turn_range": {
+      "start": 1,
+      "end": 2
+    },
+    "text": "Let's use the patch_apply_end diff as the canonical edit signal.",
+    "markers": [
+      {
+        "rule_id": "decision_verb.use",
+        "category": "decision_verb",
+        "matched_text": "use",
+        "offset": 6
+      }
+    ],
+    "fact_status": "observed",
+    "provenance": [
+      {
+        "file": "fixtures/codex/real/custom_patch_apply.jsonl",
+        "byte_offset": 291,
+        "line_no": 2
+      }
+    ]
+  },
+  {
+    "node": "decision",
+    "epitome": "Let's use the patch_apply_end diff as the canonical edit signal.",
+    "considered_options": [
+      {
+        "text": "the",
+        "chosen": true
+      }
+    ],
+    "is_ban": false,
+    "superseded_by": null,
+    "confirmation": null,
+    "source_span": {
+      "start": 1,
+      "end": 2
+    },
+    "fact_status": "observed"
+  },
+  {
+    "node": "episode",
+    "path": "/repo/src/routes/teams.tsx",
+    "diff": {
+      "path": "/repo/src/routes/teams.tsx",
+      "old": null,
+      "new": null,
+      "unified": "@@ -1,1 +1,2 @@\n-const tier = \"free\";\n+const tier = \"pro\";\n+const seats = 5;\n",
+      "added_lines": 2,
+      "removed_lines": 1
+    },
+    "git": {
+      "sha": "<sha>",
+      "branch": "main"
+    },
+    "episode_id": "6bbf6a2702ff92b1681dfabd2a8b703156be8875efe6aa6852cfe060a91afe7d"
+  },
+  {
+    "node": "binding",
+    "from": "decision:019ed6f6-ce76-7740-9042-431bc77bd0c7:1",
+    "to": "episode:6bbf6a2702ff92b1681dfabd2a8b703156be8875efe6aa6852cfe060a91afe7d",
+    "relation": "produced",
+    "prov": {
+      "used_session": "019ed6f6-ce76-7740-9042-431bc77bd0c7",
+      "used_decision": "decision:019ed6f6-ce76-7740-9042-431bc77bd0c7:1",
+      "was_generated_by_session": "019ed6f6-ce76-7740-9042-431bc77bd0c7",
+      "t_use": "2026-06-17T19:03:05.139Z",
+      "t_gen": "2026-06-17T19:09:00.255Z"
+    },
+    "fact_status": "deterministically_derived",
+    "correlation": null
+  }
+]

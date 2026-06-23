@@ -773,30 +773,13 @@ fn subagent_thread_is_captured_and_bound_within_one_session() {
             "{tool} {case}: the subagent edit must bind to its governing decision"
         );
 
-        // PINNED: every node carries a single, shared session id (subagent work is
-        // merged into one session, not split). Drawn from event-layer session ids.
-        let events = events_for(tool, version, case).expect("events parse");
-        let sessions: BTreeSet<&str> = events.iter().map(|e| e.session_id.as_str()).collect();
-        assert_eq!(
-            sessions.len(),
-            1,
-            "{tool} {case}: expected a single normalized session id (subagent merged \
-             into the parent). If this fires, an adapter began emitting a distinct \
-             subagent session and this pin should become the stronger 'distinct \
-             session' assertion (sessions = {sessions:?})"
-        );
-        let the_session = *sessions.iter().next().unwrap();
-
-        // The binding stays within that one session, and its source is the
-        // subagent's own decision (PROV used_decision == from), never fabricated.
+        // Each binding stays within ONE session (its own), binds to an observed
+        // decision, and is temporally valid — whether the adapter merges the
+        // subagent into the parent session or keeps it distinct.
         for b in &bindings {
             assert_eq!(
-                b.prov.used_session, the_session,
-                "{tool} {case}: binding used_session must be the single shared session"
-            );
-            assert_eq!(
-                b.prov.was_generated_by_session, the_session,
-                "{tool} {case}: episode session must be the single shared session"
+                b.prov.used_session, b.prov.was_generated_by_session,
+                "{tool} {case}: a subagent binding must stay within a single session"
             );
             assert_eq!(
                 b.prov.used_decision.as_ref(),
@@ -808,6 +791,20 @@ fn subagent_thread_is_captured_and_bound_within_one_session() {
                 "{tool} {case}: subagent binding violated t_use <= t_gen"
             );
         }
+
+        // Session separation, pinned per tool. Cursor reads each composer as its
+        // own session, so the subagent thread is kept DISTINCT — "attributed, not
+        // merged" (§8.2), the stronger, preferred behavior. The other tools thread
+        // a single ParseCtx and currently merge the subagent into the parent.
+        let events = events_for(tool, version, case).expect("events parse");
+        let sessions: BTreeSet<&str> = events.iter().map(|e| e.session_id.as_str()).collect();
+        let expected = if tool == SourceKind::Cursor { 2 } else { 1 };
+        assert_eq!(
+            sessions.len(),
+            expected,
+            "{tool} {case}: expected {expected} session id(s) (cursor keeps the \
+             subagent distinct; others merge) — got {sessions:?}"
+        );
         seen += 1;
     }
     assert_eq!(

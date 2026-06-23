@@ -84,18 +84,12 @@ expression: events
       }
     },
     "kind": {
-      "event": "unknown",
-      "raw_type": "response_item",
-      "raw": {
-        "timestamp": "2026-06-22T19:00:12.900Z",
-        "type": "response_item",
-        "payload": {
-          "type": "reasoning",
-          "summary": [
-            "This is a single logical rename commit touching several files. I'll do it in one apply_patch."
-          ]
-        }
-      }
+      "event": "assistant_turn",
+      "text": "",
+      "thinking": "This is a single logical rename commit touching several files. I'll do it in one apply_patch.",
+      "model": null,
+      "usage": null,
+      "parts": []
     },
     "provenance": {
       "file": "fixtures/codex/v2/multi_edit_single_commit.jsonl",

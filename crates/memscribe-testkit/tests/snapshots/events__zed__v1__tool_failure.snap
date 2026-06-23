@@ -127,7 +127,7 @@ expression: events
     "source": "zed",
     "session_id": "zed-thread-004",
     "seq": 4,
-    "event_id": "msg-2:edit:0",
+    "event_id": "msg-2#edit:0",
     "parent_id": "msg-2",
     "timestamp": "2026-06-22T13:00:06Z",
     "project": {

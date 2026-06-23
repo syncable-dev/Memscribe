@@ -30,7 +30,8 @@ pub mod segmenter;
 pub mod sink;
 
 pub use adapter::{
-    DiscoverCfg, ParseCtx, RawRecord, SchemaVariant, TranscriptAdapter, TranscriptHandle,
+    DiscoverCfg, ParseCtx, RawRecord, SchemaVariant, StoreReader, TranscriptAdapter,
+    TranscriptHandle,
 };
 pub use binder::{Binder, DefaultBinder};
 pub use error::{ParseError, PipelineError, SinkError};
