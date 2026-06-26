@@ -95,6 +95,30 @@ enum Command {
         #[arg(long)]
         no_content: bool,
     },
+    /// Mine decisions out of a git repository's commit history.
+    ///
+    /// A plain git-replay only yields code episodes; the decisions an engineer
+    /// recorded in their commit messages (Conventional Commits, `BREAKING
+    /// CHANGE`, reverts, "X instead of Y") are dropped. This catches them,
+    /// deterministically and zero-LLM, and emits them as prepared nodes
+    /// (decision + the files it shaped + the binding between them).
+    Git {
+        /// The repository path (default: current directory).
+        #[arg(long, default_value = ".")]
+        repo: PathBuf,
+        /// The revision to walk from (default: HEAD).
+        #[arg(long, default_value = "HEAD")]
+        rev: String,
+        /// Cap the number of most-recent commits walked (0 = all).
+        #[arg(long, default_value_t = 0)]
+        max: usize,
+        /// Where prepared nodes go (`-` is stdout).
+        #[arg(long, default_value = "-")]
+        out: PathBuf,
+        /// Do not run the redaction pass (emit verbatim).
+        #[arg(long)]
+        no_redact: bool,
+    },
 }
 
 fn main() -> Result<()> {
@@ -135,6 +159,13 @@ fn main() -> Result<()> {
             once,
             config,
         } => cmd_watch(&tools, &sink, &out, &roots, once, config.as_deref()),
+        Command::Git {
+            repo,
+            rev,
+            max,
+            out,
+            no_redact,
+        } => cmd_git(&repo, &rev, max, &out, no_redact),
     }
 }
 
@@ -199,6 +230,149 @@ fn cmd_parse(file: &Path, source: Option<&str>, no_redact: bool) -> Result<()> {
     }
     sink.flush()?;
     Ok(())
+}
+
+/// Mine decisions from a git repository's commit history.
+///
+/// Two deterministic `git log` passes over the same revision: one for the commit
+/// messages, one for the touched files. Commits are then sorted by (committer
+/// epoch, sha) — never libgit2/git's tie-breaking — so the node stream is stable
+/// across runs and machines, matching the gitmine determinism contract.
+fn cmd_git(repo: &Path, rev: &str, max: usize, out: &Path, no_redact: bool) -> Result<()> {
+    use memscribe_core::{mine_commit_nodes, CommitInput, Redactor};
+    use std::collections::BTreeMap;
+
+    // --- Pass 1: messages (sha, committer-epoch, subject, body). ---
+    // RS (0x1e) terminates each commit record; US (0x1f) separates fields.
+    let fmt = "--format=%H%x1f%ct%x1f%s%x1f%b%x1e";
+    let mut log_args: Vec<String> = vec![
+        "-C".into(),
+        repo.display().to_string(),
+        "log".into(),
+        "--no-merges".into(),
+        fmt.into(),
+    ];
+    if max > 0 {
+        log_args.push(format!("--max-count={max}"));
+    }
+    log_args.push(rev.into());
+    let msg_out = run_git(&log_args)?;
+
+    let mut commits: Vec<CommitInput> = Vec::new();
+    for record in msg_out.split('\u{1e}') {
+        let record = record.trim_matches(['\n', '\r']);
+        if record.is_empty() {
+            continue;
+        }
+        let mut parts = record.splitn(4, '\u{1f}');
+        let sha = parts.next().unwrap_or("").trim().to_string();
+        let epoch: i64 = parts.next().unwrap_or("0").trim().parse().unwrap_or(0);
+        let subject = parts.next().unwrap_or("").to_string();
+        let body = parts.next().unwrap_or("").trim().to_string();
+        if sha.is_empty() {
+            continue;
+        }
+        commits.push(CommitInput {
+            sha,
+            subject,
+            body,
+            files: Vec::new(),
+            epoch,
+        });
+    }
+
+    // --- Pass 2: touched files per sha. ---
+    let mut file_args: Vec<String> = vec![
+        "-C".into(),
+        repo.display().to_string(),
+        "log".into(),
+        "--no-merges".into(),
+        "--name-only".into(),
+        "--format=%x1e%H".into(),
+    ];
+    if max > 0 {
+        file_args.push(format!("--max-count={max}"));
+    }
+    file_args.push(rev.into());
+    let files_out = run_git(&file_args)?;
+
+    let mut files_by_sha: BTreeMap<String, Vec<String>> = BTreeMap::new();
+    let mut cur: Option<String> = None;
+    for line in files_out.lines() {
+        if let Some(rest) = line.strip_prefix('\u{1e}') {
+            cur = Some(rest.trim().to_string());
+            continue;
+        }
+        let line = line.trim();
+        if line.is_empty() {
+            continue;
+        }
+        if let Some(sha) = &cur {
+            files_by_sha
+                .entry(sha.clone())
+                .or_default()
+                .push(line.to_string());
+        }
+    }
+    for c in &mut commits {
+        if let Some(fs) = files_by_sha.get(&c.sha) {
+            let mut fs = fs.clone();
+            fs.sort();
+            fs.dedup();
+            c.files = fs;
+        }
+    }
+
+    // Deterministic order: committer epoch, then sha (gitmine contract).
+    commits.sort_by(|a, b| a.epoch.cmp(&b.epoch).then_with(|| a.sha.cmp(&b.sha)));
+
+    let mut nodes = mine_commit_nodes(&commits);
+    if !no_redact {
+        let r = Redactor::default();
+        for n in &mut nodes {
+            r.redact_node(n);
+        }
+    }
+
+    let decisions = nodes
+        .iter()
+        .filter(|n| n.tag() == "decision")
+        .count();
+    let bindings = nodes.iter().filter(|n| n.tag() == "binding").count();
+    eprintln!(
+        "memscribe git: {} commits scanned, {decisions} decisions mined, {bindings} decision→file links",
+        commits.len()
+    );
+
+    let mut sink: Box<dyn Sink> = if out == Path::new("-") {
+        Box::new(NdjsonSink::stdout())
+    } else {
+        Box::new(
+            NdjsonSink::file(out)
+                .with_context(|| format!("opening ndjson sink at {}", out.display()))?,
+        )
+    };
+    for n in &nodes {
+        sink.emit(n)?;
+    }
+    sink.flush()?;
+    Ok(())
+}
+
+/// Run `git` with the given args, returning stdout as a lossy-UTF-8 string.
+fn run_git(args: &[String]) -> Result<String> {
+    let output = std::process::Command::new("git")
+        .args(args)
+        .output()
+        .context("failed to spawn `git` (is it on PATH?)")?;
+    if !output.status.success() {
+        bail!(
+            "git {} failed: {}",
+            args.join(" "),
+            String::from_utf8_lossy(&output.stderr).trim()
+        );
+    }
+    Ok(String::from_utf8_lossy(&output.stdout).into_owned())
 }
 
 /// Read raw records for `adapter` from `file`: via the adapter's native store

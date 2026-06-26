@@ -37,6 +37,11 @@ pub struct DefaultBinder;
 
 impl Binder for DefaultBinder {
     fn bind(&self, seg: &Segmentation) -> Vec<BindingEdge> {
+        // A decision governs the edits that CLOSELY follow it, not the entire
+        // rest of a long session. Beyond this gap the "produced" link is noise:
+        // one early "use TDD" should not claim the 59 files edited hours later.
+        // Deterministic, tunable. (Attribution-precision fix 2026-06-26.)
+        const MAX_BIND_GAP_SECS: i64 = 1800;
         let mut edges = Vec::new();
         // Parallel to `edges`: the bound decision's id and the episode path, so a
         // second pass can compute the co-occurrence contingency table.
@@ -57,6 +62,10 @@ impl Binder for DefaultBinder {
                     continue;
                 }
                 if dec.timestamp > ep.timestamp {
+                    continue;
+                }
+                // Too far before the edit to plausibly have caused it.
+                if (ep.timestamp - dec.timestamp).whole_seconds() > MAX_BIND_GAP_SECS {
                     continue;
                 }
                 // Most-recent-preceding wins; on a timestamp tie the higher
@@ -264,6 +273,7 @@ mod tests {
                 confirmation: None,
                 source_span: turn_seq..turn_seq + 1,
                 fact_status: FS::Observed,
+                timestamp: ts(t),
             },
             node_id: NodeId::new(id),
             turn_seq,

@@ -144,6 +144,19 @@ pub struct DecisionRecord {
     /// `Observed` for the verbatim text. Element-typing uncertainty is flagged
     /// downstream as [`FactStatus::LlmHypothesis`], never guessed here.
     pub fact_status: FactStatus,
+    /// When the decision was made: the originating gated turn's wall-clock time.
+    /// Lives on the record (not a sidecar) so each decision carries its own real
+    /// time across `nodeprep`'s `.record.clone()` and the NDJSON round-trip —
+    /// without it, ingest stamps every node with the batch default (epoch 1000).
+    #[serde(with = "time::serde::rfc3339", default = "epoch_fallback")]
+    pub timestamp: OffsetDateTime,
+}
+
+/// Backward-compat default for `DecisionRecord.timestamp` when reading NDJSON
+/// produced before the field existed (e.g. a committed benchmark corpus): the
+/// record deserializes with an epoch timestamp instead of failing the whole line.
+fn epoch_fallback() -> OffsetDateTime {
+    OffsetDateTime::UNIX_EPOCH
 }
 
 /// A code edit episode: the path, the diff, and the git sha

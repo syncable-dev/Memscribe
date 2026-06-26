@@ -242,6 +242,25 @@ pub fn default_rules() -> Vec<(&'static str, MarkerCategory, Tier, &'static str)
             Strong,
             r"\b(?:optimi[sz](?:e|es|ed|ing)|harden(?:s|ed|ing)?|robustif(?:y|ies|ied)|saniti[sz](?:e|es|ed|ing)|memoi[sz](?:e|es|ed|ing)|paralleli[sz](?:e|es|ed|ing)|debounce(?:s|d)?|debouncing|throttl(?:e|es|ed|ing)|speed(?:s|ing)?\s+(?:it\s+|this\s+|that\s+)?up|sped\s+up)\b",
         ),
+        // ---- Bare imperative decisions (recall fix) ----
+        // Turn/line-initial action verb + a concrete object, WITHOUT the
+        // politeness lead-in that `action.request_guarded` demands. These are
+        // declaratively-phrased decisions ("Disable the flaky test",
+        // "Replace window.resize", "Add a new MCP tool", "Introduce a feature
+        // profile") the gate previously missed entirely — ~23% of all missed
+        // real decisions on the multi-judge corpus. Soft tier: a same-session
+        // edit must confirm, so a bare "Add a feature" in chatter with no
+        // resulting diff never manufactures a phantom Decision. Anchored to line
+        // start — skipping leading list / quote / id markers ("- ", "> ",
+        // "8642: ") so real formatting still matches — plus the object
+        // requirement, so mid-sentence "we should add …" is left to the lead-in
+        // rules. Validated +7.6 pts recall @ 92% rule-precision.
+        (
+            "action.bare_imperative",
+            ActionRequest,
+            Soft,
+            r"(?m)^[^A-Za-z\n]{0,16}(?:add|adds|disable|disables|enable|enables|introduce|introduces|remove|removes|drop|drops|replace|replaces|rename|renames|expose|exposes|wire|wires|guard|guards|store|stores|persist|persists|cache|caches|flush|flushes|evict|evicts|prevent|prevents|require|requires|convert|converts|support|supports|allow|allows|skip|skips|strip|strips)\s+(?:a |an |the |new |all |it |this |that |them )?[A-Za-z][A-Za-z0-9_./-]{2,}",
+        ),
     ]
 }
 
@@ -406,6 +425,30 @@ impl CommitmentGate {
         }
         false
     }
+
+    /// The strongest fired (non-`Confirmation`) tier among the markers — the base
+    /// signal for the scored candidacy gate. `Strong` if any Strong rule fired,
+    /// else `Soft` if any Soft fired, else `None` (only Confirmation / none).
+    /// Unlike [`Self::seeds_decision`] this does NOT require an edit for Soft —
+    /// the scored gate keeps Soft candidates at a lower tier instead of dropping.
+    #[must_use]
+    pub fn strongest_tier(&self, markers: &[CommitmentMarker]) -> Option<Tier> {
+        let mut soft = false;
+        for m in markers {
+            if m.category == MarkerCategory::Confirmation {
+                continue;
+            }
+            match self.rules.iter().find(|r| r.id == m.rule_id).map(|r| r.tier) {
+                Some(Tier::Strong) | None => return Some(Tier::Strong),
+                Some(Tier::Soft) => soft = true,
+            }
+        }
+        if soft {
+            Some(Tier::Soft)
+        } else {
+            None
+        }
+    }
 }
 
 #[cfg(test)]
@@ -458,6 +501,37 @@ mod tests {
     fn case_insensitive() {
         let gate = CommitmentGate::default_table();
         assert!(gate.admits("LET'S GO WITH redis"));
+    }
+
+    #[test]
+    fn bare_imperative_recovers_declarative_decisions() {
+        let gate = CommitmentGate::default_table();
+        // Declaratively-phrased decisions the lead-in rules previously missed,
+        // including ones with leading list / id markers.
+        for turn in [
+            "Disable the flaky GPU test on Linux.",
+            "Replace window.resize with a ResizeObserver.",
+            "Add a new MCP tool that walks the governs edges.",
+            "Introduce a feature profile for step-up auth.",
+            "- Remove the impersonation button when disabled.",
+            "8642: Disable test that fails on linux trybots.",
+        ] {
+            let m = gate.evaluate(turn);
+            assert!(
+                m.iter().any(|x| x.rule_id == "action.bare_imperative"),
+                "bare imperative should fire on {turn:?}: {m:?}"
+            );
+        }
+        // Soft tier: a same-session edit must confirm — no phantom decisions.
+        let m = gate.evaluate("Disable the flaky GPU test on Linux.");
+        assert!(!gate.seeds_decision(&m, false), "bare imperative + no edit must not seed");
+        assert!(gate.seeds_decision(&m, true), "bare imperative + edit may seed");
+        // Mid-sentence / non-initial use must NOT fire this rule (precision guard).
+        let chat = gate.evaluate("I added a quick note about this earlier, nothing major.");
+        assert!(
+            !chat.iter().any(|x| x.rule_id == "action.bare_imperative"),
+            "non-initial 'added' must not fire: {chat:?}"
+        );
     }
 
     #[test]

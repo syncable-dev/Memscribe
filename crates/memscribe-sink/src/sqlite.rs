@@ -170,6 +170,7 @@ mod tests {
             confirmation: None,
             source_span: 1..2,
             fact_status: FactStatus::Observed,
+            timestamp: time::OffsetDateTime::UNIX_EPOCH,
         })
     }
 

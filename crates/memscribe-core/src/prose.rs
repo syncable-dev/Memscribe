@@ -102,6 +102,16 @@ pub fn default_line_rejects() -> Vec<&'static str> {
         r"[?!]{4,}",                          // punctuation venting ("…FAILING ?????!!!!!!")
         r"\b(?:SET|WHERE)\s+[\w.]+\s*=",      // a SQL fragment ("… SET unlimited_queries = true …")
         r"\bINSERT\s+INTO\b",                 // a SQL fragment
+        // ---- /goal-skill condition restatements (recall-biased false "decisions") ----
+        // e.g. "[go and implement all of this…]: The condition … is NOT satisfied."
+        // The "[…]: The condition/requirement/goal" template is distinctive of the
+        // goal tracker; reject it here so it never elevates to a Decision.
+        r"\[[^\]]{1,200}\]:\s*(?:[Tt]he )?(?:[Cc]ondition|[Rr]equirement|[Gg]oal)\b",
+        // The bare bracketed goal restatement WITHOUT the condition suffix — the
+        // goal tracker echoes "[<the whole goal sentence>]" each turn. A line that
+        // starts with a long (25+ char) bracketed clause is that artifact, never a
+        // real decision; short tags like "[urgent]"/"[WIP]"/"[Image #70]" are kept.
+        r"^\s*\[[^\]]{25,400}\]",
         r"^\s*\x22,",                         // a JSON string-array leftover (`","essentially …`)
     ]
 }
@@ -281,6 +291,36 @@ mod tests {
             assert!(g.is_human_prose(t), "should keep human prose: {t:?}");
             // A clean turn is returned essentially verbatim.
             assert_eq!(g.clean(t).as_deref(), Some(t));
+        }
+    }
+
+    #[test]
+    fn rejects_goal_skill_condition_restatements() {
+        let g = f();
+        // The /goal tracker emits "[<goal>]: The condition … is NOT satisfied."
+        // lines that trip the commitment gate as false "decisions".
+        for t in [
+            "[go and implement all of this and then test it in every possible way, ensuring no regression and prepare for ship]: The condition 'implement all of this' is NOT satisfied.",
+            "[Continue until done]: the requirement is not yet met.",
+            "[ship it]: Condition requires all workstreams complete.",
+            "[finish the work]: Condition not satisfied.",
+            // The bare bracketed goal restatement (no condition suffix) — the form
+            // that slipped through the suffix-only pattern in the first pass.
+            "[go and implement all of this and then test it in every possible way, ensuring no regression and prepare for ship]",
+            "[now test all the features we have been working on to make sure no regression has happened]",
+        ] {
+            assert!(
+                !g.is_human_prose(t),
+                "should reject goal-tracking restatement: {t:?}"
+            );
+        }
+        // Genuine short-tag bracketed prose must still be kept (tag < 25 chars).
+        for keep in [
+            "[urgent] can we switch the orders service to Postgres?",
+            "[WIP] refactor the parser",
+            "[Backend] use Postgres instead of MySQL for the orders service",
+        ] {
+            assert!(g.is_human_prose(keep), "must not over-reject genuine prose: {keep:?}");
         }
     }
 
