@@ -43,12 +43,7 @@ expression: nodes
   {
     "node": "decision",
     "epitome": "Let's use a dedicated background worker for the email queue.",
-    "considered_options": [
-      {
-        "text": "a",
-        "chosen": true
-      }
-    ],
+    "considered_options": [],
     "is_ban": false,
     "superseded_by": null,
     "confirmation": null,
@@ -56,7 +51,8 @@ expression: nodes
       "start": 1,
       "end": 2
     },
-    "fact_status": "observed"
+    "fact_status": "observed",
+    "timestamp": "2026-06-22T17:00:00Z"
   },
   {
     "node": "episode",
@@ -109,12 +105,7 @@ expression: nodes
   {
     "node": "decision",
     "epitome": "Within this worker thread, let's use exponential backoff for failed sends.",
-    "considered_options": [
-      {
-        "text": "exponential",
-        "chosen": true
-      }
-    ],
+    "considered_options": [],
     "is_ban": false,
     "superseded_by": null,
     "confirmation": null,
@@ -122,7 +113,8 @@ expression: nodes
       "start": 5,
       "end": 6
     },
-    "fact_status": "observed"
+    "fact_status": "observed",
+    "timestamp": "2026-06-22T17:00:20Z"
   },
   {
     "node": "episode",

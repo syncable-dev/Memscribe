@@ -43,12 +43,7 @@ expression: nodes
   {
     "node": "decision",
     "epitome": "Let's use a dedicated background worker for the email queue.",
-    "considered_options": [
-      {
-        "text": "a",
-        "chosen": true
-      }
-    ],
+    "considered_options": [],
     "is_ban": false,
     "superseded_by": null,
     "confirmation": null,
@@ -56,7 +51,8 @@ expression: nodes
       "start": 1,
       "end": 2
     },
-    "fact_status": "observed"
+    "fact_status": "observed",
+    "timestamp": "2026-06-22T21:00:06Z"
   },
   {
     "node": "conversation",
@@ -86,12 +82,7 @@ expression: nodes
   {
     "node": "decision",
     "epitome": "Use a dedicated worker module: extract the email send loop into src/worker/email.rs and spawn it from main.",
-    "considered_options": [
-      {
-        "text": "a",
-        "chosen": true
-      }
-    ],
+    "considered_options": [],
     "is_ban": false,
     "superseded_by": null,
     "confirmation": null,
@@ -99,7 +90,8 @@ expression: nodes
       "start": 4,
       "end": 5
     },
-    "fact_status": "observed"
+    "fact_status": "observed",
+    "timestamp": "2026-06-22T21:00:15Z"
   },
   {
     "node": "episode",

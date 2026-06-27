@@ -37,12 +37,7 @@ expression: nodes
   {
     "node": "decision",
     "epitome": "Let's use a dedicated search subagent to migrate the indexer to tantivy.",
-    "considered_options": [
-      {
-        "text": "a",
-        "chosen": true
-      }
-    ],
+    "considered_options": [],
     "is_ban": false,
     "superseded_by": null,
     "confirmation": null,
@@ -50,7 +45,8 @@ expression: nodes
       "start": 1,
       "end": 2
     },
-    "fact_status": "observed"
+    "fact_status": "observed",
+    "timestamp": "2026-06-22T17:00:00Z"
   },
   {
     "node": "conversation",
@@ -86,12 +82,7 @@ expression: nodes
   {
     "node": "decision",
     "epitome": "Let's adopt tantivy as the search index backend in the indexer module.",
-    "considered_options": [
-      {
-        "text": "tantivy",
-        "chosen": true
-      }
-    ],
+    "considered_options": [],
     "is_ban": false,
     "superseded_by": null,
     "confirmation": null,
@@ -99,7 +90,8 @@ expression: nodes
       "start": 4,
       "end": 5
     },
-    "fact_status": "observed"
+    "fact_status": "observed",
+    "timestamp": "2026-06-22T17:00:05Z"
   },
   {
     "node": "episode",

@@ -31,12 +31,7 @@ expression: nodes
   {
     "node": "decision",
     "epitome": "Kick off the ingest refactor; delegate the parser rewrite to a focused sub-thread.",
-    "considered_options": [
-      {
-        "text": "d",
-        "chosen": true
-      }
-    ],
+    "considered_options": [],
     "is_ban": false,
     "superseded_by": null,
     "confirmation": null,
@@ -44,7 +39,8 @@ expression: nodes
       "start": 1,
       "end": 2
     },
-    "fact_status": "observed"
+    "fact_status": "observed",
+    "timestamp": "2026-06-22T16:00:00Z"
   },
   {
     "node": "conversation",
@@ -80,16 +76,7 @@ expression: nodes
   {
     "node": "decision",
     "epitome": "In this sub-thread, use a streaming pull-parser for the ingest format instead of the buffered one.",
-    "considered_options": [
-      {
-        "text": "the",
-        "chosen": false
-      },
-      {
-        "text": "a",
-        "chosen": true
-      }
-    ],
+    "considered_options": [],
     "is_ban": false,
     "superseded_by": null,
     "confirmation": null,
@@ -97,7 +84,8 @@ expression: nodes
       "start": 4,
       "end": 5
     },
-    "fact_status": "observed"
+    "fact_status": "observed",
+    "timestamp": "2026-06-22T16:01:00Z"
   },
   {
     "node": "episode",

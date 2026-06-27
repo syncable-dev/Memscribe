@@ -37,12 +37,7 @@ expression: nodes
   {
     "node": "decision",
     "epitome": "Let's use rustls for the TLS layer in the gateway.",
-    "considered_options": [
-      {
-        "text": "rustls",
-        "chosen": true
-      }
-    ],
+    "considered_options": [],
     "is_ban": false,
     "superseded_by": null,
     "confirmation": null,
@@ -50,7 +45,8 @@ expression: nodes
       "start": 1,
       "end": 2
     },
-    "fact_status": "observed"
+    "fact_status": "observed",
+    "timestamp": "2026-06-22T16:00:00Z"
   },
   {
     "node": "episode",
@@ -116,7 +112,8 @@ expression: nodes
       "start": 8,
       "end": 9
     },
-    "fact_status": "observed"
+    "fact_status": "observed",
+    "timestamp": "2026-06-22T16:05:00Z"
   },
   {
     "node": "episode",

@@ -42,13 +42,8 @@ expression: nodes
   },
   {
     "node": "decision",
-    "epitome": "Use the std string padding instead.",
-    "considered_options": [
-      {
-        "text": "the",
-        "chosen": true
-      }
-    ],
+    "epitome": "We will never add a dependency on left-pad in this repo.",
+    "considered_options": [],
     "is_ban": true,
     "superseded_by": null,
     "confirmation": null,
@@ -56,6 +51,7 @@ expression: nodes
       "start": 1,
       "end": 2
     },
-    "fact_status": "observed"
+    "fact_status": "observed",
+    "timestamp": "2026-06-22T12:15:00Z"
   }
 ]

@@ -306,8 +306,11 @@ fn best_committal_offset(
 fn epitome_priority(category: MarkerCategory) -> u8 {
     use MarkerCategory::*;
     match category {
-        DecisionVerb | ActionRequest => 0,
-        Rejection | Ban => 1,
+        // A ban is the headline of its turn — anchor the epitome on it so a
+        // prohibition ("never add X. use Y instead.") is judged on the ban
+        // clause, not on the trailing substitution sentence.
+        Ban => 0,
+        DecisionVerb | ActionRequest | Rejection => 1,
         Memory => 2,
         Imperative => 3,
         Confirmation => 4,
@@ -552,12 +555,13 @@ fn is_skill_or_goal(lower: &str) -> bool {
 /// Pasted code / shell / log lines that slipped past prose hygiene.
 fn looks_like_code_or_log(s: &str) -> bool {
     let lower = s.to_ascii_lowercase();
+    // Strong code/log signals. A bare file mention ("…into src/worker/email.rs")
+    // is NOT one of them — a decision that names the file it touches is normal
+    // prose; the punctuation-density check below catches actual pasted code/logs.
     if lower.starts_with("echo ")
         || s.contains("####")
         || s.contains("::")
         || s.contains("->")
-        || lower.contains("crates/")
-        || lower.contains(".rs")
     {
         return true;
     }

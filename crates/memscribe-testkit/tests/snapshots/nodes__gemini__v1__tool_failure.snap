@@ -2,4 +2,44 @@
 source: crates/memscribe-testkit/tests/golden.rs
 expression: nodes
 ---
-[]
+[
+  {
+    "node": "conversation",
+    "session_id": "a1b2c3d4-0004",
+    "turn_range": {
+      "start": 1,
+      "end": 2
+    },
+    "text": "Add a rate limiter to the gateway handler.",
+    "markers": [
+      {
+        "rule_id": "action.bare_imperative",
+        "category": "action_request",
+        "matched_text": "Add a rate",
+        "offset": 0
+      }
+    ],
+    "fact_status": "observed",
+    "provenance": [
+      {
+        "file": "fixtures/gemini/v1/tool_failure.jsonl",
+        "byte_offset": 149,
+        "line_no": 2
+      }
+    ]
+  },
+  {
+    "node": "decision",
+    "epitome": "Add a rate limiter to the gateway handler.",
+    "considered_options": [],
+    "is_ban": false,
+    "superseded_by": null,
+    "confirmation": null,
+    "source_span": {
+      "start": 1,
+      "end": 2
+    },
+    "fact_status": "statistically_ranked",
+    "timestamp": "2026-06-22T13:45:00Z"
+  }
+]

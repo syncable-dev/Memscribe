@@ -31,12 +31,7 @@ expression: nodes
   {
     "node": "decision",
     "epitome": "Switch the config loader to read from config.toml instead of config.yaml.",
-    "considered_options": [
-      {
-        "text": "config",
-        "chosen": false
-      }
-    ],
+    "considered_options": [],
     "is_ban": false,
     "superseded_by": null,
     "confirmation": null,
@@ -44,6 +39,7 @@ expression: nodes
       "start": 1,
       "end": 2
     },
-    "fact_status": "observed"
+    "fact_status": "observed",
+    "timestamp": "2026-06-22T17:05:06.41Z"
   }
 ]

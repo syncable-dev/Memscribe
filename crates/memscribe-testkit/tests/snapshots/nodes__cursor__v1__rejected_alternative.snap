@@ -81,7 +81,8 @@ expression: nodes
       "start": 3,
       "end": 4
     },
-    "fact_status": "observed"
+    "fact_status": "observed",
+    "timestamp": "2026-06-22T15:10:40Z"
   },
   {
     "node": "episode",

@@ -39,6 +39,7 @@ expression: nodes
       "start": 1,
       "end": 2
     },
-    "fact_status": "observed"
+    "fact_status": "deterministically_derived",
+    "timestamp": "2026-06-22T17:05:00Z"
   }
 ]

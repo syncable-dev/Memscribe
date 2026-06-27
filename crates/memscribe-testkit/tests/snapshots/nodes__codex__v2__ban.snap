@@ -45,6 +45,7 @@ expression: nodes
       "start": 1,
       "end": 2
     },
-    "fact_status": "observed"
+    "fact_status": "observed",
+    "timestamp": "2026-06-22T16:20:07.33Z"
   }
 ]

@@ -42,7 +42,7 @@ expression: nodes
   },
   {
     "node": "decision",
-    "epitome": "Implement padding inline instead.",
+    "epitome": "We will never add a dependency on left-pad.",
     "considered_options": [],
     "is_ban": true,
     "superseded_by": null,
@@ -51,7 +51,8 @@ expression: nodes
       "start": 1,
       "end": 2
     },
-    "fact_status": "observed"
+    "fact_status": "observed",
+    "timestamp": "2026-06-22T16:20:00Z"
   },
   {
     "node": "episode",

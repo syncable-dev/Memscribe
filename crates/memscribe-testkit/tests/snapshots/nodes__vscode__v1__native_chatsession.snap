@@ -2,4 +2,44 @@
 source: crates/memscribe-testkit/tests/golden.rs
 expression: nodes
 ---
-[]
+[
+  {
+    "node": "conversation",
+    "session_id": "vsc-native-1",
+    "turn_range": {
+      "start": 0,
+      "end": 1
+    },
+    "text": "Add a health check endpoint",
+    "markers": [
+      {
+        "rule_id": "action.bare_imperative",
+        "category": "action_request",
+        "matched_text": "Add a health",
+        "offset": 0
+      }
+    ],
+    "fact_status": "observed",
+    "provenance": [
+      {
+        "file": "fixtures/vscode/v1/native_chatsession.jsonl",
+        "byte_offset": 0,
+        "line_no": 1
+      }
+    ]
+  },
+  {
+    "node": "decision",
+    "epitome": "Add a health check endpoint",
+    "considered_options": [],
+    "is_ban": false,
+    "superseded_by": null,
+    "confirmation": null,
+    "source_span": {
+      "start": 0,
+      "end": 1
+    },
+    "fact_status": "statistically_ranked",
+    "timestamp": "1970-01-01T00:00:00Z"
+  }
+]

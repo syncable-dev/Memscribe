@@ -50,7 +50,8 @@ expression: nodes
       "start": 1,
       "end": 2
     },
-    "fact_status": "observed"
+    "fact_status": "observed",
+    "timestamp": "2026-06-22T09:00:05Z"
   },
   {
     "node": "episode",
@@ -120,12 +121,7 @@ expression: nodes
   {
     "node": "decision",
     "epitome": "Now switch to a bounded connection pool in the same db module instead of a single client.",
-    "considered_options": [
-      {
-        "text": "a",
-        "chosen": false
-      }
-    ],
+    "considered_options": [],
     "is_ban": false,
     "superseded_by": null,
     "confirmation": null,
@@ -133,7 +129,8 @@ expression: nodes
       "start": 9,
       "end": 10
     },
-    "fact_status": "observed"
+    "fact_status": "observed",
+    "timestamp": "2026-06-22T09:05:00Z"
   },
   {
     "node": "episode",

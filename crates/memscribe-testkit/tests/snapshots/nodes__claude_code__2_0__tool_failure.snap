@@ -37,12 +37,7 @@ expression: nodes
   {
     "node": "decision",
     "epitome": "Let's use a connection pool in the orders repository.",
-    "considered_options": [
-      {
-        "text": "a",
-        "chosen": true
-      }
-    ],
+    "considered_options": [],
     "is_ban": false,
     "superseded_by": null,
     "confirmation": null,
@@ -50,6 +45,7 @@ expression: nodes
       "start": 1,
       "end": 2
     },
-    "fact_status": "observed"
+    "fact_status": "observed",
+    "timestamp": "2026-06-22T13:45:00Z"
   }
 ]

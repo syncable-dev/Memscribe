@@ -50,7 +50,8 @@ expression: nodes
       "start": 1,
       "end": 2
     },
-    "fact_status": "observed"
+    "fact_status": "observed",
+    "timestamp": "2026-06-22T20:00:06.3Z"
   },
   {
     "node": "conversation",
@@ -99,7 +100,8 @@ expression: nodes
       "start": 5,
       "end": 6
     },
-    "fact_status": "observed"
+    "fact_status": "observed",
+    "timestamp": "2026-06-22T20:00:40.2Z"
   },
   {
     "node": "episode",

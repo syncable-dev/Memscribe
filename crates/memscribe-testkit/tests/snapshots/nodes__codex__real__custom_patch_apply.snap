@@ -37,12 +37,7 @@ expression: nodes
   {
     "node": "decision",
     "epitome": "Let's use the patch_apply_end diff as the canonical edit signal.",
-    "considered_options": [
-      {
-        "text": "the",
-        "chosen": true
-      }
-    ],
+    "considered_options": [],
     "is_ban": false,
     "superseded_by": null,
     "confirmation": null,
@@ -50,7 +45,8 @@ expression: nodes
       "start": 1,
       "end": 2
     },
-    "fact_status": "observed"
+    "fact_status": "observed",
+    "timestamp": "2026-06-17T19:03:05.139Z"
   },
   {
     "node": "episode",

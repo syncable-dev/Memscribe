@@ -53,6 +53,17 @@ const PROHIBIT: &[&str] = &[
     "we won't",
 ];
 
+/// Negators that, when they immediately precede an action/removal verb, make a
+/// prohibition for ANY verb — not just "use". Mirrors the gate's
+/// `ban.negated_use` vocabulary so "never add X", "must not introduce Y",
+/// "won't depend on Z" read as bans even when a later clause offers a
+/// substitution ("… use W instead").
+const BAN_NEGATORS: &[&str] = &[
+    "never", "do not", "don't", "must not", "mustn't", "will not", "won't",
+    "no longer", "cannot", "can't", "shall not", "should not", "shouldn't",
+    "may not",
+];
+
 /// Removal verbs that make a ban only when they LEAD the clause (primary action).
 const REMOVAL_LEAD: &[&str] = &[
     "drop", "dropped", "remove", "removed", "delete", "deleted", "deprecate",
@@ -134,6 +145,30 @@ pub fn split_coordinated(text: &str) -> Vec<String> {
     }
 }
 
+/// A negated action ("never add X", "must not introduce Y") → the banned target,
+/// if any. The verb immediately after the negator must be a real action/removal
+/// verb (so "I've never seen X" / "we can't reproduce it" are not bans).
+fn negated_action_ban(text: &str, lower: &str) -> Option<String> {
+    for neg in BAN_NEGATORS {
+        if let Some(idx) = lower.find(neg) {
+            let after_neg = &lower[(idx + neg.len()).min(lower.len())..];
+            let verb = after_neg
+                .split(|c: char| !c.is_ascii_alphabetic())
+                .find(|w| !w.is_empty())
+                .unwrap_or("");
+            if !verb.is_empty()
+                && (DECISION_VERB_HEAD.contains(&verb) || REMOVAL_LEAD.contains(&verb))
+            {
+                // Banned target = the clause after the verb, in original case.
+                let verb_off = after_neg.find(verb).unwrap_or(0);
+                let start = (idx + neg.len() + verb_off + verb.len()).min(text.len());
+                return Some(clip_clause(text[start..].trim_start()));
+            }
+        }
+    }
+    None
+}
+
 /// Analyse the polarity of a decision sentence. Pure.
 #[must_use]
 pub fn analyze_polarity(text: &str) -> Polarity {
@@ -150,6 +185,15 @@ pub fn analyze_polarity(text: &str) -> Polarity {
                 let target = clip_clause(after.trim_start_matches([' ', ':']));
                 return ban(target);
             }
+        }
+    }
+
+    // 1b. Negated action ("never/won't/must-not <verb> …") is a prohibition even
+    // when a substitution ("… use Y instead") follows in a later clause. Runs
+    // before the contrast pivot so the ban isn't masked by the later "instead".
+    if !pseudo {
+        if let Some(target) = negated_action_ban(text, &lower) {
+            return ban(target);
         }
     }
 

@@ -37,12 +37,7 @@ expression: nodes
   {
     "node": "decision",
     "epitome": "Let's migrate to anyhow for error handling across the request, handler, and router modules.",
-    "considered_options": [
-      {
-        "text": "anyhow",
-        "chosen": true
-      }
-    ],
+    "considered_options": [],
     "is_ban": false,
     "superseded_by": null,
     "confirmation": null,
@@ -50,7 +45,8 @@ expression: nodes
       "start": 1,
       "end": 2
     },
-    "fact_status": "observed"
+    "fact_status": "observed",
+    "timestamp": "2026-06-22T15:00:05Z"
   },
   {
     "node": "episode",

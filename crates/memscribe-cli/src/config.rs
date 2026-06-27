@@ -378,8 +378,9 @@ mod tests {
         assert!(cfg.capture_tools().is_empty());
         assert_eq!(cfg.sink_target(), "ndjson");
         assert!(cfg.sink_out_path().is_none());
-        // Default gate (the expanded 27-rule table) + default redactor.
-        assert_eq!(cfg.build_gate().unwrap().rule_count(), 27);
+        // Default gate (the expanded 28-rule table incl. action.bare_imperative)
+        // + default redactor.
+        assert_eq!(cfg.build_gate().unwrap().rule_count(), 28);
         assert!(cfg
             .build_redactor()
             .unwrap()

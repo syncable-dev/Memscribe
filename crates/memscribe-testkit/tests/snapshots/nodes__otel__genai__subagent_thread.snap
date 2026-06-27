@@ -43,12 +43,7 @@ expression: nodes
   {
     "node": "decision",
     "epitome": "Let's use a dedicated background worker for the email queue.",
-    "considered_options": [
-      {
-        "text": "a",
-        "chosen": true
-      }
-    ],
+    "considered_options": [],
     "is_ban": false,
     "superseded_by": null,
     "confirmation": null,
@@ -56,7 +51,8 @@ expression: nodes
       "start": 1,
       "end": 2
     },
-    "fact_status": "observed"
+    "fact_status": "observed",
+    "timestamp": "2026-06-22T21:00:06Z"
   },
   {
     "node": "conversation",
@@ -92,12 +88,7 @@ expression: nodes
   {
     "node": "decision",
     "epitome": "Let's adopt a tokio worker loop for the email queue in the worker module.",
-    "considered_options": [
-      {
-        "text": "a",
-        "chosen": true
-      }
-    ],
+    "considered_options": [],
     "is_ban": false,
     "superseded_by": null,
     "confirmation": null,
@@ -105,7 +96,8 @@ expression: nodes
       "start": 3,
       "end": 4
     },
-    "fact_status": "observed"
+    "fact_status": "observed",
+    "timestamp": "2026-06-22T21:00:14Z"
   },
   {
     "node": "episode",
