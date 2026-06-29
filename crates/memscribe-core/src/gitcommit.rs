@@ -49,6 +49,9 @@ pub struct CommitInput {
     pub files: Vec<String>,
     /// Committer epoch seconds (the decision's wall-clock anchor).
     pub epoch: i64,
+    /// Commit author identity ("Name <email>") — the per-decision attribution
+    /// (Teams "who"). Empty when unknown; the decision then carries no author.
+    pub author: String,
 }
 
 /// The deterministic classification of a commit as a decision.
@@ -331,6 +334,11 @@ pub fn git_segmentation(commits: &[CommitInput]) -> Segmentation {
                     source_span: seq..seq + 1,
                     fact_status: gd.fact_status,
                     timestamp: t_use,
+                    // The commit author — real per-engineer attribution for Teams.
+                    decided_by: {
+                        let a = c.author.trim();
+                        (!a.is_empty()).then(|| a.to_string())
+                    },
                 },
                 node_id: NodeId::new(format!("decision:{session}:{seq}")),
                 turn_seq: seq,
@@ -386,6 +394,7 @@ mod tests {
             body: body.to_string(),
             files: files.iter().map(|s| s.to_string()).collect(),
             epoch,
+            author: String::new(),
         }
     }
 

@@ -242,9 +242,10 @@ fn cmd_git(repo: &Path, rev: &str, max: usize, out: &Path, no_redact: bool) -> R
     use memscribe_core::{mine_commit_nodes, CommitInput, Redactor};
     use std::collections::BTreeMap;
 
-    // --- Pass 1: messages (sha, committer-epoch, subject, body). ---
+    // --- Pass 1: messages (sha, committer-epoch, author, subject, body). ---
     // RS (0x1e) terminates each commit record; US (0x1f) separates fields.
-    let fmt = "--format=%H%x1f%ct%x1f%s%x1f%b%x1e";
+    // Author ("Name <email>") is the per-decision attribution (Teams "who").
+    let fmt = "--format=%H%x1f%ct%x1f%an <%ae>%x1f%s%x1f%b%x1e";
     let mut log_args: Vec<String> = vec![
         "-C".into(),
         repo.display().to_string(),
@@ -264,9 +265,10 @@ fn cmd_git(repo: &Path, rev: &str, max: usize, out: &Path, no_redact: bool) -> R
         if record.is_empty() {
             continue;
         }
-        let mut parts = record.splitn(4, '\u{1f}');
+        let mut parts = record.splitn(5, '\u{1f}');
         let sha = parts.next().unwrap_or("").trim().to_string();
         let epoch: i64 = parts.next().unwrap_or("0").trim().parse().unwrap_or(0);
+        let author = parts.next().unwrap_or("").trim().to_string();
         let subject = parts.next().unwrap_or("").to_string();
         let body = parts.next().unwrap_or("").trim().to_string();
         if sha.is_empty() {
@@ -278,6 +280,7 @@ fn cmd_git(repo: &Path, rev: &str, max: usize, out: &Path, no_redact: bool) -> R
             body,
             files: Vec::new(),
             epoch,
+            author,
         });
     }
 

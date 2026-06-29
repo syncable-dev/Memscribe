@@ -150,6 +150,13 @@ pub struct DecisionRecord {
     /// without it, ingest stamps every node with the batch default (epoch 1000).
     #[serde(with = "time::serde::rfc3339", default = "epoch_fallback")]
     pub timestamp: OffsetDateTime,
+    /// Who made the decision, when known — the authoritative per-engineer
+    /// attribution (Teams). Git-mined decisions set this to the commit author
+    /// ("Name <email>"); conversation-captured decisions leave it `None` (the read
+    /// layer falls back to the store owner). Additive + `serde(default)`, so older
+    /// NDJSON corpora and the conversation path deserialize/serialize unchanged.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub decided_by: Option<String>,
 }
 
 /// Backward-compat default for `DecisionRecord.timestamp` when reading NDJSON

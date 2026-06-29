@@ -596,6 +596,7 @@ mod tests {
             source_span: 5..6,
             fact_status: FactStatus::Observed,
             timestamp: time::OffsetDateTime::UNIX_EPOCH,
+            decided_by: None,
         });
         let mut sink = MemDbSink::new(INGEST);
         sink.emit(&ban).unwrap();

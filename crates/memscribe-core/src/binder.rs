@@ -274,6 +274,7 @@ mod tests {
                 source_span: turn_seq..turn_seq + 1,
                 fact_status: FS::Observed,
                 timestamp: ts(t),
+                decided_by: None,
             },
             node_id: NodeId::new(id),
             turn_seq,

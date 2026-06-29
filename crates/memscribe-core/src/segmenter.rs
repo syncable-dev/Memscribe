@@ -144,7 +144,21 @@ impl Segmenter for DefaultSegmenter {
                     let Some(epi_offset) = best_committal_offset(&prose, &markers, gate) else {
                         continue; // no committal clause to anchor the epitome
                     };
-                    let epitome = epitome_of(&prose, epi_offset);
+                    // Carry the antecedent when the committal sentence opens with an
+                    // unbound pronoun, so the stored epitome is self-contained
+                    // ("It must be idempotent." → "We rebuilt the cache. It …").
+                    let epitome = epitome_with_antecedent(&prose, epi_offset);
+                    // Authoritative reject for context-free pronoun fragments: if
+                    // the committal sentence opened with an unbound pronoun AND the
+                    // (antecedent-extended) epitome STILL carries no concrete
+                    // referent, an agent can't learn from it — seed no Decision (the
+                    // verbatim Conversation is still kept). Cross-turn antecedents
+                    // are unreachable here by design → left to MemCortex's dreaming.
+                    if opens_with_unbound_subject(&epitome_of(&prose, epi_offset))
+                        && !antecedent_resolved(&epitome)
+                    {
+                        continue;
+                    }
                     // Polarity (ban) from the scoped negation layer judged on the
                     // EPITOME — consistent with the git oracle and the read layer;
                     // a removal merely mentioned elsewhere, or an "X instead of Y"
@@ -173,6 +187,62 @@ impl Segmenter for DefaultSegmenter {
                         // The originating turn's real wall-clock time, carried on
                         // the record so it survives ingest (else it defaults).
                         timestamp: ev.timestamp,
+                        // Conversation capture doesn't know the author; the read
+                        // layer falls back to the store owner. Git-mined decisions
+                        // set this to the commit author (real per-engineer Teams).
+                        decided_by: None,
+                    };
+                    seg.decisions.push(DecisionCandidate {
+                        node_id: NodeId::new(format!("decision:{}:{}", ev.session_id, ev.seq)),
+                        record,
+                        turn_seq: ev.seq,
+                        timestamp: ev.timestamp,
+                        session_id: ev.session_id.clone(),
+                    });
+                }
+                EventKind::AssistantTurn { text, model, .. } => {
+                    // AI-authored decisions (Q2 "by whom"): the assistant's committal
+                    // statements ("switch to X", "use Y") ARE real decisions — capture
+                    // them but attribute them to the model via `decided_by`, so the UI
+                    // reads "suggested by the assistant", not "you" (the prior bug:
+                    // only UserTurn was captured + decided_by hardcoded None, so every
+                    // decision fell back to the store owner). Same scored gate + tier;
+                    // no Conversation node (that lane is the human's prose context).
+                    let Some(prose) = gate.human_prose(text) else {
+                        continue;
+                    };
+                    let markers = gate.evaluate(&prose);
+                    if markers.is_empty() {
+                        continue;
+                    }
+                    let session_has_edit = sessions_with_edits.contains(&ev.session_id);
+                    let Some(epi_offset) = best_committal_offset(&prose, &markers, gate) else {
+                        continue;
+                    };
+                    let epitome = epitome_with_antecedent(&prose, epi_offset);
+                    if opens_with_unbound_subject(&epitome_of(&prose, epi_offset))
+                        && !antecedent_resolved(&epitome)
+                    {
+                        continue;
+                    }
+                    let is_ban = crate::polarity::analyze_polarity(&epitome).is_ban;
+                    let score =
+                        score_decision_candidacy(&epitome, &markers, gate, is_ban, session_has_edit);
+                    let Some(fact_status) = tier_for(score) else {
+                        continue;
+                    };
+                    let superseded_by = supersedes.get(&(ev.session_id.clone(), ev.seq)).cloned();
+                    let record = DecisionRecord {
+                        epitome,
+                        considered_options: parse_options(&prose),
+                        is_ban,
+                        superseded_by,
+                        confirmation: None,
+                        source_span: ev.seq..ev.seq + 1,
+                        fact_status,
+                        timestamp: ev.timestamp,
+                        // The model that produced the turn — real per-author attribution.
+                        decided_by: Some(model.clone().unwrap_or_else(|| "assistant".to_string())),
                     };
                     seg.decisions.push(DecisionCandidate {
                         node_id: NodeId::new(format!("decision:{}:{}", ev.session_id, ev.seq)),
@@ -362,6 +432,135 @@ fn epitome_of(text: &str, offset: usize) -> String {
         end += 1;
     }
     text[start..end].trim().to_string()
+}
+
+/// Max length of an antecedent-extended epitome before we fall back to the bare
+/// committal sentence — a runaway turn must never produce a paragraph-long epitome.
+const MAX_EPITOME_CHARS: usize = 320;
+/// How many preceding sentences (same turn/paragraph) we absorb to resolve a
+/// leading unbound pronoun.
+const MAX_ANTECEDENT_SENTENCES: usize = 2;
+
+/// The committal sentence, extended to carry its antecedent when it opens with an
+/// unbound pronoun ("It must be idempotent." → "We rebuilt the cache. It must be
+/// idempotent."). Walks back up to [`MAX_ANTECEDENT_SENTENCES`] within the SAME
+/// turn, never across a blank-line/paragraph break, capped at
+/// [`MAX_EPITOME_CHARS`]. A cross-turn antecedent is out of reach by design — the
+/// segmenter's unit is one turn; resolving across turns is MemCortex's job.
+fn epitome_with_antecedent(text: &str, offset: usize) -> String {
+    let base = epitome_of(text, offset);
+    if !opens_with_unbound_subject(&base) {
+        return base;
+    }
+    let bytes = text.as_bytes();
+    let offset = offset.min(text.len());
+    // Start of the committal (base) sentence.
+    let mut base_start = 0usize;
+    for i in (0..offset).rev() {
+        if is_sentence_break(bytes, i) {
+            base_start = i + 1;
+            break;
+        }
+    }
+    // End of the committal sentence.
+    let mut end = text.len();
+    for i in offset..bytes.len() {
+        if is_sentence_break(bytes, i) {
+            end = i + 1;
+            break;
+        }
+    }
+    // Walk back over preceding sentences within the same paragraph.
+    let mut span_start = base_start;
+    for _ in 0..MAX_ANTECEDENT_SENTENCES {
+        if span_start == 0 {
+            break;
+        }
+        let mut prev_start = 0usize;
+        for i in (0..span_start - 1).rev() {
+            if is_sentence_break(bytes, i) {
+                prev_start = i + 1;
+                break;
+            }
+        }
+        // Stop at a paragraph boundary (blank line) between the two sentences.
+        let between = &text[prev_start..span_start];
+        if between.contains("\n\n") || between.trim().is_empty() {
+            break;
+        }
+        span_start = prev_start;
+    }
+    while span_start < text.len() && !text.is_char_boundary(span_start) {
+        span_start += 1;
+    }
+    while end < text.len() && !text.is_char_boundary(end) {
+        end += 1;
+    }
+    let extended = text[span_start..end].trim();
+    if extended.chars().count() > MAX_EPITOME_CHARS {
+        base
+    } else {
+        extended.to_string()
+    }
+}
+
+/// The leading run of ASCII-alphabetic chars, lowercased ("that's" → "that",
+/// "(it" → "it"). Used for subject/conjunction head detection.
+fn lead_alpha(w: &str) -> String {
+    w.chars()
+        .skip_while(|c| !c.is_ascii_alphabetic())
+        .take_while(|c| c.is_ascii_alphabetic())
+        .collect::<String>()
+        .to_ascii_lowercase()
+}
+
+fn is_leading_conjunction(w: &str) -> bool {
+    matches!(
+        lead_alpha(w).as_str(),
+        "but" | "and" | "so" | "then" | "also" | "plus" | "yet" | "however" | "ok" | "okay" | "well"
+    )
+}
+
+/// The sentence's grammatical subject is a bare, unbound pronoun / demonstrative
+/// ("it has to…", "this should…", "they need…"), optionally after a leading
+/// conjunction ("but it…"). Such a sentence can't stand alone — its referent
+/// lived elsewhere. Elided-subject imperatives ("Use X") are NOT flagged.
+fn opens_with_unbound_subject(s: &str) -> bool {
+    let mut words = s.split_whitespace();
+    let Some(mut first) = words.next() else {
+        return false;
+    };
+    if is_leading_conjunction(first) {
+        let Some(next) = words.next() else {
+            return false;
+        };
+        first = next;
+    }
+    matches!(
+        lead_alpha(first).as_str(),
+        // include no-apostrophe contractions ("thats", "theres", "theyre")
+        "it" | "its" | "this" | "that" | "thats" | "these" | "those" | "they" | "theyre"
+            | "them" | "their" | "there" | "theres"
+    )
+}
+
+/// A concrete referent is present in the span, so a leading pronoun is grounded:
+/// a CamelCase/acronym identifier, a quoted term, a code token (`()`/backtick),
+/// or a named alternative (`is_name_like`). First/second-person presence does NOT
+/// count — "I"/"we" don't resolve what "it" refers to.
+fn antecedent_resolved(s: &str) -> bool {
+    if s.contains('"') || s.contains('`') || s.contains("()") {
+        return true;
+    }
+    if s.split(|c: char| !c.is_ascii_alphanumeric()).any(is_camelcase) {
+        return true;
+    }
+    // A named token — but SKIP the first word: sentence-initial capitalization
+    // ("But …", "The …", "It …") is grammar, not a proper noun, and would
+    // otherwise make every capitalized fragment look "resolved".
+    s.split_whitespace()
+        .skip(1)
+        .any(|w| is_name_like(w.trim_matches(|c: char| !c.is_ascii_alphanumeric())))
 }
 
 /// Deterministically parse considered options from decision prose: the chosen
@@ -659,6 +858,25 @@ fn score_decision_candidacy(
     {
         return 0.0;
     }
+    // L1a. Strong agent/process narration ("I'll take this as…", "I'm going to…",
+    // "the developer notes…") is never a decision — even a planning monologue that
+    // names a tool ("…then use Memtrace…") is narration, so no resolved-choice
+    // rescue here.
+    if crate::speechact::is_process_narration(s) {
+        return 0.0;
+    }
+    // L1a'. Soft narration ("let me …", "I'll …") is dropped only when it carries
+    // no resolved named choice — so a genuine "let me switch to Postgres" survives.
+    if crate::speechact::is_agent_narration(s) && !has_resolved_choice(s, &lower) {
+        return 0.0;
+    }
+    // L1b. A sentence whose subject is an unbound pronoun with NO in-span referent
+    // is a context-free fragment ("it has to be fluently") — unlearnable. When the
+    // antecedent IS present (absorbed by `epitome_with_antecedent`, or natively),
+    // it survives, at a lower tier via the pronoun penalty in step 7.
+    if opens_with_unbound_subject(s) && !antecedent_resolved(s) {
+        return 0.0;
+    }
     // 1. Rule-tier base.
     let mut score: f32 = match gate.strongest_tier(markers) {
         Some(Tier::Strong) => 0.60,
@@ -702,6 +920,12 @@ fn score_decision_candidacy(
     if is_question(s, &lower) {
         score -= 0.30;
     }
+    // 7. A resolved-but-pronoun-led epitome (antecedent absorbed, so it survived
+    //    L1b) is a notch less crisp than a natively self-contained decision —
+    //    demote so it lands a tier lower.
+    if opens_with_unbound_subject(s) {
+        score -= 0.15;
+    }
     score.clamp(0.0, 1.0)
 }
 
@@ -723,6 +947,53 @@ fn tier_for(score: f32) -> Option<FactStatus> {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn agent_narration_never_seeds_a_decision() {
+        let gate = CommitmentGate::default_table();
+        for s in [
+            "I'll take this as the plan to recall memories",
+            "Let me use it:",
+            "the developer notes that they aren't listed",
+            "It was a user asking so I need to answer them",
+        ] {
+            let m = gate.evaluate(s);
+            let sc = score_decision_candidacy(s, &m, &gate, false, true);
+            assert_eq!(tier_for(sc), None, "narration must drop: {s:?} (score {sc})");
+        }
+    }
+
+    #[test]
+    fn first_person_named_choice_survives_narration_guard() {
+        let gate = CommitmentGate::default_table();
+        let s = "let me switch to Postgres for the store";
+        let m = gate.evaluate(s);
+        let sc = score_decision_candidacy(s, &m, &gate, false, true);
+        assert!(tier_for(sc).is_some(), "a real named choice must survive (score {sc})");
+    }
+
+    #[test]
+    fn unbound_pronoun_fragment_drops_but_resolved_one_survives() {
+        let gate = CommitmentGate::default_table();
+        let frag = "it has to be fluently and not something I discover";
+        let m = gate.evaluate(frag);
+        let sc = score_decision_candidacy(frag, &m, &gate, false, true);
+        assert_eq!(tier_for(sc), None, "context-free pronoun fragment must drop (score {sc})");
+
+        let resolved = "We rebuilt the Cache. It must stay idempotent.";
+        let m2 = gate.evaluate(resolved);
+        if !m2.is_empty() {
+            let sc2 = score_decision_candidacy(resolved, &m2, &gate, false, true);
+            assert!(tier_for(sc2).is_some(), "pronoun with a resolved antecedent survives (score {sc2})");
+        }
+
+        // The antecedent-EXTENDED form must still drop: a leading capitalized
+        // conjunction ("But …") is NOT a resolved referent.
+        let extended = "But thats not working man? it shouldn't be like that ... it has to be fluently and not something I discover";
+        let m3 = gate.evaluate(extended);
+        let sc3 = score_decision_candidacy(extended, &m3, &gate, false, true);
+        assert_eq!(tier_for(sc3), None, "capitalized-conjunction fragment must still drop (score {sc3})");
+    }
 
     #[test]
     fn scored_gate_emits_tiers_not_binary() {
