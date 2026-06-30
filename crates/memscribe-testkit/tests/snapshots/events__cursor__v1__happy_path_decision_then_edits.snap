@@ -217,7 +217,7 @@ expression: events
     },
     "kind": {
       "event": "assistant_turn",
-      "text": "Now updating the connection module to use the Postgres driver.",
+      "text": "Now updating the connection module.",
       "thinking": null,
       "model": "cursor-fast",
       "usage": {
@@ -229,7 +229,7 @@ expression: events
       "parts": [
         {
           "part": "text",
-          "text": "Now updating the connection module to use the Postgres driver."
+          "text": "Now updating the connection module."
         }
       ]
     },
@@ -353,7 +353,7 @@ expression: events
     },
     "provenance": {
       "file": "fixtures/cursor/v1/happy_path_decision_then_edits.jsonl",
-      "byte_offset": 1873,
+      "byte_offset": 1846,
       "line_no": 5
     }
   }

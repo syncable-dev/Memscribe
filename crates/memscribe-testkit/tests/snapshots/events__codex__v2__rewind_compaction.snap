@@ -72,7 +72,7 @@ expression: events
     "source": "codex",
     "session_id": "01JZ8codexsess0007rewindcompact",
     "seq": 2,
-    "event_id": "addc21e1f941adcf5be1ffceb57cbd0c01536079dafd82918ec11c1b64418914",
+    "event_id": "735cb086144b95e81faef1b5212c60471bf504f3c6b223cfb02bb266d65635b2",
     "parent_id": null,
     "timestamp": "2026-06-22T20:00:11.7Z",
     "project": {
@@ -85,14 +85,14 @@ expression: events
     },
     "kind": {
       "event": "assistant_turn",
-      "text": "Understood, I'll wire up MongoDB for the document store.",
+      "text": "Understood. Applying the changes now.",
       "thinking": null,
       "model": null,
       "usage": null,
       "parts": [
         {
           "part": "text",
-          "text": "Understood, I'll wire up MongoDB for the document store."
+          "text": "Understood. Applying the changes now."
         }
       ]
     },
@@ -137,7 +137,7 @@ expression: events
     },
     "provenance": {
       "file": "fixtures/codex/v2/rewind_compaction.jsonl",
-      "byte_offset": 733,
+      "byte_offset": 714,
       "line_no": 4
     }
   },
@@ -171,7 +171,7 @@ expression: events
     },
     "provenance": {
       "file": "fixtures/codex/v2/rewind_compaction.jsonl",
-      "byte_offset": 1096,
+      "byte_offset": 1077,
       "line_no": 5
     }
   },
@@ -203,7 +203,7 @@ expression: events
     },
     "provenance": {
       "file": "fixtures/codex/v2/rewind_compaction.jsonl",
-      "byte_offset": 1320,
+      "byte_offset": 1301,
       "line_no": 6
     }
   },
@@ -238,7 +238,7 @@ expression: events
     },
     "provenance": {
       "file": "fixtures/codex/v2/rewind_compaction.jsonl",
-      "byte_offset": 1587,
+      "byte_offset": 1568,
       "line_no": 7
     }
   },
@@ -268,7 +268,7 @@ expression: events
     },
     "provenance": {
       "file": "fixtures/codex/v2/rewind_compaction.jsonl",
-      "byte_offset": 1804,
+      "byte_offset": 1785,
       "line_no": 8
     }
   },
@@ -302,7 +302,7 @@ expression: events
     },
     "provenance": {
       "file": "fixtures/codex/v2/rewind_compaction.jsonl",
-      "byte_offset": 1804,
+      "byte_offset": 1785,
       "line_no": 8
     }
   },
@@ -336,7 +336,7 @@ expression: events
     },
     "provenance": {
       "file": "fixtures/codex/v2/rewind_compaction.jsonl",
-      "byte_offset": 2282,
+      "byte_offset": 2263,
       "line_no": 9
     }
   },
@@ -371,7 +371,7 @@ expression: events
     },
     "provenance": {
       "file": "fixtures/codex/v2/rewind_compaction.jsonl",
-      "byte_offset": 2532,
+      "byte_offset": 2513,
       "line_no": 10
     }
   }

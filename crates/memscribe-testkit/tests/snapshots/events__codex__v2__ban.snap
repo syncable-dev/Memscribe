@@ -72,7 +72,7 @@ expression: events
     "source": "codex",
     "session_id": "01JZ8codexsess0003ban",
     "seq": 2,
-    "event_id": "fc8db1a0f1d355dc38c71a6fd9437e63157739c6b474a6887bd92a4ee57e2b8e",
+    "event_id": "eaea2a8db3791fa5c5cf65fec28562c6317cedadc6e3b384b8c5551cd08dfdf3",
     "parent_id": null,
     "timestamp": "2026-06-22T16:20:12.77Z",
     "project": {
@@ -85,14 +85,14 @@ expression: events
     },
     "kind": {
       "event": "assistant_turn",
-      "text": "Acknowledged. I will never add left-pad as a dependency.",
+      "text": "Acknowledged. Making the edits now.",
       "thinking": null,
       "model": null,
       "usage": null,
       "parts": [
         {
           "part": "text",
-          "text": "Acknowledged. I will never add left-pad as a dependency."
+          "text": "Acknowledged. Making the edits now."
         }
       ]
     },
@@ -133,7 +133,7 @@ expression: events
     },
     "provenance": {
       "file": "fixtures/codex/v2/ban.jsonl",
-      "byte_offset": 754,
+      "byte_offset": 733,
       "line_no": 4
     }
   },
@@ -166,7 +166,7 @@ expression: events
     },
     "provenance": {
       "file": "fixtures/codex/v2/ban.jsonl",
-      "byte_offset": 977,
+      "byte_offset": 956,
       "line_no": 5
     }
   },
@@ -201,7 +201,7 @@ expression: events
     },
     "provenance": {
       "file": "fixtures/codex/v2/ban.jsonl",
-      "byte_offset": 1160,
+      "byte_offset": 1139,
       "line_no": 6
     }
   }

@@ -79,7 +79,7 @@ expression: nodes
     "provenance": [
       {
         "file": "fixtures/otel/genai/rewind_compaction.jsonl",
-        "byte_offset": 1947,
+        "byte_offset": 1928,
         "line_no": 5
       }
     ]

@@ -29,6 +29,41 @@ expression: nodes
     ]
   },
   {
+    "node": "decision",
+    "epitome": "We'll go with an in-memory LRU instead.",
+    "considered_options": [
+      {
+        "text": "in-memory",
+        "chosen": true
+      }
+    ],
+    "is_ban": false,
+    "superseded_by": null,
+    "confirmation": null,
+    "source_span": {
+      "start": 2,
+      "end": 3
+    },
+    "fact_status": "observed",
+    "timestamp": "2026-06-22T11:00:08Z",
+    "decided_by": "gpt-4o"
+  },
+  {
+    "node": "decision",
+    "epitome": "Implementing the LRU now.",
+    "considered_options": [],
+    "is_ban": false,
+    "superseded_by": null,
+    "confirmation": null,
+    "source_span": {
+      "start": 3,
+      "end": 4
+    },
+    "fact_status": "observed",
+    "timestamp": "2026-06-22T11:00:20Z",
+    "decided_by": "gpt-4o"
+  },
+  {
     "node": "episode",
     "path": "src/cache/lru.ts",
     "diff": {
@@ -44,5 +79,20 @@ expression: nodes
       "branch": "feat/cache"
     },
     "episode_id": "e3bb2d813ca36317fb2f39829afcdb865d3fa6e9d679bfd90d5c24e012bc4075"
+  },
+  {
+    "node": "binding",
+    "from": "decision:vsc-sess-2:3",
+    "to": "episode:e3bb2d813ca36317fb2f39829afcdb865d3fa6e9d679bfd90d5c24e012bc4075",
+    "relation": "produced",
+    "prov": {
+      "used_session": "vsc-sess-2",
+      "used_decision": "decision:vsc-sess-2:3",
+      "was_generated_by_session": "vsc-sess-2",
+      "t_use": "2026-06-22T11:00:20Z",
+      "t_gen": "2026-06-22T11:00:20Z"
+    },
+    "fact_status": "deterministically_derived",
+    "correlation": null
   }
 ]

@@ -80,8 +80,8 @@ expression: events
     },
     "kind": {
       "event": "assistant_turn",
-      "text": "Understood — Stripe it is. Adding the Stripe client and removing the PayPal stub.",
-      "thinking": "User explicitly rejected PayPal in favor of Stripe.",
+      "text": "Understood. Applying the changes now.",
+      "thinking": "Applying the payment client edit as requested.",
       "model": null,
       "usage": {
         "input_tokens": 140,

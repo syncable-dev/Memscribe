@@ -80,7 +80,7 @@ expression: events
     },
     "kind": {
       "event": "assistant_turn",
-      "text": "Acknowledged. I won't add left-pad; I'll inline a small padding helper instead.",
+      "text": "Acknowledged. Making the edits now.",
       "thinking": null,
       "model": "gpt-4o",
       "usage": {
@@ -119,7 +119,7 @@ expression: events
     },
     "provenance": {
       "file": "fixtures/copilot/v1/ban.jsonl",
-      "byte_offset": 674,
+      "byte_offset": 630,
       "line_no": 4
     }
   }

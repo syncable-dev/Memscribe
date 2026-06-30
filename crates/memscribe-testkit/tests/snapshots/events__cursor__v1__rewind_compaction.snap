@@ -85,7 +85,7 @@ expression: events
     },
     "kind": {
       "event": "assistant_turn",
-      "text": "Understood, I'll wire up MongoDB for the document store.",
+      "text": "Understood. Applying the changes now.",
       "thinking": null,
       "model": "cursor-pro",
       "usage": {
@@ -97,7 +97,7 @@ expression: events
       "parts": [
         {
           "part": "text",
-          "text": "Understood, I'll wire up MongoDB for the document store."
+          "text": "Understood. Applying the changes now."
         }
       ]
     },
@@ -141,7 +141,7 @@ expression: events
     },
     "provenance": {
       "file": "fixtures/cursor/v1/rewind_compaction.jsonl",
-      "byte_offset": 627,
+      "byte_offset": 608,
       "line_no": 4
     }
   },
@@ -173,7 +173,7 @@ expression: events
     },
     "provenance": {
       "file": "fixtures/cursor/v1/rewind_compaction.jsonl",
-      "byte_offset": 1415,
+      "byte_offset": 1396,
       "line_no": 5
     }
   },
@@ -213,7 +213,7 @@ expression: events
     },
     "provenance": {
       "file": "fixtures/cursor/v1/rewind_compaction.jsonl",
-      "byte_offset": 1648,
+      "byte_offset": 1629,
       "line_no": 6
     }
   },
@@ -243,7 +243,7 @@ expression: events
     },
     "provenance": {
       "file": "fixtures/cursor/v1/rewind_compaction.jsonl",
-      "byte_offset": 1648,
+      "byte_offset": 1629,
       "line_no": 6
     }
   },
@@ -271,7 +271,7 @@ expression: events
     },
     "provenance": {
       "file": "fixtures/cursor/v1/rewind_compaction.jsonl",
-      "byte_offset": 1648,
+      "byte_offset": 1629,
       "line_no": 6
     }
   },
@@ -305,7 +305,7 @@ expression: events
     },
     "provenance": {
       "file": "fixtures/cursor/v1/rewind_compaction.jsonl",
-      "byte_offset": 1648,
+      "byte_offset": 1629,
       "line_no": 6
     }
   },
@@ -345,7 +345,7 @@ expression: events
     },
     "provenance": {
       "file": "fixtures/cursor/v1/rewind_compaction.jsonl",
-      "byte_offset": 2584,
+      "byte_offset": 2565,
       "line_no": 7
     }
   },
@@ -371,7 +371,7 @@ expression: events
     },
     "provenance": {
       "file": "fixtures/cursor/v1/rewind_compaction.jsonl",
-      "byte_offset": 2815,
+      "byte_offset": 2796,
       "line_no": 8
     }
   }

@@ -116,6 +116,21 @@ expression: nodes
     "timestamp": "2026-06-22T09:05:00Z"
   },
   {
+    "node": "decision",
+    "epitome": "Re-editing the db module to use a bounded pool and adding a pool config.",
+    "considered_options": [],
+    "is_ban": false,
+    "superseded_by": null,
+    "confirmation": null,
+    "source_span": {
+      "start": 7,
+      "end": 8
+    },
+    "fact_status": "observed",
+    "timestamp": "2026-06-22T09:05:06Z",
+    "decided_by": "cascade-base"
+  },
+  {
     "node": "episode",
     "path": "src/db/mod.rs",
     "diff": {
@@ -166,14 +181,14 @@ expression: nodes
   },
   {
     "node": "binding",
-    "from": "decision:ws-interleaved-005:6",
+    "from": "decision:ws-interleaved-005:7",
     "to": "episode:1c18b8b452594de5894de4b02910d46c73c16ef98a18c64ba95d622c8b3a10d7",
     "relation": "produced",
     "prov": {
       "used_session": "ws-interleaved-005",
-      "used_decision": "decision:ws-interleaved-005:6",
+      "used_decision": "decision:ws-interleaved-005:7",
       "was_generated_by_session": "ws-interleaved-005",
-      "t_use": "2026-06-22T09:05:00Z",
+      "t_use": "2026-06-22T09:05:06Z",
       "t_gen": "2026-06-22T09:05:06Z"
     },
     "fact_status": "deterministically_derived",
@@ -187,14 +202,14 @@ expression: nodes
   },
   {
     "node": "binding",
-    "from": "decision:ws-interleaved-005:6",
+    "from": "decision:ws-interleaved-005:7",
     "to": "episode:9289a5389a026e4fb6f6a82cc75a4917a87dc177f90c6579d3029bde6242b31b",
     "relation": "produced",
     "prov": {
       "used_session": "ws-interleaved-005",
-      "used_decision": "decision:ws-interleaved-005:6",
+      "used_decision": "decision:ws-interleaved-005:7",
       "was_generated_by_session": "ws-interleaved-005",
-      "t_use": "2026-06-22T09:05:00Z",
+      "t_use": "2026-06-22T09:05:06Z",
       "t_gen": "2026-06-22T09:05:06Z"
     },
     "fact_status": "deterministically_derived",

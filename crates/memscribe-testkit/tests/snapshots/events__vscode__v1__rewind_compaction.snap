@@ -80,7 +80,7 @@ expression: events
     },
     "kind": {
       "event": "assistant_turn",
-      "text": "Understood, wiring up MongoDB for the document store.",
+      "text": "Understood. Applying the changes now.",
       "thinking": null,
       "model": "gpt-4o",
       "usage": {
@@ -130,7 +130,7 @@ expression: events
     },
     "provenance": {
       "file": "fixtures/vscode/v1/rewind_compaction.jsonl",
-      "byte_offset": 605,
+      "byte_offset": 589,
       "line_no": 4
     }
   },
@@ -157,7 +157,7 @@ expression: events
     },
     "provenance": {
       "file": "fixtures/vscode/v1/rewind_compaction.jsonl",
-      "byte_offset": 869,
+      "byte_offset": 853,
       "line_no": 5
     }
   },
@@ -192,7 +192,7 @@ expression: events
     },
     "provenance": {
       "file": "fixtures/vscode/v1/rewind_compaction.jsonl",
-      "byte_offset": 1090,
+      "byte_offset": 1074,
       "line_no": 6
     }
   },
@@ -222,7 +222,7 @@ expression: events
     },
     "provenance": {
       "file": "fixtures/vscode/v1/rewind_compaction.jsonl",
-      "byte_offset": 1090,
+      "byte_offset": 1074,
       "line_no": 6
     }
   },
@@ -256,7 +256,7 @@ expression: events
     },
     "provenance": {
       "file": "fixtures/vscode/v1/rewind_compaction.jsonl",
-      "byte_offset": 1090,
+      "byte_offset": 1074,
       "line_no": 6
     }
   },
@@ -286,7 +286,7 @@ expression: events
     },
     "provenance": {
       "file": "fixtures/vscode/v1/rewind_compaction.jsonl",
-      "byte_offset": 1691,
+      "byte_offset": 1675,
       "line_no": 7
     }
   },
@@ -312,7 +312,7 @@ expression: events
     },
     "provenance": {
       "file": "fixtures/vscode/v1/rewind_compaction.jsonl",
-      "byte_offset": 1880,
+      "byte_offset": 1864,
       "line_no": 8
     }
   }

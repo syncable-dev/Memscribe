@@ -29,6 +29,26 @@ expression: nodes
     ]
   },
   {
+    "node": "decision",
+    "epitome": "We'll go with Zustand instead.",
+    "considered_options": [
+      {
+        "text": "Zustand",
+        "chosen": true
+      }
+    ],
+    "is_ban": false,
+    "superseded_by": null,
+    "confirmation": null,
+    "source_span": {
+      "start": 2,
+      "end": 3
+    },
+    "fact_status": "observed",
+    "timestamp": "2026-06-22T15:10:09Z",
+    "decided_by": "cursor-pro"
+  },
+  {
     "node": "conversation",
     "session_id": "cur-sess-002",
     "turn_range": {

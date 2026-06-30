@@ -72,7 +72,7 @@ expression: events
     "source": "otel",
     "session_id": "sess-otel-rewind-007",
     "seq": 2,
-    "event_id": "0f5f6f8084451be28981389f52652912632dbd79d7ed668de8fce10ef2b0c16b:output_msg:0",
+    "event_id": "f696225bc0dbbeed9b5854249a5b797a508ccd2c8bd2fcac5dbc346637f5eee4:output_msg:0",
     "parent_id": null,
     "timestamp": "2026-06-22T20:00:11Z",
     "project": {
@@ -85,7 +85,7 @@ expression: events
     },
     "kind": {
       "event": "assistant_turn",
-      "text": "Understood, I'll wire up MongoDB for the document store.",
+      "text": "Understood. Applying the changes now.",
       "thinking": null,
       "model": "claude-opus-4-8",
       "usage": {
@@ -97,7 +97,7 @@ expression: events
       "parts": [
         {
           "part": "text",
-          "text": "Understood, I'll wire up MongoDB for the document store."
+          "text": "Understood. Applying the changes now."
         }
       ]
     },
@@ -142,7 +142,7 @@ expression: events
     },
     "provenance": {
       "file": "fixtures/otel/genai/rewind_compaction.jsonl",
-      "byte_offset": 937,
+      "byte_offset": 918,
       "line_no": 4
     }
   },
@@ -174,7 +174,7 @@ expression: events
     },
     "provenance": {
       "file": "fixtures/otel/genai/rewind_compaction.jsonl",
-      "byte_offset": 1947,
+      "byte_offset": 1928,
       "line_no": 5
     }
   },
@@ -214,7 +214,7 @@ expression: events
     },
     "provenance": {
       "file": "fixtures/otel/genai/rewind_compaction.jsonl",
-      "byte_offset": 2230,
+      "byte_offset": 2211,
       "line_no": 6
     }
   },
@@ -242,7 +242,7 @@ expression: events
     },
     "provenance": {
       "file": "fixtures/otel/genai/rewind_compaction.jsonl",
-      "byte_offset": 2595,
+      "byte_offset": 2576,
       "line_no": 7
     }
   },
@@ -270,7 +270,7 @@ expression: events
     },
     "provenance": {
       "file": "fixtures/otel/genai/rewind_compaction.jsonl",
-      "byte_offset": 2595,
+      "byte_offset": 2576,
       "line_no": 7
     }
   },
@@ -304,7 +304,7 @@ expression: events
     },
     "provenance": {
       "file": "fixtures/otel/genai/rewind_compaction.jsonl",
-      "byte_offset": 2595,
+      "byte_offset": 2576,
       "line_no": 7
     }
   },
@@ -330,7 +330,7 @@ expression: events
     },
     "provenance": {
       "file": "fixtures/otel/genai/rewind_compaction.jsonl",
-      "byte_offset": 2914,
+      "byte_offset": 2895,
       "line_no": 8
     }
   }

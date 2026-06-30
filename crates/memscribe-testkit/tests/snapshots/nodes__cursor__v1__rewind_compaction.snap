@@ -79,7 +79,7 @@ expression: nodes
     "provenance": [
       {
         "file": "fixtures/cursor/v1/rewind_compaction.jsonl",
-        "byte_offset": 1415,
+        "byte_offset": 1396,
         "line_no": 5
       }
     ]

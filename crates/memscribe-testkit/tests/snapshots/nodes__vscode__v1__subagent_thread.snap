@@ -55,6 +55,21 @@ expression: nodes
     "timestamp": "2026-06-22T17:00:00Z"
   },
   {
+    "node": "decision",
+    "epitome": "Extracting the send loop into a dedicated worker module.",
+    "considered_options": [],
+    "is_ban": false,
+    "superseded_by": null,
+    "confirmation": null,
+    "source_span": {
+      "start": 2,
+      "end": 3
+    },
+    "fact_status": "deterministically_derived",
+    "timestamp": "2026-06-22T17:00:07Z",
+    "decided_by": "gpt-4o"
+  },
+  {
     "node": "episode",
     "path": "src/worker/email.ts",
     "diff": {
@@ -135,14 +150,14 @@ expression: nodes
   },
   {
     "node": "binding",
-    "from": "decision:vsc-sess-sub:1",
+    "from": "decision:vsc-sess-sub:2",
     "to": "episode:2e8a5e0a771552f8bad2036bf6c6341514fda7c3c42fb31b41d07a4544ebf57b",
     "relation": "produced",
     "prov": {
       "used_session": "vsc-sess-sub",
-      "used_decision": "decision:vsc-sess-sub:1",
+      "used_decision": "decision:vsc-sess-sub:2",
       "was_generated_by_session": "vsc-sess-sub",
-      "t_use": "2026-06-22T17:00:00Z",
+      "t_use": "2026-06-22T17:00:07Z",
       "t_gen": "2026-06-22T17:00:07Z"
     },
     "fact_status": "deterministically_derived",

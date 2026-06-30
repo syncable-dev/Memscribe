@@ -94,6 +94,21 @@ expression: nodes
     "timestamp": "2026-06-22T21:00:15Z"
   },
   {
+    "node": "decision",
+    "epitome": "Extracting the send loop into a worker module and spawning it from main.",
+    "considered_options": [],
+    "is_ban": false,
+    "superseded_by": null,
+    "confirmation": null,
+    "source_span": {
+      "start": 5,
+      "end": 6
+    },
+    "fact_status": "deterministically_derived",
+    "timestamp": "2026-06-22T21:00:22Z",
+    "decided_by": "cursor-pro"
+  },
+  {
     "node": "episode",
     "path": "src/worker/email.rs",
     "diff": {
@@ -129,14 +144,14 @@ expression: nodes
   },
   {
     "node": "binding",
-    "from": "decision:cur-sess-008b:4",
+    "from": "decision:cur-sess-008b:5",
     "to": "episode:1529b870d85b811d0ef6f634949a51de72b1052ae056c65f97c860143e9836a7",
     "relation": "produced",
     "prov": {
       "used_session": "cur-sess-008b",
-      "used_decision": "decision:cur-sess-008b:4",
+      "used_decision": "decision:cur-sess-008b:5",
       "was_generated_by_session": "cur-sess-008b",
-      "t_use": "2026-06-22T21:00:15Z",
+      "t_use": "2026-06-22T21:00:22Z",
       "t_gen": "2026-06-22T21:00:22Z"
     },
     "fact_status": "deterministically_derived",
@@ -150,14 +165,14 @@ expression: nodes
   },
   {
     "node": "binding",
-    "from": "decision:cur-sess-008b:4",
+    "from": "decision:cur-sess-008b:5",
     "to": "episode:e6835b14c7ae0755fa66f2753782cf6d7f7b973a6f9c2f7df9124e3c4e8e6d04",
     "relation": "produced",
     "prov": {
       "used_session": "cur-sess-008b",
-      "used_decision": "decision:cur-sess-008b:4",
+      "used_decision": "decision:cur-sess-008b:5",
       "was_generated_by_session": "cur-sess-008b",
-      "t_use": "2026-06-22T21:00:15Z",
+      "t_use": "2026-06-22T21:00:22Z",
       "t_gen": "2026-06-22T21:00:22Z"
     },
     "fact_status": "deterministically_derived",

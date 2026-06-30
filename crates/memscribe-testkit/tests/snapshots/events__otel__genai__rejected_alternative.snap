@@ -72,7 +72,7 @@ expression: events
     "source": "otel",
     "session_id": "sess-reject-001",
     "seq": 2,
-    "event_id": "c2f76d0e15483645951e6e80c296d723ead4a32266243ec3d73ae34486aa5883:output_msg:0",
+    "event_id": "ca02d3f4ff7b446481762a8e93760871dc377643a81dd93bd4e3831285713a7c:output_msg:0",
     "parent_id": null,
     "timestamp": "2026-06-22T11:00:08Z",
     "project": {
@@ -85,7 +85,7 @@ expression: events
     },
     "kind": {
       "event": "assistant_turn",
-      "text": "Understood, I'll wire up Stripe and drop the PayPal path.",
+      "text": "Understood. Applying the changes now.",
       "thinking": null,
       "model": "gpt-5",
       "usage": {
@@ -97,7 +97,7 @@ expression: events
       "parts": [
         {
           "part": "text",
-          "text": "Understood, I'll wire up Stripe and drop the PayPal path."
+          "text": "Understood. Applying the changes now."
         }
       ]
     },
@@ -137,7 +137,7 @@ expression: events
     },
     "provenance": {
       "file": "fixtures/otel/genai/rejected_alternative.jsonl",
-      "byte_offset": 881,
+      "byte_offset": 861,
       "line_no": 4
     }
   }
