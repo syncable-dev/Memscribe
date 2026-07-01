@@ -83,14 +83,20 @@ fn discover_handles(cfg: &DiscoverCfg) -> Vec<TranscriptHandle> {
     // GitHub Copilot CLI config directory.
     let cli_dir = home.join(".config").join("github-copilot");
     // VS Code Copilot Chat workspace storage (handled in detail by the vscode
-    // adapter, but Copilot history physically lives here too).
-    let vscode_dir = home
-        .join(".config")
-        .join("Code")
-        .join("User")
-        .join("workspaceStorage");
+    // adapter, but Copilot history physically lives here too). This used to
+    // be a single hardcoded `.config/Code/User/workspaceStorage` — correct
+    // only on Linux by coincidence, WRONG on macOS (real path is
+    // `Library/Application Support/Code/User/...`, verified live) and on
+    // Windows (no candidate existed at all). Point at all three real,
+    // OS-specific locations — mirrors vscode.rs's own candidate list, since
+    // this is literally the same on-disk data.
+    let vscode_dirs = [
+        home.join("Library/Application Support/Code/User/workspaceStorage"), // macOS
+        home.join(".config/Code/User/workspaceStorage"),                     // Linux
+        home.join("AppData/Roaming/Code/User/workspaceStorage"),             // Windows
+    ];
 
-    for dir in [cli_dir, vscode_dir] {
+    for dir in std::iter::once(cli_dir).chain(vscode_dirs) {
         let session_hint = dir.file_name().and_then(|s| s.to_str()).map(str::to_string);
         handles.push(TranscriptHandle {
             path: dir,
@@ -695,14 +701,25 @@ mod tests {
 
     #[test]
     fn discover_points_at_product_paths() {
+        let home = PathBuf::from("/home/dev");
         let cfg = DiscoverCfg {
-            home: Some(PathBuf::from("/home/dev")),
+            home: Some(home.clone()),
             ..Default::default()
         };
         let handles = CopilotAdapter.discover(&cfg);
         assert!(!handles.is_empty());
         assert!(handles.iter().all(|h| h.source == SourceKind::Copilot));
         assert!(handles.iter().any(|h| h.path.ends_with("github-copilot")));
+
+        // 2026-07 regression: vscode_dir used to be a single hardcoded
+        // `.config/Code/User/workspaceStorage` — correct only on Linux by
+        // coincidence, wrong on macOS/Windows, and untested here (the old
+        // version of this test never asserted on it at all). All three real,
+        // OS-specific locations must be present now.
+        let paths: Vec<_> = handles.iter().map(|h| h.path.clone()).collect();
+        assert!(paths.contains(&home.join("Library/Application Support/Code/User/workspaceStorage")));
+        assert!(paths.contains(&home.join(".config/Code/User/workspaceStorage")));
+        assert!(paths.contains(&home.join("AppData/Roaming/Code/User/workspaceStorage")));
     }
 
     #[test]

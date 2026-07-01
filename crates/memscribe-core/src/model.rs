@@ -46,6 +46,10 @@ pub enum SourceKind {
     VsCode,
     /// GitHub Copilot.
     Copilot,
+    /// Hermes Agent (NousResearch).
+    Hermes,
+    /// OpenCode (SST).
+    OpenCode,
     /// Source could not be determined.
     Unknown,
 }
@@ -64,6 +68,8 @@ impl SourceKind {
             SourceKind::Zed => "zed",
             SourceKind::VsCode => "vscode",
             SourceKind::Copilot => "copilot",
+            SourceKind::Hermes => "hermes",
+            SourceKind::OpenCode => "opencode",
             SourceKind::Unknown => "unknown",
         }
     }
@@ -81,6 +87,8 @@ impl SourceKind {
             "zed" => Some(SourceKind::Zed),
             "vscode" | "vs_code" | "vs-code" | "code" => Some(SourceKind::VsCode),
             "copilot" | "github_copilot" => Some(SourceKind::Copilot),
+            "hermes" | "hermes_agent" | "hermes-agent" => Some(SourceKind::Hermes),
+            "opencode" | "open_code" | "open-code" => Some(SourceKind::OpenCode),
             "unknown" => Some(SourceKind::Unknown),
             _ => None,
         }

@@ -1,0 +1,4 @@
+{"role":"user","message":{"content":[{"type":"text","text":"Investigate why the config loader panics on empty files and fix it."}]}}
+{"role":"assistant","message":{"content":[{"type":"text","text":"Investigating: I'll read the loader and check for an empty-file guard."},{"type":"tool_use","name":"Read","input":{"path":"src/config/loader.rs"}},{"type":"tool_use","name":"Grep","input":{"pattern":"fn load_config","path":"src"}}]}}
+{"type":"turn_ended","status":"success"}
+{"role":"assistant","message":{"content":[{"type":"tool_use","name":"Edit","input":{"path":"src/config/loader.rs","old_string":"let raw = fs::read_to_string(path)?;\nparse(&raw)","new_string":"let raw = fs::read_to_string(path)?;\nif raw.trim().is_empty() { return Ok(Config::default()); }\nparse(&raw)"}}]}}

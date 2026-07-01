@@ -58,12 +58,20 @@ impl TranscriptAdapter for ClaudeCodeAdapter {
 // ---------------------------------------------------------------------------
 
 /// Discover `<config>/projects/<slug>/<session>.jsonl` transcripts. The config
-/// dir is `CLAUDE_CONFIG_DIR` (override) else `<home>/.claude`.
+/// dir is `CLAUDE_CONFIG_DIR` (memscribe.toml override, then the REAL process
+/// env var — Claude Code's own officially documented override, per
+/// code.claude.com/docs/en/claude-directory — else `<home>/.claude`).
+///
+/// Before this fix, a user who legitimately set `CLAUDE_CONFIG_DIR` in their
+/// shell (the real, documented way to relocate Claude Code's data) was never
+/// honored unless they ALSO duplicated it into a memscribe.toml — silently
+/// diverging from where Claude Code itself actually writes transcripts.
 fn discover_transcripts(cfg: &DiscoverCfg) -> Vec<TranscriptHandle> {
     let base = cfg
         .overrides
         .get("CLAUDE_CONFIG_DIR")
         .cloned()
+        .or_else(|| std::env::var("CLAUDE_CONFIG_DIR").ok().filter(|v| !v.is_empty()).map(PathBuf::from))
         .unwrap_or_else(|| cfg.home_dir().join(".claude"));
     let projects = base.join("projects");
 

@@ -201,6 +201,10 @@ fn infer_source(file: &Path) -> Option<SourceKind> {
         SourceKind::Zed
     } else if p.contains("copilot") {
         SourceKind::Copilot
+    } else if p.contains("hermes") {
+        SourceKind::Hermes
+    } else if p.contains("opencode") {
+        SourceKind::OpenCode
     } else if p.contains("vscode") || p.contains("code") {
         SourceKind::VsCode
     } else if p.contains("otel") || p.ends_with(".ndjson") {

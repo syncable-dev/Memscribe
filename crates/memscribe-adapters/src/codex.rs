@@ -1124,10 +1124,21 @@ fn discover_rollouts(cfg: &DiscoverCfg) -> Vec<TranscriptHandle> {
     handles
 }
 
-/// The `~/.codex/sessions` root, honoring a `CODEX_HOME` override.
+/// The `~/.codex/sessions` root, honoring a `CODEX_HOME` override
+/// (memscribe.toml, then the REAL process env var — Codex's own
+/// `find_codex_home`/`find_codex_home_from_env` reads `$CODEX_HOME` directly,
+/// per openai/codex's own source — else `<home>/.codex`).
+///
+/// Before this fix, a user with a real `CODEX_HOME` set in their shell (the
+/// documented Codex override) was never honored here unless they ALSO
+/// duplicated it into a memscribe.toml — silently diverging from Codex's own
+/// resolution.
 fn codex_sessions_root(cfg: &DiscoverCfg) -> PathBuf {
     if let Some(p) = cfg.overrides.get("CODEX_HOME") {
         return p.join("sessions");
+    }
+    if let Some(p) = std::env::var("CODEX_HOME").ok().filter(|v| !v.is_empty()) {
+        return PathBuf::from(p).join("sessions");
     }
     cfg.home_dir().join(".codex").join("sessions")
 }

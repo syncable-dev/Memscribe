@@ -101,15 +101,113 @@ pub struct DiscoverCfg {
 }
 
 impl DiscoverCfg {
-    /// The effective home directory (override, then `$HOME`, then `.`).
+    /// The effective home directory: explicit override, then `$HOME`, then
+    /// `%USERPROFILE%`, then `%HOMEDRIVE%%HOMEPATH%`, then `.` as a last resort.
+    ///
+    /// `HOME` alone is a critical, systemic gap on native Windows (a bare
+    /// cmd.exe/PowerShell process — not Git-Bash/MSYS/WSL, which set `HOME`
+    /// themselves): Windows conventionally provides `USERPROFILE`, not `HOME`.
+    /// Every adapter in this crate calls this function to resolve its
+    /// discovery root, so leaving `HOME` unset there silently fell through to
+    /// `.` (cwd) — every adapter found zero real transcripts on a stock
+    /// Windows install, not an error, just silent, total data loss. This
+    /// mirrors how Rust's own (deprecated) `std::env::home_dir()` and the
+    /// widely-used `dirs`/`home` crates resolve the same directory: `$HOME`
+    /// where POSIX shells set it, `%USERPROFILE%` (or the
+    /// `%HOMEDRIVE%%HOMEPATH%` pair as an older fallback) on native Windows.
     #[must_use]
     pub fn home_dir(&self) -> PathBuf {
         if let Some(h) = &self.home {
             return h.clone();
         }
-        std::env::var_os("HOME")
-            .map(PathBuf::from)
-            .unwrap_or_else(|| PathBuf::from("."))
+        resolve_home_dir(
+            non_empty_env("HOME"),
+            non_empty_env("USERPROFILE"),
+            non_empty_env("HOMEDRIVE"),
+            non_empty_env("HOMEPATH"),
+        )
+    }
+}
+
+/// `std::env::var_os`, but an explicitly-set-yet-empty variable (some shells
+/// export `HOME=""`) is treated the same as unset, so it doesn't win over a
+/// later, populated fallback.
+fn non_empty_env(key: &str) -> Option<String> {
+    std::env::var(key).ok().filter(|v| !v.is_empty())
+}
+
+/// Pure fallback chain behind [`DiscoverCfg::home_dir`] — takes the candidate
+/// env values as plain `Option<String>` (not read here) so it's testable
+/// without mutating real process env vars (parallel `cargo test` threads
+/// share one process env; see the `home_dir_tests` module below).
+#[must_use]
+fn resolve_home_dir(
+    home: Option<String>,
+    userprofile: Option<String>,
+    homedrive: Option<String>,
+    homepath: Option<String>,
+) -> PathBuf {
+    if let Some(h) = home {
+        return PathBuf::from(h);
+    }
+    if let Some(h) = userprofile {
+        return PathBuf::from(h);
+    }
+    if let (Some(drive), Some(path)) = (homedrive, homepath) {
+        return PathBuf::from(format!("{drive}{path}"));
+    }
+    PathBuf::from(".")
+}
+
+#[cfg(test)]
+mod home_dir_tests {
+    // 2026-07 fix: home_dir() only ever read $HOME, silently falling back to
+    // "." (cwd) if unset. HOME is not a standard native-Windows env var
+    // (Windows sets USERPROFILE) — every adapter sharing this function found
+    // zero real transcripts on a stock Windows install as a result, silently.
+    use super::resolve_home_dir;
+    use std::path::PathBuf;
+
+    #[test]
+    fn prefers_home_when_present() {
+        assert_eq!(
+            resolve_home_dir(
+                Some("/Users/alex".into()),
+                Some(r"C:\Users\alex".into()),
+                Some(r"C:".into()),
+                Some(r"\Users\alex".into()),
+            ),
+            PathBuf::from("/Users/alex"),
+        );
+    }
+
+    #[test]
+    fn falls_back_to_userprofile_when_home_unset() {
+        // The exact native-Windows case (cmd.exe/PowerShell, no Git-Bash/WSL).
+        assert_eq!(
+            resolve_home_dir(None, Some(r"C:\Users\alex".into()), None, None),
+            PathBuf::from(r"C:\Users\alex"),
+        );
+    }
+
+    #[test]
+    fn falls_back_to_homedrive_homepath_when_home_and_userprofile_unset() {
+        assert_eq!(
+            resolve_home_dir(None, None, Some(r"C:".into()), Some(r"\Users\alex".into())),
+            PathBuf::from(r"C:\Users\alex"),
+        );
+    }
+
+    #[test]
+    fn falls_back_to_dot_when_nothing_is_set() {
+        assert_eq!(resolve_home_dir(None, None, None, None), PathBuf::from("."));
+    }
+
+    #[test]
+    fn homedrive_without_homepath_does_not_win() {
+        // Partial HOMEDRIVE/HOMEPATH must not produce a bogus path — falls
+        // through to the final "." resort instead.
+        assert_eq!(resolve_home_dir(None, None, Some("C:".into()), None), PathBuf::from("."));
     }
 }
 

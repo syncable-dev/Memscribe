@@ -1,0 +1,205 @@
+---
+source: crates/memscribe-testkit/tests/golden.rs
+expression: events
+---
+[
+  {
+    "schema_version": 1,
+    "source": "cursor",
+    "session_id": "unknown",
+    "seq": 0,
+    "event_id": "078ebefde798488e4bac56209314e183f7d9e8d049ddbcb393c2ac9616429307",
+    "parent_id": null,
+    "timestamp": "1970-01-01T00:00:00Z",
+    "project": {
+      "cwd": ".",
+      "repo_root": null,
+      "git": null
+    },
+    "kind": {
+      "event": "user_turn",
+      "text": "Investigate why the config loader panics on empty files and fix it.",
+      "parts": [
+        {
+          "part": "text",
+          "text": "Investigate why the config loader panics on empty files and fix it."
+        }
+      ]
+    },
+    "provenance": {
+      "file": "fixtures/cursor/real/content_block_export.jsonl",
+      "byte_offset": 0,
+      "line_no": 1
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "cursor",
+    "session_id": "unknown",
+    "seq": 1,
+    "event_id": "7f8563cf5d4643c928abef5e60e7c8a58eeac8be6456032f214ea3f16261ce0b",
+    "parent_id": null,
+    "timestamp": "1970-01-01T00:00:00Z",
+    "project": {
+      "cwd": ".",
+      "repo_root": null,
+      "git": null
+    },
+    "kind": {
+      "event": "assistant_turn",
+      "text": "Investigating: I'll read the loader and check for an empty-file guard.",
+      "thinking": null,
+      "model": null,
+      "usage": null,
+      "parts": [
+        {
+          "part": "text",
+          "text": "Investigating: I'll read the loader and check for an empty-file guard."
+        }
+      ]
+    },
+    "provenance": {
+      "file": "fixtures/cursor/real/content_block_export.jsonl",
+      "byte_offset": 133,
+      "line_no": 2
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "cursor",
+    "session_id": "unknown",
+    "seq": 2,
+    "event_id": "7f8563cf5d4643c928abef5e60e7c8a58eeac8be6456032f214ea3f16261ce0b#toolcall:block:1",
+    "parent_id": "7f8563cf5d4643c928abef5e60e7c8a58eeac8be6456032f214ea3f16261ce0b",
+    "timestamp": "1970-01-01T00:00:00Z",
+    "project": {
+      "cwd": ".",
+      "repo_root": null,
+      "git": null
+    },
+    "kind": {
+      "event": "tool_call",
+      "call_id": "block:1",
+      "name": "Read",
+      "args": {
+        "path": "src/config/loader.rs"
+      }
+    },
+    "provenance": {
+      "file": "fixtures/cursor/real/content_block_export.jsonl",
+      "byte_offset": 133,
+      "line_no": 2
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "cursor",
+    "session_id": "unknown",
+    "seq": 3,
+    "event_id": "7f8563cf5d4643c928abef5e60e7c8a58eeac8be6456032f214ea3f16261ce0b#toolcall:block:2",
+    "parent_id": "7f8563cf5d4643c928abef5e60e7c8a58eeac8be6456032f214ea3f16261ce0b",
+    "timestamp": "1970-01-01T00:00:00Z",
+    "project": {
+      "cwd": ".",
+      "repo_root": null,
+      "git": null
+    },
+    "kind": {
+      "event": "tool_call",
+      "call_id": "block:2",
+      "name": "Grep",
+      "args": {
+        "pattern": "fn load_config",
+        "path": "src"
+      }
+    },
+    "provenance": {
+      "file": "fixtures/cursor/real/content_block_export.jsonl",
+      "byte_offset": 133,
+      "line_no": 2
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "cursor",
+    "session_id": "unknown",
+    "seq": 4,
+    "event_id": "aaee95fae56eaa567c6db7f1d5ac153e45296d3abc93609d456f6da1e573ec22",
+    "parent_id": null,
+    "timestamp": "1970-01-01T00:00:00Z",
+    "project": {
+      "cwd": ".",
+      "repo_root": null,
+      "git": null
+    },
+    "kind": {
+      "event": "unknown",
+      "raw_type": "turn_ended",
+      "raw": {
+        "type": "turn_ended",
+        "status": "success"
+      }
+    },
+    "provenance": {
+      "file": "fixtures/cursor/real/content_block_export.jsonl",
+      "byte_offset": 432,
+      "line_no": 3
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "cursor",
+    "session_id": "unknown",
+    "seq": 5,
+    "event_id": "61830a96242e9df187f69852e139822b15acd7af6f8046e091edb6892d676d54",
+    "parent_id": null,
+    "timestamp": "1970-01-01T00:00:00Z",
+    "project": {
+      "cwd": ".",
+      "repo_root": null,
+      "git": null
+    },
+    "kind": {
+      "event": "assistant_turn",
+      "text": "",
+      "thinking": null,
+      "model": null,
+      "usage": null,
+      "parts": []
+    },
+    "provenance": {
+      "file": "fixtures/cursor/real/content_block_export.jsonl",
+      "byte_offset": 473,
+      "line_no": 4
+    }
+  },
+  {
+    "schema_version": 1,
+    "source": "cursor",
+    "session_id": "unknown",
+    "seq": 6,
+    "event_id": "61830a96242e9df187f69852e139822b15acd7af6f8046e091edb6892d676d54#toolcall:block:0",
+    "parent_id": "61830a96242e9df187f69852e139822b15acd7af6f8046e091edb6892d676d54",
+    "timestamp": "1970-01-01T00:00:00Z",
+    "project": {
+      "cwd": ".",
+      "repo_root": null,
+      "git": null
+    },
+    "kind": {
+      "event": "tool_call",
+      "call_id": "block:0",
+      "name": "Edit",
+      "args": {
+        "path": "src/config/loader.rs",
+        "old_string": "let raw = fs::read_to_string(path)?;\nparse(&raw)",
+        "new_string": "let raw = fs::read_to_string(path)?;\nif raw.trim().is_empty() { return Ok(Config::default()); }\nparse(&raw)"
+      }
+    },
+    "provenance": {
+      "file": "fixtures/cursor/real/content_block_export.jsonl",
+      "byte_offset": 473,
+      "line_no": 4
+    }
+  }
+]

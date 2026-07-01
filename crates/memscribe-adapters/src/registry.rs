@@ -26,6 +26,10 @@ pub fn all_adapters() -> Vec<Box<dyn TranscriptAdapter>> {
     v.push(Box::new(crate::vscode::VsCodeAdapter));
     #[cfg(feature = "copilot")]
     v.push(Box::new(crate::copilot::CopilotAdapter));
+    #[cfg(feature = "hermes")]
+    v.push(Box::new(crate::hermes::HermesAdapter));
+    #[cfg(feature = "opencode")]
+    v.push(Box::new(crate::opencode::OpenCodeAdapter));
     v
 }
 
@@ -51,6 +55,30 @@ pub fn adapter_for(kind: SourceKind) -> Option<Box<dyn TranscriptAdapter>> {
         SourceKind::VsCode => Some(Box::new(crate::vscode::VsCodeAdapter)),
         #[cfg(feature = "copilot")]
         SourceKind::Copilot => Some(Box::new(crate::copilot::CopilotAdapter)),
+        #[cfg(feature = "hermes")]
+        SourceKind::Hermes => Some(Box::new(crate::hermes::HermesAdapter)),
+        #[cfg(feature = "opencode")]
+        SourceKind::OpenCode => Some(Box::new(crate::opencode::OpenCodeAdapter)),
         _ => None,
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    /// Every adapter in `all_adapters()` must also resolve via
+    /// `adapter_for(its_kind)` — the two registries must never drift (this
+    /// caught Hermes/OpenCode present in the fan-out list but falling through
+    /// `adapter_for`'s `_ => None`).
+    #[test]
+    fn adapter_for_covers_every_registered_adapter() {
+        for adapter in all_adapters() {
+            let kind = adapter.source_kind();
+            assert!(
+                adapter_for(kind).is_some(),
+                "adapter_for({kind}) must resolve — registry drift"
+            );
+        }
     }
 }

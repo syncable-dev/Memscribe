@@ -149,10 +149,28 @@ fn parse_value(raw: &RawRecord, ctx: &mut ParseCtx, value: Value) -> Vec<Capture
     if value.get("$set").is_some() {
         return parse_set(raw, ctx, value);
     }
-    if value.get("role").is_some() {
+    if is_dialogue_turn(&value) {
         return parse_message(raw, ctx, value);
     }
     vec![util::unknown_event(SOURCE, ctx, raw, value)]
+}
+
+/// True when `value` is a dialogue-turn record worth routing into
+/// [`parse_message`]. Current gemini-cli discriminates messages with a `type`
+/// field (`user`|`gemini`|`info`|`error`|`warning`, per
+/// `chatRecordingTypes.ts`/`chatRecordingService.ts` — verified against
+/// gemini-cli's own source, 2026-07) — `role` never appears in the real
+/// schema at all. Before this fix every real message record fell through to
+/// `Unknown` (matched neither the doc comment's claimed `role` key nor any
+/// dispatch branch), so a real install's chat history was never parsed into
+/// structured turns. `role` is still accepted for any legacy/exported data
+/// that used it, and only `user`/`gemini`(+legacy `model`/`assistant`)
+/// dialogue values route here — `info`/`error`/`warning` are session
+/// chrome, not turns, and correctly stay `Unknown` (lossless).
+fn is_dialogue_turn(value: &Value) -> bool {
+    first_str(value, &["type", "role"])
+        .as_deref()
+        .is_some_and(|t| matches!(t, "user" | "gemini" | "model" | "assistant"))
 }
 
 /// `{"$rewindTo": <id|index>}` → [`EventKind::Rewind`].
@@ -238,7 +256,9 @@ fn parse_set(raw: &RawRecord, ctx: &mut ParseCtx, value: Value) -> Vec<CaptureEv
 /// A message record (`role: user|gemini|model`) → one turn plus any nested
 /// `toolCalls[]` as ToolCall/ToolResult/FileEdit events.
 fn parse_message(raw: &RawRecord, ctx: &mut ParseCtx, value: Value) -> Vec<CaptureEvent> {
-    let role = value.get("role").and_then(Value::as_str).unwrap_or("");
+    // See `is_dialogue_turn`: real records key on `type`, not `role`.
+    let role = first_str(&value, &["type", "role"]).unwrap_or_default();
+    let role = role.as_str();
     let event_id = record_id(&value, &raw.bytes);
     if !ctx.first_seen(&event_id) {
         // Idempotency: a repeated record produces nothing on re-ingest.
@@ -407,9 +427,19 @@ fn flatten_text(value: &Value) -> String {
     String::new()
 }
 
-/// Structured `parts[]`, preserving anything we don't recognize as [`Part::Other`].
+/// Structured parts, preserving anything we don't recognize as [`Part::Other`].
+/// Real gemini-cli records carry these under `content` (a `PartListUnion`
+/// array, per `chatRecordingTypes.ts`) — `parts` never appears in the real
+/// schema. Before this fix, structured parts were silently ALWAYS empty for
+/// real data: `flatten_text` happened to still recover the raw text via its
+/// own `content` fallback, which is why this gap didn't show up as missing
+/// text, only as an always-empty `parts: Vec<Part>` on every real turn.
 fn message_parts(value: &Value) -> Vec<Part> {
-    let Some(parts) = value.get("parts").and_then(Value::as_array) else {
+    let Some(parts) = value
+        .get("parts")
+        .or_else(|| value.get("content"))
+        .and_then(Value::as_array)
+    else {
         return Vec::new();
     };
     parts
@@ -819,5 +849,55 @@ mod tests {
             "gemini/chat-v1"
         );
         assert_eq!(a.schema_fingerprint(&raw("garbage")).confidence, 0);
+    }
+
+    #[test]
+    fn real_type_keyed_schema_is_not_silently_unknown() {
+        // 2026-07 regression test for the confirmed bug: real gemini-cli
+        // records (chatRecordingTypes.ts, verified against the tool's own
+        // source) discriminate on `type` — `user`|`gemini`|`info`|`error`|
+        // `warning` — never `role`. Every `parse_value`/`parse_message` call
+        // in this file gated on `value.get("role")`, so 100% of real message
+        // records fell through to Unknown, defeating the adapter entirely.
+        // Real `content` is an array of Part-like objects, not `parts`.
+        let user = r#"{"id":"m1","timestamp":"2026-06-22T10:00:00Z","type":"user","content":[{"text":"Switch the config loader to Postgres."}]}"#;
+        let assistant = r#"{"id":"m2","timestamp":"2026-06-22T10:00:05Z","type":"gemini","content":[{"text":"Switching to Postgres."}],"toolCalls":[{"id":"call-1","name":"edit_file","args":{"path":"config.toml"}}]}"#;
+        // Session chrome — must stay Unknown, not be coerced into a turn.
+        let info = r#"{"id":"m3","timestamp":"2026-06-22T10:00:06Z","type":"info","content":[{"text":"Context compacted"}]}"#;
+
+        let events = parse_all(&[user, assistant, info]);
+        assert_eq!(
+            tags(&events),
+            ["user_turn", "assistant_turn", "tool_call", "unknown"]
+        );
+
+        match &events[0].kind {
+            EventKind::UserTurn { text, parts } => {
+                assert_eq!(text, "Switch the config loader to Postgres.");
+                // message_parts must also read `content`, not just `parts`.
+                assert_eq!(parts.len(), 1);
+                assert!(matches!(&parts[0], Part::Text { text } if text == "Switch the config loader to Postgres."));
+            }
+            other => panic!("expected UserTurn, got {other:?}"),
+        }
+        match &events[1].kind {
+            EventKind::AssistantTurn { text, .. } => {
+                assert_eq!(text, "Switching to Postgres.");
+            }
+            other => panic!("expected AssistantTurn, got {other:?}"),
+        }
+        assert!(matches!(
+            &events[2].kind,
+            EventKind::ToolCall { name, .. } if name == "edit_file"
+        ));
+    }
+
+    #[test]
+    fn legacy_role_keyed_records_still_parse() {
+        // Backward compatibility: any legacy/exported data still keyed on
+        // `role` (the pre-fix assumption) must keep working unchanged.
+        let line = r#"{"id":"m1","role":"user","text":"hello"}"#;
+        let events = parse_all(&[line]);
+        assert_eq!(tags(&events), ["user_turn"]);
     }
 }

@@ -21,6 +21,8 @@ default = [
     "zed",
     "vscode",
     "copilot",
+    "hermes",
+    "opencode",
 ]
 claude_code = []
 codex = ["dep:zstd"]
@@ -33,6 +35,9 @@ windsurf = []
 zed = ["dep:rusqlite", "dep:zstd"]
 vscode = ["dep:rusqlite"]
 copilot = []
+# Hermes and OpenCode read their conversation from a SQLite store.
+hermes = ["dep:rusqlite"]
+opencode = ["dep:rusqlite"]
 
 [dependencies]
 memscribe-core = { workspace = true }
@@ -48,3 +53,4 @@ rusqlite = { workspace = true, optional = true }
 [dev-dependencies]
 proptest = { workspace = true }
 serde_json = { workspace = true }
+tempfile = { workspace = true }

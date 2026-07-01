@@ -86,10 +86,15 @@ impl TranscriptAdapter for VsCodeAdapter {
         //   …/Code/User/workspaceStorage/<hash>/state.vscdb  (per-workspace)
         //   …/Code/User/globalStorage/state.vscdb            (global)
         // plus a tolerant `~/.vscode` fallback for non-standard installs.
+        // 2026-07: added the Windows candidate — there was none at all, so
+        // discover() returned zero handles on every real Windows VS Code
+        // install (confirmed live: %APPDATA%\Code\User\workspaceStorage is
+        // the real path, corroborated by multiple independent sources).
         let home = cfg.home_dir();
         let user_dirs = [
-            home.join("Library/Application Support/Code/User"),
-            home.join(".config/Code/User"),
+            home.join("Library/Application Support/Code/User"), // macOS
+            home.join(".config/Code/User"),                     // Linux
+            home.join("AppData/Roaming/Code/User"),             // Windows — %APPDATA%\Code\User
             home.join(".vscode"),
         ];
 
@@ -946,6 +951,25 @@ mod tests {
 
     fn raw(line: &str) -> RawRecord {
         RawRecord::from_line(line, SourceLocation::new("vscode.jsonl", 0, 1))
+    }
+
+    #[test]
+    fn discover_finds_windows_appdata_workspace_store() {
+        // 2026-07 regression: there was no Windows candidate at all — on a
+        // real Windows VS Code install, discover() returned zero handles.
+        let tmp = tempfile::tempdir().unwrap();
+        let ws_hash = tmp
+            .path()
+            .join("AppData/Roaming/Code/User/workspaceStorage/abc123hash");
+        std::fs::create_dir_all(&ws_hash).unwrap();
+        std::fs::write(ws_hash.join("state.vscdb"), b"").unwrap();
+
+        let cfg = DiscoverCfg {
+            home: Some(tmp.path().to_path_buf()),
+            ..Default::default()
+        };
+        let handles = VsCodeAdapter.discover(&cfg);
+        assert!(handles.iter().any(|h| h.path == ws_hash.join("state.vscdb")));
     }
 
     /// Run a slice of JSONL lines through the adapter, threading one context.

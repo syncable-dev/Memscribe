@@ -130,9 +130,23 @@ impl TranscriptAdapter for ZedAdapter {
     fn discover(&self, cfg: &DiscoverCfg) -> Vec<TranscriptHandle> {
         let home = cfg.home_dir();
         // The agent-panel thread store, in product-location precedence order.
+        //
+        // 2026-07: Zed's own source (crates/paths/src/paths.rs data_dir())
+        // resolves via `dirs::data_local_dir()`, which honors $XDG_DATA_HOME
+        // on Linux (default ~/.local/share) rather than a hardcoded literal,
+        // and has a full Windows candidate at %LOCALAPPDATA%\Zed — Zed has
+        // shipped full, official Windows support since ~April 2026, so
+        // omitting it entirely (as before) left every Windows install
+        // undiscoverable, not a deliberate "unsupported platform" gap.
+        let xdg_data_home = std::env::var("XDG_DATA_HOME")
+            .ok()
+            .filter(|v| !v.is_empty())
+            .map(PathBuf::from)
+            .unwrap_or_else(|| home.join(".local/share"));
         let candidates = [
-            home.join("Library/Application Support/Zed/threads/threads.db"),
-            home.join(".local/share/zed/threads/threads.db"),
+            home.join("Library/Application Support/Zed/threads/threads.db"), // macOS
+            xdg_data_home.join("zed/threads/threads.db"),                    // Linux
+            home.join("AppData/Local/Zed/threads/threads.db"), // Windows — %LOCALAPPDATA%\Zed
             home.join(".local/share/zed/threads.db"),
         ];
         let mut handles = Vec::new();
@@ -1470,6 +1484,25 @@ mod tests {
             ],
         )
         .unwrap();
+    }
+
+    #[test]
+    fn discover_finds_windows_localappdata_threads_db() {
+        // 2026-07 regression: zed.rs had NO Windows candidate at all, despite
+        // Zed shipping full official Windows support since ~April 2026 — the
+        // real path (per Zed's own paths.rs data_dir()) is
+        // %LOCALAPPDATA%\Zed\threads\threads.db.
+        let dir = ScratchDir::new();
+        let win_threads = dir.path().join("AppData/Local/Zed/threads/threads.db");
+        std::fs::create_dir_all(win_threads.parent().unwrap()).unwrap();
+        std::fs::write(&win_threads, b"").unwrap();
+
+        let cfg = DiscoverCfg {
+            home: Some(dir.path().to_path_buf()),
+            ..Default::default()
+        };
+        let handles = ZedAdapter.discover(&cfg);
+        assert!(handles.iter().any(|h| h.path == win_threads));
     }
 
     #[test]

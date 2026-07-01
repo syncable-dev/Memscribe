@@ -23,6 +23,10 @@ pub mod copilot;
 pub mod cursor;
 #[cfg(feature = "gemini")]
 pub mod gemini;
+#[cfg(feature = "hermes")]
+pub mod hermes;
+#[cfg(feature = "opencode")]
+pub mod opencode;
 #[cfg(feature = "otel")]
 pub mod otel;
 #[cfg(feature = "vscode")]

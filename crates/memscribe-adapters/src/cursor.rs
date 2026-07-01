@@ -111,16 +111,46 @@ impl TranscriptAdapter for CursorAdapter {
         // store; the per-workspace stores are read too (older builds kept chat
         // there). We also tolerate exported `.jsonl`/`.cursorchat` files so the
         // exported-transcript model still discovers.
+        //
+        // `~/.cursor` needs a DEEPER walk than the SQLite-storage roots: real
+        // agent-transcripts files live at
+        // `.cursor/projects/<slug>/agent-transcripts/<uuid>/<uuid>.jsonl`
+        // (depth 5, root = depth 0) or
+        // `.../agent-transcripts/<uuid>/subagents/<uuid>.jsonl` (depth 6) for
+        // sub-agent threads. The old max_depth(3) applied uniformly to every
+        // root stopped at the `agent-transcripts` DIRECTORY itself and never
+        // descended into it — discovery silently returned zero handles for
+        // this entire tree regardless of what the parser could do with them
+        // (confirmed live: 33 real files / 5854 lines never even reached).
+        // Windows/AppData/Roaming and ~/.config/Cursor... roots stay depth 3
+        // (state.vscdb sits shallow there; walking deeper buys nothing and
+        // costs extra FS I/O on every ~30s capture tick).
+        const SQLITE_ROOT_DEPTH: usize = 3;
+        const CURSOR_HOME_DEPTH: usize = 6;
         let roots = [
-            home.join("Library/Application Support/Cursor/User/workspaceStorage"),
-            home.join("Library/Application Support/Cursor/User/globalStorage"),
-            home.join(".config/Cursor/User/workspaceStorage"),
-            home.join(".config/Cursor/User/globalStorage"),
-            home.join(".cursor"),
+            (
+                home.join("Library/Application Support/Cursor/User/workspaceStorage"),
+                SQLITE_ROOT_DEPTH,
+            ),
+            (
+                home.join("Library/Application Support/Cursor/User/globalStorage"),
+                SQLITE_ROOT_DEPTH,
+            ),
+            (home.join(".config/Cursor/User/workspaceStorage"), SQLITE_ROOT_DEPTH),
+            (home.join(".config/Cursor/User/globalStorage"), SQLITE_ROOT_DEPTH),
+            (
+                home.join("AppData/Roaming/Cursor/User/workspaceStorage"),
+                SQLITE_ROOT_DEPTH,
+            ),
+            (
+                home.join("AppData/Roaming/Cursor/User/globalStorage"),
+                SQLITE_ROOT_DEPTH,
+            ),
+            (home.join(".cursor"), CURSOR_HOME_DEPTH),
         ];
-        for root in roots {
+        for (root, max_depth) in roots {
             for entry in walkdir::WalkDir::new(&root)
-                .max_depth(3)
+                .max_depth(max_depth)
                 .into_iter()
                 .filter_map(std::result::Result::ok)
             {
@@ -236,6 +266,14 @@ impl TranscriptAdapter for CursorAdapter {
         }
 
         if str_field(obj, "role").is_some() {
+            let normalized_owner;
+            let obj = match normalize_content_block_message(obj) {
+                Some(n) => {
+                    normalized_owner = n;
+                    &normalized_owner
+                }
+                None => obj,
+            };
             return Ok(parse_message(obj, ctx, raw));
         }
 
@@ -804,6 +842,77 @@ fn parse_session_end(
     )]
 }
 
+/// Cursor's real exported-transcript shape (verified against on-disk files at
+/// `~/.cursor/projects/*/agent-transcripts/*/*.jsonl`, June/July 2026) nests
+/// turn content inside `message.content[]` as Anthropic-Messages-API-style
+/// content blocks — `{type:"text",text}` / `{type:"tool_use",name,input}` —
+/// NOT the flat `{text, toolCalls:[{id,name,args}], ...}` shape [`parse_message`]
+/// expects (the shape [`normalize_bubble`] produces from the native SQLite
+/// store, mirrored by the `fixtures/cursor/v1/*` fixtures).
+///
+/// Without this, every real-exported turn silently parsed with empty text and
+/// dropped every tool call — a 100% data-loss bug (reproduced: 307/307 turns
+/// empty on a real 310-record file) that stayed invisible because a
+/// `role`-bearing record never falls through to the lossless `Unknown` path;
+/// it's misrouted into `parse_message` and silently downgraded instead.
+///
+/// Only `text` and `tool_use` blocks were observed in every real file sampled
+/// (no `tool_result`/`thinking`/`image` blocks, and `tool_use` blocks never
+/// carry an `id` — this export format is lossier than the full Anthropic
+/// Messages API shape, it does not record tool call results at all). Any
+/// other/future block type is skipped in this flattened projection only —
+/// the original record is still preserved verbatim in `raw` upstream, so
+/// nothing here makes the overall pipeline lossy.
+///
+/// Returns `Some(normalized)` when `obj` matches the content-block shape,
+/// `None` when `obj` is already flat (the common case for the native-store
+/// and legacy-export paths — nothing to do).
+fn normalize_content_block_message(
+    obj: &serde_json::Map<String, Value>,
+) -> Option<serde_json::Map<String, Value>> {
+    if obj.contains_key("text") || obj.contains_key("toolCalls") {
+        return None;
+    }
+    let content = obj
+        .get("message")
+        .and_then(Value::as_object)?
+        .get("content")
+        .and_then(Value::as_array)?;
+
+    let mut text_parts = Vec::new();
+    let mut tool_calls = Vec::new();
+    for (i, block) in content.iter().enumerate() {
+        let Some(block_obj) = block.as_object() else {
+            continue;
+        };
+        match str_field(block_obj, "type") {
+            Some("text") => {
+                if let Some(t) = str_field(block_obj, "text") {
+                    if !t.is_empty() {
+                        text_parts.push(t.to_string());
+                    }
+                }
+            }
+            Some("tool_use") => {
+                let id = str_field(block_obj, "id")
+                    .map(str::to_string)
+                    .unwrap_or_else(|| format!("block:{i}"));
+                let name = str_field(block_obj, "name").unwrap_or("").to_string();
+                let args = block_obj.get("input").cloned().unwrap_or(Value::Null);
+                tool_calls.push(serde_json::json!({ "id": id, "name": name, "args": args }));
+            }
+            _ => {}
+        }
+    }
+
+    let mut normalized = obj.clone();
+    normalized.insert("text".to_string(), Value::String(text_parts.join("\n\n")));
+    if !tool_calls.is_empty() {
+        normalized.insert("toolCalls".to_string(), Value::Array(tool_calls));
+    }
+    Some(normalized)
+}
+
 /// Parse a dialogue record into the turn event plus any embedded tool calls,
 /// tool results, and file edits — in a stable, deterministic order.
 fn parse_message(
@@ -1055,6 +1164,65 @@ mod tests {
 
     fn raw(s: &str, line: u64) -> RawRecord {
         RawRecord::from_line(s, SourceLocation::new("cursor.jsonl", 0, line))
+    }
+
+    #[test]
+    fn discover_reaches_real_depth_agent_transcripts_and_subagents() {
+        // 2026-07 regression test: max_depth(3) applied to every root stopped
+        // at the agent-transcripts DIRECTORY itself (depth 3) and never
+        // descended into it. Real files sit at depth 5
+        // (.cursor/projects/<slug>/agent-transcripts/<uuid>/<uuid>.jsonl) or
+        // depth 6 for sub-agent threads
+        // (.../agent-transcripts/<uuid>/subagents/<uuid>.jsonl) — discovery
+        // returned zero handles for this entire tree regardless of the
+        // parser fix, on real data (33 files / 5854 lines never reached).
+        let tmp = tempfile::tempdir().unwrap();
+        let cursor_home = tmp.path().join(".cursor");
+        let top = cursor_home
+            .join("projects")
+            .join("my-project")
+            .join("agent-transcripts")
+            .join("session-uuid-1");
+        std::fs::create_dir_all(&top).unwrap();
+        std::fs::write(top.join("session-uuid-1.jsonl"), "{}\n").unwrap();
+
+        let sub = top.join("subagents");
+        std::fs::create_dir_all(&sub).unwrap();
+        std::fs::write(sub.join("subagent-uuid-1.jsonl"), "{}\n").unwrap();
+
+        let cfg = DiscoverCfg {
+            home: Some(tmp.path().to_path_buf()),
+            ..Default::default()
+        };
+        let handles = CursorAdapter.discover(&cfg);
+        let paths: Vec<_> = handles.iter().map(|h| h.path.clone()).collect();
+        assert!(
+            paths.contains(&top.join("session-uuid-1.jsonl")),
+            "top-level agent-transcripts file (depth 5) not discovered: {paths:?}"
+        );
+        assert!(
+            paths.contains(&sub.join("subagent-uuid-1.jsonl")),
+            "sub-agent transcript file (depth 6) not discovered: {paths:?}"
+        );
+    }
+
+    #[test]
+    fn discover_finds_windows_appdata_state_vscdb() {
+        // Regression for the missing Windows root: state.vscdb under
+        // AppData/Roaming was not in the candidate list at all.
+        let tmp = tempfile::tempdir().unwrap();
+        let win_store = tmp
+            .path()
+            .join("AppData/Roaming/Cursor/User/globalStorage");
+        std::fs::create_dir_all(&win_store).unwrap();
+        std::fs::write(win_store.join("state.vscdb"), b"").unwrap();
+
+        let cfg = DiscoverCfg {
+            home: Some(tmp.path().to_path_buf()),
+            ..Default::default()
+        };
+        let handles = CursorAdapter.discover(&cfg);
+        assert!(handles.iter().any(|h| h.path == win_store.join("state.vscdb")));
     }
 
     /// Parse a whole JSONL string through one shared context (file order),
@@ -1681,6 +1849,20 @@ mod tests {
             .unwrap_or_else(|e| panic!("read fixture {}: {e}", path.display()))
     }
 
+    /// `fixtures/cursor/real/` (separate from `v1/`, which is the adapter's own
+    /// normalized shape) holds fixtures matching the ACTUAL on-disk export
+    /// format, format-accurate reconstructions of real files (not the internal
+    /// normalized shape those files get mistaken for) — see
+    /// `normalize_content_block_message`'s doc comment for why this distinction
+    /// matters. Mirrors `fixtures/codex/real/`.
+    fn fixture_real(name: &str) -> String {
+        let path = std::path::Path::new(env!("CARGO_MANIFEST_DIR"))
+            .join("../../fixtures/cursor/real")
+            .join(name);
+        std::fs::read_to_string(&path)
+            .unwrap_or_else(|e| panic!("read fixture {}: {e}", path.display()))
+    }
+
     #[test]
     fn native_reader_falls_back_to_lines_for_jsonl() {
         // A `.jsonl` export path is line-read by read_native (not SQLite), then
@@ -1705,6 +1887,65 @@ mod tests {
         assert!(events
             .iter()
             .any(|e| matches!(&e.kind, EventKind::FileEdit { .. })));
+    }
+
+    #[test]
+    fn real_export_content_block_shape_is_not_silently_emptied() {
+        // 2026-07 regression test for the confirmed data-loss bug: a real
+        // Cursor export nests turn content in message.content[] as
+        // {type:"text"}/{type:"tool_use"} blocks, not the adapter's flat
+        // {text, toolCalls} shape. Before normalize_content_block_message,
+        // EVERY turn in a real file parsed with empty text and zero tool
+        // calls (reproduced live: 307/307 turns empty on a real 310-record
+        // file) — this fixture is a format-accurate reconstruction of that
+        // real shape (see fixtures/cursor/real/content_block_export.jsonl).
+        let (events, _ctx) = parse_all(&fixture_real("content_block_export.jsonl"));
+
+        let user_turns: Vec<_> = events
+            .iter()
+            .filter_map(|e| match &e.kind {
+                EventKind::UserTurn { text, .. } => Some(text.as_str()),
+                _ => None,
+            })
+            .collect();
+        assert_eq!(user_turns, vec!["Investigate why the config loader panics on empty files and fix it."]);
+
+        let assistant_texts: Vec<_> = events
+            .iter()
+            .filter_map(|e| match &e.kind {
+                EventKind::AssistantTurn { text, .. } => Some(text.as_str()),
+                _ => None,
+            })
+            .collect();
+        // First assistant turn has real text; the second (edit-only) has none —
+        // both must be preserved as distinct turns, neither silently dropped.
+        assert_eq!(
+            assistant_texts,
+            vec!["Investigating: I'll read the loader and check for an empty-file guard.", ""]
+        );
+
+        // Every tool_use block across both assistant turns must survive as a
+        // ToolCall event — none dropped, and `input` must map to `args`.
+        let tool_calls: Vec<_> = events
+            .iter()
+            .filter_map(|e| match &e.kind {
+                EventKind::ToolCall { name, args, .. } => Some((name.as_str(), args.clone())),
+                _ => None,
+            })
+            .collect();
+        assert_eq!(tool_calls.len(), 3, "expected Read, Grep, and Edit tool calls, got {tool_calls:?}");
+        assert_eq!(tool_calls[0].0, "Read");
+        assert_eq!(tool_calls[0].1["path"], "src/config/loader.rs");
+        assert_eq!(tool_calls[1].0, "Grep");
+        assert_eq!(tool_calls[2].0, "Edit");
+        assert_eq!(tool_calls[2].1["old_string"], "let raw = fs::read_to_string(path)?;\nparse(&raw)");
+
+        // The role-less {"type":"turn_ended",...} marker must not be silently
+        // coerced into a bogus dialogue turn — it has no `role`/`kind`, so it
+        // falls through to the lossless Unknown path.
+        assert!(events
+            .iter()
+            .any(|e| matches!(&e.kind, EventKind::Unknown { .. })));
     }
 
     #[test]

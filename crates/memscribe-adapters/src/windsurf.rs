@@ -1,14 +1,26 @@
-//! Windsurf (Codeium) adapter.
+//! Windsurf (Codeium Cascade) adapter.
 //!
-//! Windsurf is a VS Code-based editor whose Cascade agent stores chat in an
-//! undocumented binary/SQLite store under `~/.codeium/windsurf/` and
-//! `~/Library/Application Support/Windsurf/User/`. We do not parse that binary
-//! store in this model. Instead this adapter targets a deterministic **exported
-//! Cascade chat JSON-Lines** shape (one JSON object per line) and routes any
-//! unrecognized-but-valid record to [`memscribe_core::EventKind::Unknown`] so the
-//! stream stays lossless.
+//! **KNOWN LIMITATION (2026-07 research):** the real Cascade chat store is
+//! **protobuf**, not JSON — `.pb` files under `~/.codeium/windsurf/cascade/`
+//! (macOS/Linux) / `%USERPROFILE%\.codeium\windsurf\cascade` (Windows),
+//! confirmed via Windsurf/Devin Desktop's own troubleshooting docs and an
+//! independent reverse-engineering project (AlexStrNik/windsurf-api)
+//! targeting the live gRPC protocol (package `exa.cortex_pb`). That schema is
+//! genuinely undocumented — even a dedicated third-party chat-export tool
+//! (SpecStory) has no native Windsurf support. This module's parser targets a
+//! **placeholder** JSON-Lines shape that does NOT match the real on-disk
+//! format; it exists so the rest of the pipeline (fixtures, event model,
+//! dedup/idempotency machinery) has something concrete to build against, and
+//! will still parse files in this exact shape if one is ever produced by an
+//! export tool. It CANNOT currently parse real Windsurf/Cascade history —
+//! that requires reverse-engineering the real protobuf schema first.
+//! `discover()` below DOES point at the real, correct on-disk locations
+//! (including the actual `cascade/` subdirectory, and real per-OS app-data
+//! paths) so a future protobuf parser has the right paths to read from
+//! immediately.
 //!
-//! Record shape (see `fixtures/windsurf/v1/`):
+//! Record shape (see `fixtures/windsurf/v1/`) — the PLACEHOLDER schema above,
+//! not the real product format:
 //! - a leading session header: `{"kind":"session_start","cwd":..,"git":{"sha","branch"},"toolVersion":..,"sessionId":..,"model":..}`
 //! - message records: `{"id","parentId","role":"user"|"assistant","ts","sessionId","text","model","usage":{"input","output"},"toolCalls":[{"id","name","args"}],"toolResults":[{"id","ok","output"}],"edits":[{"path","oldText","newText","diff","added","removed"}]}`
 //!
@@ -40,17 +52,26 @@ impl memscribe_core::TranscriptAdapter for WindsurfAdapter {
     }
 
     fn discover(&self, cfg: &DiscoverCfg) -> Vec<TranscriptHandle> {
-        // The real product stores chat in a binary/SQLite store; we do not parse
-        // it here, but discovery still points at the on-disk locations so a
-        // future exporter / probe has the canonical paths. Order is stable.
+        // The real product stores chat in a protobuf store (see module doc);
+        // we do not parse it here, but discovery still points at the real,
+        // correct on-disk locations so a future protobuf parser has the right
+        // paths to read from immediately. Order is stable.
+        //
+        // 2026-07 fixes: (1) the first candidate stopped one directory short
+        // of the real chat data (`cascade/`, confirmed via research) — it
+        // pointed at the parent dir, not where the .pb files actually live;
+        // (2) the second candidate hardcoded macOS-only "Library/Application
+        // Support" segments with zero OS branching, so it pointed at a
+        // nonexistent path on Windows/Linux (real: %APPDATA%\Windsurf on
+        // Windows, ~/.config/Windsurf on Linux — Windsurf does not honor
+        // XDG_CONFIG_HOME there, confirmed via Exafunction/windsurf.vim#290).
         let home = cfg.home_dir();
         let mut out = Vec::new();
         let candidates = [
-            home.join(".codeium").join("windsurf"),
-            home.join("Library")
-                .join("Application Support")
-                .join("Windsurf")
-                .join("User"),
+            home.join(".codeium").join("windsurf").join("cascade"),
+            home.join("Library/Application Support/Windsurf/User"), // macOS
+            home.join(".config/Windsurf/User"),                     // Linux
+            home.join("AppData/Roaming/Windsurf/User"),             // Windows
         ];
         for path in candidates {
             out.push(TranscriptHandle {
@@ -509,11 +530,27 @@ mod tests {
             ..DiscoverCfg::default()
         };
         let handles = WindsurfAdapter.discover(&cfg);
-        assert_eq!(handles.len(), 2);
         assert!(handles.iter().all(|h| h.source == SourceKind::Windsurf));
+
+        // 2026-07 regression: the first candidate used to stop at
+        // `.codeium/windsurf` (the parent), one directory short of where the
+        // real .pb chat data actually lives — `cascade/`.
         assert!(handles
             .iter()
-            .any(|h| h.path == Path::new("/home/dev/.codeium/windsurf")));
+            .any(|h| h.path == Path::new("/home/dev/.codeium/windsurf/cascade")));
+        // 2026-07 regression: the second candidate hardcoded macOS-only
+        // "Library/Application Support" with no OS branching — Windows and
+        // Linux now get their own correct candidates too.
+        assert!(handles
+            .iter()
+            .any(|h| h.path == Path::new("/home/dev/Library/Application Support/Windsurf/User")));
+        assert!(handles
+            .iter()
+            .any(|h| h.path == Path::new("/home/dev/.config/Windsurf/User")));
+        assert!(handles
+            .iter()
+            .any(|h| h.path == Path::new("/home/dev/AppData/Roaming/Windsurf/User")));
+        assert_eq!(handles.len(), 4);
     }
 
     #[test]
