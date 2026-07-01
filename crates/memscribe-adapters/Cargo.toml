@@ -5,7 +5,7 @@ edition.workspace = true
 rust-version.workspace = true
 license.workspace = true
 repository.workspace = true
-description = "Per-tool transcript adapters for Memscribe (Claude Code, Codex, Gemini, OTel, Cursor, Windsurf, Zed, VS Code, Copilot)."
+description = "Per-tool transcript adapters for Memscribe (Claude Code, Codex, Gemini, OTel, Cursor, Windsurf, Zed, VS Code, Copilot, Hermes, OpenCode)."
 
 [lints]
 workspace = true
