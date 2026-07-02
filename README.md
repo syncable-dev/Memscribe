@@ -6,7 +6,7 @@
 
 **Deterministic, zero-LLM conversation capture for AI coding agents.**
 
-Memscribe tails the transcript logs your AI coding agents already write — Claude Code, Codex, Gemini, Cursor, Windsurf, Zed, VS Code / Copilot, and any OpenTelemetry-instrumented agent — and prepares them into typed, queryable nodes. No model calls. Same bytes in, same nodes out, every time.
+Memscribe tails the transcript logs your AI coding agents already write — Claude Code, Codex, Gemini, Cursor, Windsurf, Zed, VS Code / Copilot, Hermes Agent, OpenCode, and any OpenTelemetry-instrumented agent — and prepares them into typed, queryable nodes. No model calls. Same bytes in, same nodes out, every time.
 
 [![CI](https://github.com/syncable-dev/Memscribe/actions/workflows/ci.yml/badge.svg)](https://github.com/syncable-dev/Memscribe/actions/workflows/ci.yml)
 [![License: MIT OR Apache-2.0](https://img.shields.io/badge/license-MIT%20OR%20Apache--2.0-blue.svg)](#license)
@@ -89,7 +89,13 @@ Nine version-tolerant adapters, each behind a Cargo feature flag. Parsers patter
 | **Codex CLI** | `~/.codex/sessions/.../rollout-*.jsonl[.zst]` (`apply_patch` V4A diffs, transparent zstd) | ✅ native |
 | **Gemini CLI** | `~/.gemini/tmp/<hash>/chats/session-*.jsonl` (`$set` / `$rewindTo` control lines) | ✅ native |
 | **OpenTelemetry** | OTLP / GenAI semconv records — the universal fallback for any instrumented agent | ✅ native |
-| **Cursor** · **Windsurf** · **Zed** · **VS Code** · **Copilot** | exported chat JSON (desktop stores are SQLite/undocumented — export-based, per the whitepaper) | ✅ export-shape |
+| **Cursor** | `state.vscdb` SQLite (native reader) + `~/.cursor/projects/**/agent-transcripts/*.jsonl` + exported chat JSON | ✅ native |
+| **Zed** | `threads.db` SQLite, zstd-compressed thread blobs (native reader) | ✅ native |
+| **VS Code** | `state.vscdb` SQLite interactive sessions (native reader) | ✅ native |
+| **Hermes Agent** | `{HERMES_HOME}/state.db` SQLite (native reader; joins tool-role result rows onto their calls) | ✅ native |
+| **OpenCode** | `~/.local/share/opencode/opencode.db` SQLite (native reader; joins part rows onto messages) | ✅ native |
+| **Copilot** | Copilot CLI config + VS Code workspace stores, exported chat JSON | ✅ export-shape |
+| **Windsurf** | real store is an undocumented protobuf (`~/.codeium/windsurf/cascade/*.pb`) — discovery points at it, parsing awaits a protobuf reader | ⚠️ discovery-only |
 
 All five **CLI/OTel** scenarios and the cross-tool conformance suite prove these adapters are interchangeable behind the contract.
 
